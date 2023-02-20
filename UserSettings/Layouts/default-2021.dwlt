@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 60
+  controlID: 39
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 54
+  controlID: 33
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 19
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 20
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -368,23 +368,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Settings
+    - Assets/TAUXR/TAUXR Player/Player Hands
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Settings
+  - Assets/TAUXR/TAUXR Player/Player Hands
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\tausx\Documents\Templates\TAUXR Templates - Quest URP\[U]
     TAUXR Templates - Quest URP
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 34}
-    m_SelectedIDs: 64a90100
-    m_LastClickedID: 108900
-    m_ExpandedIDs: 000000005ca9010066a9010092aa010000ca9a3b
+    scrollPos: {x: 0, y: 66}
+    m_SelectedIDs: fc7b0000
+    m_LastClickedID: 31740
+    m_ExpandedIDs: 00000000be7b0000d67b0000f87b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -412,7 +412,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 00000000be7b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -542,23 +542,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: d0200000
       m_LastClickedID: 0
-      m_ExpandedIDs: bce2fcff64e3fcffbee4fcff20edfcffc8edfcff1eeffcff8214fdff5a15fdffb016fdffc429fdff962afdfff22bfdff9437fdff6c38fdffcc39fdff2c5dfdff005efdff0a65fdffa07afeffa0d7feffc0e7feff3afcfefff2fefeff1eae0100cacd01003ad2010098d60100d0d60100d2d6010022d7010048d7010008dd010040e20100
+      m_ExpandedIDs: 2efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ButtonSurface
-        m_OriginalName: ButtonSurface
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -128740
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 6}
       m_SearchString: 
@@ -827,9 +827,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.00764836, y: -0.0042335214, z: -0.2204}
+    m_Target: {x: -0.057580426, y: 1.2011344, z: 0.76532996}
     speed: 2
-    m_Value: {x: -0.00764836, y: -0.0042335214, z: -0.2204}
+    m_Value: {x: -0.057580426, y: 1.2011344, z: 0.76532996}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -876,13 +876,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.1485862, y: 0.48312455, z: -0.08357728, w: -0.8588349}
+    m_Target: {x: 0.09814023, y: -0.04476732, z: 0.004418747, w: 0.99415636}
     speed: 2
-    m_Value: {x: -0.14729269, y: 0.48323253, z: -0.08284953, w: -0.85902685}
+    m_Value: {x: -0.09814024, y: 0.044767324, z: -0.004418747, w: -0.9941564}
   m_Size:
-    m_Target: 0.09172346
+    m_Target: 0.37332535
     speed: 2
-    m_Value: 0.09203715
+    m_Value: 0.37332535
   m_Ortho:
     m_Target: 0
     speed: 2

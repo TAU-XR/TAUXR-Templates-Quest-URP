@@ -72,6 +72,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThumbColliderPivot
       objectReference: {fileID: 0}
+    - target: {fileID: 4015960621438633588, guid: f55f05f6edd67a04f867db764e49d936,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4015960621438633592, guid: f55f05f6edd67a04f867db764e49d936,
         type: 3}
       propertyPath: m_LocalScale.x
