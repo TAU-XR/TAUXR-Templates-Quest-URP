@@ -198,7 +198,7 @@ public class VRButtonTouch : MonoBehaviour
     {
         if (toucher != activeToucher) return;
 
-        DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Pressed);
+        DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
     }
 
     private void OnReleasedInternal()
@@ -251,6 +251,7 @@ public class VRButtonTouch : MonoBehaviour
             case ButtonEvent.HoverEnter:
                 DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
                 break;
+            
             case ButtonEvent.HoverExit:
                 DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
                 break;
@@ -260,7 +261,7 @@ public class VRButtonTouch : MonoBehaviour
                 break;
 
             case ButtonEvent.Released:
-                DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Pressed);
+                DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
                 break;
         }
     }
