@@ -47,9 +47,11 @@ public class VRButtonTouch : MonoBehaviour
     private bool isPressed = false;
     private bool isHovered = false;
 
+    public VRButtonTouchStroke Stroke;
+
     void Start()
     {
-
+        Stroke.Init(buttonSurface);
     }
 
     void Update()
@@ -58,8 +60,18 @@ public class VRButtonTouch : MonoBehaviour
         {
             distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
         }
+
+        if(activeToucher!= null)
+        {
+            Stroke.UpdateStrokeBehavior(activeToucher.position);
+        }
+        else
+        {
+            Stroke.UpdateStrokeBehavior(Vector3.zero);
+        }
     }
 
+    // TODO: Move to interactor
     private float GetToucherToButtonDistance(Vector3 toucherPosition, Vector3 buttonSurfacePosition)
     {
         float distanceToucherFromButtom = (toucherPosition - buttonSurfacePosition).sqrMagnitude;
@@ -87,12 +99,12 @@ public class VRButtonTouch : MonoBehaviour
         sound.Stop();
         sound.Play();
     }
+
+    // Called from Hover Collider on its public UnityEvent
     public void OnHoverEnter(Transform toucher)
     {
         var ShouldContinueAfterToucherEnter = HoverEnterToucherProcess(toucher);
         if (!ShouldContinueAfterToucherEnter) return;
-
-        isHovered = true;
 
         DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
     }
@@ -133,6 +145,7 @@ public class VRButtonTouch : MonoBehaviour
 
     private void OnHoverEnterInternal()
     {
+        isHovered = true;
         PlaySound(soundHoverEnter);
         animator.SetBool("IsHover", true);
     }
@@ -147,9 +160,6 @@ public class VRButtonTouch : MonoBehaviour
 
         var ShouldContinueAfterToucherExit = HoverExitToucherProcessing(toucher);
         if (!ShouldContinueAfterToucherExit) return;
-
-        isHovered = false;
-        activeToucher = null;
 
         DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
     }
@@ -176,6 +186,8 @@ public class VRButtonTouch : MonoBehaviour
 
     private void OnHoverExitInternal()
     {
+        isHovered = false;
+        activeToucher = null;
         PlaySound(soundHoverExit);
         animator.SetBool("IsHover", false);
     }
@@ -208,41 +220,6 @@ public class VRButtonTouch : MonoBehaviour
         animator.SetBool("IsPressed", false);
     }
 
-    public void ButtonColliderEnter(ButtonColliderType colliderType, Collider detectedCollider)
-    {
-        if (!detectedCollider.CompareTag("Toucher"))
-            return;
-
-        switch (colliderType)
-        {
-            case ButtonColliderType.Press:
-                OnPressed(detectedCollider.transform);
-                break;
-
-            case ButtonColliderType.Hover:
-                OnHoverEnter(detectedCollider.transform);
-                break;
-        }
-    }
-
-    public void ButtonColliderExit(ButtonColliderType colliderType, Collider detectedCollider)
-    {
-        if (!detectedCollider.CompareTag("Toucher"))
-            return;
-
-        switch (colliderType)
-        {
-            case ButtonColliderType.Press:
-                OnReleased(detectedCollider.transform);
-                break;
-
-            case ButtonColliderType.Hover:
-                OnHoverExit(detectedCollider.transform);
-                break;
-        }
-    }
-
-
     // used for external scripts that want to manipulate buttons regardless of touchers.
     public void InvokeButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
     {
@@ -268,5 +245,4 @@ public class VRButtonTouch : MonoBehaviour
 }
 public enum VRButtonState { Disabled, Active, Pressed }
 public enum ButtonColliderResponse { Both, Internal, External, None }
-
 public enum ButtonEvent { HoverEnter, HoverExit, Pressed, Released }
