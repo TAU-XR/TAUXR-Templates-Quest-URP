@@ -718,7 +718,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4976624224522149626}
-  - component: {fileID: 4976624224522149509}
   - component: {fileID: 3999438563365206223}
   m_Layer: 0
   m_Name: '[Button_Press_Rect]'
@@ -744,26 +743,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -14.301, y: 180, z: 0}
---- !u!95 &4976624224522149509
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4976624224522149511}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b6c3dd77e83860145ba22781fdd4c35e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &3999438563365206223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,8 +777,9 @@ MonoBehaviour:
   soundHoverEnter: {fileID: 0}
   soundHoverExit: {fileID: 0}
   soundPress: {fileID: 8479170727557007808}
-  soundRelease: {fileID: 8479170727557007808}
-  animator: {fileID: 4976624224522149509}
+  soundRelease: {fileID: 0}
+  animator: {fileID: 1832458038}
+  Stroke: {fileID: 8517759864681928029}
 --- !u!1 &5256305008890715408
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3443951838305546262}
-  - component: {fileID: 192519104739082848}
+  - component: {fileID: 1832458038}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -835,7 +815,7 @@ Transform:
   m_Father: {fileID: 4976624224522149626}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &192519104739082848
+--- !u!95 &1832458038
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -882,8 +862,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5737158178973931753}
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0062664445, y: 0.0062664472, z: 0.006266443}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0006}
+  m_LocalScale: {x: 0.006266445, y: 0.006266445, z: 0.006266445}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5046439306590720349}
@@ -1061,6 +1041,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5046439306590720349}
+  - component: {fileID: 8517759864681928029}
   m_Layer: 0
   m_Name: Stroke Pivot
   m_TagString: Untagged
@@ -1084,3 +1065,24 @@ Transform:
   m_Father: {fileID: 6789810324486870188}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8517759864681928029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469781287570841776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9745e3ccee078b46aae2667ef767373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSurface: {fileID: 3424336613364830081}
+  activeToucher: {fileID: 0}
+  DISTANCE_DEFAULT: 0.03
+  DISTANCE_MAX: 0.05
+  DISTANCE_MIN: 0.01
+  ANGLE_MAX: 20
+  ANGLE_MIN: -20
+  lerpSpeedPosition: 8
+  lerpSpeedRotation: 8
