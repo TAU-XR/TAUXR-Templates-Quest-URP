@@ -35,7 +35,8 @@ public class TAUXRSlider : MonoBehaviour
         signifier = GetComponent<TAUXRSliderSignifier>();
 
         node = touchButton.transform;
-        touchButton.Pressed.AddListener(OnNodeTouched);
+        // Subscribe from serialized UnityEvent in the slider button.
+        //touchButton.Pressed.AddListener(OnNodeTouched);
 
         valueStart = RoundToStepSize(stepSize, valueStart);
 
