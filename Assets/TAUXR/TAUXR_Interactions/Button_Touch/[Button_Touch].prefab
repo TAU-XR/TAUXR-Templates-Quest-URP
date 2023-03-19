@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 4976624224522149626}
   - component: {fileID: 3999438563365206223}
   m_Layer: 0
-  m_Name: '[Button_Press_Rect]'
+  m_Name: '[Button_Touch]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,7 +779,7 @@ MonoBehaviour:
   soundPress: {fileID: 8479170727557007808}
   soundRelease: {fileID: 0}
   animator: {fileID: 1832458038}
-  Stroke: {fileID: 8517759864681928029}
+  Stroke: {fileID: 1375402622}
 --- !u!1 &5256305008890715408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5046439306590720349}
   - component: {fileID: 8517759864681928029}
+  - component: {fileID: 1375402622}
   m_Layer: 0
   m_Name: Stroke Pivot
   m_TagString: Untagged
@@ -1085,4 +1086,25 @@ MonoBehaviour:
   ANGLE_MAX: 20
   ANGLE_MIN: -20
   lerpSpeedPosition: 8
+  lerpSpeedRotation: 8
+--- !u!114 &1375402622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469781287570841776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9745e3ccee078b46aae2667ef767373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSurface: {fileID: 3424336613364830081}
+  activeToucher: {fileID: 0}
+  DISTANCE_DEFAULT: 0.01
+  DISTANCE_MAX: 0.03
+  DISTANCE_MIN: 0.01
+  ANGLE_MAX: 10
+  ANGLE_MIN: -10
+  lerpSpeedPosition: 16
   lerpSpeedRotation: 8

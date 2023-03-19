@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TAUXRSlider : MonoBehaviour
 {
@@ -28,11 +29,13 @@ public class TAUXRSlider : MonoBehaviour
     float valueCurrent = 0;
     public float Value => valueCurrent;
 
-    TAUXRSliderSignifier signifier;
+    public UnityEvent IdlePreRating;
+    public UnityEvent DuringRating;
+    public UnityEvent IdlePostRating;
+
     void Start()
     {
         sliderLine = GetComponentInChildren<LineRenderer>();
-        signifier = GetComponent<TAUXRSliderSignifier>();
 
         node = touchButton.transform;
         // Subscribe from serialized UnityEvent in the slider button.
@@ -44,7 +47,7 @@ public class TAUXRSlider : MonoBehaviour
         nodePositionTarget = node.position;
         valueCurrent = valueStart;
 
-        signifier.IdlePreRating.Invoke();
+        IdlePreRating.Invoke();
 
         UpdateValueText(valueStart);
     }
@@ -147,8 +150,9 @@ public class TAUXRSlider : MonoBehaviour
     {
         if (isNodeTouched) return;
 
-        signifier.Sign(SliderSignifier.ButtonPress);
-        signifier.DuringRating.Invoke();
+        // Activate button internal response from the slider script so it will be called only on the first press.
+        touchButton.InvokeButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+        DuringRating.Invoke();
 
         toucher = touchButton.ActiveToucher;
         isNodeTouched = true;
@@ -158,8 +162,8 @@ public class TAUXRSlider : MonoBehaviour
     public void DetachNode()
     {
         Debug.Log("slider node detached");
-        signifier.Sign(SliderSignifier.ButtonRelease);
-        signifier.IdlePostRating.Invoke();
+        touchButton.InvokeButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
+        IdlePostRating.Invoke();
 
         isNodeTouched = false;
     }

@@ -77,7 +77,6 @@ public class VRButtonTouchStroke : MonoBehaviour
         float lookAngle = Vector3.Angle(lookDirection, buttonSurface.forward);
         Debug.DrawRay(buttonSurface.position, lookDirection);
         Debug.DrawRay(buttonSurface.position, buttonSurface.forward);
-        Debug.Log("LookAngle: " + lookAngle);
 
         if(lookAngle > angleMin && lookAngle < angleMax)
         {

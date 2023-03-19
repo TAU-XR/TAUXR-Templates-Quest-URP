@@ -32,7 +32,7 @@ public class TAUXRSliderSignifier : MonoBehaviour
             case SliderSignifier.HoverOut:
                 break;
             case SliderSignifier.ButtonPress:
-               // sliderButton.InvokeButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+                sliderButton.InvokeButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
                 break;
             case SliderSignifier.ButtonRelease:
                 sliderButton.InvokeButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);

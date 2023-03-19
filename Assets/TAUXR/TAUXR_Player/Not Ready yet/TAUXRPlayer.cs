@@ -10,7 +10,7 @@ public class TAUXRPlayer : MonoBehaviour
 
     private PinchPoint pinchPoincL, pinchPointR;
     private List<HandCollider> handCollidersL, handCollidersR;
-    private void Awake()
+  /*  private void Awake()
     {
         skeletonL = ovrHandL.GetComponent<OVRSkeleton>();
         skeletonR = ovrHandR.GetComponent<OVRSkeleton>();
@@ -90,5 +90,5 @@ public class TAUXRPlayer : MonoBehaviour
             pinchPoint.UpdatePinchPoint(ovrHand.GetFingerPinchStrength(OVRHand.HandFinger.Index));
             
         }
-    }
+    }*/
 }

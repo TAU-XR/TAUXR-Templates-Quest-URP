@@ -26,8 +26,8 @@ public class Referencer : MonoBehaviour
     [Header("Player")]
     public Transform OVRCameraRig;
     public Transform PlayerHead;
-    public OVRSkeleton PlayerHandSkeletonLeft;
-    public OVRSkeleton PlayerHandSkeletonRight;
+    public OVRSkeleton PlayerOVRSkeletonLeft;
+    public OVRSkeleton PlayerOVRSkeletonRight;
 
 
 }

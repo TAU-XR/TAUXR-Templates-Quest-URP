@@ -218,13 +218,11 @@ public class VRButtonTouch : MonoBehaviour
         isPressed = false;
         PlaySound(soundRelease);
         animator.SetBool("IsPressed", false);
-        print("WALLAK");
     }
 
     // used for external scripts that want to manipulate buttons regardless of touchers.
     public void InvokeButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
     {
-        print("Wallak1");
         switch (buttonEvent)
         {
             case ButtonEvent.HoverEnter:
@@ -241,8 +239,6 @@ public class VRButtonTouch : MonoBehaviour
 
             case ButtonEvent.Released:
                 DelegateInteralExtenralResponses(response, OnReleasedInternal, Released);
-                print("Wallak2");
-
                 break;
         }
     }
