@@ -10,6 +10,9 @@ public class TAUXRSlider : MonoBehaviour
     [SerializeField] Transform lineEnd;
     LineRenderer sliderLine;
 
+    [SerializeField] LineRenderer lineBackground;
+    [SerializeField] LineRenderer lineValue;
+
     [SerializeField] VRButtonTouch touchButton;         // need to get a referece to the touchButton to get the toucher transform.
     Transform node;
     Vector3 nodePositionTarget;
@@ -27,7 +30,12 @@ public class TAUXRSlider : MonoBehaviour
     bool isNodeTouched = false;
 
     float valueCurrent = 0;
+    float valueLastTick = 0;
     public float Value => valueCurrent;
+
+    [SerializeField, Range(0f, 1f)]
+    private float playTickStepFrequency;
+    [SerializeField] AudioSource soundTick;
 
     public UnityEvent IdlePreRating;
     public UnityEvent DuringRating;
@@ -35,26 +43,39 @@ public class TAUXRSlider : MonoBehaviour
 
     void Start()
     {
-        sliderLine = GetComponentInChildren<LineRenderer>();
+        //sliderLine = GetComponentInChildren<LineRenderer>();
 
         node = touchButton.transform;
-        // Subscribe from serialized UnityEvent in the slider button.
-        //touchButton.Pressed.AddListener(OnNodeTouched);
 
         valueStart = RoundToStepSize(stepSize, valueStart);
 
         node.position = GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueStart);
         nodePositionTarget = node.position;
         valueCurrent = valueStart;
+        valueLastTick = valueStart;
 
         IdlePreRating.Invoke();
 
         UpdateValueText(valueStart);
     }
 
+    /*private void InitLines()
+    {
+        lineBackground = Instantiate(sliderLine,transform).GetComponent<LineRenderer>();
+        lineValue = Instantiate(sliderLine,transform).GetComponent<LineRenderer>();
+
+        lineBackground.transform.localPosition = new Vector3(0, 0, 0);
+        lineValue.transform.localPosition = new Vector3(0, 0, -0.001f);
+
+        SetLineRendererPositions(lineBackground, lineStart.position, lineEnd.position,0f);
+        SetLineRendererPositions(lineValue, lineStart.position, lineEnd.position,-0.001f);
+    }*/
+
     void Update()
     {
-        SetLineRendererPositions(lineStart.position, lineEnd.position, sliderLine);
+        //SetLineRendererPositions(sliderLine, lineStart.position, lineEnd.position);
+        SetLineRendererPositions(lineBackground, lineStart.position, lineEnd.position, 0f);
+        SetValueLinePositions(lineValue, lineStart.position, lineEnd.position, -0.001f);
 
         if (isNodeTouched)
         {
@@ -68,6 +89,13 @@ public class TAUXRSlider : MonoBehaviour
             // round value to step size
             valueCurrent = GetNormalizedValueFromPointOnLine(lineStart.position, lineEnd.position, nodePositionTarget);
             valueCurrent = RoundToStepSize(stepSize, valueCurrent);
+
+            if (Mathf.Abs(valueCurrent-valueLastTick) >= playTickStepFrequency)
+            {
+                valueLastTick = valueCurrent;
+                PlayTickAudio();
+            }
+
             nodePositionTarget = GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueCurrent);
 
             DebugShowDetachmentLine();
@@ -77,6 +105,10 @@ public class TAUXRSlider : MonoBehaviour
         // this line is out of isNodeTouch to allow node continue moving after finger left button (especially in cases the node is placed on 0/100).
         node.position = Vector3.Lerp(node.position, nodePositionTarget, nodeLerpSpeed * Time.deltaTime);
 
+        // make node infront of lines
+        Vector3 nodeLocalPosition = node.localPosition;
+        nodeLocalPosition.z = -.002f;
+        node.localPosition = nodeLocalPosition;
     }
     void UpdateValueText(float value)
     {
@@ -115,11 +147,26 @@ public class TAUXRSlider : MonoBehaviour
         return lineStart + lineDirection * projectionLength;
     }
 
-    void SetLineRendererPositions(Vector3 start, Vector3 end, LineRenderer line)
+    void SetLineRendererPositions(LineRenderer line, Vector3 start, Vector3 end, float lineLocalDepthValue)
     {
         line.transform.position = start;
         line.transform.rotation = Quaternion.LookRotation(end - start, line.transform.up);
-        line.SetPosition(1, new Vector3(0,0,(end - start).magnitude));
+        line.SetPosition(1, new Vector3(0, 0, (end - start).magnitude));
+        Vector3 linePosition = line.transform.localPosition;
+        linePosition.z = lineLocalDepthValue;
+        line.transform.localPosition = linePosition;
+    }
+
+    void SetValueLinePositions(LineRenderer line, Vector3 start, Vector3 end, float lineLocalDepthValue)
+    {
+        line.transform.position = start;
+        Vector3 linePosition = line.transform.localPosition;
+        linePosition.z = lineLocalDepthValue;
+        line.transform.localPosition = linePosition;
+        line.transform.rotation = Quaternion.LookRotation(end - start, line.transform.up);
+
+        line.SetPosition(1, new Vector3(0, 0, (end - start).magnitude * valueCurrent));
+
     }
 
     // gets a normilized target position and returns a world-position.
@@ -136,7 +183,7 @@ public class TAUXRSlider : MonoBehaviour
         Vector3 lineVector = lineEnd - lineStart;
         Vector3 pointVector = point - lineStart;
 
-        return pointVector.magnitude/lineVector.magnitude;
+        return pointVector.magnitude / lineVector.magnitude;
     }
 
     float RoundToStepSize(float stepSize, float clampedValue)
@@ -146,6 +193,15 @@ public class TAUXRSlider : MonoBehaviour
         return stepSize * multiplicand;
     }
 
+    private void PlayTickAudio()
+    {
+        if (soundTick == null) return;
+
+        soundTick.Stop();
+        soundTick.Play();
+    }
+
+    // Activated from serialized UnityEvent in the slider button.
     public void OnNodeTouched()
     {
         if (isNodeTouched) return;
