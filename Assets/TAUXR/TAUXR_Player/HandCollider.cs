@@ -9,26 +9,14 @@ public class HandCollider : MonoBehaviour
     OVRSkeleton ovrSkeleton;
     public int fingerIndex;
 
-
-    private void Start()
+    public void Init(OVRSkeleton skeleton)
     {
-        if (HandT == HandType.Right)
-        {
-            ovrSkeleton = Referencer.Instance.PlayerOVRSkeletonRight;
-        }
-        else
-        {
-            ovrSkeleton = Referencer.Instance.PlayerOVRSkeletonLeft;
-        }
+        ovrSkeleton = skeleton;
     }
 
-
-    private void Update()
+    public void UpdateHandCollider()
     {
-        if (ovrSkeleton.IsDataHighConfidence)
-        {
-            TrackPosition();
-        }
+        TrackPosition();
     }
 
     private void TrackPosition()
