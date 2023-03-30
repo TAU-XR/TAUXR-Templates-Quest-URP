@@ -1,6 +1,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ExampleEvent : IEventReporter
+{
+    TAUXRDataManager dataManager = TAUXRDataManager.Instance;
+    private DataEvent dataEvent;
+
+    // declare event dependencies here.
+    // i.e GameManager gameManager;
+
+    // get all needed dependencies in the constructor, then assign them in the method
+    public ExampleEvent()
+    {
+        // i.e this.gameManager = gameManager;
+
+        SetupDataEvent();
+    }
+
+    // add fields for the dataEvent class for every information you want your event to report.
+    public void SetupDataEvent()
+    {
+        dataEvent = new DataEvent("ExampleEvent");
+
+        // add every desired field here: (the empty string value is because it has no importance now. We'll update it in the UpdateDataEvent function"
+        //dataEvent.Fields.Add("PlayerPosition_X", "");
+        dataEvent.Fields.Add("Time_Trial", "");
+        dataEvent.Fields.Add("Pos_X", "");
+        dataEvent.Fields.Add("Pos_Y", "");
+
+    }
+
+    // update every field value by getting information from the actual variable
+    public void UpdateDataEvent()
+    {
+        //i.e: dataEvent.Fields["PlayerPosition_X"] = TAUXRPlayer.Instance.PlayerHead.position.x.ToString();
+        dataEvent.Fields["TimeSinceLaunch"] = Time.time.ToString();
+        dataEvent.Fields["Time_Trial"] = "7.475";
+        dataEvent.Fields["Pos_X"] = "1.23";
+        dataEvent.Fields["Pos_Y"] = "4.23";
+    }
+
+    // update data and send to TAUXRDataManager
+    public void Report()
+    {
+        UpdateDataEvent();
+        dataManager.SendEvent(dataEvent);
+    }
+}
+
+
+public class WriteNoteDataEvent : IEventReporter
+{
+    TAUXRDataManager dataManager = TAUXRDataManager.Instance;
+    private DataEvent dataEvent;
+
+    public WriteNoteDataEvent()
+    {
+        SetupDataEvent();
+    }
+
+    public void SetupDataEvent()
+    {
+        dataEvent = new DataEvent("Notes");
+        
+        dataEvent.Fields.Add("Note", "");
+    }
+
+    public void UpdateDataEvent()
+    {
+        // no need for that because we have ReportNote.
+    }
+
+    public void ReportNote(string note)
+    {
+        dataEvent.Fields["TimeSinceLaunch"] = Time.time.ToString();
+        dataEvent.Fields["Note"] = note;
+        Report();
+    }
+
+    public void Report()
+    {
+        dataManager.SendEvent(dataEvent);
+    }
+
+}
+
 public class DataEvent
 {
     public string EventName => eventName;
@@ -9,12 +93,11 @@ public class DataEvent
     public Dictionary<string, string> Fields => fields;
     private readonly Dictionary<string, string> fields;
 
-
     public DataEvent(string eventName)
     {
         this.eventName = eventName;
         fields = new Dictionary<string, string>();
-        fields.Add("TimeFromAppLaunch", Time.time.ToString());
+        fields.Add("TimeSinceLaunch", Time.time.ToString());
     }
 }
 public interface IEventReporter
@@ -28,78 +111,3 @@ public interface IEventReporter
     // tell TAUXRDataManager to write our dataEvent to file.
     void Report();
 }
-
-public class ExampleEvent : IEventReporter
-{
-    TAUXRDataManager dataManager = TAUXRDataManager.Instance;
-    private DataEvent dataEvent;
-
-    // include all event dependencies in its constructor function parameters.
-    public ExampleEvent(/* declare all needed dependencies here */ )
-    {
-        // get all neccessary dependencies to reach desired data to write
-        // i.e this.gameManager = gameManager;
-
-        SetupDataEvent();
-    }
-    public void SetupDataEvent()
-    {
-        dataEvent = new DataEvent("ExampleEvent");
-
-    }
-
-    public void UpdateDataEvent()
-    {
-
-    }
-    public void Report()
-    {
-        dataEvent.Fields["PlayerPosition"] = TAUXRPlayer.Instance.PlayerHead.position.ToString();
-        dataManager.SendEvent(dataEvent);
-    }
-}
-
-public class CoinCollectedDataEventReporter : IEventReporter
-{
-    TAUXRDataManager dataManager = TAUXRDataManager.Instance;
-    private DataEvent dataEvent;
-
-    TAUXRPlayer player;
-    GameManager gameManager;
-    public CoinCollectedDataEventReporter(TAUXRPlayer player, GameManager manager)
-    {
-        this.player = player;
-        this.gameManager = manager;
-
-        SetupDataEvent();
-    }
-
-    public  void SetupDataEvent()
-    {
-        dataEvent = new DataEvent("DataEvent_CoinCollected");
-        dataEvent.Fields.Add("Trial_Time", "");
-        dataEvent.Fields.Add("Coins_Collected", "");
-        dataEvent.Fields.Add("PlayerPosition_X", "");
-        dataEvent.Fields.Add("PlayerPosition_Y", "");
-        dataEvent.Fields.Add("PlayerPosition_Z", "");
-    }
-
-    public void UpdateDataEvent()
-    {
-        dataEvent.Fields["Trial_Time"] = gameManager.TrialTime.ToString();
-        dataEvent.Fields["Coins_Collected"] = gameManager.CoinsCollected.ToString();
-        dataEvent.Fields["PlayerPosition_X"] = player.PlayerHead.position.x.ToString();
-        dataEvent.Fields["PlayerPosition_Y"] = player.PlayerHead.position.y.ToString();
-        dataEvent.Fields["PlayerPosition_Z"] = player.PlayerHead.position.z.ToString();
-
-    }
-
-    public void Report()
-    {
-        UpdateDataEvent();
-        dataManager.SendEvent(dataEvent);
-    }
-}
-
-
-

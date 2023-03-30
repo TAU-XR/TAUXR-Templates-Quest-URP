@@ -424,18 +424,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &428897882 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114428879332287356, guid: 835e735ca71bf78459fb2cababd74112,
-    type: 3}
-  m_PrefabInstance: {fileID: 1850687184}
+--- !u!1 &444439225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 444439227}
+  - component: {fileID: 444439226}
+  m_Layer: 0
+  m_Name: TAUXR_DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &444439226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444439225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb7623a8f0b49cf4dbaa40aea4d4be64, type: 3}
+  m_Script: {fileID: 11500000, guid: f62d0243975e0364292fdb0aee48db48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &444439227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444439225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.021935761, y: 0.25970328, z: 0.27841324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &460983820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1557,7 +1589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1817864459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,8 +1602,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c980c6498eb064eb8b558c8f1c81e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ovrHandR: {fileID: 715208032}
-  ovrHandL: {fileID: 428897882}
+  playerHead: {fileID: 0}
+  rightHandAnchor: {fileID: 0}
+  leftHandAnchor: {fileID: 0}
+  rightEye: {fileID: 0}
+  leftEye: {fileID: 0}
 --- !u!4 &1817864460
 Transform:
   m_ObjectHideFlags: 0

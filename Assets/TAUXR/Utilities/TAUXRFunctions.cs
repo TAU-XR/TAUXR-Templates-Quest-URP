@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TAUXRFunctions : MonoBehaviour
+public static class TAUXRFunctions
 {
-    // Start is called before the first frame update
-    void Start()
+    public static string GetFormattedDateTime(bool includeTime = false)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        DateTime now = DateTime.Now;
+        if (includeTime)
+        {
+            return now.ToString("yy.MM.dd_HH-mm");
+        }
+        else
+        {
+            return now.ToString("yyyy.MM.dd");
+        }
     }
 }
