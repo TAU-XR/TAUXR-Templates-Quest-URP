@@ -78,11 +78,7 @@ public class DataExporterFaceExpression : MonoBehaviour
     private string getPath()
     {
         string str = $"{Application.persistentDataPath}/";
-#if (UNITY_EDITOR)
-        str = "Assets/Resources/";
-#endif
-
-        str += $"{FileName}_FaceExpressionData_{System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.csv";
+        str += $"{FileName}_FaceExpressionData_{TAUXRFunctions.GetFormattedDateTime(true)}.csv";
         print(str);
         return str;
     }
