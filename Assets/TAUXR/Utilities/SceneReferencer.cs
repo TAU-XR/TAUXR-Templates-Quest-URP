@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Referencer : MonoBehaviour
+// Stores references for everything needer to refer to in the scene.
+public class SceneReferencer : MonoBehaviour
 {
     #region Singelton Decleration
-    private static Referencer _instance;
+    private static SceneReferencer _instance;
 
-    public static Referencer Instance { get { return _instance; } }
+    public static SceneReferencer Instance { get { return _instance; } }
 
 
     private void Awake()
@@ -22,12 +23,6 @@ public class Referencer : MonoBehaviour
         }
     }
     #endregion
-
-    [Header("Player")]
-    public Transform OVRCameraRig;
-    public Transform PlayerHead;
-    public OVRSkeleton PlayerOVRSkeletonLeft;
-    public OVRSkeleton PlayerOVRSkeletonRight;
 
 
 }

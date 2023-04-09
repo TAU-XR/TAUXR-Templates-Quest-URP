@@ -17,10 +17,12 @@ public class TAUXRPlayer : MonoBehaviour
     [Header("Eye Tracking")]
     [SerializeField] private Transform rightEye;
     [SerializeField] private Transform leftEye;
-    [SerializeField] private float eyeRayMaxLength = 10000;
+    private float EYERAYMAXLENGTH = 100000;
     private float EYETRACKINGCONFIDENCETHRESHOLD = .5f;
     private Vector3 NOTTRACKINGVECTORVALUE = new Vector3(-1f, -1f, -1f);
 
+    [Header("Face Tracking")]
+    [SerializeField] private OVRFaceExpressions ovrFace;
 
     private Transform focusedObject;
     private Vector3 eyeGazeHitPosition;
@@ -42,6 +44,8 @@ public class TAUXRPlayer : MonoBehaviour
     public Transform LeftEye => leftEye;
     public Transform FocusedObject => focusedObject;
     public Vector3 EyeGazeHitPosition => eyeGazeHitPosition;
+
+    public OVRFaceExpressions OVRFace => ovrFace;
 
     private static TAUXRPlayer _instance;
     public static TAUXRPlayer Instance { get { return _instance; } }
@@ -177,7 +181,7 @@ public class TAUXRPlayer : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(rightEye.position, rightEye.forward, out hit, eyeRayMaxLength))
+        if (Physics.Raycast(rightEye.position, rightEye.forward, out hit, EYERAYMAXLENGTH))
         {
             focusedObject = hit.transform;
             eyeGazeHitPosition = hit.point;

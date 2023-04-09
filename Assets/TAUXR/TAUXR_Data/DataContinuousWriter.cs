@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class DataContinuousWriter : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class DataContinuousWriter : MonoBehaviour
     public Transform RightHand;
     public Transform LeftHand;
 
-    public bool IsEyeTrackingEnabled;
+    bool IsEyeTrackingEnabled;
     public Transform RightEye;
     public Transform LeftEye;
 
@@ -34,12 +32,10 @@ public class DataContinuousWriter : MonoBehaviour
 
     private TAUXRPlayer TAUXRPlayer;
 
-    private void Start()
+    public void Init(bool ShouldRecordEyeTracking)
     {
-        InitContinuousRecorder();
-    }
-    public void InitContinuousRecorder()
-    {
+        IsEyeTrackingEnabled= ShouldRecordEyeTracking;
+
         TAUXRPlayer = TAUXRPlayer.Instance;
 
         if (TAUXRPlayer != null)
@@ -88,7 +84,7 @@ public class DataContinuousWriter : MonoBehaviour
         int columnCount = 1 + 6 + 12 + 6 * AdditionalTransforms.Length;
         if (IsEyeTrackingEnabled)
         {
-            //+4 each eye (pitch and roll) +1 focused object + 3 hit point world position
+            //+4 each eye (pitch and yaw) +1 focused object + 3 hit point world position
             columnCount += 8;
         }
 
@@ -136,11 +132,6 @@ public class DataContinuousWriter : MonoBehaviour
 
         Debug.Log(string.Join(",", columnNames));
         writer.WriteLine(string.Join(",", columnNames));
-    }
-
-    private void FixedUpdate()
-    {
-        RecordContinuousData();
     }
 
     public void RecordContinuousData()
@@ -202,13 +193,10 @@ public class DataContinuousWriter : MonoBehaviour
         }
     }
 
+    public void Close()
+    {
+        if (writer == null) return;
 
-    private void OnApplicationQuit()
-    {
-        CloseContinuousRecorder();
-    }
-    public void CloseContinuousRecorder()
-    {
         Debug.Log($"Logged {frameCount} frames to CSV file.");
 
         // Close the file stream

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-// write event data in separate files for each event type
+// write event data to separate csv files for each event type. Used in TAUXRDataManager.
 public class DataEventWriter
 {
     private Dictionary<string, StreamWriter> csvFiles = new Dictionary<string, StreamWriter>();

@@ -6,26 +6,23 @@ using System.IO;
 public class DataExporterFaceExpression : MonoBehaviour
 {
     public string FileName = "";
-    public OVRFaceExpressions OVRFace;
+    OVRFaceExpressions OVRFace;
 
     float[] AllWeights;     // updates every frame with the weights of all blendshapes
 
     StreamWriter writer;
     string path;
 
-    void Start()
+    public void Init()
     {
-        InitRecorder();
-    }
+        OVRFace = TAUXRPlayer.Instance.OVRFace;
 
-    private void FixedUpdate()
-    {
-        if (OVRFace.ValidExpressions)
-            CollectWriteDataToFile();
-    }
+        if (OVRFace == null)
+        {
+            Debug.LogError("Tried to export face tracking data but OVRFace is not assigned");
+            return;
+        }
 
-    public void InitRecorder()
-    {
         // init array length to total amount of face expressions
         AllWeights = new float[(int)OVRFaceExpressions.FaceExpression.Max];
 
@@ -52,6 +49,18 @@ public class DataExporterFaceExpression : MonoBehaviour
 
     public void CollectWriteDataToFile()
     {
+        if (OVRFace == null)
+        {
+            Debug.LogError("Tries to export face tracking data but OVRFace is not assigned");
+            return;
+        }
+
+        if(!OVRFace.ValidExpressions)
+        {
+            Debug.LogWarning("Can't log face expression data because OVRFace data is not valid");
+            return;
+        }
+
         // get expressions value
         OVRFace.CopyTo(AllWeights);
 
@@ -66,7 +75,7 @@ public class DataExporterFaceExpression : MonoBehaviour
         writer.WriteLine(nextLine);
     }
 
-    private void OnApplicationQuit()
+    public void Close()
     {
         if (writer == null)
             return;

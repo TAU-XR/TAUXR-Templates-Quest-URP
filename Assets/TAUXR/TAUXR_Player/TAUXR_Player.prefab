@@ -49,7 +49,7 @@ MonoBehaviour:
   ApplyPosition: 1
   ApplyRotation: 1
   ReferenceFrame: {fileID: 0}
-  TrackingMode: 0
+  TrackingMode: 1
 --- !u!1 &5190460395091404166
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   ApplyPosition: 1
   ApplyRotation: 1
   ReferenceFrame: {fileID: 0}
-  TrackingMode: 0
+  TrackingMode: 1
 --- !u!1 &9179752177440450417
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9179752177440450423}
   - component: {fileID: 1862107637438588950}
+  - component: {fileID: 2508515914960436618}
   m_Layer: 0
   m_Name: TAUXR_Player
   m_TagString: Untagged
@@ -124,7 +125,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9179752177440450417}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -148,11 +149,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c980c6498eb064eb8b558c8f1c81e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ovrRig: {fileID: 9179752179252624169}
   playerHead: {fileID: 9179752179252624175}
   rightHandAnchor: {fileID: 9179752179252662011}
   leftHandAnchor: {fileID: 9179752179252673279}
+  IsEyeTrackingEnabled: 1
+  IsFaceTrackingEnabled: 1
   rightEye: {fileID: 5821197863680773978}
   leftEye: {fileID: 3191537569654735158}
+  ovrFace: {fileID: 2508515914960436618}
+--- !u!114 &2508515914960436618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179752177440450417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95044baf65b10c4e89b246d2f881ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9179752177991857016
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: isInsightPassthroughEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
