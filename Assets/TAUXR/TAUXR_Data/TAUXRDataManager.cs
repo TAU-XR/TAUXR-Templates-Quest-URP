@@ -2,27 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TAUXRDataManager : MonoBehaviour
+public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 {
-    #region Singelton Decleration
-    private static TAUXRDataManager _instance;
-
-    public static TAUXRDataManager Instance { get { return _instance; } }
-
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
-    #endregion
-
     // updated from TAUXRPlayer
     bool ExportEyeTracking = false;
     bool ExportFaceTracking = false;

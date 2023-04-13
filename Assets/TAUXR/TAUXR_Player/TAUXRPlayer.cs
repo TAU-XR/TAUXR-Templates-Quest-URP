@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum HandType { Left, Right, None, Any }
-public class TAUXRPlayer : MonoBehaviour
+public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 {
     [SerializeField] private Transform ovrRig;
     [SerializeField] private Transform playerHead;
@@ -47,20 +47,8 @@ public class TAUXRPlayer : MonoBehaviour
 
     public OVRFaceExpressions OVRFace => ovrFace;
 
-    private static TAUXRPlayer _instance;
-    public static TAUXRPlayer Instance { get { return _instance; } }
-
-    private void Awake()
+    protected override void DoInAwake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-
         ovrHandL = leftHandAnchor.GetComponentInChildren<OVRHand>();
         ovrHandR = rightHandAnchor.GetComponentInChildren<OVRHand>();
 
@@ -76,7 +64,7 @@ public class TAUXRPlayer : MonoBehaviour
         focusedObject = null;
         eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
 
-        if(IsFaceTrackingEnabled)
+        if (IsFaceTrackingEnabled)
         {
             ovrRig.AddComponent<OVRFaceExpressions>();
         }
