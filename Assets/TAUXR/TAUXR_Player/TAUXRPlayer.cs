@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -180,5 +181,40 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
             eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
         }
 
+    }
+
+
+    // covers player's view with color. 
+    async public UniTask SetOverlayColor(Color color, float duration)
+    {
+        // IMPLEMENT
+        float lerpTime = 0;
+        while (lerpTime < duration)
+        {
+            lerpTime += Time.deltaTime;
+
+
+            await UniTask.Yield();
+        }
+    }
+
+    public bool IsHoldingTrigger(HandType handType)
+    {
+        // implement: if holding trigger / pinching  this frame
+        return false;
+    }
+
+    async public UniTask WaitForTriggerHold(float requiredDuration)
+    {
+        float holdingDurtaion = 0;
+        while (holdingDurtaion < requiredDuration)
+        {
+            if (IsHoldingTrigger(HandType.Any))
+                holdingDurtaion += Time.deltaTime;
+            else
+                holdingDurtaion = 0;
+
+            await UniTask.Yield();
+        }
     }
 }
