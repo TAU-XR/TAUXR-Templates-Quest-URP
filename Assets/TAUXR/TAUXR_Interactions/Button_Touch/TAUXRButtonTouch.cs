@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
 
 // TODO: Only press from forward
 
-public class VRButtonTouch : MonoBehaviour
+public class TAUXRButtonTouch : MonoBehaviour
 {
-    VRButtonState state;
+    public ButtonState State => state;
 
+    [SerializeField] private ButtonState state = ButtonState.Interactable;
+    private ButtonState lastState;
     [SerializeField] private Transform buttonSurface;
 
     private Transform activeToucher;
@@ -36,38 +39,96 @@ public class VRButtonTouch : MonoBehaviour
     public UnityEvent Released;
 
 
-    public AudioSource soundDisabled;
-    public AudioSource soundActive;
-    public AudioSource soundHoverEnter;
-    public AudioSource soundHoverExit;
-    public AudioSource soundPress;
-    public AudioSource soundRelease;
-    public Animator animator;
+    [SerializeField] private AudioSource soundDisabled;
+    [SerializeField] private AudioSource soundActive;
+    [SerializeField] private AudioSource soundHoverEnter;
+    [SerializeField] private AudioSource soundHoverExit;
+    [SerializeField] private AudioSource soundPress;
+    [SerializeField] private AudioSource soundRelease;
+    [SerializeField] private Animator animator;
 
     private bool isPressed = false;
     private bool isHovered = false;
 
-    public VRButtonTouchStroke Stroke;
+    [SerializeField] private VRButtonTouchStroke stroke;
 
     void Start()
     {
-        Stroke.Init(buttonSurface);
+        lastState = state;
+        SetState(state);
+        Init();
     }
+
+    private void Init()
+    {
+        stroke.Init(buttonSurface);
+    }
+
+
 
     void Update()
     {
+        if(lastState!=state)
+        {
+            SetState(state);
+            lastState= state;
+        }
+
+        if (state != ButtonState.Interactable) return;
+
+
         if (isHovered)
         {
             distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
         }
 
-        if(activeToucher!= null)
+        if (activeToucher != null)
         {
-            Stroke.UpdateStrokeBehavior(activeToucher.position);
+            stroke.UpdateStrokeBehavior(activeToucher.position);
         }
         else
         {
-            Stroke.UpdateStrokeBehavior(Vector3.zero);
+            stroke.UpdateStrokeBehavior(Vector3.zero);
+        }
+    }
+
+    public void SetState(ButtonState state)
+    {
+        switch (state)
+        {
+            case ButtonState.Hidden:
+                break;
+            case ButtonState.Disabled:
+                animator.SetBool("IsInteractable", false);
+                break;
+            case ButtonState.Interactable:
+                animator.SetBool("IsInteractable", true);
+                break;
+        }
+
+        this.state = state;
+    }
+
+    // used for external scripts that want to manipulate buttons regardless of touchers.
+    public void TriggerButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
+    {
+        switch (buttonEvent)
+        {
+            case ButtonEvent.HoverEnter:
+                DelegateInteralExtenralResponses(response, OnHoverEnterInternal, HoverEnter);
+                break;
+
+            case ButtonEvent.HoverExit:
+                DelegateInteralExtenralResponses(response, OnHoverExitInternal, HoverExit);
+                break;
+
+            case ButtonEvent.Pressed:
+                DelegateInteralExtenralResponses(response, OnPressedInternal, Pressed);
+                break;
+
+            case ButtonEvent.Released:
+                DelegateInteralExtenralResponses(response, OnReleasedInternal, Released);
+                break;
         }
     }
 
@@ -77,21 +138,6 @@ public class VRButtonTouch : MonoBehaviour
         float distanceToucherFromButtom = (toucherPosition - buttonSurfacePosition).sqrMagnitude;
         float distnaceClamped = 1 - ((distanceToucherFromButtom - HOVER_DISTANCE_MIN) / (HOVER_DISTANCE_MAX - HOVER_DISTANCE_MIN));
         return Mathf.Clamp01(distnaceClamped);
-    }
-
-    public void SetState(VRButtonState state)
-    {
-        switch (state)
-        {
-            case VRButtonState.Disabled:
-                break;
-
-            case VRButtonState.Active:
-                break;
-
-            case VRButtonState.Pressed:
-                break;
-        }
     }
     private void PlaySound(AudioSource sound)
     {
@@ -103,6 +149,8 @@ public class VRButtonTouch : MonoBehaviour
     // Called from Hover Collider on its public UnityEvent
     public void OnHoverEnter(Transform toucher)
     {
+        if (state != ButtonState.Interactable) return;
+
         var ShouldContinueAfterToucherEnter = HoverEnterToucherProcess(toucher);
         if (!ShouldContinueAfterToucherEnter) return;
 
@@ -150,8 +198,12 @@ public class VRButtonTouch : MonoBehaviour
         animator.SetBool("IsHover", true);
     }
 
+    // called from button collider
+
     public void OnHoverExit(Transform toucher)
     {
+        if (state != ButtonState.Interactable) return;
+    
         // Catching extreme cases where toucher exit the hover collider without activating the press collider
         if (isPressed)
         {
@@ -194,6 +246,8 @@ public class VRButtonTouch : MonoBehaviour
 
     public void OnPressed(Transform toucher)
     {
+        if (state != ButtonState.Interactable) return;
+
         if (toucher != activeToucher) return;
 
         DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
@@ -208,6 +262,8 @@ public class VRButtonTouch : MonoBehaviour
 
     public void OnReleased(Transform toucher)
     {
+        if (state != ButtonState.Interactable) return;
+
         if (toucher != activeToucher) return;
 
         DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
@@ -219,30 +275,8 @@ public class VRButtonTouch : MonoBehaviour
         PlaySound(soundRelease);
         animator.SetBool("IsPressed", false);
     }
-
-    // used for external scripts that want to manipulate buttons regardless of touchers.
-    public void InvokeButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
-    {
-        switch (buttonEvent)
-        {
-            case ButtonEvent.HoverEnter:
-                DelegateInteralExtenralResponses(response, OnHoverEnterInternal, HoverEnter);
-                break;
-            
-            case ButtonEvent.HoverExit:
-                DelegateInteralExtenralResponses(response, OnHoverExitInternal, HoverExit);
-                break;
-
-            case ButtonEvent.Pressed:
-                DelegateInteralExtenralResponses(response, OnPressedInternal, Pressed);
-                break;
-
-            case ButtonEvent.Released:
-                DelegateInteralExtenralResponses(response, OnReleasedInternal, Released);
-                break;
-        }
-    }
 }
-public enum VRButtonState { Disabled, Active, Pressed }
+
 public enum ButtonColliderResponse { Both, Internal, External, None }
-public enum ButtonEvent { HoverEnter, HoverExit, Pressed, Released }
+public enum ButtonEvent { HoverEnter, Pressed, Released, HoverExit }
+public enum ButtonState { Hidden, Disabled, Interactable }

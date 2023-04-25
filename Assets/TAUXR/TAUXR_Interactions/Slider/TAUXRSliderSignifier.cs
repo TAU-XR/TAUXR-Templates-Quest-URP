@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public enum SliderSignifier{ HoverIn, HoverOut, ButtonPress, ButtonRelease, BeforeRating, AfterRating }
 public class TAUXRSliderSignifier : MonoBehaviour
 {
-    [SerializeField] VRButtonTouch sliderButton;
+    [SerializeField] TAUXRButtonTouch sliderButton;
 
 
     public UnityEvent IdlePreRating;
@@ -32,10 +32,10 @@ public class TAUXRSliderSignifier : MonoBehaviour
             case SliderSignifier.HoverOut:
                 break;
             case SliderSignifier.ButtonPress:
-                sliderButton.InvokeButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+                sliderButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
                 break;
             case SliderSignifier.ButtonRelease:
-                sliderButton.InvokeButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
+                sliderButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
                 break;
             case SliderSignifier.BeforeRating:
                 break;

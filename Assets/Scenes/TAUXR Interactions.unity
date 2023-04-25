@@ -280,10 +280,15 @@ PrefabInstance:
       propertyPath: TriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3999438563365206223, guid: dc25f747f0fde2043a5f4c93fd62ba8e,
+        type: 3}
+      propertyPath: stroke
+      value: 
+      objectReference: {fileID: 443565830}
     - target: {fileID: 4976624224522149511, guid: dc25f747f0fde2043a5f4c93fd62ba8e,
         type: 3}
       propertyPath: m_Name
-      value: '[Button_Press_Rect]'
+      value: '[Button_Touch_Rect]'
       objectReference: {fileID: 0}
     - target: {fileID: 4976624224522149626, guid: dc25f747f0fde2043a5f4c93fd62ba8e,
         type: 3}
@@ -357,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 9142429068915286184, guid: 3a30eae8307e28c438c295d4d9eb1f0f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.449
+      value: -0.7169
       objectReference: {fileID: 0}
     - target: {fileID: 9142429068915286184, guid: 3a30eae8307e28c438c295d4d9eb1f0f,
         type: 3}
@@ -367,7 +372,7 @@ PrefabInstance:
     - target: {fileID: 9142429068915286184, guid: 3a30eae8307e28c438c295d4d9eb1f0f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.058
+      value: -0.0191
       objectReference: {fileID: 0}
     - target: {fileID: 9142429068915286184, guid: 3a30eae8307e28c438c295d4d9eb1f0f,
         type: 3}
@@ -408,6 +413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Slider]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142429068915286187, guid: 3a30eae8307e28c438c295d4d9eb1f0f,
+        type: 3}
+      propertyPath: ShouldShowTextValue
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a30eae8307e28c438c295d4d9eb1f0f, type: 3}
@@ -526,6 +536,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &443565830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1375402622, guid: dc25f747f0fde2043a5f4c93fd62ba8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 213855572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9745e3ccee078b46aae2667ef767373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &518340148 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3999438563365206223, guid: dc25f747f0fde2043a5f4c93fd62ba8e,
@@ -672,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.398
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
@@ -682,7 +704,7 @@ PrefabInstance:
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.434
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
@@ -717,6 +739,11 @@ PrefabInstance:
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: _trackingOriginType
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

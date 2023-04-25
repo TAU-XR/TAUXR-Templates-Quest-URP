@@ -1,116 +1,99 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
+
+// currently not used. To be implemented in the future.
+public enum SliderState
+{
+    Unrated,
+    BeingRatedNow,
+    WasRated
+}
 
 public class TAUXRSlider : MonoBehaviour
 {
+    [Header("Configuration")]
+    [Range(0f, 1f)]
+    [SerializeField] float valueStart = .5f;
+    [Range(0f, 1f)]
+    [SerializeField] float stepSize = .01f;
+    [SerializeField] bool ShouldShowTextValue = true;
+
+    [Header("References")]
     [SerializeField] Transform lineStart;
     [SerializeField] Transform lineEnd;
-    LineRenderer sliderLine;
 
     [SerializeField] LineRenderer lineBackground;
     [SerializeField] LineRenderer lineValue;
 
-    [SerializeField] VRButtonTouch touchButton;         // need to get a referece to the touchButton to get the toucher transform.
-    Transform node;
-    Vector3 nodePositionTarget;
+    [SerializeField] TAUXRButtonTouch touchButton;         // need to get a referece to the touchButton to get the toucher transform.
 
-    [SerializeField] TMPro.TextMeshPro valueText;
-
-    [Range(0f, 1f)]
-    [SerializeField] float valueStart = .5f;
-    [SerializeField] float stepSize = .01f;
-    [SerializeField] float nodeLerpSpeed = 5f;
-    [SerializeField] float detachmentDistanceThreshold = .05f;
+    [SerializeField] TextMeshPro valueText;
+    [SerializeField] AudioSource soundTick;
 
     // the Transform touching the slider node.
     Transform toucher;
     bool isNodeTouched = false;
 
     float valueCurrent = 0;
+
+    Transform node;
+    Vector3 nodePositionTarget;
+    float nodeLerpSpeed = 15f;
+    float detachmentDistanceThreshold = .1f;    
+
+    private float playTickStepFrequency = .05f;
     float valueLastTick = 0;
+
+    [Header("Events")]
+
+    public UnityEvent SliderReset;
+    public UnityEvent NodeTouched;
+    public UnityEvent NodeDetached;
     public float Value => valueCurrent;
 
-    [SerializeField, Range(0f, 1f)]
-    private float playTickStepFrequency;
-    [SerializeField] AudioSource soundTick;
-
-    public UnityEvent IdlePreRating;
-    public UnityEvent DuringRating;
-    public UnityEvent IdlePostRating;
-
-    void Start()
+    // Call to reset slider value and states.
+    public void Reset()
     {
-        //sliderLine = GetComponentInChildren<LineRenderer>();
+        Init();
+    }
 
-        node = touchButton.transform;
+    public void Reset(float resetToValue)
+    {
+        valueStart = resetToValue;
+        Init();
+    }
 
+
+    private void Start()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
         valueStart = RoundToStepSize(stepSize, valueStart);
-
-        node.position = GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueStart);
-        nodePositionTarget = node.position;
         valueCurrent = valueStart;
         valueLastTick = valueStart;
 
-        IdlePreRating.Invoke();
-
+        valueText.GetComponent<MeshRenderer>().enabled = ShouldShowTextValue;
         UpdateValueText(valueStart);
+
+        node = touchButton.transform;
+        node.position = TAUXRFunctions.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueStart);
+        nodePositionTarget = node.position;        
+
+        SliderReset.Invoke();
     }
 
-    /*private void InitLines()
+    // TODO: improve and move to TAUXRFunctions.
+    private float RoundToStepSize(float stepSize, float clampedValue)
     {
-        lineBackground = Instantiate(sliderLine,transform).GetComponent<LineRenderer>();
-        lineValue = Instantiate(sliderLine,transform).GetComponent<LineRenderer>();
-
-        lineBackground.transform.localPosition = new Vector3(0, 0, 0);
-        lineValue.transform.localPosition = new Vector3(0, 0, -0.001f);
-
-        SetLineRendererPositions(lineBackground, lineStart.position, lineEnd.position,0f);
-        SetLineRendererPositions(lineValue, lineStart.position, lineEnd.position,-0.001f);
-    }*/
-
-    void Update()
-    {
-        //SetLineRendererPositions(sliderLine, lineStart.position, lineEnd.position);
-        SetLineRendererPositions(lineBackground, lineStart.position, lineEnd.position, 0f);
-        SetValueLinePositions(lineValue, lineStart.position, lineEnd.position, -0.001f);
-
-        if (isNodeTouched)
-        {
-            nodePositionTarget = GetClosestPointOnLine(lineStart.position, lineEnd.position, toucher.position);
-
-            if (ShouldDetachNode(toucher.position, nodePositionTarget, detachmentDistanceThreshold))
-            {
-                DetachNode();
-            }
-
-            // round value to step size
-            valueCurrent = GetNormalizedValueFromPointOnLine(lineStart.position, lineEnd.position, nodePositionTarget);
-            valueCurrent = RoundToStepSize(stepSize, valueCurrent);
-
-            if (Mathf.Abs(valueCurrent-valueLastTick) >= playTickStepFrequency)
-            {
-                valueLastTick = valueCurrent;
-                PlayTickAudio();
-            }
-
-            nodePositionTarget = GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueCurrent);
-
-            DebugShowDetachmentLine();
-            UpdateValueText(valueCurrent);
-        }
-
-        // this line is out of isNodeTouch to allow node continue moving after finger left button (especially in cases the node is placed on 0/100).
-        node.position = Vector3.Lerp(node.position, nodePositionTarget, nodeLerpSpeed * Time.deltaTime);
-
-        // make node infront of lines
-        Vector3 nodeLocalPosition = node.localPosition;
-        nodeLocalPosition.z = -.002f;
-        node.localPosition = nodeLocalPosition;
+        stepSize = Mathf.Clamp01(stepSize);
+        float multiplicand = Mathf.Round(clampedValue / stepSize);
+        return stepSize * multiplicand;
     }
-    void UpdateValueText(float value)
+    private void UpdateValueText(float value)
     {
         if (valueText != null)
         {
@@ -119,80 +102,83 @@ public class TAUXRSlider : MonoBehaviour
         }
     }
 
-    private bool ShouldDetachNode(Vector3 toucherPosition, Vector3 linePoint, float threshold)
-    {
-        float toucherToLineDistance = (toucherPosition - linePoint).magnitude;
 
-        return (toucherToLineDistance > threshold);
+    private void Update()
+    {
+        // Set background line position in runtime.
+        SetLineRendererPositions(lineBackground, lineStart.position, lineEnd.position, 0f);
+
+        if (isNodeTouched)
+        {
+            // Calculate node position based on touching finger position
+            nodePositionTarget = TAUXRFunctions.GetClosestPointOnLine(lineStart.position, lineEnd.position, toucher.position);
+
+            // Checks if finger is still sliding
+            if (ShouldDetachNode(toucher.position, nodePositionTarget, detachmentDistanceThreshold))
+            {
+                DetachNodeFromToucher();
+            }
+            
+            // Calculate slider value based on finger percise position on slider line.
+            valueCurrent = TAUXRFunctions.GetNormalizedValueFromPointOnLine(lineStart.position, lineEnd.position, nodePositionTarget);
+            valueCurrent = RoundToStepSize(stepSize,valueCurrent);
+
+            // Update node position target to match step size round.
+            nodePositionTarget = TAUXRFunctions.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueCurrent);
+
+            if (ShouldPlayTickSound())
+            {
+                valueLastTick = valueCurrent;
+                PlayTickAudio();
+            }
+
+            DebugShowDetachmentLine();
+            UpdateValueText(valueCurrent);
+        }
+
+        // this line is out of isNodeTouch to allow node continue moving after finger left button (especially in cases the node is placed on 0/100).
+        node.position = Vector3.Lerp(node.position, nodePositionTarget, nodeLerpSpeed * Time.deltaTime);
+
+        // Set value line position in runtime.
+        SetLineRendererPositions(lineValue, lineStart.position, node.position, -.001f);
+
+        // make node infront of lines
+        Vector3 nodeLocalPosition = node.localPosition;
+        nodeLocalPosition.z = -.002f;
+        node.localPosition = nodeLocalPosition;
     }
 
-    void DebugShowDetachmentLine()
-    {
-        Vector3 toucherDirection = (toucher.position - nodePositionTarget).normalized;
-        Vector3 detachmentPoint = nodePositionTarget + toucherDirection * detachmentDistanceThreshold;
-        Debug.DrawLine(nodePositionTarget, detachmentPoint, Color.red);
-
-        Debug.DrawLine(lineStart.position, nodePositionTarget, Color.green);
-    }
-
-    Vector3 GetClosestPointOnLine(Vector3 lineStart, Vector3 lineEnd, Vector3 point)
-    {
-        Vector3 lineDirection = lineEnd - lineStart;
-        float magnitudeMax = lineDirection.magnitude;
-        lineDirection = lineDirection.normalized;
-
-        Vector3 pointVector = point - lineStart;
-        float projectionLength = Vector3.Dot(pointVector, lineDirection);
-        projectionLength = Mathf.Clamp(projectionLength, 0, magnitudeMax);
-        return lineStart + lineDirection * projectionLength;
-    }
-
-    void SetLineRendererPositions(LineRenderer line, Vector3 start, Vector3 end, float lineLocalDepthValue)
+    private void SetLineRendererPositions(LineRenderer line, Vector3 start, Vector3 end, float lineLocalDepthValue)
     {
         line.transform.position = start;
         line.transform.rotation = Quaternion.LookRotation(end - start, line.transform.up);
         line.SetPosition(1, new Vector3(0, 0, (end - start).magnitude));
+        
+        // TODO: Move to shader!
+        // moves the line on its local z axis to allow multiple lines depth organization.
         Vector3 linePosition = line.transform.localPosition;
         linePosition.z = lineLocalDepthValue;
         line.transform.localPosition = linePosition;
     }
-
-    void SetValueLinePositions(LineRenderer line, Vector3 start, Vector3 end, float lineLocalDepthValue)
+    private bool ShouldDetachNode(Vector3 toucherPosition, Vector3 linePoint, float threshold)
     {
-        line.transform.position = start;
-        Vector3 linePosition = line.transform.localPosition;
-        linePosition.z = lineLocalDepthValue;
-        line.transform.localPosition = linePosition;
-        line.transform.rotation = Quaternion.LookRotation(end - start, line.transform.up);
+        float toucherToLineDistance = (toucherPosition - linePoint).magnitude;
+        return (toucherToLineDistance > threshold);
+    }
+    
+    // Ends the rating action by detaching node from toucher.
+    private void DetachNodeFromToucher()
+    {
+        touchButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
+        NodeDetached.Invoke();
 
-        line.SetPosition(1, new Vector3(0, 0, (end - start).magnitude * valueCurrent));
-
+        isNodeTouched = false;
     }
 
-    // gets a normilized target position and returns a world-position.
-    Vector3 GetPointOnLineFromNormalizedValue(Vector3 lineStart, Vector3 lineEnd, float valueNormalized)
+    private bool ShouldPlayTickSound()
     {
-        Vector3 lineVec = lineEnd - lineStart;
-        valueNormalized = Mathf.Clamp01(valueNormalized);
-
-        return lineStart + lineVec * valueNormalized;
+        return Mathf.Abs(valueCurrent - valueLastTick) >= playTickStepFrequency;
     }
-
-    float GetNormalizedValueFromPointOnLine(Vector3 lineStart, Vector3 lineEnd, Vector3 point)
-    {
-        Vector3 lineVector = lineEnd - lineStart;
-        Vector3 pointVector = point - lineStart;
-
-        return pointVector.magnitude / lineVector.magnitude;
-    }
-
-    float RoundToStepSize(float stepSize, float clampedValue)
-    {
-        stepSize = Mathf.Clamp01(stepSize);
-        float multiplicand = Mathf.Round(clampedValue / stepSize);
-        return stepSize * multiplicand;
-    }
-
     private void PlayTickAudio()
     {
         if (soundTick == null) return;
@@ -201,26 +187,26 @@ public class TAUXRSlider : MonoBehaviour
         soundTick.Play();
     }
 
-    // Activated from serialized UnityEvent in the slider button.
+    private void DebugShowDetachmentLine()
+    {
+        Vector3 toucherDirection = (toucher.position - nodePositionTarget).normalized;
+        Vector3 detachmentPoint = nodePositionTarget + toucherDirection * detachmentDistanceThreshold;
+        Debug.DrawLine(nodePositionTarget, detachmentPoint, Color.red);
+
+        Debug.DrawLine(lineStart.position, nodePositionTarget, Color.green);
+    }
+
+
+    // Called from the TAUXRButton used as the slider node.
     public void OnNodeTouched()
     {
         if (isNodeTouched) return;
 
         // Activate button internal response from the slider script so it will be called only on the first press.
-        touchButton.InvokeButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
-        DuringRating.Invoke();
+        touchButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+        NodeTouched.Invoke();
 
         toucher = touchButton.ActiveToucher;
         isNodeTouched = true;
-
-    }
-
-    public void DetachNode()
-    {
-        Debug.Log("slider node detached");
-        touchButton.InvokeButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
-        IdlePostRating.Invoke();
-
-        isNodeTouched = false;
     }
 }
