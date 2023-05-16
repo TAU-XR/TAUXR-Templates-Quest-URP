@@ -7,6 +7,8 @@ using UnityEngine;
 public enum HandType { Left, Right, None, Any }
 public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 {
+    public bool bCastFromMiddle;
+
     [SerializeField] private Transform ovrRig;
     [SerializeField] private Transform playerHead;
     [SerializeField] private Transform rightHandAnchor;
@@ -19,7 +21,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     [SerializeField] private Transform rightEye;
     [SerializeField] private Transform leftEye;
     private float EYERAYMAXLENGTH = 100000;
-    private float EYETRACKINGCONFIDENCETHRESHOLD = .5f;
+    [SerializeField] private float EYETRACKINGCONFIDENCETHRESHOLD = .5f;
     private Vector3 NOTTRACKINGVECTORVALUE = new Vector3(-1f, -1f, -1f);
 
     [Header("Face Tracking")]
@@ -28,7 +30,8 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     private Transform focusedObject;
     private Vector3 eyeGazeHitPosition;
 
-    private OVREyeGaze ovrEye;
+    private OVREyeGaze ovrEyeR;
+    private OVREyeGaze ovrEyeL;
     private OVRHand ovrHandR, ovrHandL;
     private OVRSkeleton skeletonR, skeletonL;
 
@@ -57,18 +60,27 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         skeletonR = ovrHandR.GetComponent<OVRSkeleton>();
 
         InitHandColliders();
-
-        if (rightEye.TryGetComponent(out OVREyeGaze e))
-        {
-            ovrEye = e;
-        }
-        focusedObject = null;
-        eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
-
+        InitEyeTracking();
         if (IsFaceTrackingEnabled)
         {
             ovrRig.AddComponent<OVRFaceExpressions>();
         }
+    }
+
+    private void InitEyeTracking()
+    {
+        if (rightEye.TryGetComponent(out OVREyeGaze er))
+        {
+            ovrEyeR = er;
+        }
+
+        if (leftEye.TryGetComponent(out OVREyeGaze el))
+        {
+            ovrEyeL = el;
+        }
+
+        focusedObject = null;
+        eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
     }
 
     private void InitPinchPoints()
@@ -158,9 +170,9 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
     private void CalculateEyeParameters()
     {
-        if (ovrEye == null) return;
+        if (ovrEyeR == null) return;
 
-        if (ovrEye.Confidence < EYETRACKINGCONFIDENCETHRESHOLD)
+        if (ovrEyeR.Confidence < EYETRACKINGCONFIDENCETHRESHOLD)
         {
             Debug.LogWarning("EyeTracking confidence value is low. Eyes are not tracked");
             focusedObject = null;
@@ -169,8 +181,12 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
             return;
         }
 
+        // cast from middle eye
+        Vector3 eyePosition = bCastFromMiddle ? ((rightEye.position + leftEye.position) / 2) : rightEye.position;
+        Vector3 eyeForward = rightEye.forward;
+
         RaycastHit hit;
-        if (Physics.Raycast(rightEye.position, rightEye.forward, out hit, EYERAYMAXLENGTH))
+        if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH))
         {
             focusedObject = hit.transform;
             eyeGazeHitPosition = hit.point;
@@ -179,8 +195,10 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         {
             focusedObject = null;
             eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
+            Debug.Log("Eyeray hit nothig");
         }
 
+        Debug.DrawRay(eyePosition, eyeForward);
     }
 
 
