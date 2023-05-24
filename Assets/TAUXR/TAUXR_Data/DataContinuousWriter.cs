@@ -51,7 +51,7 @@ public class DataContinuousWriter : MonoBehaviour
         AddAllTransformsToList();
 
         //setup file
-        filePath = Path.Combine(Application.persistentDataPath, $"{fileName}_{TAUXRFunctions.GetFormattedDateTime(true)}.csv");
+        filePath = Path.Combine(Application.persistentDataPath, $"{fileName}_{TAUXRUtilities.GetFormattedDateTime(true)}.csv");
         writer = new StreamWriter(filePath);
 
         WriteColumnNames();

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-public static class TAUXRFunctions
+public static class TAUXRUtilities
 {
     public static string GetFormattedDateTime(bool includeTime = false)
     {
@@ -50,4 +52,22 @@ public static class TAUXRFunctions
         projectionLength = Mathf.Clamp(projectionLength, 0, magnitudeMax);
         return lineStart + lineDirection * projectionLength;
     }
+
+    // gets an object, return a dictionary<string,string> with all obj members names as keys and data as values.
+    public static Dictionary<string, string> SerializeObject(object obj)
+    {
+        var json = JsonConvert.SerializeObject(obj);
+        var jObject = JObject.Parse(json);
+
+        var dictionary = new Dictionary<string, string>();
+
+        foreach (var property in jObject.Properties())
+        {
+            dictionary[property.Name] = property.Value.ToString();
+        }
+
+        return dictionary;
+    }
 }
+
+

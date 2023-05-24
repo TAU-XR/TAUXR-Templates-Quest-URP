@@ -87,7 +87,7 @@ public class DataExporterFaceExpression : MonoBehaviour
     private string getPath()
     {
         string str = $"{Application.persistentDataPath}/";
-        str += $"{FileName}_FaceExpressionData_{TAUXRFunctions.GetFormattedDateTime(true)}.csv";
+        str += $"{FileName}_FaceExpressionData_{TAUXRUtilities.GetFormattedDateTime(true)}.csv";
         print(str);
         return str;
     }

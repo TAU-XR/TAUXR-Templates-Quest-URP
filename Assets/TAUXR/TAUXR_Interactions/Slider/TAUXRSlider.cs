@@ -80,7 +80,7 @@ public class TAUXRSlider : MonoBehaviour
         UpdateValueText(valueStart);
 
         node = touchButton.transform;
-        node.position = TAUXRFunctions.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueStart);
+        node.position = TAUXRUtilities.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueStart);
         nodePositionTarget = node.position;        
 
         SliderReset.Invoke();
@@ -111,7 +111,7 @@ public class TAUXRSlider : MonoBehaviour
         if (isNodeTouched)
         {
             // Calculate node position based on touching finger position
-            nodePositionTarget = TAUXRFunctions.GetClosestPointOnLine(lineStart.position, lineEnd.position, toucher.position);
+            nodePositionTarget = TAUXRUtilities.GetClosestPointOnLine(lineStart.position, lineEnd.position, toucher.position);
 
             // Checks if finger is still sliding
             if (ShouldDetachNode(toucher.position, nodePositionTarget, detachmentDistanceThreshold))
@@ -120,11 +120,11 @@ public class TAUXRSlider : MonoBehaviour
             }
             
             // Calculate slider value based on finger percise position on slider line.
-            valueCurrent = TAUXRFunctions.GetNormalizedValueFromPointOnLine(lineStart.position, lineEnd.position, nodePositionTarget);
+            valueCurrent = TAUXRUtilities.GetNormalizedValueFromPointOnLine(lineStart.position, lineEnd.position, nodePositionTarget);
             valueCurrent = RoundToStepSize(stepSize,valueCurrent);
 
             // Update node position target to match step size round.
-            nodePositionTarget = TAUXRFunctions.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueCurrent);
+            nodePositionTarget = TAUXRUtilities.GetPointOnLineFromNormalizedValue(lineStart.position, lineEnd.position, valueCurrent);
 
             if (ShouldPlayTickSound())
             {

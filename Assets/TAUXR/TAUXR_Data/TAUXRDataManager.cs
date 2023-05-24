@@ -2,6 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+#region Analytics Data Classes
+public interface AnalyticsDataClass
+{
+    string TableName { get; }
+}
+
+public class AnalyticsLogLine : AnalyticsDataClass
+{
+    public string TableName => "TAUXR_Logs";
+    public float LogTime;
+    public string LogText;
+
+    public AnalyticsLogLine(string line)
+    {
+        LogTime = Time.time;
+        LogText = line;
+    }
+}
+
+#endregion
+
 public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 {
     // updated from TAUXRPlayer
@@ -12,18 +34,38 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     public bool ShouldExport = false;
 
 
-    DataEventWriter eventWriter;
+    AnalyticsWriter analyticsWriter;
     DataContinuousWriter continuousWriter;
     DataExporterFaceExpression faceExpressionWriter;
 
 
-    #region Events
-    // declare pointers for all experience-specific event classes
+    #region Analytics Data Classes
+    // declare pointers for all experience-specific analytics classes
     public WriteNoteDataEvent WriteNoteDataEvent;
+    public AnalyticsLogLine LogLine;
     // write additional events here..
 
 
     #endregion
+
+    #region Project Specific Analytics Reporters
+    // Write here all the functions you'll want to use to report relevant data.
+
+    public void LogLineToFile(string line)
+    {
+        // creates a new instante of AnalyticsLogLine data class. In it's constructor, it gets the line and automatically assign Time.time to the log time.
+        LogLine = new AnalyticsLogLine(line);
+        WriteAnalyticsToFile(LogLine);
+
+    }
+
+
+    #endregion
+
+    private void WriteAnalyticsToFile(AnalyticsDataClass analyticsDataClass)
+    {
+        analyticsWriter.WriteAnalyticsDataFile(analyticsDataClass);
+    }
 
     void Start()
     {
@@ -38,7 +80,7 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
         ExportEyeTracking = TAUXRPlayer.Instance.IsEyeTrackingEnabled;
         ExportFaceTracking = TAUXRPlayer.Instance.IsFaceTrackingEnabled;
 
-        eventWriter = new DataEventWriter();
+        analyticsWriter = new AnalyticsWriter();
         ConstructEvents();
 
         // for now, instead of making the whole interface in the datamanager, it will split between the different scripts.
@@ -100,14 +142,14 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     {
         if (!ShouldExport) return;
 
-        eventWriter.WriteDataEventToFile(dataEvent);
+       // analyticsWriter.WriteDataEventToFile(dataEvent);
     }
 
     private void OnApplicationQuit()
     {
         if (!ShouldExport) return;
 
-        eventWriter.Close();
+        analyticsWriter.Close();
         continuousWriter.Close();
         faceExpressionWriter.Close();
     }
