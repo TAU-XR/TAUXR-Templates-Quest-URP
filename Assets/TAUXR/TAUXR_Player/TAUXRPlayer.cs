@@ -29,6 +29,8 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
     private Transform focusedObject;
     private Vector3 eyeGazeHitPosition;
+    int eyeTrackingIgnoreLayer = 7;
+    LayerMask eyeTrackingLayerMask = ~(1 << 7);
 
     private OVREyeGaze ovrEyeR;
     private OVREyeGaze ovrEyeL;
@@ -186,7 +188,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         Vector3 eyeForward = rightEye.forward;
 
         RaycastHit hit;
-        if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH))
+        if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH,eyeTrackingLayerMask))
         {
             focusedObject = hit.transform;
             eyeGazeHitPosition = hit.point;

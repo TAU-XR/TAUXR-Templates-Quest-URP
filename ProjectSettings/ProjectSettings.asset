@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: TAUXR
+  companyName: TAUXR Studio
   productName: TAUXR Template - Quest URP
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -155,7 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.TAUXR.TAUXRTemplateQuestURP
+    Android: com.TAUXRStudio.TAUXRTemplateQuestURP
     Standalone: com.TAUXR.TAUXR-Template---Quest-temp
   buildNumber:
     Standalone: 0

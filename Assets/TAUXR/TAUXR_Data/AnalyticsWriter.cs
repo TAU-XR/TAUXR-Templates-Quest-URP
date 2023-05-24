@@ -8,24 +8,27 @@ using UnityEngine;
 public class AnalyticsWriter
 {
     private Dictionary<string, StreamWriter> csvFiles = new Dictionary<string, StreamWriter>();
-    private string csvFolder;
+    private string dataPath;
 
     public AnalyticsWriter()
     {
         // Set the CSV folder path
-        csvFolder = Path.Combine(Application.persistentDataPath, "AnalyticsEvents_" + TAUXRUtilities.GetFormattedDateTime(true));
+        dataPath = Application.persistentDataPath;
+        //dataPath = Path.Combine(Application.persistentDataPath, "AnalyticsEvents_" + TAUXRUtilities.GetFormattedDateTime(true));
 
+        #region Create a new folder for all analytics events. Currenly not neccessary.
+      /*
         // Create the folder for the CSV files if it doesn't exist
-        if (!Directory.Exists(csvFolder))
+        if (!Directory.Exists(dataPath))
         {
-            Directory.CreateDirectory(csvFolder);
-            Debug.Log($"Created a new data folder in: {csvFolder}");
+            Directory.CreateDirectory(dataPath);
+            Debug.Log($"Created a new data folder in: {dataPath}");
         }
 
         // Set permissions for the CSV folder
         try
         {
-            string filePath = Path.Combine(csvFolder, "permission_test.txt");
+            string filePath = Path.Combine(dataPath, "permission_test.txt");
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 writer.WriteLine("test");
@@ -35,7 +38,9 @@ public class AnalyticsWriter
         catch (IOException ex)
         {
             Debug.LogError("Error setting permissions for CSV folder: " + ex.Message);
-        }
+        }*/
+
+        #endregion
     }
 
     // called from TAUXRDataManager on OnApplicationQuit
@@ -67,7 +72,7 @@ public class AnalyticsWriter
         string fileName = dataClass.TableName;
 
         // Create a new CSV file for this event name and add the field keys to the first line
-        string csvFilePath = Path.Combine(csvFolder, fileName + $"_{TAUXRUtilities.GetFormattedDateTime(false)}.csv");
+        string csvFilePath = Path.Combine(dataPath, fileName + $"_{TAUXRUtilities.GetFormattedDateTime(true)}.csv");
 
         StreamWriter writer = new StreamWriter(csvFilePath, true);
         csvFiles[fileName] = writer;
@@ -105,7 +110,7 @@ public class AnalyticsWriter
         }
 
 
-        string[] fieldValues = lineData.Keys.ToArray();
+        string[] fieldValues = lineData.Values.ToArray();
         string fieldValuesLine = string.Join(",", fieldValues);
 
         csvFiles[fileName].WriteLine(fieldValuesLine);

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class AnalyticsLogLine : AnalyticsDataClass
     }
 }
 
+// Declare here new AnalyticsDataClasses for every table file output you desire.
+
 #endregion
 
 public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
@@ -38,11 +41,10 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     DataContinuousWriter continuousWriter;
     DataExporterFaceExpression faceExpressionWriter;
 
-
     #region Analytics Data Classes
     // declare pointers for all experience-specific analytics classes
-    public WriteNoteDataEvent WriteNoteDataEvent;
     public AnalyticsLogLine LogLine;
+
     // write additional events here..
 
 
@@ -51,19 +53,22 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     #region Project Specific Analytics Reporters
     // Write here all the functions you'll want to use to report relevant data.
 
+    // log a new string line with the time logged to TAUXR_Logs file.
     public void LogLineToFile(string line)
     {
         // creates a new instante of AnalyticsLogLine data class. In it's constructor, it gets the line and automatically assign Time.time to the log time.
         LogLine = new AnalyticsLogLine(line);
+
+        // tells the alnalytics writer to write a new line in file.
         WriteAnalyticsToFile(LogLine);
-
     }
-
 
     #endregion
 
     private void WriteAnalyticsToFile(AnalyticsDataClass analyticsDataClass)
     {
+        if (!ShouldExport) return;
+
         analyticsWriter.WriteAnalyticsDataFile(analyticsDataClass);
     }
 
@@ -81,7 +86,6 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
         ExportFaceTracking = TAUXRPlayer.Instance.IsFaceTrackingEnabled;
 
         analyticsWriter = new AnalyticsWriter();
-        ConstructEvents();
 
         // for now, instead of making the whole interface in the datamanager, it will split between the different scripts.
         continuousWriter = GetComponent<DataContinuousWriter>();
@@ -116,12 +120,6 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
         }
     }
 
-    // build instances for all experience-specific event classes
-    private void ConstructEvents()
-    {
-        WriteNoteDataEvent = new WriteNoteDataEvent();
-    }
-
     void FixedUpdate()
     {
         if (!ShouldExport) return;
@@ -132,17 +130,6 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
         {
             faceExpressionWriter.CollectWriteDataToFile();
         }
-
-    }
-
-
-    // called from specific events classes when triggered from everywhere in codei.e:
-    // TAUXRDataManager.Instance.WriteNoteDataEvent.ReportNote("participant touched button") -> will call this function from the WriteNoteDataEvent class. 
-    public void SendEvent(DataEvent dataEvent)
-    {
-        if (!ShouldExport) return;
-
-       // analyticsWriter.WriteDataEventToFile(dataEvent);
     }
 
     private void OnApplicationQuit()
