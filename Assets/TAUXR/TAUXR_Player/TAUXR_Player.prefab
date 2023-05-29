@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3191537569654735158}
   - component: {fileID: 4093839502531686994}
+  - component: {fileID: 7539146124880624239}
   m_Layer: 0
   m_Name: LeftEye
   m_TagString: Untagged
@@ -46,10 +47,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Eye: 0
   ConfidenceThreshold: 0.5
-  ApplyPosition: 1
+  ApplyPosition: 0
   ApplyRotation: 1
-  ReferenceFrame: {fileID: 9179752179252683371}
+  ReferenceFrame: {fileID: 9179752177440450423}
   TrackingMode: 2
+--- !u!114 &7539146124880624239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649923483679823745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd7feec1c0a49c4f87bd6e80651644b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 9179752179252624171}
 --- !u!1 &5190460395091404166
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5821197863680773978}
   - component: {fileID: 3211595124769019384}
+  - component: {fileID: 6572358191139984116}
   m_Layer: 0
   m_Name: RightEye
   m_TagString: Untagged
@@ -96,10 +111,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Eye: 1
   ConfidenceThreshold: 0.5
-  ApplyPosition: 1
+  ApplyPosition: 0
   ApplyRotation: 1
-  ReferenceFrame: {fileID: 9179752179252683371}
+  ReferenceFrame: {fileID: 9179752177440450423}
   TrackingMode: 2
+--- !u!114 &6572358191139984116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5190460395091404166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd7feec1c0a49c4f87bd6e80651644b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 9179752179252624173}
 --- !u!1 &9179752177440450417
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c980c6498eb064eb8b558c8f1c81e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bCastFromMiddle: 0
+  bCastFromMiddle: 1
   ovrRig: {fileID: 9179752179252624169}
   playerHead: {fileID: 9179752179252624175}
   rightHandAnchor: {fileID: 9179752179252662011}
@@ -157,6 +185,7 @@ MonoBehaviour:
   IsFaceTrackingEnabled: 1
   rightEye: {fileID: 5821197863680773978}
   leftEye: {fileID: 3191537569654735158}
+  EYETRACKINGCONFIDENCETHRESHOLD: 0.5
   ovrFace: {fileID: 2508515914960436618}
 --- !u!114 &2508515914960436618
 MonoBehaviour:
@@ -655,6 +684,18 @@ PrefabInstance:
 --- !u!4 &9179752179252624169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 9179752179253010861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9179752179252624171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400006, guid: 126d619cf4daa52469682f85c1378b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 9179752179253010861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9179752179252624173 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 126d619cf4daa52469682f85c1378b4a,
     type: 3}
   m_PrefabInstance: {fileID: 9179752179253010861}
   m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,4 @@
-using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
@@ -10,6 +8,7 @@ public interface AnalyticsDataClass
     string TableName { get; }
 }
 
+[Serializable]
 public class AnalyticsLogLine : AnalyticsDataClass
 {
     public string TableName => "TAUXR_Logs";
@@ -30,20 +29,21 @@ public class AnalyticsLogLine : AnalyticsDataClass
 public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 {
     // updated from TAUXRPlayer
-    bool ExportEyeTracking = false;
-    bool ExportFaceTracking = false;
+    private bool exportEyeTracking = false;
+    private bool exportFaceTracking = false;
 
     // automatically switched to true if not in editor.
-    public bool ShouldExport = false;
+    [SerializeField]
+    private bool shouldExport = false;
 
 
-    AnalyticsWriter analyticsWriter;
-    DataContinuousWriter continuousWriter;
-    DataExporterFaceExpression faceExpressionWriter;
+    private AnalyticsWriter analyticsWriter;
+    private DataContinuousWriter continuousWriter;
+    private DataExporterFaceExpression faceExpressionWriter;
 
     #region Analytics Data Classes
     // declare pointers for all experience-specific analytics classes
-    public AnalyticsLogLine LogLine;
+    private AnalyticsLogLine logLine;
 
     // write additional events here..
 
@@ -56,18 +56,18 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     // log a new string line with the time logged to TAUXR_Logs file.
     public void LogLineToFile(string line)
     {
-        // creates a new instante of AnalyticsLogLine data class. In it's constructor, it gets the line and automatically assign Time.time to the log time.
-        LogLine = new AnalyticsLogLine(line);
+        // creates a new instance of AnalyticsLogLine data class. In it's constructor, it gets the line and automatically assign Time.time to the log time.
+        logLine = new AnalyticsLogLine(line);
 
-        // tells the alnalytics writer to write a new line in file.
-        WriteAnalyticsToFile(LogLine);
+        // tells the analytics writer to write a new line in file.
+        WriteAnalyticsToFile(logLine);
     }
 
     #endregion
 
     private void WriteAnalyticsToFile(AnalyticsDataClass analyticsDataClass)
     {
-        if (!ShouldExport) return;
+        if (!shouldExport) return;
 
         analyticsWriter.WriteAnalyticsDataFile(analyticsDataClass);
     }
@@ -79,19 +79,19 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 
     private void Init()
     {
-        ShouldExport = ShouldExportData();
-        if (!ShouldExport) return;
+        shouldExport = ShouldExportData();
+        if (!shouldExport) return;
 
-        ExportEyeTracking = TAUXRPlayer.Instance.IsEyeTrackingEnabled;
-        ExportFaceTracking = TAUXRPlayer.Instance.IsFaceTrackingEnabled;
+        exportEyeTracking = TAUXRPlayer.Instance.IsEyeTrackingEnabled;
+        exportFaceTracking = TAUXRPlayer.Instance.IsFaceTrackingEnabled;
 
         analyticsWriter = new AnalyticsWriter();
 
         // for now, instead of making the whole interface in the datamanager, it will split between the different scripts.
         continuousWriter = GetComponent<DataContinuousWriter>();
-        continuousWriter.Init(ExportEyeTracking);
+        continuousWriter.Init(exportEyeTracking);
 
-        if (ExportFaceTracking)
+        if (exportFaceTracking)
         {
             faceExpressionWriter = GetComponent<DataExporterFaceExpression>();
             faceExpressionWriter.Init();
@@ -101,7 +101,7 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     // default data export on false in editor. always export on build.
     private bool ShouldExportData()
     {
-        if (!ShouldExport)
+        if (!shouldExport)
         {
             // if app runs on build- always export.
             if (!Application.isEditor)
@@ -122,11 +122,11 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 
     void FixedUpdate()
     {
-        if (!ShouldExport) return;
+        if (!shouldExport) return;
 
         continuousWriter.RecordContinuousData();
 
-        if (ExportFaceTracking)
+        if (exportFaceTracking)
         {
             faceExpressionWriter.CollectWriteDataToFile();
         }
@@ -134,7 +134,7 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
 
     private void OnApplicationQuit()
     {
-        if (!ShouldExport) return;
+        if (!shouldExport) return;
 
         analyticsWriter.Close();
         continuousWriter.Close();

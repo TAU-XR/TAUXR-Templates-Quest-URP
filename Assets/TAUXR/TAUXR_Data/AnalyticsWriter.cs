@@ -109,7 +109,6 @@ public class AnalyticsWriter
             Debug.LogError($"Tried to remove TableName from a data class but couldn't find a member with TableName name. Look at your Analytics Data classes under TAUXRDataManager and make sure they all have a string member called TableName");
         }
 
-
         string[] fieldValues = lineData.Values.ToArray();
         string fieldValuesLine = string.Join(",", fieldValues);
 
