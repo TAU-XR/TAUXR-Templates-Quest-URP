@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -41,6 +42,12 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     private List<HandCollider> handCollidersL, handCollidersR;
 
 
+    // Color overlay
+    [SerializeField] private MeshRenderer colorOverlayMR;
+
+    // input handling
+    private bool isLeftTriggerHolded = false;
+    private bool isRightTriggerHolded = false;
 
     public Transform PlayerHead => playerHead;
     public Transform RightHand => rightHandAnchor;
@@ -188,7 +195,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         Vector3 eyeForward = rightEye.forward;
 
         RaycastHit hit;
-        if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH,eyeTrackingLayerMask))
+        if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH, eyeTrackingLayerMask))
         {
             focusedObject = hit.transform;
             eyeGazeHitPosition = hit.point;
@@ -205,36 +212,63 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
 
     // covers player's view with color. 
-    async public UniTask SetOverlayColor(Color color, float duration)
+    async public UniTask SetOverlayColor(Color targetColor, float duration)
     {
-        // IMPLEMENT
+        Color currentColor = colorOverlayMR.material.color;
+        if (currentColor == targetColor) return;
+
         float lerpTime = 0;
         while (lerpTime < duration)
         {
             lerpTime += Time.deltaTime;
-
+            float t = lerpTime/ duration;
+            colorOverlayMR.material.color = Color.Lerp(currentColor, targetColor, t);
 
             await UniTask.Yield();
         }
     }
 
-    public bool IsHoldingTrigger(HandType handType)
+    public void RecenterView()
     {
-        // implement: if holding trigger / pinching  this frame
-        return false;
+        // IMPLEMENT
     }
-
-    async public UniTask WaitForTriggerHold(float requiredDuration)
+    public void CalibrateFloorHeight()
     {
-        float holdingDurtaion = 0;
-        while (holdingDurtaion < requiredDuration)
+        // IMPLEMENT
+    }
+    public bool IsTriggerPressedThisFrame(HandType handType)
+    {
+        switch (handType)
         {
-            if (IsHoldingTrigger(HandType.Any))
-                holdingDurtaion += Time.deltaTime;
+            case HandType.Left:
+                return isLeftTriggerHolded;
+            case HandType.Right:
+                return isRightTriggerHolded;
+            case HandType.Any:
+                return isLeftTriggerHolded || isRightTriggerHolded;
+            case HandType.None:
+                return false;
+            default: return false;
+        }
+    }
+
+    // task progresses only when trigger is hold.
+    async public UniTask WaitForTriggerHold(HandType handType, float duration)
+    {
+        float holdingDuration = 0;
+        while (holdingDuration < duration)
+        {
+            if (IsTriggerPressedThisFrame(handType))
+            {
+                holdingDuration += Time.deltaTime;
+            }
             else
-                holdingDurtaion = 0;
+            {
+                holdingDuration = 0;
+            }
 
             await UniTask.Yield();
         }
+
     }
 }
