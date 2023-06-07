@@ -212,7 +212,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
 
     // covers player's view with color. 
-    async public UniTask SetOverlayColor(Color targetColor, float duration)
+    async public UniTask FadeToColor(Color targetColor, float duration)
     {
         Color currentColor = colorOverlayMR.material.color;
         if (currentColor == targetColor) return;
@@ -270,5 +270,11 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
             await UniTask.Yield();
         }
 
+    }
+
+    public void RepositionPlayer(Vector3 position, Quaternion rotation)
+    {
+        transform.position = position;
+        transform.rotation = rotation;
     }
 }
