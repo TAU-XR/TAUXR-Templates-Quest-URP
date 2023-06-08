@@ -7,7 +7,8 @@ public class TAUXRSceneManager : TAUXRSingleton<TAUXRSceneManager>
 {
 
     [Header("All scenes")]      // declare by name each scene and make it public so it can be accessed easily from other scripts.
-    [SerializeField] public SceneAsset BaseScene;
+    [SerializeField] public string BaseSceneName;
+    [SerializeField] public string FirstLoadedSceneName;
    
     private float FADETOBLACKDURATION = 2.5f;
     private float FADETOCLEARDURATION = 1.5f;
@@ -28,7 +29,7 @@ public class TAUXRSceneManager : TAUXRSingleton<TAUXRSceneManager>
                 // Get the scene at the specified index
                 Scene scene = SceneManager.GetSceneAt(i);
 
-                if (scene.name != BaseScene.name)
+                if (scene.name != BaseSceneName)
                 {
                     currentSceneName = scene.name;
                     return;
@@ -36,27 +37,27 @@ public class TAUXRSceneManager : TAUXRSingleton<TAUXRSceneManager>
 
             }
             // if we got here it means we only have the base scene (for 1 scene projects) and it should be the current
-            currentSceneName = BaseScene.name;
+            currentSceneName = BaseSceneName;
 
         }
         else
         {
             // make sure to launch your starting scene here
-            //LoadActiveScene(ACTIVESCENENAME).Forget();
+            LoadActiveScene(FirstLoadedSceneName).Forget();
         }
     }
 
-    async public UniTask SwitchActiveScene(SceneAsset scene)
+    async public UniTask SwitchActiveScene(string sceneName)
     {
-        if (currentSceneName == scene.name)
+        if (currentSceneName == sceneName)
         {
-            Debug.LogWarning($"Tried to load {scene.name} scene but its already loaded");
+            Debug.LogWarning($"Tried to load {sceneName} scene but its already loaded");
             return;
         }
 
         await UnloadActiveScene();
 
-        await LoadActiveScene(scene);
+        await LoadActiveScene(sceneName);
 
     }
 
@@ -67,16 +68,16 @@ public class TAUXRSceneManager : TAUXRSingleton<TAUXRSceneManager>
         await SceneManager.UnloadSceneAsync(currentSceneName);
     }
 
-    async private UniTask LoadActiveScene(SceneAsset scene)
+    async private UniTask LoadActiveScene(string sceneName)
     {
-        if (currentSceneName == scene.name)
+        if (currentSceneName == sceneName)
         {
-            Debug.LogWarning($"Tried to load {scene.name} scene but its already loaded");
+            Debug.LogWarning($"Tried to load {sceneName} scene but its already loaded");
             return;
         }
 
-        await SceneManager.LoadSceneAsync(scene.name, LoadSceneMode.Additive);
-        currentSceneName = scene.name;
+        await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        currentSceneName = sceneName;
 
         // reposition player accordingly to new scene
         Transform playerScenePositioner = FindObjectOfType<PlayerScenePositioner>().transform;
