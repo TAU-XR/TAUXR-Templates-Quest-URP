@@ -214,7 +214,13 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     // covers player's view with color. 
     async public UniTask FadeToColor(Color targetColor, float duration)
     {
-        Color currentColor = colorOverlayMR.material.color;
+		if (duration == 0)
+		{
+			colorOverlayMR.material.color = targetColor;
+			return;
+		}
+
+		Color currentColor = colorOverlayMR.material.color;
         if (currentColor == targetColor) return;
 
         float lerpTime = 0;

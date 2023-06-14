@@ -101,24 +101,12 @@ public class TAUXRDataManager : TAUXRSingleton<TAUXRDataManager>
     // default data export on false in editor. always export on build.
     private bool ShouldExportData()
     {
-        if (!shouldExport)
-        {
-            // if app runs on build- always export.
-            if (!Application.isEditor)
-            {
-                return true;
-            }
-            else
-            {
-                Debug.Log("Data Manager won't export data because it is running in editor. To export, manually enable ShouldExport");
-                return false;
-            }
-        }
-        else
-        {
-            return true;
-        }
-    }
+		if (Application.isEditor && !shouldExport)
+		{
+			Debug.Log("Data Manager won't export data because it is running in editor. To export, manually enable ShouldExport");
+		}
+		return shouldExport || !Application.isEditor;
+	}
 
     void FixedUpdate()
     {

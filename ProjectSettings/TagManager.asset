@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Toucher
   - PinchPoint
+  - RoomLight
+  - SamplesInfoPanel
+  - PlayerHead
   layers:
   - Default
   - TransparentFX
