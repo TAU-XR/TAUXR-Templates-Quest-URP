@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public enum HandType { Left, Right, None, Any }
+public enum FingerType { Thumb, Index, Middle, Ring, Pinky }
 public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 {
     public bool bCastFromMiddle;
@@ -37,7 +39,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     private OVREyeGaze ovrEyeL;
     private OVRHand ovrHandR, ovrHandL;
     private OVRSkeleton skeletonR, skeletonL;
-
+    private OVRManager ovrManager;
     private PinchPoint pinchPoincL, pinchPointR;
     private List<HandCollider> handCollidersL, handCollidersR;
 
@@ -68,6 +70,8 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         skeletonL = ovrHandL.GetComponent<OVRSkeleton>();
         skeletonR = ovrHandR.GetComponent<OVRSkeleton>();
 
+        ovrManager = GetComponentInChildren<OVRManager>();
+
         InitHandColliders();
         InitEyeTracking();
         if (IsFaceTrackingEnabled)
@@ -90,6 +94,28 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
         focusedObject = null;
         eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
+    }
+
+    // TODO: apply to all fingers
+    public Transform GetHandFingerCollider(HandType handType)
+    {
+        switch (handType)
+        {
+            case HandType.Left:
+                return handCollidersL[0].transform;
+            case HandType.Right:
+                return handCollidersR[0].transform;
+            case HandType.Any:
+                return handCollidersL[0].transform;
+            case HandType.None:
+                return null;
+            default: return null;
+        }
+    }
+
+    public void SetPassthrough(bool state)
+    {
+        ovrManager.isInsightPassthroughEnabled = state;
     }
 
     private void InitPinchPoints()
@@ -143,6 +169,9 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         {
             CalculateEyeParameters();
         }
+
+        isLeftTriggerHolded = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > .7f;
+        isRightTriggerHolded = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > .7f;
     }
 
     public void UpdateHand(HandType type)
@@ -214,20 +243,20 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     // covers player's view with color. 
     async public UniTask FadeToColor(Color targetColor, float duration)
     {
-		if (duration == 0)
-		{
-			colorOverlayMR.material.color = targetColor;
-			return;
-		}
+        if (duration == 0)
+        {
+            colorOverlayMR.material.color = targetColor;
+            return;
+        }
 
-		Color currentColor = colorOverlayMR.material.color;
+        Color currentColor = colorOverlayMR.material.color;
         if (currentColor == targetColor) return;
 
         float lerpTime = 0;
         while (lerpTime < duration)
         {
             lerpTime += Time.deltaTime;
-            float t = lerpTime/ duration;
+            float t = lerpTime / duration;
             colorOverlayMR.material.color = Color.Lerp(currentColor, targetColor, t);
 
             await UniTask.Yield();
@@ -277,6 +306,42 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         }
 
     }
+
+    public bool IsPlayerPinchingThisFrame(HandType handType)
+    {
+        switch (handType)
+        {
+            case HandType.Left:
+                return ovrHandL.GetFingerIsPinching(OVRHand.HandFinger.Index);
+            case HandType.Right:
+                return ovrHandR.GetFingerIsPinching(OVRHand.HandFinger.Index);
+            case HandType.Any:
+                return ovrHandL.GetFingerIsPinching(OVRHand.HandFinger.Index) || ovrHandR.GetFingerIsPinching(OVRHand.HandFinger.Index); ;
+            case HandType.None:
+                return false;
+            default: return false;
+        }
+    }
+
+    async public UniTask WaitForPinchHold(HandType handType, float duration)
+    {
+        float holdingDuration = 0;
+        while (holdingDuration < duration)
+        {
+            if (IsPlayerPinchingThisFrame(handType))
+            {
+                holdingDuration += Time.deltaTime;
+            }
+            else
+            {
+                holdingDuration = 0;
+            }
+
+            await UniTask.Yield();
+        }
+
+    }
+
 
     public void RepositionPlayer(Vector3 position, Quaternion rotation)
     {

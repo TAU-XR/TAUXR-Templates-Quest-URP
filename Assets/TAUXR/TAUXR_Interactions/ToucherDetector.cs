@@ -8,20 +8,33 @@ public enum ButtonColliderType { Press, Hover }
 // switch to work with unity events
 public class ToucherDetector : MonoBehaviour
 {
-    public UnityEvent<Transform> TriggerEnter;
-    public UnityEvent<Transform> TriggerExit;
-
+    public UnityEvent<Transform> ToucherEnter;
+    public UnityEvent<Transform> ToucherExited;
+    public UnityEvent HeadEnter;
+    public UnityEvent HeadExit;
     private void OnTriggerEnter(Collider other)
     {
+        switch(other.tag)
+        {
+            case "Toucher":
+                ToucherEnter.Invoke(other.transform);
+                break;
+            case "Head":
+                HeadEnter.Invoke();
+                break;
+            default: return;
+        }
+        /*
+         * TODO: Test switch, if works: remove this and implement down.
         if (!other.CompareTag("Toucher")) return;
 
-        TriggerEnter.Invoke(other.transform);
+        ToucherEnter.Invoke(other.transform);*/
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Toucher")) return;
 
-        TriggerExit.Invoke(other.transform);
+        ToucherExited.Invoke(other.transform);
     }
 }
