@@ -1,13 +1,11 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public enum HandType { Left, Right, None, Any }
 public enum FingerType { Thumb, Index, Middle, Ring, Pinky }
+
 public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 {
     public bool bCastFromMiddle;
@@ -26,21 +24,25 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
     private float EYERAYMAXLENGTH = 100000;
     [SerializeField] private float EYETRACKINGCONFIDENCETHRESHOLD = .5f;
     private Vector3 NOTTRACKINGVECTORVALUE = new Vector3(-1f, -1f, -1f);
-
-    [Header("Face Tracking")]
-    [SerializeField] private OVRFaceExpressions ovrFace;
-
+    private OVREyeGaze ovrEyeR;
     private Transform focusedObject;
     private Vector3 eyeGazeHitPosition;
     int eyeTrackingIgnoreLayer = 7;
     LayerMask eyeTrackingLayerMask = ~(1 << 7);
 
-    private OVREyeGaze ovrEyeR;
-    private OVREyeGaze ovrEyeL;
+    [Header("Face Tracking")]
+    [SerializeField] private OVRFaceExpressions ovrFace;
+
+
+
+    public TAUXRHand HandLeft;
+    public TAUXRHand HandRight;
+
+
     private OVRHand ovrHandR, ovrHandL;
     private OVRSkeleton skeletonR, skeletonL;
     private OVRManager ovrManager;
-    private PinchPoint pinchPoincL, pinchPointR;
+    private Pincher pinchPoincL, pinchPointR;
     private List<HandCollider> handCollidersL, handCollidersR;
 
 
@@ -64,15 +66,9 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
     protected override void DoInAwake()
     {
-        ovrHandL = leftHandAnchor.GetComponentInChildren<OVRHand>();
-        ovrHandR = rightHandAnchor.GetComponentInChildren<OVRHand>();
-
-        skeletonL = ovrHandL.GetComponent<OVRSkeleton>();
-        skeletonR = ovrHandR.GetComponent<OVRSkeleton>();
-
         ovrManager = GetComponentInChildren<OVRManager>();
 
-        InitHandColliders();
+        InitHands();
         InitEyeTracking();
         if (IsFaceTrackingEnabled)
         {
@@ -80,16 +76,24 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
         }
     }
 
+    private void InitHands()
+    {
+        HandRight.Init();
+        HandLeft.Init();
+        /*  ovrHandL = leftHandAnchor.GetComponentInChildren<OVRHand>();
+          ovrHandR = rightHandAnchor.GetComponentInChildren<OVRHand>();
+
+          skeletonL = ovrHandL.GetComponent<OVRSkeleton>();
+          skeletonR = ovrHandR.GetComponent<OVRSkeleton>();
+          InitHandColliders();
+        */
+    }
+
     private void InitEyeTracking()
     {
         if (rightEye.TryGetComponent(out OVREyeGaze er))
         {
             ovrEyeR = er;
-        }
-
-        if (leftEye.TryGetComponent(out OVREyeGaze el))
-        {
-            ovrEyeL = el;
         }
 
         focusedObject = null;
@@ -120,7 +124,7 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
     private void InitPinchPoints()
     {
-        foreach (PinchPoint pp in GetComponentsInChildren<PinchPoint>())
+        foreach (Pincher pp in GetComponentsInChildren<Pincher>())
         {
             if (pp.HandT == HandType.Right)
             {
@@ -162,8 +166,8 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
     void Update()
     {
-        UpdateHand(HandType.Right);
-        UpdateHand(HandType.Left);
+        HandRight.UpdateHand();
+        HandLeft.UpdateHand();
 
         if (IsEyeTrackingEnabled)
         {
@@ -172,38 +176,6 @@ public class TAUXRPlayer : TAUXRSingleton<TAUXRPlayer>
 
         isLeftTriggerHolded = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > .7f;
         isRightTriggerHolded = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > .7f;
-    }
-
-    public void UpdateHand(HandType type)
-    {
-        OVRSkeleton skeleton;
-        //      OVRHand ovrHand;
-        List<HandCollider> handColliders;
-        //        PinchPoint pinchPoint;
-
-        if (type == HandType.Left)
-        {
-            skeleton = skeletonL;
-            //ovrHand = ovrHandL;
-            handColliders = handCollidersL;
-            //pinchPoint = pinchPoincL;
-        }
-        else
-        {
-            skeleton = skeletonR;
-            //ovrHand = ovrHandR;
-            handColliders = handCollidersR;
-            //pinchPoint = pinchPointR;
-        }
-
-        if (skeleton.IsDataHighConfidence)
-        {
-            foreach (HandCollider hc in handColliders)
-                hc.UpdateHandCollider();
-
-            //pinchPoint.UpdatePinchPoint(ovrHand.GetFingerPinchStrength(OVRHand.HandFinger.Index));
-
-        }
     }
 
     private void CalculateEyeParameters()

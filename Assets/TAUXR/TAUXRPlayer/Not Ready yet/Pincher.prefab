@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3766475444189941233}
   - component: {fileID: 2190396549129883483}
   m_Layer: 0
-  m_Name: PinchPoint
+  m_Name: Pincher
   m_TagString: PinchPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

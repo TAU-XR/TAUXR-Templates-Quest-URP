@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &108603565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5766717939454816198, guid: 967af0223632a1649afa8f1a4520fc54,
+    type: 3}
+  m_PrefabInstance: {fileID: 189833903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9bf8f34fec396f40a57732ed56352c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &189833903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,15 +142,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1649265178296547793, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649265178296547799, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: HandT
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649265178296547799, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: PINCHMINDISTANCE
+      value: 0.0009
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649265178296547799, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: PINCH_EXIT_THRESHOLD
+      value: 0.001158
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649265178296547799, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: PINCH_ENTER_THRESHOLD
+      value: 0.0006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862107637438588950, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: HandLeft
+      value: 
+      objectReference: {fileID: 1065761663}
+    - target: {fileID: 1862107637438588950, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: HandRight
+      value: 
+      objectReference: {fileID: 108603565}
+    - target: {fileID: 5766717939454816198, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304478171966424965, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450417, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
       propertyPath: m_Name
       value: TAUXR_Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9179752177440450417, guid: 967af0223632a1649afa8f1a4520fc54,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
@@ -195,87 +247,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
+    - target: {fileID: 9179752179253103441, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
-      propertyPath: requestEyeTrackingPermissionOnStartup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
-        type: 3}
-      propertyPath: requestBodyTrackingPermissionOnStartup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
-        type: 3}
-      propertyPath: requestFaceTrackingPermissionOnStartup
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 967af0223632a1649afa8f1a4520fc54, type: 3}
---- !u!1 &189833904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9179752179253110537, guid: 967af0223632a1649afa8f1a4520fc54,
+--- !u!114 &1065761663 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7304478171966424965, guid: 967af0223632a1649afa8f1a4520fc54,
     type: 3}
   m_PrefabInstance: {fileID: 189833903}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &189833905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189833904}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555725d48e9051a4bb6b8d45178c2fdd, type: 3}
+  m_Script: {fileID: 11500000, guid: a9bf8f34fec396f40a57732ed56352c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectionSurfaceType: 0
-  overlayType: 1
-  compositionDepth: 0
-  hidden: 0
-  overridePerLayerColorScaleAndOffset: 0
-  colorScale: {x: 1, y: 1, z: 1, w: 1}
-  colorOffset: {x: 0, y: 0, z: 0, w: 0}
-  colorMapEditorType_: 0
-  colorMapEditorGradient:
-    serializedVersion: 2
-    key0: {r: 0, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  colorMapEditorContrast: 0
-  colorMapEditorBrightness: 0
-  colorMapEditorPosterize: 0
-  colorMapEditorSaturation: 0
-  serializedSurfaceGeometry: []
-  textureOpacity_: 1
-  edgeRenderingEnabled_: 0
-  edgeColor_: {r: 1, g: 1, b: 1, a: 1}
-  colorMapType: 0
 --- !u!1001 &520214805715851513
 PrefabInstance:
   m_ObjectHideFlags: 0
