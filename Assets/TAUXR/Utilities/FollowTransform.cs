@@ -19,10 +19,9 @@ public class FollowTransform : MonoBehaviour
         }
     }
 
-    public void Init(Transform target, Vector3 offset = default(Vector3))
+    public void Init(Transform target)
     {
         _target= target;
-        _offset = offset;
     }
 
     public Vector3 Position => transform.position;
