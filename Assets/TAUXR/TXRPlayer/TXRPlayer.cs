@@ -130,6 +130,8 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
         }
     }
 
+    // TODO: add cancelation timer, update controller vibration to both or one controller depends on handType
+   
     async public UniTask WaitForTriggerHold(HandType handType, float duration)
     {
         float holdingDuration = 0;
@@ -138,13 +140,18 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
             if (IsTriggerPressedThisFrame(handType))
             {
                 holdingDuration += Time.deltaTime;
+                OVRInput.SetControllerVibration(holdingDuration / duration, holdingDuration / duration, OVRInput.Controller.RTouch);
             }
             else
             {
                 holdingDuration = 0;
+                OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             }
+
             await UniTask.Yield();
         }
+        OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+
     }
     #endregion
 
@@ -213,7 +220,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
             await UniTask.Yield();
         }
 
-        while(waitUntilRelease && IsPlayerPinchingThisFrame(handType))
+        while (waitUntilRelease && IsPlayerPinchingThisFrame(handType))
         {
             Debug.Log("WAIT UNTIL RELEASE");
             await UniTask.Yield();
@@ -237,5 +244,5 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     }
     #endregion
 
-    
+
 }
