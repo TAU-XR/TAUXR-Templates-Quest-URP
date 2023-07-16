@@ -163,7 +163,7 @@ public class EnvironmentCalibrator : TXRSingleton<EnvironmentCalibrator>
 
         Vector3 realDirection = (realWorldReferencePoint2 - realWorldReferencePoint1).normalized;
         Vector3 virtualDirection = (virtualReferencePoint2.position - virtualReferencePoint1.position).normalized;
-        
+
         float angle = Vector3.Angle(virtualDirection, realDirection);
         Vector3 centerRotation = centerModel.transform.eulerAngles;
         centerRotation.y += angle;
