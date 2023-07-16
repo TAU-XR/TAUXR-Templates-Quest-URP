@@ -16,8 +16,13 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
     private string currentSceneName;
     public string CurrentSceneName => currentSceneName;
 
-    public void Init()
+    bool _shouldRepositionPlayer;
+    // gets isProjectUsingCalibration to know whether to use PlayerRepositioner or not.
+    public void Init(bool isProjectUsingCalibration)
     {
+        // if project is being calibrated to a space then moving it to a PlayerRepositioner will ruin calibration.
+        _shouldRepositionPlayer = !isProjectUsingCalibration;
+
         // the script assumes that Base Scene is always the first in the build order.
         if (Application.isEditor)
         {
@@ -38,7 +43,8 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
             return;
         }
 
-        RepositionPlayer();
+        RepositionPlayerIfNeeded();
+
         // we assume that when played in editor we'll be in the right scene combination.
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -64,6 +70,23 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         LoadActiveScene(FirstLoadedSceneName).Forget();
     }
 
+    async private UniTask LoadActiveScene(string sceneName)
+    {
+        if (currentSceneName == sceneName)
+        {
+            Debug.LogWarning($"Tried to load {sceneName} scene but its already loaded");
+            return;
+        }
+
+        await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        currentSceneName = sceneName;
+
+        // reposition player accordingly to new scene
+        RepositionPlayerIfNeeded();
+
+        await TXRPlayer.Instance.FadeToColor(Color.clear, FADETOCLEARDURATION);
+    }
+
     async public UniTask SwitchActiveScene(string sceneName)
     {
         if (currentSceneName == sceneName)
@@ -85,25 +108,12 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         await SceneManager.UnloadSceneAsync(currentSceneName);
     }
 
-    async private UniTask LoadActiveScene(string sceneName)
+
+    private void RepositionPlayerIfNeeded()
     {
-        if (currentSceneName == sceneName)
-        {
-            Debug.LogWarning($"Tried to load {sceneName} scene but its already loaded");
-            return;
-        }
+        // if project is being calibrated to a space then moving it to a PlayerRepositioner will ruin calibration.
+        if (!_shouldRepositionPlayer) return;
 
-        await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        currentSceneName = sceneName;
-
-        // reposition player accordingly to new scene
-        RepositionPlayer();
-
-        await TXRPlayer.Instance.FadeToColor(Color.clear, FADETOCLEARDURATION);
-    }
-
-    private void RepositionPlayer()
-    {
         Transform playerScenePositioner = FindObjectOfType<PlayerScenePositioner>().transform;
         TXRPlayer.Instance.RepositionPlayer(playerScenePositioner.position, playerScenePositioner.rotation);
     }

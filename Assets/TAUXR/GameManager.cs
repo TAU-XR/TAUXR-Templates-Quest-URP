@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : TXRSingleton<GameManager>
 {
-    [SerializeField] private bool _shouldCalibrateEnvironment;
+    [SerializeField] private bool _shouldProjectUseCalibration;     // true if project should be calibrated into a physical space.
     [SerializeField] private bool _shouldCalibrateOnEditor;
     private TXRSceneManager _sceneManager;
     private EnvironmentCalibrator _calibrator;
@@ -19,14 +19,17 @@ public class GameManager : TXRSingleton<GameManager>
 
     private async UniTask StartTAUXRExperience()
     {
-        // calibrate environment only when checked and not in editor
-        if (!Application.isEditor && _shouldCalibrateEnvironment || _shouldCalibrateOnEditor && Application.isEditor)
+        bool shouldCalibrateOnBuild = !Application.isEditor && _shouldProjectUseCalibration;
+        bool shouldCalibrateOnEditor = _shouldCalibrateOnEditor && Application.isEditor && _shouldProjectUseCalibration;
+
+        if (shouldCalibrateOnBuild || shouldCalibrateOnEditor)
         {
             // trigger calibration on BaseScene
             await _calibrator.CalibrateRoom();
         }
 
-        _sceneManager.Init();
+        // after environment was calibrated- load first scene
+        _sceneManager.Init(_shouldProjectUseCalibration);
     }
 
 }
