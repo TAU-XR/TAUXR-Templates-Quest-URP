@@ -3,8 +3,6 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
-
 public class TXRPlayer : TXRSingleton<TXRPlayer>
 {
     [Header("Player Trackables")]
@@ -12,7 +10,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     [SerializeField] private Transform playerHead;
     [SerializeField] private Transform rightHandAnchor;
     [SerializeField] private Transform leftHandAnchor;
-    private OVRManager ovrManager;
+    private OVRManager _ovrManager;
     public Transform PlayerHead => playerHead;
     public Transform RightHand => rightHandAnchor;
     public Transform LeftHand => leftHandAnchor;
@@ -44,7 +42,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
 
     protected override void DoInAwake()
     {
-        ovrManager = GetComponentInChildren<OVRManager>();
+        _ovrManager = GetComponentInChildren<OVRManager>();
 
         HandRight.Init();
         HandLeft.Init();
@@ -110,7 +108,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     }
     public void SetPassthrough(bool state)
     {
-        ovrManager.isInsightPassthroughEnabled = state;
+        _ovrManager.isInsightPassthroughEnabled = state;
     }
 
     #region Controllers
