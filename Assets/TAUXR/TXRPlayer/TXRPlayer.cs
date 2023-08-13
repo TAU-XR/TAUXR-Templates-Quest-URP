@@ -156,55 +156,23 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     #endregion
 
     #region Hands
-    public Action PinchEnter(HandType handType)
-    {
-        switch (handType)
-        {
-            case HandType.Left:
-                return HandLeft.PinchEnter;
-            case HandType.Right:
-                return HandRight.PinchEnter;
-            case HandType.Any:
-                return HandRight.PinchEnter;
-            case HandType.None:
-                return null;
-            default: return null;
-        }
-    }
-
-    public Action PinchExit(HandType handType)
-    {
-        switch (handType)
-        {
-            case HandType.Left:
-                return HandLeft.PinchExit;
-            case HandType.Right:
-                return HandRight.PinchExit;
-            case HandType.Any:
-                return HandRight.PinchExit;
-            case HandType.None:
-                return null;
-            default: return null;
-        }
-    }
-
     public bool IsPlayerPinchingThisFrame(HandType handType)
     {
         switch (handType)
         {
             case HandType.Left:
-                return HandLeft.IsPlayerPinchingThisFrame();
+                return HandLeft.PinchManager.IsPlayerPinchingThisFrame();
             case HandType.Right:
-                return HandRight.IsPlayerPinchingThisFrame();
+                return HandRight.PinchManager.IsPlayerPinchingThisFrame();
             case HandType.Any:
-                return HandRight.IsPlayerPinchingThisFrame() || HandLeft.IsPlayerPinchingThisFrame(); ;
+                return HandRight.PinchManager.IsPlayerPinchingThisFrame() || HandLeft.PinchManager.IsPlayerPinchingThisFrame(); ;
             case HandType.None:
                 return false;
             default: return false;
         }
     }
 
-    async public UniTask WaitForPinchHold(HandType handType, float duration, bool waitUntilRelease = false)
+    public async UniTask WaitForPinchHold(HandType handType, float duration, bool waitUntilRelease = false)
     {
         float holdingDuration = 0;
         while (holdingDuration < duration)
