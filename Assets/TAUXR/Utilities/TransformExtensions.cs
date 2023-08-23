@@ -6,7 +6,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public static class TXRExtensions
+public static class TransformExtensions
 {
 	public static async UniTask LerpObjectToAnother(this Transform objectToLerp, Transform objectToLerpTo, float lerpDuration, bool shouldParent = false, CancellationToken cancellationToken = default)
 	{
