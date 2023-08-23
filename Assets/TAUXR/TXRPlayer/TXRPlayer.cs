@@ -37,7 +37,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     // Color overlay
     [SerializeField] private MeshRenderer colorOverlayMR;
 
-    public TXRControllers TXRControllers;
+    public TXRControllersInputManager TXRControllersInputManager;
 
     protected override void DoInAwake()
     {
@@ -46,7 +46,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
         HandRight.Init();
         HandLeft.Init();
 
-        TXRControllers = new TXRControllers();
+        TXRControllersInputManager = new TXRControllersInputManager();
 
         if (IsEyeTrackingEnabled)
             EyeTracker.Init();

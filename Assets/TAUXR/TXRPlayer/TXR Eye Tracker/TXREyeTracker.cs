@@ -35,7 +35,7 @@ public class TXREyeTracker : MonoBehaviour
 
     public void UpdateEyeTracker()
     {
-        // don't track if there is no OVREye componenet (enough to check only on one eye).
+        // don't track if there is no OVREye component (enough to check only on one eye).
         if (_ovrEyeR == null) return;
 
         // don't track on low confidence.
@@ -50,13 +50,17 @@ public class TXREyeTracker : MonoBehaviour
 
         // cast from middle eye
         Vector3 eyePosition = (_rightEye.position + _leftEye.position) / 2;
-        
+
+        //TODO: try using average of both eyes forward
         // eye forward is same for both eyes.
         Vector3 eyeForward = _rightEye.forward;
 
         RaycastHit hit;
         if (Physics.Raycast(eyePosition, eyeForward, out hit, EYERAYMAXLENGTH, _eyeTrackingLayerMask))
         {
+            //Use interface:
+            //(_focusedObject as ILookedAt)?.LookedAt();
+
             _focusedObject = hit.transform;
             _eyeGazeHitPosition = hit.point;
         }
