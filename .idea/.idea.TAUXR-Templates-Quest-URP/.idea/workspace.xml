@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/AInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/AInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/TXRControllersInputManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/TXRControllersInputManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SceneManagement/TXRSceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SceneManagement/TXRSceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +18,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../17-Century-Printing/Assets/TAUXR/TXR_Interactions/ToucherDetector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Lost-Maze-Yehuda-Tom-Pablo/Assets/TAUXR/TAUXR_Player/TAUXRPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/ReactionTime/InstructionsText.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/TAUXR/TXR_Interactions/ToucherDetector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/PositionSetter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/AInputManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Controllers/TXRPinchingInputManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Editor/TextPopUpEditor.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2T439HNV8QvjzmQmFlpLMHmfpPb" />
   <component name="ProjectViewState">
@@ -103,7 +102,7 @@
       <workItem from="1691927567930" duration="525000" />
       <workItem from="1692703390760" duration="803000" />
       <workItem from="1692792656843" duration="143000" />
-      <workItem from="1692794131233" duration="6839000" />
+      <workItem from="1692794131233" duration="12089000" />
     </task>
     <servers />
   </component>

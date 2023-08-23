@@ -71,7 +71,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     }
 
     // covers player's view with color. 
-    public async UniTask FadeToColor(Color targetColor, float duration)
+    public async UniTask FadeViewToColor(Color targetColor, float duration)
     {
         if (duration == 0)
         {
