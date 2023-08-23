@@ -9,7 +9,7 @@ public abstract class AInputManager
 {
     public CancellationTokenSource WaitForHoldCancellationTokenSource;
 
-    public bool IsPressedThisFrame(HandType handType)
+    public bool IsInputPressedThisFrame(HandType handType)
     {
         bool isLeftHeld = IsLeftHeld();
         bool isRightHeld = IsRightHeld();
@@ -34,16 +34,23 @@ public abstract class AInputManager
     public async UniTask WaitForPress(HandType handType, Action callback = default)
     {
         await WaitForExitIfHolding(handType);
-        UniTask.WaitUntil(() => IsPressedThisFrame(handType));
+        UniTask.WaitUntil(() => IsInputPressedThisFrame(handType));
         callback?.Invoke();
     }
 
     private async UniTask WaitForExitIfHolding(HandType handType)
     {
-        if (IsPressedThisFrame(handType))
+        if (IsInputPressedThisFrame(handType))
         {
-            await UniTask.WaitUntil(() => !IsPressedThisFrame(handType));
+            await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType));
         }
+    }
+
+    public async UniTask WaitForHoldAndRelease(HandType handType, float duration, Action callback = default)
+    {
+        await WaitForHold(handType, duration);
+        await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType));
+        callback?.Invoke();
     }
 
     public async UniTask WaitForHold(HandType handType, float duration,
@@ -58,7 +65,7 @@ public abstract class AInputManager
             bool cancellationRequested = WaitForHoldCancellationTokenSource.IsCancellationRequested;
             while (holdingDuration < duration && !cancellationRequested)
             {
-                holdingDuration = IsPressedThisFrame(handType)
+                holdingDuration = IsInputPressedThisFrame(handType)
                     ? holdingDuration + Time.deltaTime
                     : 0;
 
@@ -76,6 +83,11 @@ public abstract class AInputManager
         DoOnHoldFinished();
     }
 
-    protected abstract void DoWhileHolding(float holdingDuration, float duration);
-    protected abstract void DoOnHoldFinished();
+    protected virtual void DoWhileHolding(float holdingDuration, float duration)
+    {
+    }
+
+    protected virtual void DoOnHoldFinished()
+    {
+    }
 }

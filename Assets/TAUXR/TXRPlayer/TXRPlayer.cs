@@ -37,7 +37,8 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     // Color overlay
     [SerializeField] private MeshRenderer colorOverlayMR;
 
-    public TXRControllersInputManager TXRControllersInputManager;
+    public ControllersInputManager ControllersInputManager;
+    public PinchingInputManager PinchingInputManager;
 
     protected override void DoInAwake()
     {
@@ -46,7 +47,8 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
         HandRight.Init();
         HandLeft.Init();
 
-        TXRControllersInputManager = new TXRControllersInputManager();
+        ControllersInputManager = new ControllersInputManager();
+        PinchingInputManager = new PinchingInputManager(HandLeft, HandRight);
 
         if (IsEyeTrackingEnabled)
             EyeTracker.Init();
@@ -113,60 +115,6 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     }
 
     #region Hands
-
-    public bool IsPlayerPinchingThisFrame(HandType handType)
-    {
-        switch (handType)
-        {
-            case HandType.Left:
-                return HandLeft.PinchManager.IsPlayerPinchingThisFrame();
-            case HandType.Right:
-                return HandRight.PinchManager.IsPlayerPinchingThisFrame();
-            case HandType.Any:
-                return HandRight.PinchManager.IsPlayerPinchingThisFrame() ||
-                       HandLeft.PinchManager.IsPlayerPinchingThisFrame();
-                ;
-            case HandType.None:
-                return false;
-            default: return false;
-        }
-    }
-
-    public async UniTask WaitForPinch(HandType handType)
-    {
-        await WaitForPinchExitIfPinching(handType);
-        await UniTask.WaitUntil(() => IsPlayerPinchingThisFrame(handType));
-    }
-
-    private async UniTask WaitForPinchExitIfPinching(HandType handType)
-    {
-        if (IsPlayerPinchingThisFrame(handType))
-        {
-            await UniTask.WaitUntil(() => !IsPlayerPinchingThisFrame(handType));
-        }
-    }
-
-    public async UniTask WaitForPinchHold(HandType handType, float duration, bool waitUntilRelease = false)
-    {
-        await WaitForPinchExitIfPinching(handType);
-
-        float holdingDuration = 0;
-        while (holdingDuration < duration)
-        {
-            if (IsPlayerPinchingThisFrame(handType))
-            {
-                holdingDuration += Time.deltaTime;
-            }
-            else
-            {
-                holdingDuration = 0;
-            }
-
-            await UniTask.Yield();
-        }
-
-        await UniTask.WaitUntil(() => !waitUntilRelease || !IsPlayerPinchingThisFrame(handType));
-    }
 
     public Transform GetHandFingerCollider(HandType handType, FingerType fingerType)
     {

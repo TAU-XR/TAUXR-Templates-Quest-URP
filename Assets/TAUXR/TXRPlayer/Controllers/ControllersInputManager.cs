@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Threading;
 using System;
 
-public class TXRControllersInputManager : AInputManager
+public class ControllersInputManager : AInputManager
 {
     protected override bool IsLeftHeld()
     {
@@ -32,12 +32,12 @@ public class TXRControllersInputManager : AInputManager
 
     private void SetControllersVibrationOnHold(float vibrationStrength)
     {
-        if (IsPressedThisFrame(HandType.Left))
+        if (IsInputPressedThisFrame(HandType.Left))
         {
             OVRInput.SetControllerVibration(vibrationStrength, vibrationStrength, OVRInput.Controller.LTouch);
         }
 
-        if (IsPressedThisFrame(HandType.Right))
+        if (IsInputPressedThisFrame(HandType.Right))
         {
             OVRInput.SetControllerVibration(vibrationStrength, vibrationStrength, OVRInput.Controller.RTouch);
         }
