@@ -35,9 +35,9 @@ public class TextPopUpEditor : Editor
 
         GUILayout.Space(10);
 
-        if (GUILayout.Button("Debug number of words"))
+        if (GUILayout.Button("Debug number of letters and scale multiplier"))
         {
-            textPopUp.DebugNumberOfWords();
+            textPopUp.DebugNumberOfLettersAndScaleMultiplier();
         }
     }
 }
