@@ -7,12 +7,12 @@ using System;
 
 public class ControllersInputManager : AInputManager
 {
-    protected override bool IsLeftHeld()
+    public override bool IsLeftHeld()
     {
         return OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > .7f;
     }
 
-    protected override bool IsRightHeld()
+    public override bool IsRightHeld()
     {
         return OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > .7f;
     }

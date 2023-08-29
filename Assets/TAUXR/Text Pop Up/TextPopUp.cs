@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class TextPopUp : MonoBehaviour
     private const float DefaultTextWidth = 0.48f;
     private const float DefaultTextHeight = 0.08f;
 
+    [SerializeField] private bool _useAnimation = true;
+
     [SerializeField] private GameObject _backFace;
     [SerializeField] private GameObject _pointer;
     [SerializeField] private TextMeshPro _textUI;
@@ -16,6 +19,14 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private int _numberOfLettersWhenScaleIsOne = 55;
 
     [TextArea(1, 10)] [SerializeField] private string _text;
+
+    private void Start()
+    {
+        if (!_useAnimation)
+        {
+            GetComponent<Animator>().Play("Birth", -1, 1);
+        }
+    }
 
     public void GetTextFromComponent()
     {

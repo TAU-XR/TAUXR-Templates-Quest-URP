@@ -16,12 +16,12 @@ public class PinchingInputManager : AInputManager
         _handRight = handRight;
     }
 
-    protected override bool IsLeftHeld()
+    public override bool IsLeftHeld()
     {
         return _handLeft.PinchManager.IsPlayerPinchingThisFrame();
     }
 
-    protected override bool IsRightHeld()
+    public override bool IsRightHeld()
     {
         return _handRight.PinchManager.IsPlayerPinchingThisFrame();
     }
