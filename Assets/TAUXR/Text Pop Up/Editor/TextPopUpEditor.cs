@@ -10,7 +10,19 @@ public class TextPopUpEditor : Editor
     {
         base.OnInspectorGUI();
         TextPopUp textPopUp = target as TextPopUp;
-        GUILayout.Label("write your text and then press set new scale.");
+
+        if (GUILayout.Button("Get text from component"))
+        {
+            textPopUp.GetTextFromComponent();
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Set text and scale"))
+        {
+            textPopUp.SetTextAndScaleFromSerializedField();
+        }
+
         if (GUILayout.Button("Set new scale"))
         {
             textPopUp.SetNewScale();
@@ -20,6 +32,8 @@ public class TextPopUpEditor : Editor
         {
             textPopUp.ResetScale();
         }
+
+        GUILayout.Space(10);
 
         if (GUILayout.Button("Debug number of words"))
         {
