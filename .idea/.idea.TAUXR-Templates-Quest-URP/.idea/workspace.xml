@@ -6,13 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/AInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/AInputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DebugMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DebugMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVREyeGaze.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVREyeGaze.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVRPlugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVRPlugin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/Controllers/ControllersInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/Controllers/ControllersInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Eye Tracker/TXREyeTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Eye Tracker/TXREyeTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,10 +23,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../17-Century-Printing/Assets/TAUXR/TXR_Interactions/ToucherDetector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Lost-Maze-Yehuda-Tom-Pablo/Assets/TAUXR/TAUXR_Player/TAUXRPlayer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/ReactionTime/InstructionsText.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/ReactionTime/InstructionsText.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/TAUXR/TXRPlayer/TXRPlayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/TAUXR/TXR_Interactions/ToucherDetector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/DebugMode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVRPlugin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/PositionSetter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Editor/TextPopUpEditor.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -108,7 +110,8 @@
       <workItem from="1692703390760" duration="803000" />
       <workItem from="1692792656843" duration="143000" />
       <workItem from="1692794131233" duration="12684000" />
-      <workItem from="1693296781684" duration="7611000" />
+      <workItem from="1693296781684" duration="9567000" />
+      <workItem from="1693310715996" duration="4933000" />
     </task>
     <servers />
   </component>

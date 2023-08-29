@@ -20,7 +20,7 @@ public class TextPopUp : MonoBehaviour
 
     [TextArea(1, 10)] [SerializeField] private string _text;
 
-    private void Start()
+    private void OnEnable()
     {
         if (!_useAnimation)
         {
