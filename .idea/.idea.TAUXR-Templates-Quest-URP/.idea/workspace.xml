@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DebugMode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DebugMode.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/AInputManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/AInputManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/DebugMode/DebugMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/DebugMode/DebugMode.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +103,7 @@
       <workItem from="1692792656843" duration="143000" />
       <workItem from="1692794131233" duration="12684000" />
       <workItem from="1693296781684" duration="9567000" />
-      <workItem from="1693310715996" duration="6655000" />
+      <workItem from="1693310715996" duration="7182000" />
     </task>
     <servers />
   </component>

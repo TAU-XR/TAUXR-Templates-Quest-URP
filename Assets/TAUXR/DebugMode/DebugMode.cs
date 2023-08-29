@@ -20,6 +20,7 @@ public class DebugMode : MonoBehaviour
     private GameObject _previousFocusedObject;
     private Material _previousFocusedObjectPreviousMaterial;
     private bool _wasFocusedOnObject = false;
+    private bool _wasInDebugMode;
 
     private void Start()
     {
@@ -37,6 +38,18 @@ public class DebugMode : MonoBehaviour
                 () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
         }
 
+        if (_wasInDebugMode && !_inDebugMode)
+        {
+            //TODO: Revert all changes to scene
+            _textPopUp.SetActive(false);
+            if (_previousFocusedObject != null)
+            {
+                RevertPreviousFocusedObject();
+            }
+
+            _wasInDebugMode = false;
+        }
+
         if (!_inDebugMode)
         {
             return;
@@ -51,6 +64,7 @@ public class DebugMode : MonoBehaviour
     private void ToggleDebugModeState()
     {
         _waitingForPinchingInputsInARow = false;
+        _wasInDebugMode = _inDebugMode;
         _inDebugMode = !_inDebugMode;
         Debug.Log("In debug mode = " + _inDebugMode);
     }
@@ -82,8 +96,8 @@ public class DebugMode : MonoBehaviour
         else if (_wasFocusedOnObject && focusedObject == null)
         {
             _previousFocusedObject.GetComponent<MeshRenderer>().material = _previousFocusedObjectPreviousMaterial;
-            _wasFocusedOnObject = false;
             _eyeHitPositionSphere.gameObject.SetActive(false);
+            _wasFocusedOnObject = false;
             // _textPopUp.SetActive(false);
         }
     }
@@ -100,5 +114,11 @@ public class DebugMode : MonoBehaviour
         _textPopUp.transform.eulerAngles = new Vector3(0,
             _textPopUp.transform.eulerAngles.y + 90, 0);
         _textPopUp.GetComponent<TextPopUp>().SetTextAndScale(focusedObject.name);
+    }
+
+    private void RevertPreviousFocusedObject()
+    {
+        _previousFocusedObject.GetComponent<MeshRenderer>().material = _previousFocusedObjectPreviousMaterial;
+        _eyeHitPositionSphere.gameObject.SetActive(false);
     }
 }
