@@ -5,6 +5,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
+//TODO: create interface (to see the methods)
 public abstract class AInputManager
 {
     public CancellationTokenSource WaitForHoldCancellationTokenSource;
@@ -36,6 +37,11 @@ public abstract class AInputManager
         await WaitForExitIfHolding(handType);
         UniTask.WaitUntil(() => IsInputPressedThisFrame(handType));
         callback?.Invoke();
+        DoOnPress();
+    }
+
+    protected virtual void DoOnPress()
+    {
     }
 
     private async UniTask WaitForExitIfHolding(HandType handType)
@@ -58,18 +64,19 @@ public abstract class AInputManager
     {
         using (WaitForHoldCancellationTokenSource = new CancellationTokenSource())
         {
-            float holdingDuration = 0;
+            float holdingTime = 0;
 
+            //If the player is already holding when the method starts, we wait for release and a new hold
             await WaitForExitIfHolding(handType);
 
             bool cancellationRequested = WaitForHoldCancellationTokenSource.IsCancellationRequested;
-            while (holdingDuration < duration && !cancellationRequested)
+            while (holdingTime < duration && !cancellationRequested)
             {
-                holdingDuration = IsInputPressedThisFrame(handType)
-                    ? holdingDuration + Time.deltaTime
+                holdingTime = IsInputPressedThisFrame(handType)
+                    ? holdingTime + Time.deltaTime
                     : 0;
 
-                DoWhileHolding(holdingDuration, duration);
+                DoWhileHolding(handType, holdingTime, duration);
 
                 await UniTask.Yield();
             }
@@ -80,14 +87,14 @@ public abstract class AInputManager
             }
         }
 
-        DoOnHoldFinished();
+        DoOnHoldFinished(handType);
     }
 
-    protected virtual void DoWhileHolding(float holdingDuration, float duration)
+    protected virtual void DoWhileHolding(HandType handType, float holdingDuration, float duration)
     {
     }
 
-    protected virtual void DoOnHoldFinished()
+    protected virtual void DoOnHoldFinished(HandType handType)
     {
     }
 

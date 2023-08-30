@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//TODO: Do the animation in code
 public class TextPopUp : MonoBehaviour
 {
     private const float ScaleMultiplierScalar = 0.5f;
@@ -74,6 +75,7 @@ public class TextPopUp : MonoBehaviour
 
     private void UpdateBackFace(float scaleMultiplier)
     {
+        //TODO: instead of changing scale, change rectangle size
         _backFace.transform.localScale = new Vector3(scaleMultiplier, scaleMultiplier, 1);
     }
 
@@ -85,6 +87,7 @@ public class TextPopUp : MonoBehaviour
 
     private void UpdatePointer(float scaleMultiplier)
     {
+        //TODO: instead of changing scale, change rectangle size
         _pointer.transform.localPosition = new Vector3(-0.0034f, 0,
             _textUI.rectTransform.offsetMax.x + 0.02f * scaleMultiplier);
         _pointer.transform.localScale = new Vector3(scaleMultiplier, scaleMultiplier, 1);

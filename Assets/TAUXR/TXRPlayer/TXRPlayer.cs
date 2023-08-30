@@ -39,7 +39,6 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
 
     public ControllersInputManager ControllersInputManager;
     public PinchingInputManager PinchingInputManager;
-    private bool _waitingForPinchingInputsInARow = false;
 
     protected override void DoInAwake()
     {
