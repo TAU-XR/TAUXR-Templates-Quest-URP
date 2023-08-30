@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EyeDataDebugger : MonoBehaviour
@@ -7,6 +8,7 @@ public class EyeDataDebugger : MonoBehaviour
     [SerializeField] private Material _focusedObjectMaterial;
     [SerializeField] private Transform _eyeHitPositionSphere;
     [SerializeField] private GameObject _textPopUp;
+    [SerializeField] private TextMeshPro _eyeDebuggerText;
 
     private GameObject _previousFocusedObject;
     private Material _previousFocusedObjectPreviousMaterial;
@@ -14,7 +16,7 @@ public class EyeDataDebugger : MonoBehaviour
     public void DebugEyeData()
     {
         //TODO: refactor
-        GameObject focusedObject = TXRPlayer.Instance.EyeTracker.FocusedObject.gameObject;
+        Transform focusedObject = TXRPlayer.Instance.EyeTracker.FocusedObject;
 
         if (focusedObject != null)
         {
@@ -26,7 +28,9 @@ public class EyeDataDebugger : MonoBehaviour
             if (_previousFocusedObject == null)
             {
                 //TODO: extract to method
-                UpdateTextPopUp(focusedObject.transform);
+                // UpdateTextPopUp(focusedObject.transform);
+                _eyeDebuggerText.gameObject.SetActive(true);
+                _eyeDebuggerText.text = focusedObject.name;
                 _previousFocusedObjectPreviousMaterial = focusedObject.GetComponent<MeshRenderer>().material;
                 _previousFocusedObject = focusedObject.gameObject;
                 focusedObject.GetComponent<MeshRenderer>().material = _focusedObjectMaterial;
@@ -38,6 +42,15 @@ public class EyeDataDebugger : MonoBehaviour
         else if (_previousFocusedObject != null && focusedObject == null)
         {
             RevertPreviousFocusedObject();
+        }
+        else if (focusedObject == null)
+        {
+            if (_previousFocusedObject != null)
+            {
+                RevertPreviousFocusedObject();
+            }
+
+            _eyeDebuggerText.text = "No object tracked";
         }
     }
 
@@ -70,6 +83,7 @@ public class EyeDataDebugger : MonoBehaviour
             RevertPreviousFocusedObject();
         }
 
+        _eyeDebuggerText.gameObject.SetActive(false);
         _textPopUp.SetActive(false);
     }
 }
