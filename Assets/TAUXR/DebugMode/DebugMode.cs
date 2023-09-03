@@ -55,7 +55,7 @@ public class DebugMode : MonoBehaviour
 
         _waitingForPinchingInputsInARow = true;
         HandType nextHand = pinchingInputManager.IsLeftHeld() ? HandType.Right : HandType.Left;
-        pinchingInputManager.WaitForInputsInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
+        pinchingInputManager.WaitForPressesInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
             () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
     }
 

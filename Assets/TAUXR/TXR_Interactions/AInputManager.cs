@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading;
@@ -8,9 +6,6 @@ using Cysharp.Threading.Tasks;
 //TODO: create interface (to see the methods)
 public abstract class AInputManager
 {
-    public CancellationTokenSource WaitForHoldCancellationTokenSource;
-    public CancellationTokenSource WaitForPressCancellationTokenSource;
-
     public bool IsInputPressedThisFrame(HandType handType)
     {
         bool isLeftHeld = IsLeftHeld();
@@ -33,86 +28,44 @@ public abstract class AInputManager
     public abstract bool IsLeftHeld();
     public abstract bool IsRightHeld();
 
-    public async UniTask WaitForPress(HandType handType, Action callback = default)
+    public async UniTask WaitForPress(HandType handType, Action callback = default, CancellationToken cancellationToken = default)
     {
-        using (WaitForPressCancellationTokenSource = new CancellationTokenSource())
-        {
-            try
-            {
-                await WaitForReleaseIfHolding(handType, WaitForPressCancellationTokenSource.Token);
-                await UniTask.WaitUntil(() => IsInputPressedThisFrame(handType),
-                    cancellationToken: WaitForPressCancellationTokenSource.Token);
-                callback?.Invoke();
-                DoOnPress();
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("Wait for press cancelled");
-            }
-        }
+        await WaitForReleaseIfHolding(handType, cancellationToken);         //If the player is already holding when the method starts, we wait for release and a new hold.
+        await UniTask.WaitUntil(() => IsInputPressedThisFrame(handType), cancellationToken: cancellationToken);
+        callback?.Invoke();
+        DoOnPress();
     }
 
     protected virtual void DoOnPress()
     {
     }
 
-    private async UniTask WaitForReleaseIfHolding(HandType handType,
-        CancellationToken cancellationToken = default)
+    private async UniTask WaitForReleaseIfHolding(HandType handType, CancellationToken cancellationToken = default)
     {
         if (IsInputPressedThisFrame(handType))
         {
-            await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType),
-                cancellationToken: cancellationToken);
+            await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType), cancellationToken: cancellationToken);
         }
     }
-
-    public async UniTask WaitForHoldAndRelease(HandType handType, float duration, Action callback = default)
+    public async UniTask WaitForHold(HandType handType, float duration, Action callback = default, CancellationToken cancellationToken = default)
     {
-        try
+        //If the player is already holding when the method starts, we wait for release and a new hold
+        await WaitForReleaseIfHolding(handType, cancellationToken);
+
+        float holdingTime = 0;
+        while (holdingTime < duration)
         {
-            await WaitForHold(handType, duration);
-            await WaitForReleaseIfHolding(handType, WaitForHoldCancellationTokenSource.Token);
-            callback?.Invoke();
+            holdingTime = IsInputPressedThisFrame(handType) ? holdingTime + Time.deltaTime : 0;
+
+            DoWhileWaitingForHold(handType, holdingTime, duration);
+
+            await UniTask.Yield(cancellationToken: cancellationToken);
         }
-        catch (OperationCanceledException)
-        {
-            Debug.Log("Wait for hold and release cancelled");
-        }
-    }
 
-    public async UniTask WaitForHold(HandType handType, float duration,
-        Action callback = default)
-    {
-        using (WaitForHoldCancellationTokenSource = new CancellationTokenSource())
-        {
-            try
-            {
-                //If the player is already holding when the method starts, we wait for release and a new hold
-                await WaitForReleaseIfHolding(handType, WaitForHoldCancellationTokenSource.Token);
-
-                float holdingTime = 0;
-                while (holdingTime < duration)
-                {
-                    holdingTime = IsInputPressedThisFrame(handType)
-                        ? holdingTime + Time.deltaTime
-                        : 0;
-
-                    DoWhileWaitingForHold(handType, holdingTime, duration);
-
-                    await UniTask.Yield(cancellationToken: WaitForHoldCancellationTokenSource.Token);
-                }
-
-                callback?.Invoke();
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("Hold cancelled");
-            }
-        }
+        callback?.Invoke();
 
         DoOnHoldFinished(handType);
     }
-
     protected virtual void DoWhileWaitingForHold(HandType handType, float holdingDuration, float duration)
     {
     }
@@ -121,8 +74,16 @@ public abstract class AInputManager
     {
     }
 
-    public async UniTask WaitForInputsInARow(int numberOfInputsInARow, float maxTimeBetweenInputs,
-        Action successCallback, Action timeOutCallback = default,
+
+    public async UniTask WaitForHoldAndRelease(HandType handType, float duration, Action callback = default, CancellationToken cancellationToken = default)
+    {
+        await WaitForHold(handType, duration, null, cancellationToken);
+        await WaitForReleaseIfHolding(handType, cancellationToken);
+        callback?.Invoke();
+    }
+
+    public async UniTask WaitForPressesInARow(int numberOfInputsInARow, float maxTimeBetweenInputs,
+        Action successCallback = default, Action timeOutCallback = default,
         bool alternateHands = false, HandType startingHand = HandType.Right)
     {
         int currentNumberOfInputs = 1;
@@ -150,6 +111,6 @@ public abstract class AInputManager
             }
         }
 
-        successCallback();
+        successCallback?.Invoke();
     }
 }
