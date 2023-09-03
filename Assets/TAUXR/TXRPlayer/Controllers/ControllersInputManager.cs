@@ -19,7 +19,7 @@ public class ControllersInputManager : AInputManager
         return OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > .7f;
     }
 
-    protected override void DoWhileHolding(HandType handType, float holdingDuration, float duration)
+    protected override void DoWhileWaitingForHold(HandType handType, float holdingDuration, float duration)
     {
         //Updating vibration
         if (holdingDuration > 0)

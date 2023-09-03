@@ -45,7 +45,7 @@ public abstract class AInputManager
                 callback?.Invoke();
                 DoOnPress();
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 Debug.Log("Wait for press cancelled");
             }
@@ -74,7 +74,7 @@ public abstract class AInputManager
             await WaitForReleaseIfHolding(handType, WaitForHoldCancellationTokenSource.Token);
             callback?.Invoke();
         }
-        catch (OperationCanceledException ex)
+        catch (OperationCanceledException)
         {
             Debug.Log("Wait for hold and release cancelled");
         }
@@ -97,14 +97,14 @@ public abstract class AInputManager
                         ? holdingTime + Time.deltaTime
                         : 0;
 
-                    DoWhileHolding(handType, holdingTime, duration);
+                    DoWhileWaitingForHold(handType, holdingTime, duration);
 
                     await UniTask.Yield(cancellationToken: WaitForHoldCancellationTokenSource.Token);
                 }
 
                 callback?.Invoke();
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 Debug.Log("Hold cancelled");
             }
@@ -113,7 +113,7 @@ public abstract class AInputManager
         DoOnHoldFinished(handType);
     }
 
-    protected virtual void DoWhileHolding(HandType handType, float holdingDuration, float duration)
+    protected virtual void DoWhileWaitingForHold(HandType handType, float holdingDuration, float duration)
     {
     }
 

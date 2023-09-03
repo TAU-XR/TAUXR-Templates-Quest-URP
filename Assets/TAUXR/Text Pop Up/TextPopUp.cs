@@ -10,6 +10,7 @@ public class TextPopUp : MonoBehaviour
     private const float ScaleMultiplierScalar = 0.5f;
     private const float DefaultTextWidth = 0.48f;
     private const float DefaultTextHeight = 0.08f;
+    private const int NumberOfLettersWhenScaleIsOne = 55;
 
     [SerializeField] private bool _useAnimation = true;
 
@@ -17,7 +18,6 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private GameObject _pointer;
     [SerializeField] private TextMeshPro _textUI;
 
-    [SerializeField] private int _numberOfLettersWhenScaleIsOne = 55;
 
     [TextArea(1, 10)] [SerializeField] private string _text;
 
@@ -63,7 +63,7 @@ public class TextPopUp : MonoBehaviour
 
     private float CalculateScaleMultiplier()
     {
-        float scaleMultiplier = (float)_textUI.text.Length / _numberOfLettersWhenScaleIsOne;
+        float scaleMultiplier = (float)_textUI.text.Length / NumberOfLettersWhenScaleIsOne;
         scaleMultiplier = Mathf.Lerp(1, scaleMultiplier, ScaleMultiplierScalar);
         if (_textUI.text.Length > 300)
         {
