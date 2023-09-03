@@ -6,10 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/DebugMode/EyeDataDebugger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/DebugMode/EyeDataDebugger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Fonts/NeueHaasDisplay-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Fonts/NeueHaasDisplay-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/ChildrenRenamer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/ChildrenRenamer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/Editor/PositionSetterEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/Editor/PositionSetterEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/Editor/TopLevelChildrenRenamerEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/Editor/TopLevelChildrenRenamerEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/PositionSetter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/PositionSetter.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Scenes/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Eye Tracker/FollowEyeSphere.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXRPlayer/TXR Eye Tracker/FollowEyeSphere.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/AInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/AInputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Utilities/TransformExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Utilities/TransformExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +35,6 @@
     <setting file="file://$PROJECT_DIR$/../Reaction-Time/Assets/TAUXR/TXR_Interactions/ToucherDetector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/Oculus/VR/Scripts/OVRPlugin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/DebugMode/EyeDataDebugger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/EditorUtilities/PositionSetter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Editor/TextPopUpEditor.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2T439HNV8QvjzmQmFlpLMHmfpPb" />
@@ -108,7 +118,8 @@
       <workItem from="1692794131233" duration="12684000" />
       <workItem from="1693296781684" duration="9567000" />
       <workItem from="1693310715996" duration="9164000" />
-      <workItem from="1693388539681" duration="5871000" />
+      <workItem from="1693388539681" duration="6415000" />
+      <workItem from="1693731731993" duration="2329000" />
     </task>
     <servers />
   </component>

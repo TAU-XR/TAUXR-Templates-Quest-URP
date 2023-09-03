@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 public abstract class AInputManager
 {
     public CancellationTokenSource WaitForHoldCancellationTokenSource;
+    public CancellationTokenSource WaitForPressCancellationTokenSource;
 
     public bool IsInputPressedThisFrame(HandType handType)
     {
@@ -34,29 +35,49 @@ public abstract class AInputManager
 
     public async UniTask WaitForPress(HandType handType, Action callback = default)
     {
-        await WaitForExitIfHolding(handType);
-        UniTask.WaitUntil(() => IsInputPressedThisFrame(handType));
-        callback?.Invoke();
-        DoOnPress();
+        using (WaitForPressCancellationTokenSource = new CancellationTokenSource())
+        {
+            try
+            {
+                await WaitForReleaseIfHolding(handType, WaitForPressCancellationTokenSource.Token);
+                await UniTask.WaitUntil(() => IsInputPressedThisFrame(handType),
+                    cancellationToken: WaitForPressCancellationTokenSource.Token);
+                callback?.Invoke();
+                DoOnPress();
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.Log("Wait for press cancelled");
+            }
+        }
     }
 
     protected virtual void DoOnPress()
     {
     }
 
-    private async UniTask WaitForExitIfHolding(HandType handType)
+    private async UniTask WaitForReleaseIfHolding(HandType handType,
+        CancellationToken cancellationToken = default)
     {
         if (IsInputPressedThisFrame(handType))
         {
-            await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType));
+            await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType),
+                cancellationToken: cancellationToken);
         }
     }
 
     public async UniTask WaitForHoldAndRelease(HandType handType, float duration, Action callback = default)
     {
-        await WaitForHold(handType, duration);
-        await UniTask.WaitUntil(() => !IsInputPressedThisFrame(handType));
-        callback?.Invoke();
+        try
+        {
+            await WaitForHold(handType, duration);
+            await WaitForReleaseIfHolding(handType, WaitForHoldCancellationTokenSource.Token);
+            callback?.Invoke();
+        }
+        catch (OperationCanceledException ex)
+        {
+            Debug.Log("Wait for hold and release cancelled");
+        }
     }
 
     public async UniTask WaitForHold(HandType handType, float duration,
@@ -64,26 +85,28 @@ public abstract class AInputManager
     {
         using (WaitForHoldCancellationTokenSource = new CancellationTokenSource())
         {
-            float holdingTime = 0;
-
-            //If the player is already holding when the method starts, we wait for release and a new hold
-            await WaitForExitIfHolding(handType);
-
-            bool cancellationRequested = WaitForHoldCancellationTokenSource.IsCancellationRequested;
-            while (holdingTime < duration && !cancellationRequested)
+            try
             {
-                holdingTime = IsInputPressedThisFrame(handType)
-                    ? holdingTime + Time.deltaTime
-                    : 0;
+                //If the player is already holding when the method starts, we wait for release and a new hold
+                await WaitForReleaseIfHolding(handType, WaitForHoldCancellationTokenSource.Token);
 
-                DoWhileHolding(handType, holdingTime, duration);
+                float holdingTime = 0;
+                while (holdingTime < duration)
+                {
+                    holdingTime = IsInputPressedThisFrame(handType)
+                        ? holdingTime + Time.deltaTime
+                        : 0;
 
-                await UniTask.Yield();
-            }
+                    DoWhileHolding(handType, holdingTime, duration);
 
-            if (!cancellationRequested)
-            {
+                    await UniTask.Yield(cancellationToken: WaitForHoldCancellationTokenSource.Token);
+                }
+
                 callback?.Invoke();
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.Log("Hold cancelled");
             }
         }
 
