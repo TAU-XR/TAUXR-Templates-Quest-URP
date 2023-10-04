@@ -9,39 +9,40 @@ public class SessionManager : TXRSingleton<SessionManager>
     [SerializeField] private Round[] _rounds;
     private int _currentRound;
 
-    public async UniTask RunSessionFlow(Round round)
+    //If there is a higher level flow manager, remove this and use his start method
+    private void Start()
     {
-        StartSession(round);
+        RunSessionFlow().Forget();
+    }
+
+    public async UniTask RunSessionFlow()
+    {
+        StartSession();
 
         while (_currentRound < _rounds.Length)
         {
             await RoundManager.Instance.RunRoundFlow(_rounds[_currentRound]);
-            await BetweenRoundsFlow(round);
+            await BetweenRoundsFlow();
             _currentRound++;
         }
 
-        EndSession(round);
+        EndSession();
     }
 
 
-    private void StartSession(Round round)
+    private void StartSession()
     {
         // setup session initial conditions.
-        RunSessionFlow(round).Forget();
+        RunSessionFlow().Forget();
     }
 
 
-    private void EndSession(Round round)
+    private void EndSession()
     {
         // setup end session conditions
-        // If there is a higher flow unit manager, tell him the session finished.
     }
 
-    public void OnRoundEnd()
-    {
-    }
-
-    private async UniTask BetweenRoundsFlow(Round round)
+    private async UniTask BetweenRoundsFlow()
     {
         throw new NotImplementedException();
     }

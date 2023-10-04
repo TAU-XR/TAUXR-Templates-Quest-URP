@@ -7,35 +7,35 @@ public class RoundManager : TXRSingleton<RoundManager>
 {
     [SerializeField] private Trial[] _trials;
     private int _currentTrial = 0;
+    private Round _currentRound;
 
     public async UniTask RunRoundFlow(Round round)
     {
-        StartRound(round);
+        _currentRound = round;
+        StartRound();
 
         while (_currentTrial < _trials.Length)
         {
             await TrialManager.Instance.RunTrialFlow(_trials[_currentTrial]);
-            await BetweenTrialsFlow(round);
+            await BetweenTrialsFlow();
             _currentTrial++;
         }
 
-        EndRound(round);
+        EndRound();
     }
 
-    private void StartRound(Round round)
+    private void StartRound()
     {
         // setup round initial conditions.
-        RunRoundFlow(round).Forget();
     }
 
 
-    private void EndRound(Round round)
+    private void EndRound()
     {
         // setup end round conditions
-        SessionManager.Instance.OnRoundEnd();
     }
 
-    private async UniTask BetweenTrialsFlow(Round round)
+    private async UniTask BetweenTrialsFlow()
     {
     }
 }

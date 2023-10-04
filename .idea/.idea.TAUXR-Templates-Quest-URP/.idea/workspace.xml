@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/FlowManagersCreator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/FlowManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/FlowManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/FlowManagersCreator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/RoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/RoundManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/TrialManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Flow Management/TrialManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +117,7 @@
       <workItem from="1695825454363" duration="4340000" />
       <workItem from="1695829857332" duration="1225000" />
       <workItem from="1695899596391" duration="227000" />
-      <workItem from="1696401007326" duration="2225000" />
+      <workItem from="1696401007326" duration="3015000" />
     </task>
     <servers />
   </component>

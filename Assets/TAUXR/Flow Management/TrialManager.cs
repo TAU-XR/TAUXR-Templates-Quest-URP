@@ -5,23 +5,24 @@ using Cysharp.Threading.Tasks;
 
 public class TrialManager : TXRSingleton<TrialManager>
 {
+    private Trial _currentTrial;
+
     public async UniTask RunTrialFlow(Trial trial)
     {
-        StartTrial(trial);
+        StartTrial();
 
         // all trial flow. Activating and waiting for project specific functionalities.
 
-        EndTrial(trial);
+        EndTrial();
     }
 
-    private void StartTrial(Trial trial)
+    private void StartTrial()
     {
         // setup trial initial conditions.
-        RunTrialFlow(trial).Forget();
     }
 
 
-    private void EndTrial(Trial trial)
+    private void EndTrial()
     {
         // setup trial end conditions.
     }
