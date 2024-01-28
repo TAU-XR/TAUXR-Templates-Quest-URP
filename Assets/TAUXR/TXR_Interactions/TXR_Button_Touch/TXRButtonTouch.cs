@@ -5,11 +5,15 @@ using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
 
-// TODO: Only press from forward
+/*TODO
+ * - Pass toucher transform in a more elegant way
+ * - refactor input processing to another script and get rid of the hovera and press colliders
+ */
 
 public class TXRButtonTouch : MonoBehaviour
 {
     public ButtonState State => state;
+    public bool ShouldPlaySounds = true;
 
     [SerializeField] private ButtonState state = ButtonState.Interactable;
     private ButtonState lastState;
@@ -50,28 +54,21 @@ public class TXRButtonTouch : MonoBehaviour
     private bool isPressed = false;
     private bool isHovered = false;
 
-    [SerializeField] private VRButtonTouchStroke stroke;
+    public Action<Transform> PressTransform;
 
     void Start()
     {
         lastState = state;
         SetState(state);
-        Init();
     }
-
-    private void Init()
-    {
-        stroke.Init(buttonSurface);
-    }
-
 
 
     void Update()
     {
-        if(lastState!=state)
+        if (lastState != state)
         {
             SetState(state);
-            lastState= state;
+            lastState = state;
         }
 
         if (state != ButtonState.Interactable) return;
@@ -80,15 +77,6 @@ public class TXRButtonTouch : MonoBehaviour
         if (isHovered)
         {
             distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
-        }
-
-        if (activeToucher != null)
-        {
-            stroke.UpdateStrokeBehavior(activeToucher.position);
-        }
-        else
-        {
-            stroke.UpdateStrokeBehavior(Vector3.zero);
         }
     }
 
@@ -141,7 +129,7 @@ public class TXRButtonTouch : MonoBehaviour
     }
     private void PlaySound(AudioSource sound)
     {
-        if (sound == null) return;
+        if (sound == null || !ShouldPlaySounds) return;
         sound.Stop();
         sound.Play();
     }
@@ -203,7 +191,7 @@ public class TXRButtonTouch : MonoBehaviour
     public void OnHoverExit(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
-    
+
         // Catching extreme cases where toucher exit the hover collider without activating the press collider
         if (isPressed)
         {
@@ -244,12 +232,14 @@ public class TXRButtonTouch : MonoBehaviour
         animator.SetBool("IsHover", false);
     }
 
+    // called from the UnityEvent on the press collider
     public void OnPressed(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
 
         if (toucher != activeToucher) return;
 
+        PressTransform?.Invoke(toucher);
         DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
     }
 
@@ -260,6 +250,7 @@ public class TXRButtonTouch : MonoBehaviour
         animator.SetBool("IsPressed", true);
     }
 
+    // called from the UnityEvent on the press collider
     public void OnReleased(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;

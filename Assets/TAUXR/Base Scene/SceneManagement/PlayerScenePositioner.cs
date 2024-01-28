@@ -5,7 +5,7 @@ public class PlayerScenePositioner : MonoBehaviour
 {
     private void Awake()
     {
-        // destroy the OVRManager and all other objects when scene is loaded.
+        // destroy the reference objcets when loading the scene
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
