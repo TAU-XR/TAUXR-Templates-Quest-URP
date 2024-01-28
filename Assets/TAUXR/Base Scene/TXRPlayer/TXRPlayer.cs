@@ -6,13 +6,13 @@ using System.Threading;
 
 public class TXRPlayer : TXRSingleton<TXRPlayer>
 {
-    [Header("Player Trackables")] [SerializeField]
+    [Header("Player Trackables")]
+    [SerializeField]
     private Transform ovrRig;
 
     [SerializeField] private Transform playerHead;
     [SerializeField] private Transform rightHandAnchor;
     [SerializeField] private Transform leftHandAnchor;
-    private OVRManager _ovrManager;
     public Transform PlayerHead => playerHead;
     public Transform RightHand => rightHandAnchor;
     public Transform LeftHand => leftHandAnchor;
@@ -28,7 +28,8 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
     public Transform LeftEye => EyeTracker.LeftEye;
 
 
-    [Header("Face Tracking")] [SerializeField]
+    [Header("Face Tracking")]
+    [SerializeField]
     public OVRFaceExpressions ovrFace;
 
     public OVRFaceExpressions OVRFace => ovrFace;
@@ -42,8 +43,6 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
 
     protected override void DoInAwake()
     {
-        _ovrManager = GetComponentInChildren<OVRManager>();
-
         HandRight.Init();
         HandLeft.Init();
 
@@ -111,7 +110,7 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
 
     public void SetPassthrough(bool state)
     {
-        _ovrManager.isInsightPassthroughEnabled = state;
+        TXRHeadsetServices.Instance.SetPassthrough(state);
     }
 
     #region Hands
