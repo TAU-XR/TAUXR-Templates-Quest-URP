@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/TAUXR/Base Scene/Base Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 82f0ef6f69238c045859f13205c04e7e,
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ea433a37a58c3fc4182d950dba8ad61f,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f7db628a5ee0256418e8c27aa87d5f76,
       type: 2}

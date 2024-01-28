@@ -44,7 +44,6 @@ public class TXREyeTracker : MonoBehaviour
         // Debug.Log(_ovrEyeR.Confidence);
         if (_ovrEyeR.Confidence < EYETRACKINGCONFIDENCETHRESHOLD)
         {
-            Debug.LogWarning("EyeTracking confidence value is low. Eyes are not tracked");
             _focusedObject = null;
             _eyeGazeHitPosition = NOTTRACKINGVECTORVALUE;
             // Debug.Log("EyeTracking confidence value is low. Eyes are not tracked");
