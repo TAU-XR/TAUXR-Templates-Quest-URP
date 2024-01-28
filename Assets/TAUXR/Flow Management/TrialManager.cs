@@ -12,6 +12,7 @@ public class TrialManager : TXRSingleton<TrialManager>
         StartTrial();
 
         // all trial flow. Activating and waiting for project specific functionalities.
+        await UniTask.Yield();
 
         EndTrial();
     }

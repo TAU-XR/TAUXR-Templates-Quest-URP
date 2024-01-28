@@ -21,7 +21,6 @@ public class TXREyeTracker : MonoBehaviour
     private OVREyeGaze _ovrEyeR;
     private Transform _focusedObject;
     private Vector3 _eyeGazeHitPosition;
-    private int _eyeTrackingIgnoreLayer = 7;
     LayerMask _eyeTrackingLayerMask = ~(1 << 7);
 
     public void Init()

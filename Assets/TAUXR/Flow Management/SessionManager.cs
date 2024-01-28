@@ -44,6 +44,8 @@ public class SessionManager : TXRSingleton<SessionManager>
 
     private async UniTask BetweenRoundsFlow()
     {
+        await UniTask.Yield();
+
         throw new NotImplementedException();
     }
 }

@@ -37,5 +37,7 @@ public class RoundManager : TXRSingleton<RoundManager>
 
     private async UniTask BetweenTrialsFlow()
     {
+        await UniTask.Yield();
+
     }
 }
