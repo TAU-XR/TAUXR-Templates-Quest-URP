@@ -703,21 +703,21 @@ MonoBehaviour:
   _backface: {fileID: 6424260005431916129}
   _stroke: {fileID: 6424260006230093321}
   _text: {fileID: 2914481266730153719}
-  _backfaceColorPressed: {r: 0.1942684, g: 0.4305746, b: 0.9622642, a: 1}
-  _backfaceColorInactive: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
   _backfaceColorActive: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+  _backfaceGradientActive: 0
   _strokeThicknessActive: 0.0005
   _backfadeZPositionActive: 0.0012
-  _showDuration: 0.25
+  _activeDuration: 0.25
+  _backfaceColorDisabled: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
   _backfaceColorHide: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 0}
   _hideDuration: 0.25
   _hoverDuration: 0.3
   _backfaceColorGradientHover: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
-  _gradientSizeHover: 0.025
+  _backfaceGradientHover: 0.025
   _strokeThicknessHover: 0.001
   _backfadeZPositionHover: 0.0049
   _pressDuration: 0.25
-  _backfaceColorPress: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
+  _backfaceColorPress: {r: 0.42830187, g: 0.5933798, b: 1, a: 1}
   _strokeThicknessPress: 0.001
   _backfaceZPositionPress: -0.008
 --- !u!1 &1285122376591283032
@@ -1353,6 +1353,7 @@ MonoBehaviour:
   ShouldPlaySounds: 1
   state: 2
   buttonSurface: {fileID: 8548463700662616521}
+  activeToucher: {fileID: 0}
   ResponseHoverEnter: 0
   HoverEnter:
     m_PersistentCalls:
@@ -1375,7 +1376,6 @@ MonoBehaviour:
   soundHoverExit: {fileID: 0}
   soundPress: {fileID: 3209833613726418824}
   soundRelease: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!23 &8104080811909960568
 MeshRenderer:
   m_ObjectHideFlags: 0

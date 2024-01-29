@@ -9,16 +9,15 @@ public class TXRButtonVisuals : MonoBehaviour
     [SerializeField] private Shapes.Rectangle _stroke;
     [SerializeField] private TextMeshPro _text;
 
-    [Header("General")]
-    [SerializeField] private Color _backfaceColorPressed;
-    [SerializeField] private Color _backfaceColorInactive;
-
     [Header("Active Animation")]
     [SerializeField] private Color _backfaceColorActive;
     [SerializeField] private float _backfaceGradientActive = 0f;
     [SerializeField] private float _strokeThicknessActive = .0005f;
     [SerializeField] private float _backfadeZPositionActive = .0012f;
     [SerializeField] private float _activeDuration;
+
+    [Header("Disabled")]
+    [SerializeField] private Color _backfaceColorDisabled;
 
     [Header("Hide Animation")]
     [SerializeField] private Color _backfaceColorHide;
@@ -43,7 +42,7 @@ public class TXRButtonVisuals : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            SetActive();
+            Active();
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -59,8 +58,9 @@ public class TXRButtonVisuals : MonoBehaviour
         }
     }
 
-    private void SetActive()
+    public void Active()
     {
+        print("Active");
         _animationSequence.Kill();
         InitSequence(_backfaceColorActive, _backfaceColorActive, _backfaceGradientActive, _backfadeZPositionActive, _strokeThicknessActive, _activeDuration);
         _animationSequence.Restart();
@@ -68,11 +68,12 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Show()
     {
-        SetActive();
+        Active();
     }
 
     public void Hide()
     {
+        print("HIDE");
         _animationSequence.Kill();
         InitSequence(_backfaceColorHide, _backfaceColorHide, _backfaceGradientActive, _backfadeZPositionActive, 0, _hideDuration);
         _animationSequence.Restart();
@@ -80,6 +81,7 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Hover()
     {
+        print("HOVER");
         _animationSequence.Kill();
         InitSequence(_backfaceColorGradientHover, _backfaceColorActive, _backfaceGradientHover, _backfadeZPositionHover, _strokeThicknessHover, _hoverDuration);
         _animationSequence.Restart();
@@ -87,8 +89,16 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Press()
     {
+        print("Press");
         _animationSequence.Kill();
         InitSequence(_backfaceColorPress, _backfaceColorPress, _backfaceGradientActive, _backfaceZPositionPress, _strokeThicknessPress, _pressDuration);
+        _animationSequence.Restart();
+    }
+
+    public void Disabled()
+    {
+        _animationSequence.Kill();
+        InitSequence(_backfaceColorDisabled, _backfaceColorDisabled, _backfaceGradientActive, 0, _strokeThicknessActive, _activeDuration);
         _animationSequence.Restart();
     }
 

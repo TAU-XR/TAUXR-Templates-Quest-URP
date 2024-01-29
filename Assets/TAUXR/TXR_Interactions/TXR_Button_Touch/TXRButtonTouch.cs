@@ -49,8 +49,8 @@ public class TXRButtonTouch : MonoBehaviour
     [SerializeField] private AudioSource soundHoverExit;
     [SerializeField] private AudioSource soundPress;
     [SerializeField] private AudioSource soundRelease;
-    [SerializeField] private Animator animator;
-
+    
+    private TXRButtonVisuals visuals;
     private bool isPressed = false;
     private bool isHovered = false;
 
@@ -58,6 +58,7 @@ public class TXRButtonTouch : MonoBehaviour
 
     void Start()
     {
+        visuals = GetComponent<TXRButtonVisuals>();
         lastState = state;
         SetState(state);
     }
@@ -86,10 +87,10 @@ public class TXRButtonTouch : MonoBehaviour
             case ButtonState.Hidden:
                 break;
             case ButtonState.Disabled:
-                animator.SetBool("IsInteractable", false);
+                visuals.Disabled();
                 break;
             case ButtonState.Interactable:
-                animator.SetBool("IsInteractable", true);
+                visuals.Active();
                 break;
         }
 
@@ -182,7 +183,7 @@ public class TXRButtonTouch : MonoBehaviour
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
-        animator.SetBool("IsHover", true);
+        visuals.Hover();
     }
 
     // called from button collider
@@ -227,7 +228,7 @@ public class TXRButtonTouch : MonoBehaviour
         isHovered = false;
         activeToucher = null;
         PlaySound(soundHoverExit);
-        animator.SetBool("IsHover", false);
+        visuals.Active();
     }
 
     // called from the UnityEvent on the press collider
@@ -245,7 +246,7 @@ public class TXRButtonTouch : MonoBehaviour
     {
         isPressed = true;
         PlaySound(soundPress);
-        animator.SetBool("IsPressed", true);
+        visuals.Press();
     }
 
     // called from the UnityEvent on the press collider
@@ -262,7 +263,7 @@ public class TXRButtonTouch : MonoBehaviour
     {
         isPressed = false;
         PlaySound(soundRelease);
-        animator.SetBool("IsPressed", false);
+        visuals.Active();
     }
 
     // added as a quick fix for bug where title on sun nav wouldn't clear active toucher after touch (probably because it moves immediately to keyboard position.
