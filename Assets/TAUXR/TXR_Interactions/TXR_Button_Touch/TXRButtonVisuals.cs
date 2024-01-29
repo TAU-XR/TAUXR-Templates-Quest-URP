@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 
+public enum EButtonAnimationState { Show, Hide, Active, Disable, Hover, Press }
 public class TXRButtonVisuals : MonoBehaviour
 {
     [SerializeField] private Shapes.Rectangle _backface;
@@ -9,96 +10,102 @@ public class TXRButtonVisuals : MonoBehaviour
     [SerializeField] private TextMeshPro _text;
 
     [Header("General")]
-    [SerializeField] private Color _backfaceColorActive;
     [SerializeField] private Color _backfaceColorPressed;
     [SerializeField] private Color _backfaceColorInactive;
-    [SerializeField] private Color _backfaceColorGradientHover;
-    [SerializeField] private float _strokeThickness;
 
+    [Header("Active Animation")]
+    [SerializeField] private Color _backfaceColorActive;
+    [SerializeField] private float _backfaceGradientActive = 0f;
+    [SerializeField] private float _strokeThicknessActive = .0005f;
+    [SerializeField] private float _backfadeZPositionActive = .0012f;
+    [SerializeField] private float _activeDuration;
 
-
-    [Header("Show Animation")]
-    [SerializeField] private float _showDuration;
+    [Header("Hide Animation")]
+    [SerializeField] private Color _backfaceColorHide;
     [SerializeField] private float _hideDuration;
 
-    Tween _showTween;
-    Tween _hideTween;
+    [Header("Hover Animation")]
+    [SerializeField] private float _hoverDuration;
+    [SerializeField] private Color _backfaceColorGradientHover;
+    [SerializeField] private float _backfaceGradientHover = .025f;
+    [SerializeField] private float _strokeThicknessHover = .001f;
+    [SerializeField] private float _backfadeZPositionHover = .0049f;
 
-    private void OnValidate()
-    {
-        _showTween.Kill();
-        _hideTween.Kill();
-        InitShowHideTweens();
-    }
+    [Header("Press Animation")]
+    [SerializeField] private float _pressDuration = .025f;
+    [SerializeField] private Color _backfaceColorPress;
+    [SerializeField] private float _strokeThicknessPress = .001f;
+    [SerializeField] private float _backfaceZPositionPress = -.008f;
 
-    void Start()
-    {
-        InitShowHideTweens();
-    }
+    Sequence _animationSequence;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Show();
+            SetActive();
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Hide();
         }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Hover();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Press();
+        }
+    }
+
+    private void SetActive()
+    {
+        _animationSequence.Kill();
+        InitSequence(_backfaceColorActive, _backfaceColorActive, _backfaceGradientActive, _backfadeZPositionActive, _strokeThicknessActive, _activeDuration);
+        _animationSequence.Restart();
     }
 
     public void Show()
     {
-        if (_hideTween.IsPlaying())
-        {
-            _hideTween.Pause();
-        }
-        _showTween.Restart();
+        SetActive();
     }
 
     public void Hide()
     {
-        if (_showTween.IsPlaying())
-        {
-            _showTween.Pause();
-        }
-        _hideTween.Restart();
+        _animationSequence.Kill();
+        InitSequence(_backfaceColorHide, _backfaceColorHide, _backfaceGradientActive, _backfadeZPositionActive, 0, _hideDuration);
+        _animationSequence.Restart();
     }
 
-    private void InitShowHideTweens()
+    public void Hover()
     {
-        Color backfaceColor = _backfaceColorActive;
-        Color textColor = _text.color;
-
-        _showTween = DOVirtual.Float(0, 1, _showDuration, value =>
-        {
-            backfaceColor.a = value;
-            _backface.FillColorStart = backfaceColor;
-            _backface.FillColorEnd = backfaceColor;
-
-            _stroke.Thickness = Mathf.Lerp(0, _strokeThickness, value);
-
-            textColor.a = value;
-            _text.color = textColor;
-        });
-        _showTween.SetAutoKill(false);
-        _showTween.Pause();
-
-        _hideTween = DOVirtual.Float(1, 0, _hideDuration, value =>
-        {
-            backfaceColor.a = value;
-            _backface.FillColorStart = backfaceColor;
-            _backface.FillColorEnd = backfaceColor;
-
-            _stroke.Thickness = Mathf.Lerp(0, _strokeThickness, value);
-
-            textColor.a = value;
-            _text.color = textColor;
-        });
-        _hideTween.SetAutoKill(false);
-        _hideTween.Pause();
-
+        _animationSequence.Kill();
+        InitSequence(_backfaceColorGradientHover, _backfaceColorActive, _backfaceGradientHover, _backfadeZPositionHover, _strokeThicknessHover, _hoverDuration);
+        _animationSequence.Restart();
     }
 
+    public void Press()
+    {
+        _animationSequence.Kill();
+        InitSequence(_backfaceColorPress, _backfaceColorPress, _backfaceGradientActive, _backfaceZPositionPress, _strokeThicknessPress, _pressDuration);
+        _animationSequence.Restart();
+    }
+
+    private void InitSequence(Color backfaceFillStart, Color backfaceFillEnd, float backfaceGradientRadius, float backfaceZOffset, float strokeThickness, float duration)
+    {
+        _animationSequence = DOTween.Sequence();
+        _animationSequence.Append(DOVirtual.Color(_backface.FillColorStart, backfaceFillStart, duration, t => { _backface.FillColorStart = t; }));
+        _animationSequence.Join(DOVirtual.Color(_backface.FillColorEnd, backfaceFillEnd, duration, t => { _backface.FillColorEnd = t; }));
+        _animationSequence.Join(DOVirtual.Float(_backface.FillRadialRadius, backfaceGradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
+
+        Vector3 backfaceLocalPosition = _backface.transform.localPosition;
+        backfaceLocalPosition.z = backfaceZOffset;
+        _animationSequence.Join(_backface.transform.DOLocalMove(backfaceLocalPosition, duration));
+
+        _animationSequence.Join(DOVirtual.Float(_stroke.Thickness, strokeThickness, duration, t => { _stroke.Thickness = t; }));
+
+        _animationSequence.SetAutoKill(false);
+        _animationSequence.Pause();
+    }
 }

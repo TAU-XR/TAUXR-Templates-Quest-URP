@@ -19,7 +19,7 @@ public class TXRButtonTouch : MonoBehaviour
     private ButtonState lastState;
     [SerializeField] private Transform buttonSurface;
 
-    private Transform activeToucher;
+    public Transform activeToucher;
     private List<Transform> touchers = new List<Transform>();
 
     private float HOVER_DISTANCE_MIN = .00069f;
@@ -61,7 +61,6 @@ public class TXRButtonTouch : MonoBehaviour
         lastState = state;
         SetState(state);
     }
-
 
     void Update()
     {
@@ -191,7 +190,7 @@ public class TXRButtonTouch : MonoBehaviour
     public void OnHoverExit(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
-
+        print("HOVER EXIT 1");
         // Catching extreme cases where toucher exit the hover collider without activating the press collider
         if (isPressed)
         {
@@ -207,7 +206,6 @@ public class TXRButtonTouch : MonoBehaviour
     private bool HoverExitToucherProcessing(Transform toucher)
     {
         touchers.Remove(toucher);
-
         if (toucher != activeToucher) return false;
         else
         {
@@ -265,6 +263,13 @@ public class TXRButtonTouch : MonoBehaviour
         isPressed = false;
         PlaySound(soundRelease);
         animator.SetBool("IsPressed", false);
+    }
+
+    // added as a quick fix for bug where title on sun nav wouldn't clear active toucher after touch (probably because it moves immediately to keyboard position.
+    public void ClearActiveToucher()
+    {
+        OnHoverExitInternal();
+        touchers.Clear();
     }
 }
 
