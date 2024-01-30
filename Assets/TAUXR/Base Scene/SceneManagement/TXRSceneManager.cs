@@ -114,7 +114,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         // if project is being calibrated to a space then moving it to a PlayerRepositioner will ruin calibration.
         if (!_shouldRepositionPlayer) return;
 
-        Transform playerScenePositioner = FindObjectOfType<PlayerScenePositioner>().transform;
+        Transform playerScenePositioner = FindObjectOfType<PlayerRepositioner>().transform;
         TXRPlayer.Instance.RepositionPlayer(playerScenePositioner.position, playerScenePositioner.rotation);
     }
 }

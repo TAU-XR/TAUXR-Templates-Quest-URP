@@ -1,8 +1,11 @@
 using UnityEngine;
 
 // Determines the player's position and orientation in scenes.
-public class PlayerScenePositioner : MonoBehaviour
+public enum ERepositionType { FloorLevel, EyeLevel}
+public class PlayerRepositioner : MonoBehaviour
 {
+    [SerializeField] private ERepositionType type;
+
     private void Awake()
     {
         // destroy the reference objcets when loading the scene
