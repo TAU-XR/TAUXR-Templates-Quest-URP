@@ -115,6 +115,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         if (!_shouldRepositionPlayer) return;
 
         PlayerRepositioner repositioner = FindObjectOfType<PlayerRepositioner>();
+        if (repositioner == null) return;
         TXRPlayer.Instance.RepositionPlayer(repositioner);
     }
 }
