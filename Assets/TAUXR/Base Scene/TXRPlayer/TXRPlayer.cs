@@ -92,10 +92,27 @@ public class TXRPlayer : TXRSingleton<TXRPlayer>
         }
     }
 
-    public void RepositionPlayer(Vector3 position, Quaternion rotation)
+    public void RepositionPlayer(PlayerRepositioner repositioner)
     {
-        transform.position = position;
-        transform.rotation = rotation;
+        RepositionAfterHeadsetLoaded(repositioner).Forget();
+    }
+
+    private async UniTask RepositionAfterHeadsetLoaded(PlayerRepositioner repositioner)
+    {
+        Vector3 position, forward;
+        position = repositioner.transform.position;
+        forward = repositioner.transform.forward;
+        Vector3 initialHeadPosition = PlayerHead.position;
+
+        await UniTask.WaitUntil(() => OVRManager.isHmdPresent && PlayerHead.position != initialHeadPosition);   // if head moved -> headset initiallzied
+
+        // rotate
+        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+
+        // move
+        Vector3 headOffset = position - PlayerHead.position;
+        if (repositioner.Type == ERepositionType.FloorLevel) headOffset.y = 0; // cancel height change.
+        transform.position += headOffset;
     }
 
     public void RecenterView()

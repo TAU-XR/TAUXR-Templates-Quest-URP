@@ -4,7 +4,7 @@ using UnityEngine;
 public enum ERepositionType { FloorLevel, EyeLevel}
 public class PlayerRepositioner : MonoBehaviour
 {
-    [SerializeField] private ERepositionType type;
+    public ERepositionType Type;
 
     private void Awake()
     {
