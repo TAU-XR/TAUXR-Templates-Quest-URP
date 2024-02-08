@@ -33,7 +33,6 @@ public class SessionManager : TXRSingleton<SessionManager>
     private void StartSession()
     {
         // setup session initial conditions.
-        RunSessionFlow().Forget();
     }
 
 
