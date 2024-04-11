@@ -8,7 +8,7 @@ public class PlayerRepositioner : MonoBehaviour
 
     private void Awake()
     {
-        // destroy the reference objcets when loading the scene
+        // destroy the reference objects when loading the scene
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);

@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 public class TXRSceneManager : TXRSingleton<TXRSceneManager>
 {
 
-    [Header("All scenes")]      // declare by name each scene and make it public so it can be accessed easily from other scripts.
-    [SerializeField] public string BaseSceneName = "Base Scene";
-    [SerializeField] public string FirstLoadedSceneName = "TAUXR Entry Scene";
+    // declare by name each scene and make it public so it can be accessed easily from other scripts.
+    [Header("Base Scene Index")]
+    [SerializeField] public int BaseSceneIndex = 0;
+    [Header("Build index of the first scene to load")]
+    [SerializeField] public int FirstSceneToLoadIndex = 1;
 
     private float FADETOBLACKDURATION = 2.5f;
     private float FADETOCLEARDURATION = 1.5f;
 
+    string _baseSceneName;
     private string currentSceneName;
     public string CurrentSceneName => currentSceneName;
 
@@ -22,7 +25,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
     {
         // if project is being calibrated to a space then moving it to a PlayerRepositioner will ruin calibration.
         _shouldRepositionPlayer = !isProjectUsingCalibration;
-
+        _baseSceneName = SceneManager.GetSceneByBuildIndex(BaseSceneIndex).name;
         // the script assumes that Base Scene is always the first in the build order.
         if (Application.isEditor)
         {
@@ -51,7 +54,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
             // Get the scene at the specified index
             Scene scene = SceneManager.GetSceneAt(i);
 
-            if (scene.name != BaseSceneName)
+            if (scene.name != _baseSceneName)
             {
                 currentSceneName = scene.name;
                 return;
@@ -59,15 +62,33 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
 
         }
         // if we got here it means we only have the base scene (for 1 scene projects) and it should be the current
-        currentSceneName = BaseSceneName;
+        currentSceneName = _baseSceneName;
     }
 
     private void InitializeInBuild()
     {
         TXRPlayer.Instance.FadeViewToColor(Color.black, 0).Forget();
-        currentSceneName = BaseSceneName;
+        currentSceneName = _baseSceneName;
         // make sure to launch your starting scene here
-        LoadActiveScene(FirstLoadedSceneName).Forget();
+        LoadActiveScene(FirstSceneToLoadIndex).Forget();
+    }
+
+    async private UniTask LoadActiveScene(int sceneBuildIndex)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == sceneBuildIndex)
+        {
+            Debug.LogWarning($"Tried to load scene index {sceneBuildIndex} but it's already the active scene.");
+            return;
+        }
+
+        await SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneBuildIndex));
+        
+        currentSceneName = SceneManager.GetSceneByBuildIndex(sceneBuildIndex).name;
+        // reposition player accordingly to new scene
+        RepositionPlayerIfNeeded();
+
+        await TXRPlayer.Instance.FadeViewToColor(Color.clear, FADETOCLEARDURATION);
     }
 
     async private UniTask LoadActiveScene(string sceneName)
@@ -79,12 +100,13 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         }
 
         await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         currentSceneName = sceneName;
 
         // reposition player accordingly to new scene
         RepositionPlayerIfNeeded();
 
-        await TXRPlayer.Instance.FadeViewToColor(Color.clear, FADETOCLEARDURATION);
+        //await TXRPlayer.Instance.FadeViewToColor(Color.clear, FADETOCLEARDURATION);
     }
 
     async public UniTask SwitchActiveScene(string sceneName)
