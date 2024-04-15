@@ -9,6 +9,7 @@ public class TextPopUp : MonoBehaviour
 {
     private const float DefaultTextWidth = 0.48f;
     private const float DefaultTextHeight = 0.08f;
+    private const float DefaultTextFontSize = 0.3368976f;
     private const int NumberOfLettersWhenScaleIsOne = 55;
 
     [SerializeField] private bool _useAnimation = true;
@@ -16,6 +17,7 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private Transform _background;
     [SerializeField] private TextMeshPro _textUI;
 
+    [SerializeField] private float _fontSizeMultiplier = 1;
     [TextArea(1, 10)] [SerializeField] private string _text;
 
     private void OnEnable()
@@ -34,10 +36,13 @@ public class TextPopUp : MonoBehaviour
     public void SetTextAndScale(string newText)
     {
         _textUI.text = newText;
+        _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
         float newScale = (float)newText.Length / NumberOfLettersWhenScaleIsOne;
-        float newBackgroundScale = Mathf.Sqrt(newScale);
-        UpdateTextRect(newBackgroundScale);
-        _background.localScale = new Vector3(1, newBackgroundScale, newBackgroundScale);
+        newScale = Mathf.Sqrt(newScale) * _fontSizeMultiplier;
+        UpdateTextRect(newScale);
+        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * newScale,
+            DefaultTextHeight * newScale);
+        _background.localScale = new Vector3(1, newScale, newScale);
     }
 
     private void UpdateTextRect(float scaleMultiplier)
@@ -55,7 +60,7 @@ public class TextPopUp : MonoBehaviour
     }
 
     [Button]
-    public void SetTextAndScaleFromSerializedField()
+    public void SetTextAndScale()
     {
         SetTextAndScale(_text);
     }
