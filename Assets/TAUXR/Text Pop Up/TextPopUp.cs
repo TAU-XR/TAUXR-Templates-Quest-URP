@@ -7,28 +7,16 @@ using TMPro;
 
 public class TextPopUp : MonoBehaviour
 {
-    private float _defaultTextWidth;
-    private float _defaultTextHeight;
+    private const float DefaultTextWidth = 0.48f;
+    private const float DefaultTextHeight = 0.08f;
     private const int NumberOfLettersWhenScaleIsOne = 55;
 
     [SerializeField] private bool _useAnimation = true;
 
     [SerializeField] private Transform _background;
     [SerializeField] private TextMeshPro _textUI;
-    private RectTransform _textRectTransform;
 
     [TextArea(1, 10)] [SerializeField] private string _text;
-
-    private void Awake()
-    {
-        _textRectTransform = _textUI.gameObject.GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
-        _defaultTextWidth = _textRectTransform.rect.width;
-        _defaultTextHeight = _textRectTransform.rect.height;
-    }
 
     private void OnEnable()
     {
@@ -46,12 +34,16 @@ public class TextPopUp : MonoBehaviour
     public void SetTextAndScale(string newText)
     {
         _textUI.text = newText;
+        float newScale = (float)newText.Length / NumberOfLettersWhenScaleIsOne;
+        float newBackgroundScale = Mathf.Sqrt(newScale);
+        UpdateTextRect(newBackgroundScale);
+        _background.localScale = new Vector3(1, newBackgroundScale, newBackgroundScale);
     }
 
-    private void UpdateTextUI(float scaleMultiplier)
+    private void UpdateTextRect(float scaleMultiplier)
     {
-        _textUI.rectTransform.sizeDelta = new Vector2(_defaultTextWidth * scaleMultiplier,
-            _defaultTextHeight * scaleMultiplier);
+        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * scaleMultiplier,
+            DefaultTextHeight * scaleMultiplier);
     }
 
 
@@ -65,7 +57,7 @@ public class TextPopUp : MonoBehaviour
     [Button]
     public void SetTextAndScaleFromSerializedField()
     {
-        _textUI.text = _text;
+        SetTextAndScale(_text);
     }
 
     [Button]
