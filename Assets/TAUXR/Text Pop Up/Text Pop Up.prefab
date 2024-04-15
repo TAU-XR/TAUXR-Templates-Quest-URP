@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5114078426747989229}
   - component: {fileID: 6824247996001254045}
   m_Layer: 0
-  m_Name: BackFace (2)
+  m_Name: BackFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useAnimation: 1
-  _background: {fileID: 0}
+  _background: {fileID: 7598165009963146259}
   _textUI: {fileID: 3889759835927473169}
   _text: Text pop up. Write your text and then press SetNewScale
 --- !u!1 &5516417466098704482
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 1952939400496987480}
   - component: {fileID: 3889759835927473169}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
