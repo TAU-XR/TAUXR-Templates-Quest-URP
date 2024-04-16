@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +59,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.18f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\VRAdmin\Desktop\Projects\TAUXR-Templates-Quest-URP -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\VRAdmin\Desktop\Projects\TAUXR-Templates-Quest-URP" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -65,7 +67,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.18f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\VRAdmin\Desktop\Projects\TAUXR-Templates-Quest-URP -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\VRAdmin\Desktop\Projects\TAUXR-Templates-Quest-URP" />
       <option name="PASS_PARENT_ENVS" value="1" />

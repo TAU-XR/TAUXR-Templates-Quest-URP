@@ -10,6 +10,7 @@ public class TextPopUp : MonoBehaviour
     private const float DefaultTextWidth = 0.48f;
     private const float DefaultTextHeight = 0.08f;
     private const float DefaultTextFontSize = 0.3368976f;
+    private const int NumberOfLettersUntilLineWrap = 32;
     private const int NumberOfLettersWhenScaleIsOne = 55;
 
     [SerializeField] private bool _useAnimation = true;
@@ -37,18 +38,49 @@ public class TextPopUp : MonoBehaviour
     {
         _textUI.text = newText;
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
-        float newScale = (float)newText.Length / NumberOfLettersWhenScaleIsOne;
-        newScale = Mathf.Sqrt(newScale) * _fontSizeMultiplier;
-        UpdateTextRect(newScale);
-        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * newScale,
-            DefaultTextHeight * newScale);
-        _background.localScale = new Vector3(1, newScale, newScale);
+        float scale = CurrentScale();
+        UpdateTextRect(scale);
+        _background.localScale = new Vector3(1,
+            scale * (1 + ((float)GetNumberOfExtraLineBreaks() / GetNumberOfWrappingLineBreaksAfterRemovingManual()) / 2), scale);
     }
 
     private void UpdateTextRect(float scaleMultiplier)
     {
-        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * scaleMultiplier,
-            DefaultTextHeight * scaleMultiplier);
+        float newYValue = DefaultTextHeight * scaleMultiplier *
+                          (1 + ((float)GetNumberOfExtraLineBreaks() / GetNumberOfWrappingLineBreaksAfterRemovingManual()) / 2);
+        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * scaleMultiplier, newYValue);
+    }
+
+    private float CurrentScale()
+    {
+        float newScale = (float)_text.Length / NumberOfLettersWhenScaleIsOne;
+        newScale = Mathf.Sqrt(newScale) * _fontSizeMultiplier;
+        return newScale;
+    }
+
+    [Button]
+    private int GetNumberOfExtraLineBreaks()
+    {
+        return GetNumberOfLineBreaks() - GetNumberOfWrappingLineBreaksAfterRemovingManual();
+    }
+
+    private int GetNumberOfLineBreaks()
+    {
+        string[] lines = _text.Split("\n");
+        int manualLineBreaks = lines.Length - 1;
+        int wrappingLineBreaks = 0;
+        foreach (string line in lines)
+        {
+            wrappingLineBreaks += line.Length / (int)(NumberOfLettersUntilLineWrap * CurrentScale());
+        }
+
+        return manualLineBreaks + wrappingLineBreaks;
+    }
+
+    //TODO: Rename
+    private int GetNumberOfWrappingLineBreaksAfterRemovingManual()
+    {
+        return _text.Length / (int)(NumberOfLettersUntilLineWrap * CurrentScale());
     }
 
 

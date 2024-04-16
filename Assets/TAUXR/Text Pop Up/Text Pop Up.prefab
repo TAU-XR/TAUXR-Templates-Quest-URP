@@ -164,7 +164,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0702591, z: 1.0702591}
+  m_LocalScale: {x: 1, y: 3.223493, z: 2.1489954}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2549158915963381662}
@@ -242,7 +242,19 @@ MonoBehaviour:
   _useAnimation: 1
   _background: {fileID: 7598165009963146259}
   _textUI: {fileID: 3889759835927473169}
-  _text: Text pop up. Write your text and then press Set Text And Scale.
+  _fontSizeMultiplier: 1
+  _text: 'Lorem idsadas dsadasdpj dadawd dsadas.
+
+    dasdasd dasdas w aeaw dsadas 
+    dasdsad dsdsd  dsdsda wdwadwd dasdsadawdasd sdwdwds
+
+    dsdwd dcsacsac fedfsfd
+    cdvfdve vdfsvdfsv cacfesf.
+
+    vcdsvsefe.dasdawdasc csdcsads csacsac fedfsfd
+    cdvfdve vdfsvdfsv cacfesf.
+
+    vcdsvsefe.'
 --- !u!1 &5516417466098704482
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +428,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.003400065, y: 0}
-  m_SizeDelta: {x: 0.5137243, y: 0.08562072}
+  m_SizeDelta: {x: 1.0315177, y: 0.25787944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -480,7 +492,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Text pop up. Write your text and then press Set Text And Scale.
+  m_text: 'Lorem idsadas dsadasdpj dadawd dsadas.
+
+    dasdasd dasdas w aeaw dsadas 
+    dasdsad dsdsd  dsdsda wdwadwd dasdsadawdasd sdwdwds
+
+    dsdwd dcsacsac fedfsfd
+    cdvfdve vdfsvdfsv cacfesf.
+
+    vcdsvsefe.dasdawdasc csdcsads csacsac fedfsfd
+    cdvfdve vdfsvdfsv cacfesf.
+
+    vcdsvsefe.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,
@@ -508,8 +531,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.33689755
-  m_fontSizeBase: 0.33689755
+  m_fontSize: 0.3368976
+  m_fontSizeBase: 0.3368976
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
