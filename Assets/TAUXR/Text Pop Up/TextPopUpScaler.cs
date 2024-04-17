@@ -29,6 +29,12 @@ public class TextPopUpScaler : MonoBehaviour
 
     [HideInInspector] public string Text;
 
+    public void Init(Rectangle background, TextMeshPro textUI)
+    {
+        _background = background;
+        _textUI = textUI;
+    }
+
     public void SetScale(Vector2 textSize)
     {
         _textUI.rectTransform.sizeDelta = textSize;

@@ -8,9 +8,18 @@ using TMPro;
 
 public class TextPopUp : MonoBehaviour
 {
+    [SerializeField] private ETextPopUpState _startingState;
+    [SerializeField] private Rectangle _background;
     [SerializeField] private TextMeshPro _textUI;
     [TextArea(1, 10)] [SerializeField] private string _text;
     [SerializeField] private TextPopUpScaler _textPopUpScaler;
+    [SerializeField] private TextPopUpAnimator _textPopUpAnimator;
+
+    private void Start()
+    {
+        _textPopUpScaler.Init(_background, _textUI);
+        _textPopUpAnimator.Init(_background, _textUI);
+    }
 
     private void OnValidate()
     {
