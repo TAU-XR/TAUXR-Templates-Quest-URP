@@ -195,7 +195,7 @@ MonoBehaviour:
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
     est eu faucibus ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper.
     ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper. ul
-  _backGroundPadding: {x: 0.3, y: 0.1}
+  _backgroundPadding: {x: 0.3, y: 0.1}
   _useOnValidate: 1
 --- !u!1 &8658139437583312239
 GameObject:

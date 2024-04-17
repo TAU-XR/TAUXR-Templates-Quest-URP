@@ -12,7 +12,7 @@ public class TextPopUp : MonoBehaviour
     private const int ReferenceNumberOfLettersUntilLineWrap = 68;
     private const int ReferenceNumberOfLetters = 300;
     private const float ReferenceSquareMeters = 0.23f;
-    private const float ReferenceLineHeight = 0.4f;
+    private const float ReferenceLineHeight = 0.04f;
 
     [SerializeField] private bool _useAnimation = true;
     [SerializeField] private Rectangle _background;
@@ -26,7 +26,7 @@ public class TextPopUp : MonoBehaviour
     [TextArea(1, 10)] [SerializeField] private string _text;
 
     private Vector2 _scale;
-    [SerializeField] private Vector2 _backGroundPadding = new Vector2(0.2f, 0.04f);
+    [SerializeField] private Vector2 _backgroundPadding = new Vector2(0.2f, 0.04f);
     [SerializeField] private bool _useOnValidate = true;
 
     private void OnValidate()
@@ -37,7 +37,7 @@ public class TextPopUp : MonoBehaviour
         }
 
         float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
-        float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * 0.04f;
+        float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * ReferenceLineHeight;
         _scale = new Vector2(xScale, yScale);
         SetTextAndScale(_text);
     }
@@ -54,7 +54,7 @@ public class TextPopUp : MonoBehaviour
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
         Vector2 scale = _scale * GetScalingFactor();
         _textUI.rectTransform.sizeDelta = scale;
-        Vector2 backFaceSize = scale + _backGroundPadding;
+        Vector2 backFaceSize = scale + _backgroundPadding;
         _background.Width = backFaceSize.x;
         _background.Height = backFaceSize.y;
     }
