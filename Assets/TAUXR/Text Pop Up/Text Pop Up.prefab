@@ -148,6 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2555320034999473363}
   - component: {fileID: 3371585176127677710}
+  - component: {fileID: 6997806013709891643}
   m_Layer: 0
   m_Name: Text Pop Up
   m_TagString: Untagged
@@ -184,7 +185,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a883345f12dab145b92e7ef9667dcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useAnimation: 1
+  _textUI: {fileID: 3889759835927473169}
+  _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
+  _textAutoScaler: {fileID: 6997806013709891643}
+--- !u!114 &6997806013709891643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244916601612165859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafae744cf64e2449a1551379639ec1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _background: {fileID: 7867516359336035635}
   _textUI: {fileID: 3889759835927473169}
   _fontSizeMultiplier: 1
@@ -192,11 +209,11 @@ MonoBehaviour:
   _scaleFactor: 1
   _extendWidthOnly: 0
   _extendHeightOnly: 0
-  _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
-    est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
   _backgroundPadding: {x: 0.3, y: 0.1}
   _autoScaleWhenChangingText: 1
+  Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
 --- !u!1 &8658139437583312239
 GameObject:
   m_ObjectHideFlags: 0
