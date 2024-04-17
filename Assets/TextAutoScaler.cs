@@ -29,7 +29,6 @@ public class TextAutoScaler : MonoBehaviour
 
     [HideInInspector] public string Text;
 
-
     public void SetScale()
     {
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
@@ -92,15 +91,7 @@ public class TextAutoScaler : MonoBehaviour
 
     private int GetNumberOfWrappingLineBreaksInText(string text)
     {
-        return text.Length / (int)(ReferenceNumberOfLettersUntilLineWrap * (float)Text.Length / ReferenceNumberOfLetters);
+        int numberOfLettersUntilLineWrap = (int)(ReferenceNumberOfLettersUntilLineWrap * (float)Text.Length / ReferenceNumberOfLetters);
+        return text.Length / numberOfLettersUntilLineWrap;
     }
-
-
-#if UNITY_EDITOR
-    [Button]
-    public void DebugNumberOfLetters()
-    {
-        Debug.Log(_textUI.text.Length);
-    }
-#endif
 }

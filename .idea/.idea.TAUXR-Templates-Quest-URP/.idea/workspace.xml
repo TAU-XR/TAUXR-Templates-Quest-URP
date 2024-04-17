@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextAutoScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextAutoScaler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
