@@ -164,7 +164,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 3.223493, z: 2.1489954}
+  m_LocalScale: {x: 1, y: 1.989975, z: 1.989975}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2549158915963381662}
@@ -243,18 +243,12 @@ MonoBehaviour:
   _background: {fileID: 7598165009963146259}
   _textUI: {fileID: 3889759835927473169}
   _fontSizeMultiplier: 1
-  _text: 'Lorem idsadas dsadasdpj dadawd dsadas.
-
-    dasdasd dasdas w aeaw dsadas 
-    dasdsad dsdsd  dsdsda wdwadwd dasdsadawdasd sdwdwds
-
-    dsdwd dcsacsac fedfsfd
-    cdvfdve vdfsvdfsv cacfesf.
-
-    vcdsvsefe.dasdawdasc csdcsads csacsac fedfsfd
-    cdvfdve vdfsvdfsv cacfesf.
-
-    vcdsvsefe.'
+  _layoutScale: {x: 1.1, y: 1.1}
+  _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamcorper.
+  _setWidthOnly: 0
+  _setHeightOnly: 0
 --- !u!1 &5516417466098704482
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +413,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8658139437583312239}
   m_LocalRotation: {x: 4.656613e-10, y: -0.7071068, z: -4.656613e-10, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -428,7 +422,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.003400065, y: 0}
-  m_SizeDelta: {x: 1.0315177, y: 0.25787944}
+  m_SizeDelta: {x: 0.955188, y: 0.159198}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -492,18 +486,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem idsadas dsadasdpj dadawd dsadas.
-
-    dasdasd dasdas w aeaw dsadas 
-    dasdsad dsdsd  dsdsda wdwadwd dasdsadawdasd sdwdwds
-
-    dsdwd dcsacsac fedfsfd
-    cdvfdve vdfsvdfsv cacfesf.
-
-    vcdsvsefe.dasdawdasc csdcsads csacsac fedfsfd
-    cdvfdve vdfsvdfsv cacfesf.
-
-    vcdsvsefe.'
+  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamcorper.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,
@@ -539,17 +524,17 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: -0.92
+  m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -22.23
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1

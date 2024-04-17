@@ -19,7 +19,11 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private TextMeshPro _textUI;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
+    [SerializeField] private Vector2 _layoutScale = new(1, 1);
     [TextArea(1, 10)] [SerializeField] private string _text;
+
+    [SerializeField] private bool _setWidthOnly;
+    [SerializeField] private bool _setHeightOnly;
 
     private void OnEnable()
     {
@@ -34,53 +38,85 @@ public class TextPopUp : MonoBehaviour
         _textUI.text = newText;
     }
 
+    private void OnValidate()
+    {
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
+        SetTextAndScale(_text);
+    }
+
     public void SetTextAndScale(string newText)
     {
         _textUI.text = newText;
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
-        float scale = CurrentScale();
+        Vector2 scale = GetScaleAmount();
         UpdateTextRect(scale);
-        _background.localScale = new Vector3(1,
-            scale * (1 + ((float)GetNumberOfExtraLineBreaks() / GetNumberOfWrappingLineBreaksAfterRemovingManual()) / 2), scale);
+        _background.localScale = new Vector3(1, scale.y, scale.x);
     }
 
-    private void UpdateTextRect(float scaleMultiplier)
+    private void UpdateTextRect(Vector2 newScale)
     {
-        float newYValue = DefaultTextHeight * scaleMultiplier *
-                          (1 + ((float)GetNumberOfExtraLineBreaks() / GetNumberOfWrappingLineBreaksAfterRemovingManual()) / 2);
-        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * scaleMultiplier, newYValue);
+        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * newScale.x, DefaultTextHeight * newScale.y);
     }
 
-    private float CurrentScale()
+    private Vector2 GetScaleAmount()
     {
-        float newScale = (float)_text.Length / NumberOfLettersWhenScaleIsOne;
-        newScale = Mathf.Sqrt(newScale) * _fontSizeMultiplier;
+        float squareMetersScaleAmount = GetSquareMetersScaleAmount();
+        float newScaleX;
+        float newScaleY;
+
+        if (_setWidthOnly)
+        {
+            newScaleX = squareMetersScaleAmount;
+            newScaleY = 1;
+        }
+        else if (_setHeightOnly)
+        {
+            newScaleY = squareMetersScaleAmount;
+            newScaleX = 1;
+        }
+        else
+        {
+            newScaleX = Mathf.Sqrt(squareMetersScaleAmount);
+            newScaleY = Mathf.Sqrt(squareMetersScaleAmount);
+        }
+
+        newScaleY *= (1 + ((float)GetNumberOfExtraLineBreaks() / GetNumberOfWrappingLineBreaksInText(_text)) / 2);
+
+        Vector2 newScale = new Vector2(newScaleX, newScaleY) * _layoutScale * _fontSizeMultiplier;
+
         return newScale;
     }
 
-    [Button]
+    private float GetSquareMetersScaleAmount()
+    {
+        return (float)_text.Length / NumberOfLettersWhenScaleIsOne;
+    }
+
     private int GetNumberOfExtraLineBreaks()
     {
-        return GetNumberOfLineBreaks() - GetNumberOfWrappingLineBreaksAfterRemovingManual();
+        return GetNumberOfLineBreaks() - GetNumberOfWrappingLineBreaksInText(_text);
     }
 
     private int GetNumberOfLineBreaks()
     {
-        string[] lines = _text.Split("\n");
-        int manualLineBreaks = lines.Length - 1;
-        int wrappingLineBreaks = 0;
-        foreach (string line in lines)
+        string[] paragraphs = _text.Split("\n");
+        int manualLineBreaks = paragraphs.Length - 1;
+        int wrappingLineBreaksInParagraph = 0;
+        foreach (string paragraph in paragraphs)
         {
-            wrappingLineBreaks += line.Length / (int)(NumberOfLettersUntilLineWrap * CurrentScale());
+            wrappingLineBreaksInParagraph += GetNumberOfWrappingLineBreaksInText(paragraph);
         }
 
-        return manualLineBreaks + wrappingLineBreaks;
+        return manualLineBreaks + wrappingLineBreaksInParagraph;
     }
 
-    //TODO: Rename
-    private int GetNumberOfWrappingLineBreaksAfterRemovingManual()
+    private int GetNumberOfWrappingLineBreaksInText(string text)
     {
-        return _text.Length / (int)(NumberOfLettersUntilLineWrap * CurrentScale());
+        return text.Length / (int)(NumberOfLettersUntilLineWrap * GetSquareMetersScaleAmount());
     }
 
 
