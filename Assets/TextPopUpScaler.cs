@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using TMPro;
 
-public class TextAutoScaler : MonoBehaviour
+public class TextPopUpScaler : MonoBehaviour
 {
     private const float DefaultTextFontSize = 0.34f;
     private const int ReferenceNumberOfLettersUntilLineWrap = 74;
@@ -29,7 +29,14 @@ public class TextAutoScaler : MonoBehaviour
 
     [HideInInspector] public string Text;
 
-    public void SetScale()
+    public void SetScale(Vector2 textSize)
+    {
+        _textUI.rectTransform.sizeDelta = textSize;
+        _background.Width = textSize.x + _backgroundPadding.x;
+        _background.Height = textSize.y + _backgroundPadding.y;
+    }
+
+    public void AutoScale()
     {
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
 

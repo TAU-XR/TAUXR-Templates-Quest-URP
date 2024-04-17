@@ -10,16 +10,16 @@ public class TextPopUp : MonoBehaviour
 {
     [SerializeField] private TextMeshPro _textUI;
     [TextArea(1, 10)] [SerializeField] private string _text;
-    [SerializeField] private TextAutoScaler _textAutoScaler;
+    [SerializeField] private TextPopUpScaler _textPopUpScaler;
 
     private void OnValidate()
     {
-        if (Application.isPlaying || !_textAutoScaler.AutoScaleWhenChangingText)
+        if (Application.isPlaying || !_textPopUpScaler.AutoScaleWhenChangingText)
         {
             return;
         }
 
-        SetTextAndScale(_text);
+        SetTextAndAutoScale(_text);
     }
 
     public void SetText(string newText)
@@ -27,11 +27,18 @@ public class TextPopUp : MonoBehaviour
         _textUI.text = newText;
     }
 
-    public void SetTextAndScale(string newText)
+    public void SetTextAndAutoScale(string newText)
     {
         _textUI.text = newText;
-        _textAutoScaler.Text = newText;
-        _textAutoScaler.SetScale();
+        _textPopUpScaler.Text = newText;
+        _textPopUpScaler.AutoScale();
+    }
+
+    public void SetTextAndScale(string newText, Vector2 textSize)
+    {
+        _textUI.text = newText;
+        _textPopUpScaler.Text = newText;
+        _textPopUpScaler.SetScale(textSize);
     }
 
 #if UNITY_EDITOR
@@ -42,9 +49,15 @@ public class TextPopUp : MonoBehaviour
     }
 
     [Button]
-    public void SetTextAndScale()
+    public void SetTextAndAutoScale()
     {
-        SetTextAndScale(_text);
+        SetTextAndAutoScale(_text);
+    }
+
+    [Button]
+    public void SetTextAndScale(Vector2 textSize)
+    {
+        SetTextAndScale(_text, textSize);
     }
 #endif
 }
