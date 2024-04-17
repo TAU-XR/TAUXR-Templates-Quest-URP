@@ -22,7 +22,6 @@ public class TextPopUpAnimator : MonoBehaviour
         _textUI = textUI;
     }
 
-
     public void Fade(bool fadeIn, bool useAnimation = true)
     {
         _fadeTween?.Kill();
@@ -42,20 +41,24 @@ public class TextPopUpAnimator : MonoBehaviour
             _background.Color = backfaceColor;
         });
 
-        //TODO: check if dotween also doesn't get to 1 similar to lerps.
+        //TODO: check if Dotween also doesn't get to 1 similar to lerps.
     }
 
-    private void ChangeScale(float backfaceX, float backfaceY)
+    public void ChangeScale(Vector2 newTextScale, Vector2 newBackgroundScale)
     {
         _scaleTween?.Kill();
 
-        float currentBackfaceX = _background.Width;
-        float currentBackfaceY = _background.Height;
+        Vector2 currentBackgroundScale = new Vector2(_background.Width, _background.Height);
+        Vector2 currentTextScale = new Vector2(_textUI.rectTransform.sizeDelta.x, _textUI.rectTransform.sizeDelta.y);
 
         _scaleTween = DOVirtual.Float(0, 1, _scaleChangeDuration, t =>
         {
-            _background.Width = Mathf.Lerp(currentBackfaceX, backfaceX, t);
-            _background.Height = Mathf.Lerp(currentBackfaceY, backfaceY, t);
+            float textXScale = Mathf.Lerp(currentTextScale.x, newTextScale.x, t);
+            float textYScale = Mathf.Lerp(currentTextScale.y, newTextScale.y, t);
+            _textUI.rectTransform.sizeDelta = new Vector2(textXScale, textYScale);
+
+            _background.Width = Mathf.Lerp(currentBackgroundScale.x, newBackgroundScale.x, t);
+            _background.Height = Mathf.Lerp(currentBackgroundScale.y, newBackgroundScale.y, t);
         });
     }
 }

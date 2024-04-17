@@ -17,7 +17,7 @@ public class TextPopUp : MonoBehaviour
 
     private void Start()
     {
-        _textPopUpScaler.Init(_background, _textUI);
+        _textPopUpScaler.Init(_background, _textUI, _textPopUpAnimator);
         _textPopUpAnimator.Init(_background, _textUI);
     }
 

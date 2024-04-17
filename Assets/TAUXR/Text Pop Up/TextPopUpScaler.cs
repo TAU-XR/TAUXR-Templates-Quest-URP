@@ -14,8 +14,9 @@ public class TextPopUpScaler : MonoBehaviour
     private const float ReferenceSquareMeters = 0.25f;
     private const float ReferenceLineHeight = 0.04f;
 
-    [SerializeField] private Rectangle _background;
-    [SerializeField] private TextMeshPro _textUI;
+    private Rectangle _background;
+    private TextMeshPro _textUI;
+    private TextPopUpAnimator _animator;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
     [SerializeField] private float _layoutRatio = 5.5f;
@@ -29,17 +30,16 @@ public class TextPopUpScaler : MonoBehaviour
 
     [HideInInspector] public string Text;
 
-    public void Init(Rectangle background, TextMeshPro textUI)
+    public void Init(Rectangle background, TextMeshPro textUI, TextPopUpAnimator animator)
     {
         _background = background;
         _textUI = textUI;
+        _animator = animator;
     }
 
     public void SetScale(Vector2 textSize)
     {
-        _textUI.rectTransform.sizeDelta = textSize;
-        _background.Width = textSize.x + _backgroundPadding.x;
-        _background.Height = textSize.y + _backgroundPadding.y;
+        _animator.ChangeScale(textSize, textSize + _backgroundPadding);
     }
 
     public void AutoScale()
