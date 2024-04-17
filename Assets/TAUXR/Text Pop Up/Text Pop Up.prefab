@@ -61,8 +61,8 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 1.2990906
-  height: 0.22318178
+  width: 1.3036608
+  height: 0.24066558
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
@@ -188,7 +188,7 @@ MonoBehaviour:
   _background: {fileID: 7867516359336035635}
   _textUI: {fileID: 3889759835927473169}
   _fontSizeMultiplier: 1
-  _layoutRatio: 6
+  _layoutRatio: 5.5
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
     est eu faucibus ullamcorper. cursus. Nullam pretium est eu faucibus ullamcorper. 
@@ -232,7 +232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.0990906, y: 0.18318178}
+  m_SizeDelta: {x: 1.1036607, y: 0.20066558}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:

@@ -11,7 +11,7 @@ public class TextPopUp : MonoBehaviour
     private const float DefaultTextFontSize = 0.34f;
     private const int NumberOfLettersUntilLineWrap = 60;
     private const int ReferenceNumberOfLetters = 300;
-    private const float ReferenceSquareMeters = 0.2f;
+    private const float ReferenceSquareMeters = 0.22f;
 
     [SerializeField] private bool _useAnimation = true;
 
@@ -50,7 +50,8 @@ public class TextPopUp : MonoBehaviour
             return;
         }
 
-        _layout = new Vector2(Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters), Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters));
+        _layout = new Vector2(Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters),
+            Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters));
         SetTextAndScale(_text);
     }
 
@@ -92,8 +93,9 @@ public class TextPopUp : MonoBehaviour
             newScaleY = Mathf.Sqrt(squareMetersScaleAmount);
         }
 
+        newScaleY *= (1 + (float)GetNumberOfExtraLineBreaks() / (GetNumberOfWrappingLineBreaksInText(_text)));
         //Increase the y scale according to the amount of extra line breaks.
-        newScaleY *= (1 + (float)GetNumberOfLineBreaks() / GetNumberOfWrappingLineBreaksInText(_text)) / 2;
+        // newScaleY *= (1 + (float)GetNumberOfLineBreaks() / GetNumberOfWrappingLineBreaksInText(_text) - 1) / 2;
 
         Vector2 newScale = new Vector2(newScaleX, newScaleY) * _fontSizeMultiplier;
 
