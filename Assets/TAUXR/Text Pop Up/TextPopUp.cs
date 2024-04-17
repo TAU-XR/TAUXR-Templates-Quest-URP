@@ -9,39 +9,25 @@ using TMPro;
 public class TextPopUp : MonoBehaviour
 {
     private const float DefaultTextFontSize = 0.34f;
-    private const int NumberOfLettersUntilLineWrap = 60;
+    private const int ReferenceNumberOfLettersUntilLineWrap = 68;
     private const int ReferenceNumberOfLetters = 300;
-    private const float ReferenceSquareMeters = 0.22f;
+    private const float ReferenceSquareMeters = 0.23f;
+    private const float ReferenceLineHeight = 0.4f;
 
     [SerializeField] private bool _useAnimation = true;
-
     [SerializeField] private Rectangle _background;
     [SerializeField] private TextMeshPro _textUI;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
-    [SerializeField] private float _layoutRatio = 6;
+    [SerializeField] private float _layoutRatio = 5.5f;
+    [SerializeField] private bool _extendWidthOnly;
+    [SerializeField] private bool _extendHeightOnly;
 
     [TextArea(1, 10)] [SerializeField] private string _text;
 
-    [SerializeField] private bool _setWidthOnly;
-    [SerializeField] private bool _setHeightOnly;
-
-    private Vector2 _layout;
-    [SerializeField] private Vector2 _backFacePadding = new Vector2(0.2f, 0.04f);
+    private Vector2 _scale;
+    [SerializeField] private Vector2 _backGroundPadding = new Vector2(0.2f, 0.04f);
     [SerializeField] private bool _useOnValidate = true;
-
-    private void OnEnable()
-    {
-        if (!_useAnimation)
-        {
-            GetComponent<Animator>().Play("Birth", -1, 1);
-        }
-    }
-
-    public void SetText(string newText)
-    {
-        _textUI.text = newText;
-    }
 
     private void OnValidate()
     {
@@ -50,61 +36,54 @@ public class TextPopUp : MonoBehaviour
             return;
         }
 
-        _layout = new Vector2(Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters),
-            Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters));
+        float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
+        float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * 0.04f;
+        _scale = new Vector2(xScale, yScale);
         SetTextAndScale(_text);
     }
+
+    public void SetText(string newText)
+    {
+        _textUI.text = newText;
+    }
+
 
     public void SetTextAndScale(string newText)
     {
         _textUI.text = newText;
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
-        Vector2 scale = GetScaleAmount();
-        UpdateTextRect(scale);
-        Vector2 backFaceSize = _layout * scale + _backFacePadding;
+        Vector2 scale = _scale * GetScalingFactor();
+        _textUI.rectTransform.sizeDelta = scale;
+        Vector2 backFaceSize = scale + _backGroundPadding;
         _background.Width = backFaceSize.x;
         _background.Height = backFaceSize.y;
     }
 
-    private void UpdateTextRect(Vector2 scale)
+    private Vector2 GetScalingFactor()
     {
-        _textUI.rectTransform.sizeDelta = _layout * scale;
-    }
-
-    private Vector2 GetScaleAmount()
-    {
-        float squareMetersScaleAmount = GetSquareMetersScaleAmount();
+        float scalingFactor = (float)_text.Length / ReferenceNumberOfLetters;
         float newScaleX;
         float newScaleY;
 
-        if (_setWidthOnly)
+        if (_extendWidthOnly)
         {
-            newScaleX = squareMetersScaleAmount;
+            newScaleX = scalingFactor;
             newScaleY = 1;
         }
-        else if (_setHeightOnly)
+        else if (_extendHeightOnly)
         {
-            newScaleY = squareMetersScaleAmount;
+            newScaleY = scalingFactor;
             newScaleX = 1;
         }
         else
         {
-            newScaleX = Mathf.Sqrt(squareMetersScaleAmount);
-            newScaleY = Mathf.Sqrt(squareMetersScaleAmount);
+            newScaleX = Mathf.Sqrt(scalingFactor);
+            newScaleY = Mathf.Sqrt(scalingFactor);
         }
-
-        newScaleY *= (1 + (float)GetNumberOfExtraLineBreaks() / (GetNumberOfWrappingLineBreaksInText(_text)));
-        //Increase the y scale according to the amount of extra line breaks.
-        // newScaleY *= (1 + (float)GetNumberOfLineBreaks() / GetNumberOfWrappingLineBreaksInText(_text) - 1) / 2;
 
         Vector2 newScale = new Vector2(newScaleX, newScaleY) * _fontSizeMultiplier;
 
         return newScale;
-    }
-
-    private float GetSquareMetersScaleAmount()
-    {
-        return (float)_text.Length / ReferenceNumberOfLetters;
     }
 
     private int GetNumberOfExtraLineBreaks()
@@ -127,7 +106,7 @@ public class TextPopUp : MonoBehaviour
 
     private int GetNumberOfWrappingLineBreaksInText(string text)
     {
-        return text.Length / (int)(NumberOfLettersUntilLineWrap * GetSquareMetersScaleAmount());
+        return text.Length / (int)(ReferenceNumberOfLettersUntilLineWrap * (float)_text.Length / ReferenceNumberOfLetters);
     }
 
 

@@ -61,8 +61,8 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 1.3036608
-  height: 0.24066558
+  width: 1.4247222
+  height: 0.30449495
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
@@ -189,13 +189,13 @@ MonoBehaviour:
   _textUI: {fileID: 3889759835927473169}
   _fontSizeMultiplier: 1
   _layoutRatio: 5.5
+  _extendWidthOnly: 0
+  _extendHeightOnly: 0
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
-    est eu faucibus ullamcorper. cursus. Nullam pretium est eu faucibus ullamcorper. 
-    DSADSD dsadsa dsadcursuspretium est eu faucibus ullamcorper.  cursus
-  _setWidthOnly: 0
-  _setHeightOnly: 0
-  _backFacePadding: {x: 0.2, y: 0.04}
+    est eu faucibus ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper.
+    ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper. ul
+  _backGroundPadding: {x: 0.3, y: 0.1}
   _useOnValidate: 1
 --- !u!1 &8658139437583312239
 GameObject:
@@ -232,7 +232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.1036607, y: 0.20066558}
+  m_SizeDelta: {x: 1.1247221, y: 0.20449495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -298,8 +298,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
-    est eu faucibus ullamcorper. cursus. Nullam pretium est eu faucibus ullamcorper. 
-    DSADSD dsadsa dsadcursuspretium est eu faucibus ullamcorper.  cursus
+    est eu faucibus ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper.
+    ullamcorper. ullamcorper. ullamcorper. ullamcorper. ullamcorper. ul
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,
