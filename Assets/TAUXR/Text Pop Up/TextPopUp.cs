@@ -9,9 +9,9 @@ using TMPro;
 public class TextPopUp : MonoBehaviour
 {
     private const float DefaultTextFontSize = 0.34f;
-    private const int ReferenceNumberOfLettersUntilLineWrap = 68;
+    private const int ReferenceNumberOfLettersUntilLineWrap = 74;
     private const int ReferenceNumberOfLetters = 300;
-    private const float ReferenceSquareMeters = 0.23f;
+    private const float ReferenceSquareMeters = 0.26f;
     private const float ReferenceLineHeight = 0.04f;
 
     [SerializeField] private bool _useAnimation = true;
@@ -20,6 +20,7 @@ public class TextPopUp : MonoBehaviour
 
     [SerializeField] private float _fontSizeMultiplier = 1;
     [SerializeField] private float _layoutRatio = 5.5f;
+    [SerializeField] private float _scaleFactor = 1;
     [SerializeField] private bool _extendWidthOnly;
     [SerializeField] private bool _extendHeightOnly;
 
@@ -38,7 +39,7 @@ public class TextPopUp : MonoBehaviour
 
         float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
         float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * ReferenceLineHeight;
-        _scale = new Vector2(xScale, yScale);
+        _scale = new Vector2(xScale, yScale) * _scaleFactor;
         SetTextAndScale(_text);
     }
 
