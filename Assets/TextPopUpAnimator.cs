@@ -22,11 +22,11 @@ public class TextPopUpAnimator : MonoBehaviour
         _textUI = textUI;
     }
 
-    public void Fade(bool fadeIn, bool useAnimation = true)
+    public void SetAppearance(bool state, bool useAnimation = true)
     {
         _fadeTween?.Kill();
 
-        float targetAlpha = fadeIn ? 1f : 0f;
+        float targetAlpha = state ? 1f : 0f;
         float currentAlpha = _textUI.color.a;
         float duration = useAnimation ? _fadeDuration : 0.01f;
 
@@ -44,14 +44,15 @@ public class TextPopUpAnimator : MonoBehaviour
         //TODO: check if Dotween also doesn't get to 1 similar to lerps.
     }
 
-    public void ChangeScale(Vector2 newTextScale, Vector2 newBackgroundScale)
+    public void ChangeScale(Vector2 newTextScale, Vector2 newBackgroundScale, bool useAnimation = true)
     {
         _scaleTween?.Kill();
 
         Vector2 currentBackgroundScale = new Vector2(_background.Width, _background.Height);
         Vector2 currentTextScale = new Vector2(_textUI.rectTransform.sizeDelta.x, _textUI.rectTransform.sizeDelta.y);
+        float duration = useAnimation ? _scaleChangeDuration : 0.01f;
 
-        _scaleTween = DOVirtual.Float(0, 1, _scaleChangeDuration, t =>
+        _scaleTween = DOVirtual.Float(0, 1, duration, t =>
         {
             float textXScale = Mathf.Lerp(currentTextScale.x, newTextScale.x, t);
             float textYScale = Mathf.Lerp(currentTextScale.y, newTextScale.y, t);
