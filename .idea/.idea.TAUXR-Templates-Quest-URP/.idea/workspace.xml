@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Fonts/NeueHaasDisplay-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Fonts/NeueHaasDisplay-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Idle.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextPopUp.cs" afterDir="false" />
     </list>

@@ -61,8 +61,8 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 3.7422962
-  height: 0.6451423
+  width: 1.2990906
+  height: 0.22318178
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
@@ -187,51 +187,12 @@ MonoBehaviour:
   _useAnimation: 1
   _background: {fileID: 7867516359336035635}
   _textUI: {fileID: 3889759835927473169}
-  _fontSizeMultiplier: 0.95
-  _layoutXScale: 1
+  _fontSizeMultiplier: 1
+  _layoutRatio: 6
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sad
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamcorper. cursus. Nullam pretium est eu faucibus ullamcorper. 
+    DSADSD dsadsa dsadcursuspretium est eu faucibus ullamcorper.  cursus
   _setWidthOnly: 0
   _setHeightOnly: 0
   _backFacePadding: {x: 0.2, y: 0.04}
@@ -271,7 +232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3.5422962, y: 0.6051423}
+  m_SizeDelta: {x: 1.0990906, y: 0.18318178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -336,48 +297,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
-    dsad sad
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamcorper. cursus. Nullam pretium est eu faucibus ullamcorper. 
+    DSADSD dsadsa dsadcursuspretium est eu faucibus ullamcorper.  cursus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,
@@ -405,8 +327,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.323
-  m_fontSizeBase: 0.323
+  m_fontSize: 0.34
+  m_fontSizeBase: 0.34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
