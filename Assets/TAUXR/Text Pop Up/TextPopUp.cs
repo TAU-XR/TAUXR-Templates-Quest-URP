@@ -11,7 +11,7 @@ public class TextPopUp : MonoBehaviour
     private const float DefaultTextFontSize = 0.34f;
     private const int ReferenceNumberOfLettersUntilLineWrap = 74;
     private const int ReferenceNumberOfLetters = 300;
-    private const float ReferenceSquareMeters = 0.26f;
+    private const float ReferenceSquareMeters = 0.25f;
     private const float ReferenceLineHeight = 0.04f;
 
     [SerializeField] private bool _useAnimation = true;
@@ -27,19 +27,16 @@ public class TextPopUp : MonoBehaviour
     [TextArea(1, 10)] [SerializeField] private string _text;
 
     private Vector2 _scale;
-    [SerializeField] private Vector2 _backgroundPadding = new Vector2(0.2f, 0.04f);
-    [SerializeField] private bool _useOnValidate = true;
+    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
+    [SerializeField] private bool _autoScaleWhenChangingText = true;
 
     private void OnValidate()
     {
-        if (Application.isPlaying || !_useOnValidate)
+        if (Application.isPlaying || !_autoScaleWhenChangingText)
         {
             return;
         }
 
-        float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
-        float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * ReferenceLineHeight;
-        _scale = new Vector2(xScale, yScale) * _scaleFactor;
         SetTextAndScale(_text);
     }
 
@@ -53,14 +50,18 @@ public class TextPopUp : MonoBehaviour
     {
         _textUI.text = newText;
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
-        Vector2 scale = _scale * GetScalingFactor();
-        _textUI.rectTransform.sizeDelta = scale;
-        Vector2 backFaceSize = scale + _backgroundPadding;
+
+        float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
+        float yScale = Mathf.Sqrt(1 / _layoutRatio * ReferenceSquareMeters) + GetNumberOfExtraLineBreaks() * ReferenceLineHeight;
+        _scale = new Vector2(xScale, yScale) * _scaleFactor * GetLayoutScalingFactor();
+
+        _textUI.rectTransform.sizeDelta = _scale;
+        Vector2 backFaceSize = _scale + _backgroundPadding;
         _background.Width = backFaceSize.x;
         _background.Height = backFaceSize.y;
     }
 
-    private Vector2 GetScalingFactor()
+    private Vector2 GetLayoutScalingFactor()
     {
         float scalingFactor = (float)_text.Length / ReferenceNumberOfLetters;
         float newScaleX;
