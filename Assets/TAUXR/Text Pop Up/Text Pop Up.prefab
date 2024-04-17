@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5114078426747989229}
   - component: {fileID: 6824247996001254045}
   m_Layer: 0
-  m_Name: BackFace
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592621570970128399}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0057043866, y: 0.7070838, z: 0.0057043866, w: -0.7070838}
-  m_LocalPosition: {x: 0.0027, y: 0, z: 0.0492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7598165009963146259}
-  m_LocalEulerAnglesHint: {x: -0.924, y: 0, z: 0}
+  m_Father: {fileID: 2555320034999473363}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7867516359336035635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,12 +61,12 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 0
-  height: 0.1
+  width: 3.7422962
+  height: 0.6451423
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
-  thickness: 0.5
+  thickness: 2
   thicknessSpace: 0
   matchDashSpacingToSize: 1
   dashed: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   useFill: 0
 --- !u!33 &5114078426747989229
 MeshFilter:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -98,7 +98,7 @@ MeshFilter:
   m_Mesh: {fileID: 43100795730674332, guid: a3d1f56cebf202c448b6fb479f61a9dc, type: 2}
 --- !u!23 &6824247996001254045
 MeshRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -138,39 +138,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4514185385065165804
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7598165009963146259}
-  m_Layer: 0
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7598165009963146259
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4514185385065165804}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.989975, z: 1.989975}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2549158915963381662}
-  - {fileID: 4720078911451469987}
-  m_Father: {fileID: 2555320034999473363}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5244916601612165859
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2555320034999473363}
-  - component: {fileID: 6245954489920347592}
   - component: {fileID: 3371585176127677710}
   m_Layer: 0
   m_Name: Text Pop Up
@@ -203,30 +169,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 685622926843935748}
-  - {fileID: 7598165009963146259}
+  - {fileID: 2549158915963381662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6245954489920347592
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5244916601612165859}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 49422018275eb4944985f3a78cd6027d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3371585176127677710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,153 +185,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useAnimation: 1
-  _background: {fileID: 7598165009963146259}
+  _background: {fileID: 7867516359336035635}
   _textUI: {fileID: 3889759835927473169}
-  _fontSizeMultiplier: 1
-  _layoutScale: {x: 1.1, y: 1.1}
+  _fontSizeMultiplier: 0.95
+  _layoutXScale: 1
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
-    est eu faucibus ullamcorper.
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sad
   _setWidthOnly: 0
   _setHeightOnly: 0
---- !u!1 &5516417466098704482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4720078911451469987}
-  - component: {fileID: 3662548696553130858}
-  - component: {fileID: 2837478273121586875}
-  - component: {fileID: 168534362479513575}
-  m_Layer: 0
-  m_Name: Pointer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4720078911451469987
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5516417466098704482}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0057, y: 0, z: 0.26}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7598165009963146259}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &3662548696553130858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5516417466098704482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f210828086c1a4398856e1ba65627c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blendMode: 0
-  scaleMode: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
-  detailLevel: 2
-  renderQueue: -1
-  zTest: 4
-  zOffsetFactor: 0
-  zOffsetUnits: 0
-  colorMask: 15
-  stencilComp: 8
-  stencilOpPass: 0
-  stencilRefID: 0
-  stencilReadMask: 255
-  stencilWriteMask: 255
-  pivot: 1
-  width: 0
-  height: 0.06
-  type: 3
-  cornerRadiusMode: 0
-  cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
-  thickness: 0.5
-  thicknessSpace: 0
-  matchDashSpacingToSize: 1
-  dashed: 0
-  dashStyle:
-    type: 0
-    space: -2
-    snap: 1
-    size: 16
-    spacing: 0.5
-    offset: 0
-    shapeModifier: 1
-  fill:
-    type: 1
-    space: 0
-    colorStart: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
-    colorEnd: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
-    linearStart: {x: 0, y: 0, z: 0}
-    linearEnd: {x: 0, y: 1, z: 0}
-    radialOrigin: {x: 0, y: 0, z: 0}
-    radialRadius: 0.34
-  useFill: 0
---- !u!33 &2837478273121586875
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5516417466098704482}
-  m_Mesh: {fileID: 43100795730674332, guid: a3d1f56cebf202c448b6fb479f61a9dc, type: 2}
---- !u!23 &168534362479513575
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5516417466098704482}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: fc140bb5568d5e4468a920fbb5f1e083, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  _backFacePadding: {x: 0.2, y: 0.04}
+  _useOnValidate: 1
 --- !u!1 &8658139437583312239
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,17 +261,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8658139437583312239}
-  m_LocalRotation: {x: 4.656613e-10, y: -0.7071068, z: -4.656613e-10, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2555320034999473363}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.003400065, y: 0}
-  m_SizeDelta: {x: 0.955188, y: 0.159198}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3.5422962, y: 0.6051423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -487,8 +336,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
-    est eu faucibus ullamcorper.
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sadLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+    ac est vitae euismod. Sed non enis ullamcorper.Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Mo dasd dsa dsad sdas ddsa dsdsad sdsa dsd sad sad sad dsa dsa
+    dsad sad
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,
@@ -516,8 +405,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3368976
-  m_fontSizeBase: 0.3368976
+  m_fontSize: 0.323
+  m_fontSizeBase: 0.323
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

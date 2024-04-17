@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shapes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using TMPro;
@@ -8,22 +9,28 @@ using TMPro;
 public class TextPopUp : MonoBehaviour
 {
     private const float DefaultTextWidth = 0.48f;
-    private const float DefaultTextHeight = 0.08f;
-    private const float DefaultTextFontSize = 0.3368976f;
-    private const int NumberOfLettersUntilLineWrap = 32;
-    private const int NumberOfLettersWhenScaleIsOne = 55;
+    private const float DefaultTextHeight = 0.082f;
+    private const float DefaultTextFontSize = 0.34f;
+    private const int NumberOfLettersUntilLineWrap = 34;
+    private const int NumberOfLettersWhenScaleIsOne = 58;
+    private Vector2 _layoutScale = new(1, 1);
 
     [SerializeField] private bool _useAnimation = true;
 
-    [SerializeField] private Transform _background;
+    [SerializeField] private Rectangle _background;
     [SerializeField] private TextMeshPro _textUI;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
-    [SerializeField] private Vector2 _layoutScale = new(1, 1);
+    [SerializeField] private float _layoutRatio = 1;
+
     [TextArea(1, 10)] [SerializeField] private string _text;
 
     [SerializeField] private bool _setWidthOnly;
     [SerializeField] private bool _setHeightOnly;
+
+    private Vector2 _layout;
+    [SerializeField] private Vector2 _backFacePadding = new Vector2(0.2f, 0.04f);
+    [SerializeField] private bool _useOnValidate = true;
 
     private void OnEnable()
     {
@@ -40,11 +47,13 @@ public class TextPopUp : MonoBehaviour
 
     private void OnValidate()
     {
-        if (Application.isPlaying)
+        if (Application.isPlaying || !_useOnValidate)
         {
             return;
         }
 
+        _layout = new Vector2(DefaultTextWidth, DefaultTextHeight);
+        _layoutScale = new Vector2(_layoutRatio, 1 / _layoutRatio);
         SetTextAndScale(_text);
     }
 
@@ -54,12 +63,14 @@ public class TextPopUp : MonoBehaviour
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
         Vector2 scale = GetScaleAmount();
         UpdateTextRect(scale);
-        _background.localScale = new Vector3(1, scale.y, scale.x);
+        Vector2 backFaceSize = _layout * scale + _backFacePadding;
+        _background.Width = backFaceSize.x;
+        _background.Height = backFaceSize.y;
     }
 
-    private void UpdateTextRect(Vector2 newScale)
+    private void UpdateTextRect(Vector2 scale)
     {
-        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * newScale.x, DefaultTextHeight * newScale.y);
+        _textUI.rectTransform.sizeDelta = new Vector2(DefaultTextWidth * scale.x, DefaultTextHeight * scale.y);
     }
 
     private Vector2 GetScaleAmount()
