@@ -1294,9 +1294,14 @@ PrefabInstance:
     - target: {fileID: 71402731301960498, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: Text
-      value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-        ac est vitae euismod\n. Sed non enim id mauris sagittis cursus. \nNullam
-        pretium est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod."
+      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+        ac est vitae euismod. Sednon enim id mauris sagittis cursus. Nullam pretium
+        est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
+      objectReference: {fileID: 0}
+    - target: {fileID: 71402731301960498, guid: 16ee61d410c83e549b07a5234f3e8fab,
+        type: 3}
+      propertyPath: _scaleFactor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 71402731301960498, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
@@ -1306,12 +1311,12 @@ PrefabInstance:
     - target: {fileID: 685622926843935748, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1.0109814
+      value: 1.0041581
       objectReference: {fileID: 0}
     - target: {fileID: 685622926843935748, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.18381481
+      value: 0.1825742
       objectReference: {fileID: 0}
     - target: {fileID: 2555320034999473363, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
@@ -1366,16 +1371,16 @@ PrefabInstance:
     - target: {fileID: 3371585176127677710, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: _text
-      value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-        ac est vitae euismod\n. Sed non enim id mauris sagittis cursus. \nNullam
-        pretium est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod."
+      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+        ac est vitae euismod. Sednon enim id mauris sagittis cursus. Nullam pretium
+        est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
       objectReference: {fileID: 0}
     - target: {fileID: 3889759835927473169, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: m_text
-      value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-        ac est vitae euismod\n. Sed non enim id mauris sagittis cursus. \nNullam
-        pretium est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod."
+      value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
+        ac est vitae euismod. Sednon enim id mauris sagittis cursus. Nullam pretium
+        est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
       objectReference: {fileID: 0}
     - target: {fileID: 5244916601612165859, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
@@ -1385,12 +1390,12 @@ PrefabInstance:
     - target: {fileID: 7867516359336035635, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: width
-      value: 1.3109815
+      value: 1.3041582
       objectReference: {fileID: 0}
     - target: {fileID: 7867516359336035635, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: height
-      value: 0.28381482
+      value: 0.2825742
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

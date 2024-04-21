@@ -27,21 +27,20 @@ public class TextPopUpAnimator : MonoBehaviour
         _fadeTween?.Kill();
 
         float targetAlpha = state ? 1f : 0f;
-        float currentAlpha = _textUI.color.a;
-        float duration = useAnimation ? _fadeDuration : 0.01f;
 
-        Color textColor = _textUI.color;
-        Color backfaceColor = _background.Color;
-        _fadeTween = DOVirtual.Float(currentAlpha, targetAlpha, duration, t =>
+        if (!useAnimation)
         {
-            textColor.a = t;
-            backfaceColor.a = t;
+            _textUI.SetAlpha(targetAlpha);
+            _background.SetAlpha(targetAlpha);
+            return;
+        }
 
-            _textUI.color = textColor;
-            _background.Color = backfaceColor;
+        float currentAlpha = _textUI.color.a;
+        _fadeTween = DOVirtual.Float(currentAlpha, targetAlpha, _fadeDuration, t =>
+        {
+            _textUI.SetAlpha(t);
+            _background.SetAlpha(t);
         });
-
-        //TODO: check if Dotween also doesn't get to 1 similar to lerps.
     }
 
     public void SetScale(Vector2 newTextScale, Vector2 newBackgroundScale)

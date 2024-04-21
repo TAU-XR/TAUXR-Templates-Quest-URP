@@ -19,6 +19,34 @@ public class TextPopUp : MonoBehaviour
     {
         _textPopUpScaler.Init(_background, _textUI, _textPopUpAnimator);
         _textPopUpAnimator.Init(_background, _textUI);
+        SetStartingState();
+    }
+
+    private void SetStartingState()
+    {
+        switch (_startingState)
+        {
+            case ETextPopUpState.Active:
+                _textPopUpAnimator.SetAppearance(true, false);
+                break;
+            case ETextPopUpState.Appear:
+                _textPopUpAnimator.SetAppearance(false, false);
+                _textPopUpAnimator.SetAppearance(true);
+                break;
+            case ETextPopUpState.Disabled:
+                _textPopUpAnimator.SetAppearance(false, false);
+                break;
+        }
+    }
+
+    public void Show(bool useAnimation = true)
+    {
+        _textPopUpAnimator.SetAppearance(true, useAnimation);
+    }
+
+    public void Hide(bool useAnimation = true)
+    {
+        _textPopUpAnimator.SetAppearance(false, useAnimation);
     }
 
     public void SetText(string newText)
@@ -41,15 +69,16 @@ public class TextPopUp : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (Application.isPlaying || !_textPopUpScaler.AutoScaleWhenChangingTextInInspector)
-        {
-            return;
-        }
-
-        SetTextAndAutoScale();
-    }
+    // private void OnValidate()
+    // {
+    //     if (Application.isPlaying || !_textPopUpScaler.AutoScaleWhenChangingTextInInspector)
+    //     {
+    //         return;
+    //     }
+    //
+    //     SetTextAndAutoScale();
+    //     SetStartingState();
+    // }
 
     public void GetTextFromComponent()
     {
