@@ -98,5 +98,11 @@ public class TextPopUp : MonoBehaviour
         _textPopUpAnimator.Init(_background, _textUI);
         SetTextAndScale(_text, textSize, false);
     }
+
+    public void SetActiveState(bool newState)
+    {
+        _textPopUpAnimator.Init(_background, _textUI);
+        _textPopUpAnimator.SetAppearance(newState, false);
+    }
 #endif
 }

@@ -32,5 +32,20 @@ public class TextPopUpEditor : Editor
         {
             textPopUp.SetTextAndScale(_textSize);
         }
+
+        EditorGUILayout.Space(5);
+        EditorGUILayout.LabelField("Set state");
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Enabled"))
+        {
+            textPopUp.SetActiveState(true);
+        }
+
+        if (GUILayout.Button("Disabled"))
+        {
+            textPopUp.SetActiveState(false);
+        }
+
+        GUILayout.EndHorizontal();
     }
 }
