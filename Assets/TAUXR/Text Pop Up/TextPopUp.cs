@@ -26,24 +26,23 @@ public class TextPopUp : MonoBehaviour
         _textUI.text = newText;
     }
 
-    public void SetTextAndAutoScale(string newText)
+    public void SetTextAndAutoScale(string newText, bool useAnimation = true)
     {
         _textUI.text = newText;
         _textPopUpScaler.Text = newText;
-        _textPopUpScaler.AutoScale(useAnimation: false);
+        _textPopUpScaler.AutoScale(useAnimation);
     }
 
-    public void SetTextAndScale(string newText, Vector2 textSize)
+    public void SetTextAndScale(string newText, Vector2 textSize, bool useAnimation = true)
     {
         _textUI.text = newText;
         _textPopUpScaler.Text = newText;
-        _textPopUpScaler.SetScale(textSize, useAnimation: false);
+        _textPopUpScaler.SetScale(textSize, useAnimation);
     }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        Debug.Log("on validate");
         if (Application.isPlaying || !_textPopUpScaler.AutoScaleWhenChangingTextInInspector)
         {
             return;
@@ -52,26 +51,23 @@ public class TextPopUp : MonoBehaviour
         SetTextAndAutoScale();
     }
 
-    [Button]
     public void GetTextFromComponent()
     {
         _text = _textUI.text;
     }
 
-    [Button]
     public void SetTextAndAutoScale()
     {
         _textPopUpScaler.Init(_background, _textUI, _textPopUpAnimator);
         _textPopUpAnimator.Init(_background, _textUI);
-        SetTextAndAutoScale(_text);
+        SetTextAndAutoScale(_text, false);
     }
 
-    [Button]
     public void SetTextAndScale(Vector2 textSize)
     {
         _textPopUpScaler.Init(_background, _textUI, _textPopUpAnimator);
         _textPopUpAnimator.Init(_background, _textUI);
-        SetTextAndScale(_text, textSize);
+        SetTextAndScale(_text, textSize, false);
     }
 #endif
 }

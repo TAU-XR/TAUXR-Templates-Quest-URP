@@ -55,7 +55,7 @@ public class TextPopUpScaler : MonoBehaviour
     {
         if (useAnimation)
         {
-            _animator.ChangeScale(textSize, textSize + _backgroundPadding);
+            _animator.SetScale(textSize, textSize + _backgroundPadding);
             return;
         }
 
