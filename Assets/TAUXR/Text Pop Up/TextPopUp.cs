@@ -14,10 +14,14 @@ public class TextPopUp : MonoBehaviour
 
     [SerializeField] private TextPopUpTextsConfigurationsScriptableObject _textConfigurations;
 
-    private void Start()
+    private void Awake()
     {
         _textPopUpReferences.TextPopUpScaler.Init(_textPopUpReferences);
         _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
+    }
+
+    private void Start()
+    {
         SetStartingState();
     }
 
@@ -78,6 +82,17 @@ public class TextPopUp : MonoBehaviour
         SetTextAndScale(textConfiguration.Text, textConfiguration.TextRectSize, useAnimation);
     }
 
+    public void SetLanguageToEnglish()
+    {
+        _textPopUpReferences.TextUI.isRightToLeftText = false;
+        _textPopUpReferences.TextUI.alignment = TextAlignmentOptions.Left;
+    }
+
+    public void SetLanguageToHebrew()
+    {
+        _textPopUpReferences.TextUI.isRightToLeftText = true;
+        _textPopUpReferences.TextUI.alignment = TextAlignmentOptions.Right;
+    }
 #if UNITY_EDITOR
     public void GetTextFromComponent()
     {
@@ -102,18 +117,6 @@ public class TextPopUp : MonoBehaviour
     {
         _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
         _textPopUpReferences.TextPopUpAnimator.SetAppearance(newState, false);
-    }
-
-    public void SetLanguageToEnglish()
-    {
-        _textPopUpReferences.TextUI.isRightToLeftText = false;
-        _textPopUpReferences.TextUI.alignment = TextAlignmentOptions.Left;
-    }
-
-    public void SetLanguageToHebrew()
-    {
-        _textPopUpReferences.TextUI.isRightToLeftText = true;
-        _textPopUpReferences.TextUI.alignment = TextAlignmentOptions.Right;
     }
 
 

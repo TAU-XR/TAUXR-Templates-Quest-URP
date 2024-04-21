@@ -113,13 +113,16 @@ public class TextPopUpScaler : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (Application.isPlaying || !_textPopUpReferences.TextPopUpScaler.AutoScaleWhenChangingTextInInspector)
+        if (Application.isPlaying)
         {
             return;
         }
 
         _textPopUpReferences = GetComponent<TextPopUpReferences>();
-        AutoScale(false);
+        if (_textPopUpReferences.TextPopUpScaler.AutoScaleWhenChangingTextInInspector)
+        {
+            AutoScale(false);
+        }
     }
 #endif
 }
