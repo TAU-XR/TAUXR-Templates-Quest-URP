@@ -7,43 +7,75 @@ using UnityEngine;
 public class TextPopUpEditor : Editor
 {
     private Vector2 _textSize;
+    private readonly int _spacingBetweenSections = 5;
+    private TextPopUp _textPopUp;
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        TextPopUp textPopUp = (TextPopUp)target;
+        _textPopUp = (TextPopUp)target;
 
+        AddGetTextSection();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        AddScalingSection();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        AddStateSection();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        AddLanguageSection();
+    }
+
+    private void AddGetTextSection()
+    {
         if (GUILayout.Button("Get text from component"))
         {
-            textPopUp.GetTextFromComponent();
+            _textPopUp.SetTextAndAutoScale();
         }
+    }
 
-        EditorGUILayout.Space(5);
-        EditorGUILayout.LabelField("Scaling");
+    private void AddScalingSection()
+    {
+        EditorGUILayout.LabelField("Scaling", EditorStyles.boldLabel);
         if (GUILayout.Button("Set text and auto scale"))
         {
-            textPopUp.SetTextAndAutoScale();
+            _textPopUp.SetTextAndAutoScale();
         }
 
-        EditorGUILayout.Space(5);
+        EditorGUILayout.Space(_spacingBetweenSections);
 
         _textSize = EditorGUILayout.Vector2Field("Text size", _textSize);
         if (GUILayout.Button("Set text and scale"))
         {
-            textPopUp.SetTextAndScale(_textSize);
+            _textPopUp.SetTextAndScale(_textSize);
         }
+    }
 
-        EditorGUILayout.Space(5);
-        EditorGUILayout.LabelField("Set state");
+    private void AddStateSection()
+    {
+        EditorGUILayout.LabelField("Set state", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Enabled"))
         {
-            textPopUp.SetActiveState(true);
+            _textPopUp.SetActiveState(true);
         }
 
         if (GUILayout.Button("Disabled"))
         {
-            textPopUp.SetActiveState(false);
+            _textPopUp.SetActiveState(false);
+        }
+
+        GUILayout.EndHorizontal();
+    }
+
+    private void AddLanguageSection()
+    {
+        EditorGUILayout.LabelField("Set language", EditorStyles.boldLabel);
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("English"))
+        {
+        }
+
+        if (GUILayout.Button("Hebrew"))
+        {
         }
 
         GUILayout.EndHorizontal();

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Shapes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class ColorExtensions
 {
-    public static void SetAlpha(this TextMeshPro text, float alpha)
+    public static void SetAlpha<T>(this T graphic, float alpha) where T : Graphic
     {
-        text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+        graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alpha);
     }
 
     public static void SetAlpha(this Rectangle rectangle, float alpha)
