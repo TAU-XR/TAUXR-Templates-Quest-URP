@@ -1385,6 +1385,12 @@ PrefabInstance:
       propertyPath: _startingState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3371585176127677710, guid: 16ee61d410c83e549b07a5234f3e8fab,
+        type: 3}
+      propertyPath: _textConfigurations
+      value: 
+      objectReference: {fileID: 11400000, guid: 52117f887e72c224f8c487c006e18992,
+        type: 2}
     - target: {fileID: 3889759835927473169, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: m_text

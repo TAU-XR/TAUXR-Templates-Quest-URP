@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Shapes;
 using UnityEngine;
 using TMPro;
@@ -10,6 +11,8 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private TextPopUpReferences _textPopUpReferences;
     [SerializeField] private ETextPopUpState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
+
+    [SerializeField] private TextPopUpTextsConfigurationsScriptableObject _textConfigurations;
 
     private void Start()
     {
@@ -62,6 +65,17 @@ public class TextPopUp : MonoBehaviour
         _textPopUpReferences.TextUI.text = newText;
         _textPopUpReferences.TextPopUpScaler.Text = newText;
         _textPopUpReferences.TextPopUpScaler.SetScale(textSize, useAnimation);
+    }
+
+    public void SetTextFromConfiguration(string textId, bool useAnimation = true)
+    {
+        TextPopUpTextConfiguration textConfiguration = _textConfigurations.GetTextConfiguration(textId);
+        if (textConfiguration == null)
+        {
+            return;
+        }
+
+        SetTextAndScale(textConfiguration.Text, textConfiguration.TextRectSize, useAnimation);
     }
 
 #if UNITY_EDITOR
