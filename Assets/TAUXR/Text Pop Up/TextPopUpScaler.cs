@@ -21,12 +21,12 @@ public class TextPopUpScaler : MonoBehaviour
     [SerializeField] private float _fontSizeMultiplier = 1;
     [SerializeField] private float _layoutRatio = 5.5f;
     [SerializeField] private float _scaleFactor = 1;
+    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [SerializeField] private bool _extendWidthOnly;
     [SerializeField] private bool _extendHeightOnly;
+    [SerializeField] private bool _autoScaleWhenChangingTextInInspector = true;
 
-    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
-    public bool AutoScaleWhenChangingText => _autoScaleWhenChangingText;
-    [SerializeField] private bool _autoScaleWhenChangingText = true;
+    public bool AutoScaleWhenChangingTextInInspector => _autoScaleWhenChangingTextInInspector;
 
     [HideInInspector] public string Text;
 
@@ -37,12 +37,7 @@ public class TextPopUpScaler : MonoBehaviour
         _animator = animator;
     }
 
-    public void SetScale(Vector2 textSize)
-    {
-        _animator.ChangeScale(textSize, textSize + _backgroundPadding);
-    }
-
-    public void AutoScale()
+    public void AutoScale(bool useAnimation = true)
     {
         _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
 
@@ -53,11 +48,22 @@ public class TextPopUpScaler : MonoBehaviour
 
         Vector2 scale = new Vector2(xScale, yScale) * _scaleFactor * _fontSizeMultiplier * GetNumberOfLettersScalingFactor();
 
-        _textUI.rectTransform.sizeDelta = scale;
-        Vector2 backFaceSize = scale + _backgroundPadding;
-        _background.Width = backFaceSize.x;
-        _background.Height = backFaceSize.y;
+        SetScale(scale, useAnimation);
     }
+
+    public void SetScale(Vector2 textSize, bool useAnimation = true)
+    {
+        if (useAnimation)
+        {
+            _animator.ChangeScale(textSize, textSize + _backgroundPadding);
+            return;
+        }
+
+        _textUI.rectTransform.sizeDelta = textSize;
+        _background.Width = textSize.x + _backgroundPadding.x;
+        _background.Height = textSize.y + _backgroundPadding.y;
+    }
+
 
     private Vector2 GetNumberOfLettersScalingFactor()
     {

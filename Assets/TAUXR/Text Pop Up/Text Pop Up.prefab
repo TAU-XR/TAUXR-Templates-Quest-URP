@@ -209,10 +209,10 @@ MonoBehaviour:
   _fontSizeMultiplier: 1
   _layoutRatio: 5.5
   _scaleFactor: 1
+  _backgroundPadding: {x: 0.3, y: 0.1}
   _extendWidthOnly: 0
   _extendHeightOnly: 0
-  _backgroundPadding: {x: 0.3, y: 0.1}
-  _autoScaleWhenChangingText: 0
+  _autoScaleWhenChangingTextInInspector: 1
   Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
     est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
