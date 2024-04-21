@@ -72,10 +72,12 @@ public class TextPopUpEditor : Editor
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("English"))
         {
+            _textPopUp.SetLanguageToEnglish();
         }
 
         if (GUILayout.Button("Hebrew"))
         {
+            _textPopUp.SetLanguageToHebrew();
         }
 
         GUILayout.EndHorizontal();

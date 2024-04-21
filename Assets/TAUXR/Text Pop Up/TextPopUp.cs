@@ -104,5 +104,20 @@ public class TextPopUp : MonoBehaviour
         _textPopUpAnimator.Init(_background, _textUI);
         _textPopUpAnimator.SetAppearance(newState, false);
     }
+
+    public void SetLanguageToEnglish()
+    {
+        _textUI.isRightToLeftText = false;
+        _textUI.alignment = TextAlignmentOptions.Left;
+    }
+
+    public void SetLanguageToHebrew()
+    {
+        _textUI.isRightToLeftText = true;
+        _textUI.alignment = TextAlignmentOptions.Right;
+        // _textUI.text.
+    }
+
+
 #endif
 }
