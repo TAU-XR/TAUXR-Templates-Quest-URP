@@ -1308,6 +1308,11 @@ PrefabInstance:
       propertyPath: _backgroundPadding.x
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 71402731301960498, guid: 16ee61d410c83e549b07a5234f3e8fab,
+        type: 3}
+      propertyPath: _autoScaleWhenChangingTextInInspector
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 685622926843935748, guid: 16ee61d410c83e549b07a5234f3e8fab,
         type: 3}
       propertyPath: m_SizeDelta.x

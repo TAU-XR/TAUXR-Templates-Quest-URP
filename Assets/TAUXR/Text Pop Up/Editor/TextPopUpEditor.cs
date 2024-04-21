@@ -28,7 +28,7 @@ public class TextPopUpEditor : Editor
     {
         if (GUILayout.Button("Get text from component"))
         {
-            _textPopUp.SetTextAndAutoScale();
+            _textPopUp.GetTextFromComponent();
         }
     }
 
@@ -51,7 +51,7 @@ public class TextPopUpEditor : Editor
 
     private void AddStateSection()
     {
-        EditorGUILayout.LabelField("Set state", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Set state in editor", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Enabled"))
         {

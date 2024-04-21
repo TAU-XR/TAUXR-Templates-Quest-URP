@@ -109,4 +109,17 @@ public class TextPopUpScaler : MonoBehaviour
         int numberOfLettersUntilLineWrap = (int)(ReferenceNumberOfLettersUntilLineWrap * (float)Text.Length / ReferenceNumberOfLetters);
         return text.Length / numberOfLettersUntilLineWrap;
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (Application.isPlaying || !_textPopUpReferences.TextPopUpScaler.AutoScaleWhenChangingTextInInspector)
+        {
+            return;
+        }
+
+        _textPopUpReferences = GetComponent<TextPopUpReferences>();
+        AutoScale(false);
+    }
+#endif
 }

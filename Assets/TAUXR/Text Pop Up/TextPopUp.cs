@@ -65,17 +65,6 @@ public class TextPopUp : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // private void OnValidate()
-    // {
-    //     if (Application.isPlaying || !_textPopUpReferences.TextPopUpScaler.AutoScaleWhenChangingTextInInspector)
-    //     {
-    //         return;
-    //     }
-    //
-    //     SetTextAndAutoScale();
-    //     SetStartingState();
-    // }
-
     public void GetTextFromComponent()
     {
         _text = _textPopUpReferences.TextUI.text;
