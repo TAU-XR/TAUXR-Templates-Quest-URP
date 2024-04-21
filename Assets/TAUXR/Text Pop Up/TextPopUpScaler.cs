@@ -14,9 +14,7 @@ public class TextPopUpScaler : MonoBehaviour
     private const float ReferenceSquareMeters = 0.25f;
     private const float ReferenceLineHeight = 0.04f;
 
-    private Rectangle _background;
-    private TextMeshPro _textUI;
-    private TextPopUpAnimator _animator;
+    private TextPopUpReferences _textPopUpReferences;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
     [SerializeField] private float _layoutRatio = 5.5f;
@@ -30,16 +28,14 @@ public class TextPopUpScaler : MonoBehaviour
 
     [HideInInspector] public string Text;
 
-    public void Init(Rectangle background, TextMeshPro textUI, TextPopUpAnimator animator)
+    public void Init(TextPopUpReferences textPopUpReferences)
     {
-        _background = background;
-        _textUI = textUI;
-        _animator = animator;
+        _textPopUpReferences = textPopUpReferences;
     }
 
     public void AutoScale(bool useAnimation = true)
     {
-        _textUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
+        _textPopUpReferences.TextUI.fontSize = DefaultTextFontSize * _fontSizeMultiplier;
 
         float xScale = Mathf.Sqrt(_layoutRatio * ReferenceSquareMeters);
 
@@ -55,13 +51,13 @@ public class TextPopUpScaler : MonoBehaviour
     {
         if (useAnimation)
         {
-            _animator.SetScale(textSize, textSize + _backgroundPadding);
+            _textPopUpReferences.TextPopUpAnimator.SetScale(textSize, textSize + _backgroundPadding);
             return;
         }
 
-        _textUI.rectTransform.sizeDelta = textSize;
-        _background.Width = textSize.x + _backgroundPadding.x;
-        _background.Height = textSize.y + _backgroundPadding.y;
+        _textPopUpReferences.TextUI.rectTransform.sizeDelta = textSize;
+        _textPopUpReferences.Background.Width = textSize.x + _backgroundPadding.x;
+        _textPopUpReferences.Background.Height = textSize.y + _backgroundPadding.y;
     }
 
 
