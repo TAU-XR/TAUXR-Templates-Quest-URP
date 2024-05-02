@@ -17,9 +17,9 @@ public class TextPopUpScaler : MonoBehaviour
     private TextPopUpReferences _textPopUpReferences;
 
     [SerializeField] private float _fontSizeMultiplier = 1;
+    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [SerializeField] private float _layoutRatio = 5.5f;
     [SerializeField] private float _scaleFactor = 1;
-    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [SerializeField] private bool _extendWidthOnly;
     [SerializeField] private bool _extendHeightOnly;
     [SerializeField] private bool _autoScaleWhenChangingTextInInspector = true;
@@ -119,7 +119,7 @@ public class TextPopUpScaler : MonoBehaviour
         }
 
         _textPopUpReferences = GetComponent<TextPopUpReferences>();
-        if (_textPopUpReferences.TextPopUpScaler.AutoScaleWhenChangingTextInInspector)
+        if (AutoScaleWhenChangingTextInInspector)
         {
             AutoScale(false);
         }

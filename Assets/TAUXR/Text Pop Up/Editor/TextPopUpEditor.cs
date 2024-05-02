@@ -15,8 +15,6 @@ public class TextPopUpEditor : Editor
         base.OnInspectorGUI();
         _textPopUp = (TextPopUp)target;
 
-        AddGetTextSection();
-        EditorGUILayout.Space(_spacingBetweenSections);
         AddScalingSection();
         EditorGUILayout.Space(_spacingBetweenSections);
         AddStateSection();
@@ -24,21 +22,9 @@ public class TextPopUpEditor : Editor
         AddLanguageSection();
     }
 
-    private void AddGetTextSection()
-    {
-        if (GUILayout.Button("Get text from component"))
-        {
-            _textPopUp.GetTextFromComponent();
-        }
-    }
-
     private void AddScalingSection()
     {
         EditorGUILayout.LabelField("Scaling", EditorStyles.boldLabel);
-        if (GUILayout.Button("Set text and auto scale"))
-        {
-            _textPopUp.SetTextAndAutoScale();
-        }
 
         EditorGUILayout.Space(_spacingBetweenSections);
 

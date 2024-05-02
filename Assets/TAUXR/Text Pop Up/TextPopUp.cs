@@ -10,13 +10,14 @@ public class TextPopUp : MonoBehaviour
 {
     [SerializeField] private TextPopUpReferences _textPopUpReferences;
     [SerializeField] private ETextPopUpState _startingState;
+    [SerializeField] private float _fontSizeMultiplier = 1;
+    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [TextArea(1, 10)] [SerializeField] private string _text;
 
     [SerializeField] private TextPopUpTextsConfigurationsScriptableObject _textConfigurations;
 
     private void Awake()
     {
-        _textPopUpReferences.TextPopUpScaler.Init(_textPopUpReferences);
         _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
     }
 
@@ -57,18 +58,17 @@ public class TextPopUp : MonoBehaviour
         _textPopUpReferences.TextUI.text = newText;
     }
 
-    public void SetTextAndAutoScale(string newText, bool useAnimation = true)
+    public void SetScale(Vector2 textAreaSize, bool useAnimation = true)
     {
-        _textPopUpReferences.TextUI.text = newText;
-        _textPopUpReferences.TextPopUpScaler.Text = newText;
-        _textPopUpReferences.TextPopUpScaler.AutoScale(useAnimation);
-    }
+        if (useAnimation)
+        {
+            _textPopUpReferences.TextPopUpAnimator.SetScale(textAreaSize, textAreaSize + _backgroundPadding);
+            return;
+        }
 
-    public void SetTextAndScale(string newText, Vector2 textSize, bool useAnimation = true)
-    {
-        _textPopUpReferences.TextUI.text = newText;
-        _textPopUpReferences.TextPopUpScaler.Text = newText;
-        _textPopUpReferences.TextPopUpScaler.SetScale(textSize, useAnimation);
+        _textPopUpReferences.TextUI.rectTransform.sizeDelta = textAreaSize;
+        _textPopUpReferences.Background.Width = textAreaSize.x + _backgroundPadding.x;
+        _textPopUpReferences.Background.Height = textAreaSize.y + _backgroundPadding.y;
     }
 
     public void SetTextFromConfiguration(string textId, bool useAnimation = true)
@@ -79,7 +79,8 @@ public class TextPopUp : MonoBehaviour
             return;
         }
 
-        SetTextAndScale(textConfiguration.Text, textConfiguration.TextRectSize, useAnimation);
+        SetText(textConfiguration.Text);
+        SetScale(textConfiguration.TextRectSize, useAnimation);
     }
 
     public void SetLanguageToEnglish()
@@ -94,23 +95,11 @@ public class TextPopUp : MonoBehaviour
         _textPopUpReferences.TextUI.alignment = TextAlignmentOptions.Right;
     }
 #if UNITY_EDITOR
-    public void GetTextFromComponent()
+    public void SetTextAndScale(Vector2 textAreaSize)
     {
-        _text = _textPopUpReferences.TextUI.text;
-    }
-
-    public void SetTextAndAutoScale()
-    {
-        _textPopUpReferences.TextPopUpScaler.Init(_textPopUpReferences);
         _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
-        SetTextAndAutoScale(_text, false);
-    }
-
-    public void SetTextAndScale(Vector2 textSize)
-    {
-        _textPopUpReferences.TextPopUpScaler.Init(_textPopUpReferences);
-        _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
-        SetTextAndScale(_text, textSize, false);
+        SetText(_text);
+        SetScale(textAreaSize);
     }
 
     public void SetActiveState(bool newState)
@@ -118,7 +107,5 @@ public class TextPopUp : MonoBehaviour
         _textPopUpReferences.TextPopUpAnimator.Init(_textPopUpReferences);
         _textPopUpReferences.TextPopUpAnimator.SetAppearance(newState, false);
     }
-
-
 #endif
 }
