@@ -13,9 +13,9 @@ public class TextDisplay : MonoBehaviour
     [SerializeField] private TextDisplayReferences _textDisplayReferences;
     [SerializeField] private ETextPopUpState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
-    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [SerializeField] private Vector2 _textSize;
-
+    [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
+    [Expandable] [SerializeField] private TextPopUpTextsConfigurationsScriptableObject _textsData;
 
     private void Awake()
     {
@@ -74,9 +74,10 @@ public class TextDisplay : MonoBehaviour
 
     public void SetTextFromConfiguration(string textId, bool useAnimation = true)
     {
-        TextPopUpTextConfiguration textConfiguration = _textDisplayReferences.TextsData.GetTextConfiguration(textId);
+        TextPopUpTextConfiguration textConfiguration = _textsData.GetTextConfiguration(textId);
         if (textConfiguration == null)
         {
+            Debug.LogWarning("Text id: " + textId + " not found, did not set text");
             return;
         }
 
@@ -104,10 +105,9 @@ public class TextDisplay : MonoBehaviour
 
     private void OnValidate()
     {
-        if (!Application.isPlaying)
-        {
-            SetScale(_textSize, false);
-        }
+        if (Application.isPlaying) return;
+        SetText(_text);
+        SetScale(_textSize, false);
     }
 #endif
 }

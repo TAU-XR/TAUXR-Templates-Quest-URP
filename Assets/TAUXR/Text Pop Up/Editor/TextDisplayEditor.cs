@@ -52,6 +52,5 @@ public class TextDisplayEditor : Editor
 
         Action changeLanguageMethod = _languageToggleValue == 0 ? _textDisplay.SetLanguageToEnglish : _textDisplay.SetLanguageToHebrew;
         changeLanguageMethod.Invoke();
-        
     }
 }
