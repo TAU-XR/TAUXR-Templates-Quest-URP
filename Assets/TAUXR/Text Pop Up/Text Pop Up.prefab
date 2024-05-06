@@ -61,8 +61,8 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 1.3
-  height: 0.3
+  width: 1.22
+  height: 0.26
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
@@ -90,7 +90,7 @@ MonoBehaviour:
   useFill: 0
 --- !u!33 &5114078426747989229
 MeshFilter:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -98,7 +98,7 @@ MeshFilter:
   m_Mesh: {fileID: 43100795730674332, guid: a3d1f56cebf202c448b6fb479f61a9dc, type: 2}
 --- !u!23 &6824247996001254045
 MeshRenderer:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -189,13 +189,11 @@ MonoBehaviour:
     _background: {fileID: 7867516359336035635}
     _textUI: {fileID: 3889759835927473169}
     _textDisplayAnimator: {fileID: 14307180445703233}
-    _textConfigurations: {fileID: 11400000, guid: 52117f887e72c224f8c487c006e18992,
-      type: 2}
   _startingState: 0
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
     est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
-  _textSize: {x: 1, y: 0.2}
+  _textAreaSize: {x: 0.92, y: 0.16}
   _backgroundPadding: {x: 0.3, y: 0.1}
   _textsData: {fileID: 11400000, guid: 52117f887e72c224f8c487c006e18992, type: 2}
 --- !u!114 &14307180445703233
@@ -247,7 +245,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 0.2}
+  m_SizeDelta: {x: 0.92, y: 0.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -349,7 +347,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

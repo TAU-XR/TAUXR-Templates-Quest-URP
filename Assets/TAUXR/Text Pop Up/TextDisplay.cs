@@ -13,9 +13,9 @@ public class TextDisplay : MonoBehaviour
     [SerializeField] private TextDisplayReferences _textDisplayReferences;
     [SerializeField] private ETextPopUpState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
-    [SerializeField] private Vector2 _textSize;
+    [SerializeField] private Vector2 _textAreaSize;
     [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
-    [Expandable] [SerializeField] private TextPopUpTextsConfigurationsScriptableObject _textsData;
+    [Expandable] [SerializeField] private TextDataScriptableObject _textsData;
 
     private void Awake()
     {
@@ -74,7 +74,7 @@ public class TextDisplay : MonoBehaviour
 
     public void SetTextFromConfiguration(string textId, bool useAnimation = true)
     {
-        TextPopUpTextConfiguration textConfiguration = _textsData.GetTextConfiguration(textId);
+        TextData textConfiguration = _textsData.GetTextConfiguration(textId);
         if (textConfiguration == null)
         {
             Debug.LogWarning("Text id: " + textId + " not found, did not set text");
@@ -82,7 +82,7 @@ public class TextDisplay : MonoBehaviour
         }
 
         SetText(textConfiguration.Text);
-        SetScale(textConfiguration.TextRectSize, useAnimation);
+        SetScale(textConfiguration.TextAreaSize, useAnimation);
     }
 
     public void SetLanguageToEnglish()
@@ -103,11 +103,10 @@ public class TextDisplay : MonoBehaviour
         _textDisplayReferences.TextDisplayAnimator.SetAppearance(newState, false);
     }
 
-    private void OnValidate()
+    public void SaveTextData(string textId)
     {
-        if (Application.isPlaying) return;
-        SetText(_text);
-        SetScale(_textSize, false);
+        TextData textData = new(textId, _text, _textAreaSize);
+        _textsData.TextsData.Add(textData);
     }
 #endif
 }

@@ -8,40 +8,96 @@ using UnityEngine;
 [CustomEditor(typeof(TextDisplay))]
 public class TextDisplayEditor : Editor
 {
-    private readonly int _spacingBetweenSections = 5;
+    private readonly int _spacingBetweenSections = 10;
     private TextDisplay _textDisplay;
     private static int _languageToggleValue;
+    private static string _textId = "";
+
+    private SerializedProperty _textDisplayReferences;
+    private SerializedProperty _startingState;
+    private SerializedProperty _text;
+    private SerializedProperty _textAreaSize;
+    private SerializedProperty _backgroundPadding;
+    private SerializedProperty _textsData;
+
+    private void OnEnable()
+    {
+        _textDisplayReferences = serializedObject.FindProperty("_textDisplayReferences");
+        _startingState = serializedObject.FindProperty("_startingState");
+        _text = serializedObject.FindProperty("_text");
+        _textAreaSize = serializedObject.FindProperty("_textAreaSize");
+        _backgroundPadding = serializedObject.FindProperty("_backgroundPadding");
+        _textsData = serializedObject.FindProperty("_textsData");
+    }
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
         _textDisplay = (TextDisplay)target;
+        serializedObject.Update();
+        DrawInspector();
+
+        if (serializedObject.hasModifiedProperties) return;
+        _textDisplay.SetText(_text.stringValue);
+        _textDisplay.SetScale(_textAreaSize.vector2Value, false);
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawInspector()
+    {
+        EditorGUILayout.PropertyField(_textDisplayReferences);
+        EditorGUILayout.Space(_spacingBetweenSections);
+        EditorGUILayout.PropertyField(_startingState);
 
         EditorGUILayout.Space(_spacingBetweenSections);
-        AddStateSection();
+        DrawAddStateSection();
         EditorGUILayout.Space(_spacingBetweenSections);
-        AddLanguageSection();
+        DrawAddLanguageSection();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        DrawTextSettingsSection();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        DrawTextDataSection();
+    }
+
+    private void DrawTextSettingsSection()
+    {
+        EditorGUILayout.PropertyField(_text);
+        EditorGUILayout.PropertyField(_textAreaSize);
+        EditorGUILayout.PropertyField(_backgroundPadding);
     }
 
 
-    private void AddStateSection()
+    private void DrawTextDataSection()
+    {
+        _textId = EditorGUILayout.TextField("Text id:", _textId);
+        if (GUILayout.Button("Save Text Data"))
+        {
+            _textDisplay.SaveTextData(_textId);
+        }
+
+        EditorGUILayout.PropertyField(_textsData);
+    }
+
+
+    private void DrawAddStateSection()
     {
         EditorGUILayout.LabelField("Set visibility state:", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Show"))
         {
             _textDisplay.SetActiveState(true);
+            SceneView.RepaintAll();
         }
 
         if (GUILayout.Button("Hide"))
         {
             _textDisplay.SetActiveState(false);
+            SceneView.RepaintAll();
         }
 
         GUILayout.EndHorizontal();
     }
 
-    private void AddLanguageSection()
+    private void DrawAddLanguageSection()
     {
         EditorGUILayout.LabelField("Set language:", EditorStyles.boldLabel);
         int previousLanguageToggleValue = _languageToggleValue;
@@ -52,5 +108,6 @@ public class TextDisplayEditor : Editor
 
         Action changeLanguageMethod = _languageToggleValue == 0 ? _textDisplay.SetLanguageToEnglish : _textDisplay.SetLanguageToHebrew;
         changeLanguageMethod.Invoke();
+        SceneView.RepaintAll();
     }
 }

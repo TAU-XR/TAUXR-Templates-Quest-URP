@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextDataScriptableObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextConfigurations.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextConfigurations.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextConfiguration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextsConfigurationsScriptableObject.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextPopUpTextsConfigurationsScriptableObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Configurations/TextDataScriptableObject.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Editor/TextDisplayEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Editor/TextDisplayEditor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/Text Pop Up.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextDisplay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextDisplayReferences.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Text Pop Up/TextDisplayReferences.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,9 +60,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\VRAdmin\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\VRAdmin\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\VRAdmin\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\nitsa\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -128,6 +131,7 @@
       <workItem from="1713696616545" duration="250000" />
       <workItem from="1713696879771" duration="13536000" />
       <workItem from="1714899282517" duration="2611000" />
+      <workItem from="1714986470943" duration="3487000" />
     </task>
     <servers />
   </component>
