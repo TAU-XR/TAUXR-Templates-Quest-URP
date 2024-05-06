@@ -22,7 +22,7 @@ public class TextDataScriptableObject : ScriptableObject
 
     public void AddOrReplace(TextData textData)
     {
-        int existingTextIndex = TextsData.FindIndex((data) => data.Id == textData.Id);
+        int existingTextIndex = GetTextIndexById(textData.Id);
         if (existingTextIndex != -1)
         {
             TextsData[existingTextIndex] = textData;
@@ -30,5 +30,10 @@ public class TextDataScriptableObject : ScriptableObject
         }
 
         TextsData.Add(textData);
+    }
+
+    public int GetTextIndexById(string textId)
+    {
+        return TextsData.FindIndex((data) => data.Id == textId);
     }
 }

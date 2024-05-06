@@ -10,10 +10,13 @@ using TMPro;
 
 public class TextDisplay : MonoBehaviour
 {
+    public TextDataScriptableObject TextsData => _textsData;
+
     [SerializeField] private TextDisplayReferences _textDisplayReferences;
     [SerializeField] private ETextPopUpState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
     [SerializeField] private Vector2 _textAreaSize;
+    [SerializeField] private string _textId;
     [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [Expandable] [SerializeField] private TextDataScriptableObject _textsData;
 
@@ -24,6 +27,8 @@ public class TextDisplay : MonoBehaviour
 
     private void Start()
     {
+        SetScale(_textAreaSize, false);
+        SetText(_text);
         SetStartingState();
     }
 
@@ -108,5 +113,16 @@ public class TextDisplay : MonoBehaviour
         TextData textData = new(textId, _text, _textAreaSize);
         _textsData.AddOrReplace(textData);
     }
+
+    public void SetPropertiesByTextData(string textId)
+    {
+        TextData textData = _textsData.GetTextConfiguration(textId);
+        if (textData == null) return;
+        _textId = textId;
+        _text = textData.Text;
+        _textAreaSize = textData.TextAreaSize;
+        EditorUtility.SetDirty(this);
+    }
+
 #endif
 }
