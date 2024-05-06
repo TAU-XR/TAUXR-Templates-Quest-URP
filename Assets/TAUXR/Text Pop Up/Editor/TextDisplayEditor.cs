@@ -34,12 +34,15 @@ public class TextDisplayEditor : Editor
     {
         _textDisplay = (TextDisplay)target;
         serializedObject.Update();
+
+        EditorGUI.BeginChangeCheck();
+
         DrawInspector();
 
-        if (serializedObject.hasModifiedProperties) return;
+        bool propertyChanged = EditorGUI.EndChangeCheck();
+        if (!propertyChanged) return;
         _textDisplay.SetText(_text.stringValue);
         _textDisplay.SetScale(_textAreaSize.vector2Value, false);
-        serializedObject.ApplyModifiedProperties();
     }
 
     private void DrawInspector()

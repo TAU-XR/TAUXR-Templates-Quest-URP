@@ -106,7 +106,7 @@ public class TextDisplay : MonoBehaviour
     public void SaveTextData(string textId)
     {
         TextData textData = new(textId, _text, _textAreaSize);
-        _textsData.TextsData.Add(textData);
+        _textsData.AddOrReplace(textData);
     }
 #endif
 }

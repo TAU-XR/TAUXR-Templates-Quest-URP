@@ -19,4 +19,16 @@ public class TextDataScriptableObject : ScriptableObject
 
         return textData;
     }
+
+    public void AddOrReplace(TextData textData)
+    {
+        int existingTextIndex = TextsData.FindIndex((data) => data.Id == textData.Id);
+        if (existingTextIndex != -1)
+        {
+            TextsData[existingTextIndex] = textData;
+            return;
+        }
+
+        TextsData.Add(textData);
+    }
 }

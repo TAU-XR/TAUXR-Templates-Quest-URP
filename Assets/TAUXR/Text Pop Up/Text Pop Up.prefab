@@ -61,7 +61,7 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 1.22
+  width: 1.12
   height: 0.26
   type: 3
   cornerRadiusMode: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
     est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
-  _textAreaSize: {x: 0.92, y: 0.16}
+  _textAreaSize: {x: 0.82, y: 0.16}
   _backgroundPadding: {x: 0.3, y: 0.1}
   _textsData: {fileID: 11400000, guid: 52117f887e72c224f8c487c006e18992, type: 2}
 --- !u!114 &14307180445703233
@@ -245,7 +245,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.92, y: 0.16}
+  m_SizeDelta: {x: 0.82, y: 0.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
