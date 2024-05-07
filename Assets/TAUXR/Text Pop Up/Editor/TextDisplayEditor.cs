@@ -50,6 +50,16 @@ public class TextDisplayEditor : Editor
     private void DrawInspector()
     {
         EditorGUILayout.Space(_spacingBetweenSections / 2);
+
+        DrawGeneralSettingsFoldoutGroup();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        DrawTextSettingsFoldoutGroup();
+
+        EditorGUILayout.Space(_spacingBetweenSections / 2);
+    }
+
+    private void DrawGeneralSettingsFoldoutGroup()
+    {
         _isSettingsFoldoutGroupOpen = EditorGUILayout.Foldout(_isSettingsFoldoutGroupOpen, "General Settings", EditorStyles.foldoutHeader);
         if (_isSettingsFoldoutGroupOpen)
         {
@@ -59,26 +69,60 @@ public class TextDisplayEditor : Editor
             EditorGUILayout.PropertyField(_startingState);
 
             EditorGUILayout.Space(_spacingBetweenSections);
-            DrawAddStateSection();
+            DrawChangeVisibilityStateSection();
             EditorGUILayout.Space(_spacingBetweenSections);
             DrawAddLanguageSection();
 
             EditorGUILayout.Space(_spacingBetweenSections);
             EditorGUILayout.PropertyField(_backgroundPadding);
         }
+    }
 
-        EditorGUILayout.Space(_spacingBetweenSections);
+
+    private void DrawChangeVisibilityStateSection()
+    {
+        EditorGUILayout.LabelField("Set visibility state:", EditorStyles.boldLabel);
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Show"))
+        {
+            _textDisplay.SetVisibilityState(true);
+            SceneView.RepaintAll();
+        }
+
+        if (GUILayout.Button("Hide"))
+        {
+            _textDisplay.SetVisibilityState(false);
+            SceneView.RepaintAll();
+        }
+
+        GUILayout.EndHorizontal();
+    }
+
+    private void DrawAddLanguageSection()
+    {
+        EditorGUILayout.LabelField("Language:", EditorStyles.boldLabel);
+        int previousLanguageToggleValue = _languageToggleValue;
+        _languageToggleValue = GUILayout.SelectionGrid(_languageToggleValue, new[] { "English", "Hebrew" }, 2, EditorStyles.radioButton);
+
+        if (_languageToggleValue == previousLanguageToggleValue)
+            return;
+
+        Action changeLanguageMethod = _languageToggleValue == 0 ? _textDisplay.SetLanguageToEnglish : _textDisplay.SetLanguageToHebrew;
+        changeLanguageMethod.Invoke();
+        SceneView.RepaintAll();
+    }
+
+    private void DrawTextSettingsFoldoutGroup()
+    {
         _isTextDataFoldoutGroupOpen =
             EditorGUILayout.Foldout(_isTextDataFoldoutGroupOpen, "Text Settings", EditorStyles.foldoutHeader);
         if (_isTextDataFoldoutGroupOpen)
         {
             EditorGUILayout.Space(_spacingBetweenSections);
             DrawTextSettingsSection();
-            EditorGUILayout.Space(_spacingBetweenSections);
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             DrawTextDataSection();
         }
-
-        EditorGUILayout.Space(_spacingBetweenSections / 2);
     }
 
     private void DrawTextSettingsSection()
@@ -98,39 +142,5 @@ public class TextDisplayEditor : Editor
 
         EditorGUILayout.Space(_spacingBetweenSections);
         EditorGUILayout.PropertyField(_textsData);
-    }
-
-
-    private void DrawAddStateSection()
-    {
-        EditorGUILayout.LabelField("Set visibility state:", EditorStyles.boldLabel);
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Show"))
-        {
-            _textDisplay.SetActiveState(true);
-            SceneView.RepaintAll();
-        }
-
-        if (GUILayout.Button("Hide"))
-        {
-            _textDisplay.SetActiveState(false);
-            SceneView.RepaintAll();
-        }
-
-        GUILayout.EndHorizontal();
-    }
-
-    private void DrawAddLanguageSection()
-    {
-        EditorGUILayout.LabelField("Language:", EditorStyles.boldLabel);
-        int previousLanguageToggleValue = _languageToggleValue;
-        _languageToggleValue = GUILayout.SelectionGrid(_languageToggleValue, new[] { "English", "Hebrew" }, 2, EditorStyles.radioButton);
-
-        if (_languageToggleValue == previousLanguageToggleValue)
-            return;
-
-        Action changeLanguageMethod = _languageToggleValue == 0 ? _textDisplay.SetLanguageToEnglish : _textDisplay.SetLanguageToHebrew;
-        changeLanguageMethod.Invoke();
-        SceneView.RepaintAll();
     }
 }

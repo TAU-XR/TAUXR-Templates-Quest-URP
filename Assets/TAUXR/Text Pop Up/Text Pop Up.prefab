@@ -190,7 +190,7 @@ MonoBehaviour:
     _background: {fileID: 7867516359336035635}
     _textUI: {fileID: 3889759835927473169}
     _textDisplayAnimator: {fileID: 14307180445703233}
-  _startingState: 0
+  _startingState: 1
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
     ac est vit
   _textAreaSize: {x: 0.74, y: 0.1}
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

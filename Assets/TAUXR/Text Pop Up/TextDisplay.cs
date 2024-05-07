@@ -102,10 +102,10 @@ public class TextDisplay : MonoBehaviour
         _textDisplayReferences.TextUI.alignment = TextAlignmentOptions.Right;
     }
 #if UNITY_EDITOR
-    public void SetActiveState(bool newState)
+    public void SetVisibilityState(bool newState)
     {
         _textDisplayReferences.TextDisplayAnimator.Init(_textDisplayReferences);
-        _textDisplayReferences.TextDisplayAnimator.SetAppearance(newState, false);
+        _textDisplayReferences.TextDisplayAnimator.SetAppearance(newState, Application.isPlaying);
     }
 
     public void SaveTextData(string textId)
