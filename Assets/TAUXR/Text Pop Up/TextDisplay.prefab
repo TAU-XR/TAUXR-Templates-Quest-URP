@@ -149,9 +149,9 @@ GameObject:
   - component: {fileID: 2555320034999473363}
   - component: {fileID: 3371585176127677710}
   - component: {fileID: 14307180445703233}
-  - component: {fileID: 932820223701969447}
+  - component: {fileID: 7872456358953722743}
   m_Layer: 0
-  m_Name: Text Pop Up
+  m_Name: TextDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fadeDuration: 0.5
   _scaleChangeDuration: 0.5
---- !u!114 &932820223701969447
+--- !u!114 &7872456358953722743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
