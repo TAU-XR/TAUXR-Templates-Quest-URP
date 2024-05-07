@@ -13,7 +13,7 @@ public class TextDisplay : MonoBehaviour
     public TextDataScriptableObject TextsData => _textsData;
 
     [SerializeField] private TextDisplayReferences _textDisplayReferences;
-    [SerializeField] private ETextPopUpState _startingState;
+    [SerializeField] private ETextDisplayState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
     [SerializeField] private Vector2 _textAreaSize;
     [SerializeField] private string _textId;
@@ -36,14 +36,14 @@ public class TextDisplay : MonoBehaviour
     {
         switch (_startingState)
         {
-            case ETextPopUpState.Active:
+            case ETextDisplayState.Active:
                 _textDisplayReferences.TextDisplayAnimator.SetAppearance(true, false);
                 break;
-            case ETextPopUpState.Appear:
+            case ETextDisplayState.Appear:
                 _textDisplayReferences.TextDisplayAnimator.SetAppearance(false, false);
                 _textDisplayReferences.TextDisplayAnimator.SetAppearance(true);
                 break;
-            case ETextPopUpState.Disabled:
+            case ETextDisplayState.Hidden:
                 _textDisplayReferences.TextDisplayAnimator.SetAppearance(false, false);
                 break;
         }

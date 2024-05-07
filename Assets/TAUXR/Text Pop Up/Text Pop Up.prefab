@@ -61,8 +61,8 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 1.04
-  height: 0.2
+  width: 1.45
+  height: 0.26
   type: 3
   cornerRadiusMode: 0
   cornerRadii: {x: 0.04, y: 0.04, z: 0.04, w: 0.04}
@@ -190,11 +190,12 @@ MonoBehaviour:
     _background: {fileID: 7867516359336035635}
     _textUI: {fileID: 3889759835927473169}
     _textDisplayAnimator: {fileID: 14307180445703233}
-  _startingState: 1
+  _startingState: 0
   _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vit
-  _textAreaSize: {x: 0.74, y: 0.1}
-  _textId: Lorem Short
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
+  _textAreaSize: {x: 1.15, y: 0.16}
+  _textId: 
   _backgroundPadding: {x: 0.3, y: 0.1}
   _textsData: {fileID: 11400000, guid: 52117f887e72c224f8c487c006e18992, type: 2}
 --- !u!114 &14307180445703233
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92f83663c5f7b34d8967978f09a0a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textId: Lorem Short
+  _textId: 
 --- !u!1 &8658139437583312239
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.74, y: 0.1}
+  m_SizeDelta: {x: 1.15, y: 0.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1952939400496987480
 MeshRenderer:
@@ -324,7 +325,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum
-    ac est vit
+    ac est vitae euismod. Sed non enim id mauris sagittis cursus. Nullam pretium
+    est eu faucibus ullamng elit. Morbi condimentum ac est vitae euismod.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f75b6952568eb244ea15495febc34083, type: 2}
   m_sharedMaterial: {fileID: 6012080355370164626, guid: f75b6952568eb244ea15495febc34083,

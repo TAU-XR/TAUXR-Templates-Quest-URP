@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ETextPopUpState
+public enum ETextDisplayState
 {
-    Disabled,
+    Hidden,
     Appear,
     Active,
 }
