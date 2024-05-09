@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SavedTextDataSetter))]
-public class SavedTextDataSetterEditor : Editor
+[CustomEditor(typeof(TextDataDisplayer))]
+public class TextDataDisplayerEditor : Editor
 {
     private SerializedProperty _textId;
     private TextDisplay _textDisplay;
@@ -18,7 +18,7 @@ public class SavedTextDataSetterEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        SavedTextDataSetter savedTextDataSetter = (SavedTextDataSetter)target;
+        TextDataDisplayer savedTextDataSetter = (TextDataDisplayer)target;
         if (_textDisplay == null)
         {
             _textDisplay = savedTextDataSetter.GetComponent<TextDisplay>();

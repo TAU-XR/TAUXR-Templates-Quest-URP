@@ -51,9 +51,9 @@ public class TextDisplayEditor : Editor
     {
         EditorGUILayout.Space(_spacingBetweenSections / 2);
 
-        DrawGeneralSettingsFoldoutGroup();
-        EditorGUILayout.Space(_spacingBetweenSections);
         DrawTextSettingsFoldoutGroup();
+        EditorGUILayout.Space(_spacingBetweenSections);
+        DrawGeneralSettingsFoldoutGroup();
 
         EditorGUILayout.Space(_spacingBetweenSections / 2);
     }
@@ -64,7 +64,6 @@ public class TextDisplayEditor : Editor
         if (_isSettingsFoldoutGroupOpen)
         {
             EditorGUILayout.Space(_spacingBetweenSections);
-            EditorGUILayout.PropertyField(_textDisplayReferences);
             EditorGUILayout.Space(_spacingBetweenSections);
             EditorGUILayout.PropertyField(_startingState);
 
@@ -75,6 +74,7 @@ public class TextDisplayEditor : Editor
 
             EditorGUILayout.Space(_spacingBetweenSections);
             EditorGUILayout.PropertyField(_backgroundPadding);
+            EditorGUILayout.PropertyField(_textDisplayReferences);
         }
     }
 
@@ -114,15 +114,15 @@ public class TextDisplayEditor : Editor
 
     private void DrawTextSettingsFoldoutGroup()
     {
-        _isTextDataFoldoutGroupOpen =
-            EditorGUILayout.Foldout(_isTextDataFoldoutGroupOpen, "Text Settings", EditorStyles.foldoutHeader);
-        if (_isTextDataFoldoutGroupOpen)
-        {
+       // _isTextDataFoldoutGroupOpen =
+        //    EditorGUILayout.Foldout(_isTextDataFoldoutGroupOpen, "Text Settings", EditorStyles.foldoutHeader);
+       // if (_isTextDataFoldoutGroupOpen)
+       // {
             EditorGUILayout.Space(_spacingBetweenSections);
             DrawTextSettingsSection();
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             DrawTextDataSection();
-        }
+        //}
     }
 
     private void DrawTextSettingsSection()
