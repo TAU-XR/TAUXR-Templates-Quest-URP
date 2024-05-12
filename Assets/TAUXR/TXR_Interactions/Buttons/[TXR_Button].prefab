@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 7973432231621262242}
   - component: {fileID: 768673785525378048}
   m_Layer: 0
-  m_Name: '[TXR_Button_Touch]'
+  m_Name: '[TXR_Button]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

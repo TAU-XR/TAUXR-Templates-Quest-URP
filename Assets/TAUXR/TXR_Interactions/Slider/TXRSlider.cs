@@ -26,7 +26,7 @@ public class TXRSlider : MonoBehaviour
     [SerializeField] LineRenderer lineBackground;
     [SerializeField] LineRenderer lineValue;
 
-    [SerializeField] TXRButtonTouch touchButton;         // need to get a referece to the touchButton to get the toucher transform.
+    [SerializeField] TXRButton touchButton;         // need to get a referece to the touchButton to get the toucher transform.
 
     [SerializeField] TextMeshPro valueText;
     [SerializeField] AudioSource soundTick;

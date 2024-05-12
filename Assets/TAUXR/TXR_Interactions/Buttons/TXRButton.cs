@@ -8,9 +8,10 @@ using UnityEngine.Events;
 /*TODO
  * - Pass toucher transform in a more elegant way
  * - refactor input processing to another script and get rid of the hovera and press colliders
+ * - easy change button text & color
  */
 
-public class TXRButtonTouch : MonoBehaviour
+public class TXRButton : MonoBehaviour
 {
     public ButtonState State => state;
     public bool ShouldPlaySounds = true;
@@ -30,33 +31,33 @@ public class TXRButtonTouch : MonoBehaviour
     public Transform ActiveToucher => activeToucher;
     public float DistanceToucherFromButton => distanceToucherFromButtonClamped;
 
-    [SerializeField] private ButtonColliderResponse ResponseHoverEnter;
+    [SerializeField] protected ButtonColliderResponse ResponseHoverEnter;
     public UnityEvent HoverEnter;
 
-    [SerializeField] private ButtonColliderResponse ResponseHoverExit;
+    [SerializeField] protected ButtonColliderResponse ResponseHoverExit;
     public UnityEvent HoverExit;
 
-    [SerializeField] private ButtonColliderResponse ResponsePress;
+    [SerializeField] protected ButtonColliderResponse ResponsePress;
     public UnityEvent Pressed;
 
-    [SerializeField] private ButtonColliderResponse ResponseRelease;
+    [SerializeField] protected ButtonColliderResponse ResponseRelease;
     public UnityEvent Released;
 
 
-    [SerializeField] private AudioSource soundDisabled;
-    [SerializeField] private AudioSource soundActive;
-    [SerializeField] private AudioSource soundHoverEnter;
-    [SerializeField] private AudioSource soundHoverExit;
-    [SerializeField] private AudioSource soundPress;
-    [SerializeField] private AudioSource soundRelease;
-    
-    private TXRButtonVisuals visuals;
-    private bool isPressed = false;
-    private bool isHovered = false;
+    [SerializeField] protected AudioSource soundDisabled;
+    [SerializeField] protected AudioSource soundActive;
+    [SerializeField] protected AudioSource soundHoverEnter;
+    [SerializeField] protected AudioSource soundHoverExit;
+    [SerializeField] protected AudioSource soundPress;
+    [SerializeField] protected AudioSource soundRelease;
+
+    protected TXRButtonVisuals visuals;
+    protected bool isPressed = false;
+    protected bool isHovered = false;
 
     public Action<Transform> PressTransform;
 
-    void Start()
+    protected virtual void Start()
     {
         visuals = GetComponent<TXRButtonVisuals>();
         lastState = state;
@@ -85,6 +86,7 @@ public class TXRButtonTouch : MonoBehaviour
         switch (state)
         {
             case ButtonState.Hidden:
+                visuals.Hide();
                 break;
             case ButtonState.Disabled:
                 visuals.Disabled();
@@ -92,13 +94,15 @@ public class TXRButtonTouch : MonoBehaviour
             case ButtonState.Interactable:
                 visuals.Active();
                 break;
+            case ButtonState.Frozen:
+                break;
         }
 
         this.state = state;
     }
 
     // used for external scripts that want to manipulate buttons regardless of touchers.
-    public void TriggerButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
+    public virtual void TriggerButtonEvent(ButtonEvent buttonEvent, ButtonColliderResponse response)
     {
         switch (buttonEvent)
         {
@@ -127,7 +131,7 @@ public class TXRButtonTouch : MonoBehaviour
         float distnaceClamped = 1 - ((distanceToucherFromButtom - HOVER_DISTANCE_MIN) / (HOVER_DISTANCE_MAX - HOVER_DISTANCE_MIN));
         return Mathf.Clamp01(distnaceClamped);
     }
-    private void PlaySound(AudioSource sound)
+    protected void PlaySound(AudioSource sound)
     {
         if (sound == null || !ShouldPlaySounds) return;
         sound.Stop();
@@ -135,7 +139,7 @@ public class TXRButtonTouch : MonoBehaviour
     }
 
     // Called from Hover Collider on its public UnityEvent
-    public void OnHoverEnter(Transform toucher)
+    public virtual void OnHoverEnter(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
 
@@ -145,7 +149,7 @@ public class TXRButtonTouch : MonoBehaviour
         DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
     }
 
-    private void DelegateInteralExtenralResponses(ButtonColliderResponse response, Action internalAction, UnityEvent externalEvent)
+    protected void DelegateInteralExtenralResponses(ButtonColliderResponse response, Action internalAction, UnityEvent externalEvent)
     {
         switch (response)
         {
@@ -179,7 +183,7 @@ public class TXRButtonTouch : MonoBehaviour
         }
     }
 
-    private void OnHoverEnterInternal()
+    protected virtual void OnHoverEnterInternal()
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
@@ -188,10 +192,10 @@ public class TXRButtonTouch : MonoBehaviour
 
     // called from button collider
 
-    public void OnHoverExit(Transform toucher)
+    public virtual void OnHoverExit(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
-        print("HOVER EXIT 1");
+        print("HOVER EXIT");
         // Catching extreme cases where toucher exit the hover collider without activating the press collider
         if (isPressed)
         {
@@ -204,7 +208,7 @@ public class TXRButtonTouch : MonoBehaviour
         DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
     }
 
-    private bool HoverExitToucherProcessing(Transform toucher)
+    protected bool HoverExitToucherProcessing(Transform toucher)
     {
         touchers.Remove(toucher);
         if (toucher != activeToucher) return false;
@@ -223,7 +227,7 @@ public class TXRButtonTouch : MonoBehaviour
         return true;
     }
 
-    private void OnHoverExitInternal()
+    protected virtual void OnHoverExitInternal()
     {
         isHovered = false;
         activeToucher = null;
@@ -232,7 +236,7 @@ public class TXRButtonTouch : MonoBehaviour
     }
 
     // called from the UnityEvent on the press collider
-    public void OnPressed(Transform toucher)
+    public virtual void OnPressed(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
 
@@ -242,7 +246,7 @@ public class TXRButtonTouch : MonoBehaviour
         DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
     }
 
-    private void OnPressedInternal()
+    protected virtual void OnPressedInternal()
     {
         isPressed = true;
         PlaySound(soundPress);
@@ -250,7 +254,7 @@ public class TXRButtonTouch : MonoBehaviour
     }
 
     // called from the UnityEvent on the press collider
-    public void OnReleased(Transform toucher)
+    public virtual void OnReleased(Transform toucher)
     {
         if (state != ButtonState.Interactable) return;
 
@@ -259,7 +263,7 @@ public class TXRButtonTouch : MonoBehaviour
         DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
     }
 
-    private void OnReleasedInternal()
+    protected virtual void OnReleasedInternal()
     {
         isPressed = false;
         PlaySound(soundRelease);
@@ -276,4 +280,4 @@ public class TXRButtonTouch : MonoBehaviour
 
 public enum ButtonColliderResponse { Both, Internal, External, None }
 public enum ButtonEvent { HoverEnter, Pressed, Released, HoverExit }
-public enum ButtonState { Hidden, Disabled, Interactable }
+public enum ButtonState { Hidden, Disabled, Interactable, Frozen }
