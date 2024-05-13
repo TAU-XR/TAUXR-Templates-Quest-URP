@@ -53,6 +53,7 @@ public class TXRButton_Toggle : TXRButton
         isHovered = false;
         activeToucher = null;
         PlaySound(soundHoverExit);
+        //visuals.SetHoverGradient(false);
 
     }
 
@@ -60,6 +61,7 @@ public class TXRButton_Toggle : TXRButton
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
+        visuals.Hover();
     }
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)

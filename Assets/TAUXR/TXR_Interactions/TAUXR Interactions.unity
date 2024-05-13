@@ -382,6 +382,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 786634614549206637, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: testColor.a
+      value: 0.7882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 786634614549206637, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: testColor.b
+      value: 0.043595523
+      objectReference: {fileID: 0}
+    - target: {fileID: 786634614549206637, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: testColor.g
+      value: 0.043595523
+      objectReference: {fileID: 0}
+    - target: {fileID: 786634614549206637, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: testColor.r
+      value: 0.5924529
+      objectReference: {fileID: 0}
     - target: {fileID: 2051208840555239303, guid: 32c09fe936666ed42bb3153aef6a6116,
         type: 3}
       propertyPath: m_Name
@@ -956,26 +976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1b79b5f0a1c0549993d598e2c5e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backface: {fileID: 6424260005431916129}
-  _stroke: {fileID: 6424260006230093321}
-  _text: {fileID: 2914481266730153719}
-  _backfaceColorActive: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
-  _backfaceGradientActive: 0
-  _strokeThicknessActive: 0.0005
-  _backfadeZPositionActive: 0.0012
-  _activeDuration: 0.25
-  _backfaceColorDisabled: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
-  _backfaceColorHide: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 0}
-  _hideDuration: 0.25
-  _hoverDuration: 0.3
-  _backfaceColorGradientHover: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
-  _backfaceGradientHover: 0.025
-  _strokeThicknessHover: 0.001
-  _backfadeZPositionHover: 0.0049
-  _pressDuration: 0.25
-  _backfaceColorPress: {r: 0.42830187, g: 0.5933798, b: 1, a: 1}
-  _strokeThicknessPress: 0.001
-  _backfaceZPositionPress: -0.008
 --- !u!1 &1285122376591283032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,7 +1608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldPlaySounds: 1
   state: 2
-  buttonSurface: {fileID: 8548463700662616521}
   activeToucher: {fileID: 0}
   ResponseHoverEnter: 0
   HoverEnter:
@@ -1626,12 +1625,7 @@ MonoBehaviour:
   Released:
     m_PersistentCalls:
       m_Calls: []
-  soundDisabled: {fileID: 0}
-  soundActive: {fileID: 0}
-  soundHoverEnter: {fileID: 0}
-  soundHoverExit: {fileID: 0}
-  soundPress: {fileID: 3209833613726418824}
-  soundRelease: {fileID: 0}
+  References: {fileID: 0}
 --- !u!23 &8104080811909960568
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class TXRButton : MonoBehaviour
 
     [SerializeField] private ButtonState state = ButtonState.Interactable;
     private ButtonState lastState;
-    [SerializeField] private Transform buttonSurface;
+    private Transform buttonSurface;
 
     public Transform activeToucher;
     private List<Transform> touchers = new List<Transform>();
@@ -44,23 +44,33 @@ public class TXRButton : MonoBehaviour
     public UnityEvent Released;
 
 
-    [SerializeField] protected AudioSource soundDisabled;
-    [SerializeField] protected AudioSource soundActive;
-    [SerializeField] protected AudioSource soundHoverEnter;
-    [SerializeField] protected AudioSource soundHoverExit;
-    [SerializeField] protected AudioSource soundPress;
-    [SerializeField] protected AudioSource soundRelease;
+    protected AudioSource soundDisabled;
+    protected AudioSource soundActive;
+    protected AudioSource soundHoverEnter;
+    protected AudioSource soundHoverExit;
+    protected AudioSource soundPress;
+    protected AudioSource soundRelease;
 
     protected TXRButtonVisuals visuals;
     protected bool isPressed = false;
     protected bool isHovered = false;
 
     public Action<Transform> PressTransform;
-
+    public TXRButtonReferences References;
     protected virtual void Start()
     {
-        visuals = GetComponent<TXRButtonVisuals>();
-        visuals.Init();
+        Init();
+    }
+
+    protected void Init()
+    {
+        visuals = References.ButtonVisuals;
+        visuals.Init(References);
+
+        buttonSurface = References.ButtonSurface;
+        soundPress = References.SoundPress;
+        soundRelease = References.SoundRelease;
+
         lastState = state;
         SetState(state);
     }

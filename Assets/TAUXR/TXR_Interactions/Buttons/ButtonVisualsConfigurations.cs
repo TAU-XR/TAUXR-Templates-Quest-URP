@@ -11,7 +11,7 @@ public class ButtonVisualsConfigurations : ScriptableObject
     [Tooltip("Thickness of the stroke when active")]
     public float strokeThicknessActive;
     [Tooltip("Z position of the backfade when active")]
-    public float backfadeZPositionActive;
+    public float backfaceZPositionActive;
     [Tooltip("Duration of the active state animation")]
     public float activeDuration;
 
@@ -41,7 +41,7 @@ public class ButtonVisualsConfigurations : ScriptableObject
     [Tooltip("The color of the gradient appears on the button when hovering on it")]
     public Color backfaceColorGradientHover;
     [Tooltip("Gradient radius of the backface on hover")]
-    public float backfaceGradientHover;
+    public float backfaceGradientRadiusHover;
     [Tooltip("Thickness of the stroke on hover")]
     public float strokeThicknessHover;
     [Tooltip("Z position of the backfade on hover")]

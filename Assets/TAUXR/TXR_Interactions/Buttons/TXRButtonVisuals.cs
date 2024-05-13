@@ -6,19 +6,25 @@ using NaughtyAttributes;
 public enum EButtonAnimationState { Show, Hide, Active, Disable, Hover, Press }
 public class TXRButtonVisuals : MonoBehaviour
 {
-    [SerializeField] private Shapes.Rectangle _backface;
-    [SerializeField] private Shapes.Rectangle _stroke;
-    [SerializeField] private TextMeshPro _text;
-    [SerializeField] private ButtonVisualsConfigurations _configurations;
-    EButtonAnimationState _state;
-    Sequence _animationSequence;
+    private Shapes.Rectangle _backface;
+    private Shapes.Rectangle _stroke;
+    private TextMeshPro _text;
+    private ButtonVisualsConfigurations _configurations;
+
     Sequence _backfaceColorSequence;
-    Sequence _hoverSequence;
+    Sequence _backfaceGradientSequence;
+    Sequence _backfaceZValueSequence;
+    Sequence _strokeThicknessSequence;
 
     Color _pressedColor;
 
-    public void Init()
+    public void Init(TXRButtonReferences references)
     {
+        _backface = references.Backface;
+        _stroke = references.Stroke;
+        _text = references.Text;
+        _configurations = references.Configurations;
+
         _pressedColor = _configurations.backfaceColorPress;
     }
 
@@ -44,118 +50,85 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Active()
     {
-        // color - active.
-        // press - off
-        _state = EButtonAnimationState.Active;
-        _animationSequence.Kill();
-        InitSequence(_configurations.backfaceColorActive, _configurations.backfaceColorActive, _configurations.backfaceGradientActive, _configurations.backfadeZPositionActive, _configurations.strokeThicknessActive, _configurations.activeDuration);
-        _animationSequence.Restart();
+        SetBackfaceColor(_configurations.backfaceColorActive, _configurations.activeDuration);
+        SetBackfaceZ(_configurations.backfaceZPositionActive);
+        SetHoverGradient(false);
+        SetStrokeThickness(_configurations.strokeThicknessActive);
     }
 
     public void Show()
     {
-        // active
-        // hover - off
         Active();
     }
 
     public void Hide()
     {
-        // active.
-        // hover - off
-        // color - transparent.
-        // set stroke transparent.
-        _state = EButtonAnimationState.Hide;
-        _animationSequence.Kill();
-        InitSequence(_configurations.backfaceColorHide, _configurations.backfaceColorHide, _configurations.backfaceGradientActive, _configurations.backfadeZPositionActive, 0, _configurations.hideDuration);
-        _animationSequence.Restart();
+        SetBackfaceColor(_configurations.backfaceColorHide, _configurations.hideDuration);
+        SetHoverGradient(false);
+        SetStrokeThickness(0);
     }
 
     public void Hover()
     {
-        // hover - on
-        _state = EButtonAnimationState.Hover;
-        _animationSequence.Kill();
-        InitSequence(_configurations.backfaceColorGradientHover, _configurations.backfaceColorActive, _configurations.backfaceGradientHover, _configurations.backfadeZPositionHover, _configurations.strokeThicknessHover, _configurations.hoverDuration);
-        _animationSequence.Restart();
+        SetHoverGradient(true);
+        SetBackfaceZ(_configurations.backfadeZPositionHover);
+        SetStrokeThickness(_configurations.strokeThicknessHover);
     }
 
     public void Press()
     {
-        // hover - on
-        // press - on
-        // color - press
-        _state = EButtonAnimationState.Press;
-        _animationSequence.Kill();
-        InitSequence(_configurations.backfaceColorPress, _pressedColor, _configurations.backfaceGradientActive, _configurations.backfadeZPositionPress, _configurations.strokeThicknessPress, _configurations.pressDuration);
-        _animationSequence.Restart();
+        SetBackfaceZ(_configurations.backfadeZPositionPress);
+        SetHoverGradient(true);
+        SetBackfaceColor(_pressedColor);
+        SetStrokeThickness(_configurations.strokeThicknessPress);
     }
 
     public void Disabled()
     {
-        // hover - off
-        // color - disabled
-        _state = EButtonAnimationState.Disable;
-        _animationSequence.Kill();
-        InitSequence(_configurations.backfaceColorDisabled, _configurations.backfaceColorDisabled, _configurations.backfaceGradientActive, 0, _configurations.strokeThicknessActive, _configurations.activeDuration);
-        _animationSequence.Restart();
-    }
-
-    private void InitSequence(Color backfaceFillStart, Color backfaceFillEnd, float backfaceGradientRadius, float backfaceZOffset, float strokeThickness, float duration)
-    {
-        _animationSequence = DOTween.Sequence();
-        _animationSequence.Append(DOVirtual.Color(_backface.FillColorStart, backfaceFillStart, duration, t => { _backface.FillColorStart = t; }));
-        _animationSequence.Join(DOVirtual.Color(_backface.FillColorEnd, backfaceFillEnd, duration, t => { _backface.FillColorEnd = t; }));
-        _animationSequence.Join(DOVirtual.Float(_backface.FillRadialRadius, backfaceGradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
-
-        Vector3 backfaceLocalPosition = _backface.transform.localPosition;
-        backfaceLocalPosition.z = backfaceZOffset;
-        _animationSequence.Join(_backface.transform.DOLocalMove(backfaceLocalPosition, duration));
-
-        _animationSequence.Join(DOVirtual.Float(_stroke.Thickness, strokeThickness, duration, t => { _stroke.Thickness = t; }));
-
-        _animationSequence.SetAutoKill(false);
-        _animationSequence.Pause();
+        SetHoverGradient(false);
+        SetBackfaceColor(_configurations.backfaceColorDisabled);
+        SetStrokeThickness(_configurations.strokeThicknessActive);
     }
 
     public void SetPressedColor(Color backfaceColor, float duration = 0.25f)
     {
         _pressedColor = backfaceColor;
         Press();
+    }
 
-        /* 
-          for future refactor
+    private void SetHoverGradient(bool isOn, float duration = 0.25f)
+    {
+        float gradientRadius = isOn ? _configurations.backfaceGradientRadiusHover : 0;
 
+        _backfaceGradientSequence.Kill();
+
+        _backfaceGradientSequence = DOTween.Sequence();
+        _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
+        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _configurations.backfaceColorGradientHover, duration, t => { _backface.FillColorStart = t; }));
+    }
+
+    private void SetBackfaceZ(float zValue, float duration = 0.25f)
+    {
+        Vector3 backfaceLocalPosition = _backface.transform.localPosition;
+        backfaceLocalPosition.z = zValue;
+
+        _backfaceZValueSequence.Kill();
+        _backfaceZValueSequence = DOTween.Sequence();
+        _backfaceZValueSequence.Append(_backface.transform.DOLocalMove(backfaceLocalPosition, duration));
+    }
+
+    private void SetStrokeThickness(float thickness, float duration = 0.25f)
+    {
+        _strokeThicknessSequence.Kill();
+        _strokeThicknessSequence = DOTween.Sequence();
+        _strokeThicknessSequence.Append(DOVirtual.Float(_stroke.Thickness, thickness, duration, t => { _stroke.Thickness = t; }));
+    }
+
+    private void SetBackfaceColor(Color backfaceColor, float duration = 0.25f)
+    {
         _backfaceColorSequence.Kill();
-
-        // Backface color fill end is the actual color. Fill start affects hover gradient.
         _backfaceColorSequence = DOTween.Sequence();
         _backfaceColorSequence.Append(DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
-        */
-    }
-
-    private void SetHover(bool isOn)
-    {
-        // Apply gradient by changing the backface gradient and fill start color. Then affect stroke position.
-        SetBackfaceGradient(_configurations.backfaceColorGradientHover, _configurations.backfaceGradientHover, _configurations.hoverDuration);
-    }
-
-    private void SetPressed(bool isOn)
-    {
-
-    }
-    private void SetBackfaceColor(Color gradientColor, Color backfaceColor, float duration)
-    {
-        _backfaceColorSequence = DOTween.Sequence();
-        _backfaceColorSequence.Append(DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
-    }
-    private void SetBackfaceGradient(Color gradientColor, float gradientRadius, float duration = .25f)
-    {
-        _hoverSequence.Kill();
-
-        _hoverSequence = DOTween.Sequence();
-        _hoverSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
-        _hoverSequence.Join(DOVirtual.Color(_backface.FillColorStart, gradientColor, duration, t => { _backface.FillColorStart = t; }));
     }
 
 }

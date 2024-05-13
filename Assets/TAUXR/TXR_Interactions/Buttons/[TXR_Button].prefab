@@ -143,6 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2033106044736101783}
   - component: {fileID: 7973432231621262242}
+  - component: {fileID: 2012426802286184377}
   - component: {fileID: 768673785525378048}
   m_Layer: 0
   m_Name: '[TXR_Button]'
@@ -182,7 +183,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldPlaySounds: 1
   state: 2
-  buttonSurface: {fileID: 8548463700690291948}
   activeToucher: {fileID: 0}
   ResponseHoverEnter: 0
   HoverEnter:
@@ -200,12 +200,28 @@ MonoBehaviour:
   Released:
     m_PersistentCalls:
       m_Calls: []
-  soundDisabled: {fileID: 0}
-  soundActive: {fileID: 0}
-  soundHoverEnter: {fileID: 0}
-  soundHoverExit: {fileID: 0}
-  soundPress: {fileID: 3209833613720013485}
-  soundRelease: {fileID: 0}
+  References: {fileID: 2012426802286184377}
+--- !u!114 &2012426802286184377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033106044736101866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2459a4c2312f4ab255fccfc26dd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonBehavior: {fileID: 7973432231621262242}
+  ButtonVisuals: {fileID: 768673785525378048}
+  ButtonSurface: {fileID: 8548463700690291948}
+  SoundPress: {fileID: 3209833613720013485}
+  SoundRelease: {fileID: 0}
+  Backface: {fileID: 6424260005475842884}
+  Stroke: {fileID: 6424260006290498348}
+  Text: {fileID: 2914481266669485010}
+  Configurations: {fileID: 11400000, guid: 110907535a97c6c49b67fe9456e6884d, type: 2}
 --- !u!114 &768673785525378048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,10 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1b79b5f0a1c0549993d598e2c5e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backface: {fileID: 6424260005475842884}
-  _stroke: {fileID: 6424260006290498348}
-  _text: {fileID: 2914481266669485010}
-  _configurations: {fileID: 11400000, guid: 110907535a97c6c49b67fe9456e6884d, type: 2}
 --- !u!1 &3219294474616693725
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b7332bbdb96a23640a2563926d83ea0f,
         type: 2}
+    - target: {fileID: 2012426802286184377, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ButtonBehavior
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2033106044736101783, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -169,6 +174,18 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 4429800713450151186}
   m_SourcePrefab: {fileID: 100100000, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
+--- !u!114 &1994464873280441812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2012426802286184377, guid: b6872ffe2cf970b468589d957b4c24f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 18103182435437165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051208840555239303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2459a4c2312f4ab255fccfc26dd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2051208840555239303 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2033106044736101866, guid: b6872ffe2cf970b468589d957b4c24f3,
@@ -189,7 +206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldPlaySounds: 1
   state: 2
-  buttonSurface: {fileID: 8566531273070806657}
   activeToucher: {fileID: 0}
   ResponseHoverEnter: 0
   HoverEnter:
@@ -207,27 +223,10 @@ MonoBehaviour:
   Released:
     m_PersistentCalls:
       m_Calls: []
-  soundDisabled: {fileID: 0}
-  soundActive: {fileID: 0}
-  soundHoverEnter: {fileID: 0}
-  soundHoverExit: {fileID: 0}
-  soundPress: {fileID: 3227900151083139264}
-  soundRelease: {fileID: 0}
+  References: {fileID: 1994464873280441812}
   ToggleOn:
     m_PersistentCalls:
       m_Calls: []
   ToggleOff:
     m_PersistentCalls:
       m_Calls: []
---- !u!82 &3227900151083139264 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3209833613720013485, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 18103182435437165}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8566531273070806657 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8548463700690291948, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 18103182435437165}
-  m_PrefabAsset: {fileID: 0}
