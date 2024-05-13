@@ -31,7 +31,10 @@ public class SelectionAnswersButtonsManager
             selectionAnswerButton.gameObject.SetActive(answerIsActive);
             if (answerIsActive)
             {
-                selectionAnswerButton.Init(selectionAnswersData[answerIndex]);
+                bool isCorrectAnswer = selectionAnswersData[answerIndex].IsCorrect;
+                SelectionAnswerButtonConfiguration buttonConfiguration =
+                    isCorrectAnswer ? _correctAnswerButtonConfiguration : _wrongAnswerButtonConfiguration;
+                selectionAnswerButton.Init(selectionAnswersData[answerIndex], buttonConfiguration);
             }
         }
     }

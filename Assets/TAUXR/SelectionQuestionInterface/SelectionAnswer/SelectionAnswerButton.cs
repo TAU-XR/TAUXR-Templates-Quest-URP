@@ -17,6 +17,8 @@ public class SelectionAnswerButton : MonoBehaviour
 
     [SerializeField] private float _timeFromPressToDisable = 1;
 
+    private SelectionAnswerButtonConfiguration _buttonConfiguration;
+
     private void Awake()
     {
         _button = GetComponent<TXRButton_Toggle>();
@@ -45,11 +47,12 @@ public class SelectionAnswerButton : MonoBehaviour
     }
 
 
-    public void Init(SelectionAnswerData selectionAnswerData)
+    public void Init(SelectionAnswerData selectionAnswerData, SelectionAnswerButtonConfiguration buttonConfiguration)
     {
         _selectionAnswerData = selectionAnswerData;
         _text.text = _selectionAnswerData.Text;
         _button.SetState(ButtonState.Interactable);
+        _buttonConfiguration = buttonConfiguration;
     }
 
     public async UniTask OnAnswerSubmitted()
