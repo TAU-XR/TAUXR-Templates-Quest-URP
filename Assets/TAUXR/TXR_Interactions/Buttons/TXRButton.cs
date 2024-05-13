@@ -97,13 +97,13 @@ public class TXRButton : MonoBehaviour
         switch (state)
         {
             case ButtonState.Hidden:
-                visuals.Hide();
+                visuals.SetState(EButtonAnimationState.Hide);
                 break;
             case ButtonState.Disabled:
-                visuals.Disabled();
+                visuals.SetState(EButtonAnimationState.Disable);
                 break;
             case ButtonState.Interactable:
-                visuals.Active();
+                visuals.SetState(EButtonAnimationState.Active);
                 break;
             case ButtonState.Frozen:
                 break;
@@ -203,7 +203,7 @@ public class TXRButton : MonoBehaviour
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
-        visuals.Hover();
+        visuals.SetState(EButtonAnimationState.Hover);
     }
 
     // called from button collider
@@ -248,7 +248,7 @@ public class TXRButton : MonoBehaviour
         isHovered = false;
         activeToucher = null;
         PlaySound(soundHoverExit);
-        visuals.Active();
+        visuals.SetState(EButtonAnimationState.Active);
     }
 
     // called from the UnityEvent on the press collider
@@ -266,7 +266,7 @@ public class TXRButton : MonoBehaviour
     {
         isPressed = true;
         PlaySound(soundPress);
-        visuals.Press();
+        visuals.SetState(EButtonAnimationState.Press);
     }
 
     // called from the UnityEvent on the press collider
@@ -283,7 +283,7 @@ public class TXRButton : MonoBehaviour
     {
         isPressed = false;
         PlaySound(soundRelease);
-        visuals.Active();
+        visuals.SetState(EButtonAnimationState.Active);
     }
 
     // added as a quick fix for bug where title on sun nav wouldn't clear active toucher after touch (probably because it moves immediately to keyboard position.

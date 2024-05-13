@@ -4,10 +4,8 @@ using UnityEngine;
 public class ButtonVisualsConfigurations : ScriptableObject
 {
     [Header("Active Animation")]
-    [Tooltip("Color of the backface when active")]
-    public Color backfaceColorActive;
     [Tooltip("Gradient of the backface when active")]
-    public float backfaceGradientActive;
+    public float backfaceGradientRadiusActive;
     [Tooltip("Thickness of the stroke when active")]
     public float strokeThicknessActive;
     [Tooltip("Z position of the backfade when active")]
@@ -18,16 +16,10 @@ public class ButtonVisualsConfigurations : ScriptableObject
     [Header("Press Animation")]
     [Tooltip("Duration of the press animation")]
     public float pressDuration;
-    [Tooltip("Color of the backface on press")]
-    public Color backfaceColorPress;
     [Tooltip("Thickness of the stroke on press")]
     public float strokeThicknessPress;
     [Tooltip("Z position of the backfade on press")]
     public float backfadeZPositionPress;
-
-    [Header("Disabled")]
-    [Tooltip("Color of the backface when disabled")]
-    public Color backfaceColorDisabled;
 
     [Header("Hide Animation")]
     [Tooltip("Color of the backface when hidden")]

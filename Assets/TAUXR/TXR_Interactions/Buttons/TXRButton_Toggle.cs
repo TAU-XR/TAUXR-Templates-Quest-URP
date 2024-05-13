@@ -61,7 +61,7 @@ public class TXRButton_Toggle : TXRButton
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
-        visuals.Hover();
+        visuals.SetState(EButtonAnimationState.Hover);
     }
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)

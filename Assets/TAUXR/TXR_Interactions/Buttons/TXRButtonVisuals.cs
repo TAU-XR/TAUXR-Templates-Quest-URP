@@ -1,22 +1,24 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using NaughtyAttributes;
 
-public enum EButtonAnimationState { Show, Hide, Active, Disable, Hover, Press }
+public enum EButtonAnimationState { Hide, Active, Disable, Hover, Press }
 public class TXRButtonVisuals : MonoBehaviour
 {
-    private Shapes.Rectangle _backface;
-    private Shapes.Rectangle _stroke;
-    private TextMeshPro _text;
-    private ButtonVisualsConfigurations _configurations;
+    protected EButtonAnimationState _state;
+    protected Shapes.Rectangle _backface;
+    protected Shapes.Rectangle _stroke;
+    protected TextMeshPro _text;
+    protected ButtonVisualsConfigurations _configurations;
 
-    Sequence _backfaceColorSequence;
-    Sequence _backfaceGradientSequence;
-    Sequence _backfaceZValueSequence;
-    Sequence _strokeThicknessSequence;
+    protected Sequence _backfaceColorSequence;
+    protected Sequence _backfaceGradientSequence;
+    protected Sequence _backfaceZValueSequence;
+    protected Sequence _strokeThicknessSequence;
 
-    Color _pressedColor;
+    [SerializeField] protected Color _activeColor;
+    [SerializeField] protected Color _pressedColor;
+    [SerializeField] protected Color _disabledColor;
 
     public void Init(TXRButtonReferences references)
     {
@@ -24,58 +26,49 @@ public class TXRButtonVisuals : MonoBehaviour
         _stroke = references.Stroke;
         _text = references.Text;
         _configurations = references.Configurations;
-
-        _pressedColor = _configurations.backfaceColorPress;
     }
 
-    void Update()
+    public void SetState(EButtonAnimationState state)
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        switch (state)
         {
-            Active();
+            case EButtonAnimationState.Active:
+                Active(); break;
+            case EButtonAnimationState.Press:
+                Press(); break;
+            case EButtonAnimationState.Hide:
+                Hide(); break;
+            case EButtonAnimationState.Disable:
+                Disabled(); break;
+            case EButtonAnimationState.Hover:
+                Hover(); break;
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Hide();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Hover();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Press();
-        }
+        _state = state;
     }
 
-    public void Active()
+    protected virtual void Active()
     {
-        SetBackfaceColor(_configurations.backfaceColorActive, _configurations.activeDuration);
+        SetBackfaceColor(_activeColor, _configurations.activeDuration);
         SetBackfaceZ(_configurations.backfaceZPositionActive);
         SetHoverGradient(false);
         SetStrokeThickness(_configurations.strokeThicknessActive);
     }
 
-    public void Show()
-    {
-        Active();
-    }
-
-    public void Hide()
+    protected virtual void Hide()
     {
         SetBackfaceColor(_configurations.backfaceColorHide, _configurations.hideDuration);
         SetHoverGradient(false);
         SetStrokeThickness(0);
     }
 
-    public void Hover()
+    protected virtual void Hover()
     {
         SetHoverGradient(true);
         SetBackfaceZ(_configurations.backfadeZPositionHover);
         SetStrokeThickness(_configurations.strokeThicknessHover);
     }
 
-    public void Press()
+    protected virtual void Press()
     {
         SetBackfaceZ(_configurations.backfadeZPositionPress);
         SetHoverGradient(true);
@@ -83,10 +76,10 @@ public class TXRButtonVisuals : MonoBehaviour
         SetStrokeThickness(_configurations.strokeThicknessPress);
     }
 
-    public void Disabled()
+    protected virtual void Disabled()
     {
         SetHoverGradient(false);
-        SetBackfaceColor(_configurations.backfaceColorDisabled);
+        SetBackfaceColor(_disabledColor);
         SetStrokeThickness(_configurations.strokeThicknessActive);
     }
 
@@ -96,7 +89,26 @@ public class TXRButtonVisuals : MonoBehaviour
         Press();
     }
 
-    private void SetHoverGradient(bool isOn, float duration = 0.25f)
+    public void ChangeColor(EButtonAnimationState state, Color color, float duration = 0.25f)
+    {
+        switch (state)
+        {
+            case EButtonAnimationState.Active:
+                _activeColor = color; break;
+            case EButtonAnimationState.Press:
+                _pressedColor = color; break;
+            case EButtonAnimationState.Disable:
+                _disabledColor = color; break;
+        }
+
+        // update color change if changed the color of current state
+        if (_state == state)
+        {
+            SetState(state);
+        }
+    }
+
+    protected virtual void SetHoverGradient(bool isOn, float duration = 0.25f)
     {
         float gradientRadius = isOn ? _configurations.backfaceGradientRadiusHover : 0;
 
@@ -107,7 +119,7 @@ public class TXRButtonVisuals : MonoBehaviour
         _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _configurations.backfaceColorGradientHover, duration, t => { _backface.FillColorStart = t; }));
     }
 
-    private void SetBackfaceZ(float zValue, float duration = 0.25f)
+    protected virtual void SetBackfaceZ(float zValue, float duration = 0.25f)
     {
         Vector3 backfaceLocalPosition = _backface.transform.localPosition;
         backfaceLocalPosition.z = zValue;
@@ -117,14 +129,14 @@ public class TXRButtonVisuals : MonoBehaviour
         _backfaceZValueSequence.Append(_backface.transform.DOLocalMove(backfaceLocalPosition, duration));
     }
 
-    private void SetStrokeThickness(float thickness, float duration = 0.25f)
+    protected virtual void SetStrokeThickness(float thickness, float duration = 0.25f)
     {
         _strokeThicknessSequence.Kill();
         _strokeThicknessSequence = DOTween.Sequence();
         _strokeThicknessSequence.Append(DOVirtual.Float(_stroke.Thickness, thickness, duration, t => { _stroke.Thickness = t; }));
     }
 
-    private void SetBackfaceColor(Color backfaceColor, float duration = 0.25f)
+    protected virtual void SetBackfaceColor(Color backfaceColor, float duration = 0.25f)
     {
         _backfaceColorSequence.Kill();
         _backfaceColorSequence = DOTween.Sequence();
