@@ -60,6 +60,7 @@ public class TXRButton : MonoBehaviour
     protected virtual void Start()
     {
         visuals = GetComponent<TXRButtonVisuals>();
+        visuals.Init();
         lastState = state;
         SetState(state);
     }
@@ -122,6 +123,11 @@ public class TXRButton : MonoBehaviour
                 DelegateInteralExtenralResponses(response, OnReleasedInternal, Released);
                 break;
         }
+    }
+
+    public void SetPressedColor(Color backfaceColor, float duration = 0.25f)
+    {
+        visuals.SetPressedColor(backfaceColor, duration);
     }
 
     // TODO: Move to interactor
