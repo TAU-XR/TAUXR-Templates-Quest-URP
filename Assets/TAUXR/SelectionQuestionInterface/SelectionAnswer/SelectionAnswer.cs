@@ -8,6 +8,7 @@ using UnityEngine;
 public class SelectionAnswer : MonoBehaviour
 {
     public Action AnswerSelected;
+    public Action AnswerDeselected;
     public SelectionAnswerData SelectionAnswerData => _selectionAnswerData;
     private SelectionAnswerData _selectionAnswerData;
 
@@ -25,12 +26,25 @@ public class SelectionAnswer : MonoBehaviour
     private void Start()
     {
         _button.ToggleOn.AddListener(OnAnswerSelected);
+        _button.ToggleOff.AddListener(OnAnswerDeselected);
     }
 
     private void OnAnswerSelected()
     {
         AnswerSelected?.Invoke();
     }
+
+    private void OnAnswerDeselected()
+    {
+        AnswerDeselected?.Invoke();
+        Debug.Log(name);
+    }
+
+    public void ManuallyDeselectAnswer()
+    {
+        _button.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
+    }
+
 
     public void Init(SelectionAnswerData selectionAnswerData)
     {

@@ -10,6 +10,8 @@ public class SelectionQuestionInterface : MonoBehaviour
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
+    //TODO: find a way to remove this public property 
+    //It is only for the editor script
     public SelectionQuestionInterfaceReferences SelectionQuestionInterfaceReferences => _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
 
@@ -24,7 +26,8 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
         foreach (SelectionAnswer selectionAnswer in _selectionQuestionInterfaceReferences.SelectionAnswers)
         {
-            selectionAnswer.AnswerSelected += () => _selectedAnswer = selectionAnswer;
+            selectionAnswer.AnswerSelected += () => OnAnswerSelected(selectionAnswer);
+            selectionAnswer.AnswerDeselected += () => OnAnswerDeselected(selectionAnswer);
         }
     }
 
@@ -33,17 +36,48 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
         foreach (SelectionAnswer selectionAnswer in _selectionQuestionInterfaceReferences.SelectionAnswers)
         {
-            selectionAnswer.AnswerSelected -= () => _selectedAnswer = selectionAnswer;
+            selectionAnswer.AnswerSelected -= () => OnAnswerSelected(selectionAnswer);
+            selectionAnswer.AnswerDeselected -= () => OnAnswerDeselected(selectionAnswer);
+        }
+    }
+
+    private void OnAnswerSelected(SelectionAnswer selectionAnswer)
+    {
+        if (selectionAnswer == _selectedAnswer)
+        {
+            return;
+        }
+
+        if (_selectedAnswer != null)
+        {
+            _selectedAnswer.ManuallyDeselectAnswer();
+        }
+
+        _selectedAnswer = selectionAnswer;
+    }
+
+    private void OnAnswerDeselected(SelectionAnswer selectionAnswer)
+    {
+        Debug.Log(selectionAnswer.name);
+        if (selectionAnswer == _selectedAnswer)
+        {
+            _selectedAnswer = null;
         }
     }
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData)
     {
+        InitializeWithNewQuestion(selectionQuestionData);
+
+        await UniTask.WaitUntil(() => _correctAnswerSubmitted);
+    }
+
+    private void InitializeWithNewQuestion(SelectionQuestionData selectionQuestionData)
+    {
+        _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
         _selectionQuestionData = selectionQuestionData;
         _selectionQuestionInterfaceReferences.QuestionTextDisplay.SetText(_selectionQuestionData.Text);
         InitializeAnswerButtons();
-
-        await UniTask.WaitUntil(() => _correctAnswerSubmitted);
     }
 
     private void InitializeAnswerButtons()
@@ -63,19 +97,26 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void OnAnswerSubmitted()
     {
+        SubmitSelectedAnswer();
+
+        //If answer was wrong and we reached the max number of tries or there is only one more possible answer,
+        //Select and submit the correct answer as well.
+        bool outOfTries = _selectionQuestionData.NumberOfTries == _selectionQuestionData.Answers.Length - 1 ||
+                          _selectionQuestionData.NumberOfTries == _selectionQuestionData.MaxNumberOfTries;
+        if (outOfTries && !_correctAnswerSubmitted)
+        {
+            _selectedAnswer = GetCorrectAnswer();
+            SubmitSelectedAnswer();
+        }
+    }
+
+    private void SubmitSelectedAnswer()
+    {
         AnswerSubmitted?.Invoke(_selectedAnswer.SelectionAnswerData);
         _correctAnswerSubmitted = _selectedAnswer.SelectionAnswerData.IsCorrect;
         _selectedAnswer.OnAnswerSubmitted().Forget();
         _selectionQuestionData.NumberOfTries++;
         ShowAnswerInfo();
-
-        //If answer was wrong and we reached the max number of tries or there is only one more possible answer,
-        //Select and submit the correct answer as well.
-        if (_selectionQuestionData.NumberOfTries == _selectionQuestionData.Answers.Length - 1 && !_correctAnswerSubmitted)
-        {
-            _selectedAnswer = GetCorrectAnswer();
-            OnAnswerSubmitted();
-        }
     }
 
     private void ShowAnswerInfo()

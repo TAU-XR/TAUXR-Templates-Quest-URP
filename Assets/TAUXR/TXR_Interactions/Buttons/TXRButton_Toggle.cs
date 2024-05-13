@@ -67,7 +67,7 @@ public class TXRButton_Toggle : TXRButton
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action internalAction = state == TXRButtonToggleState.On ? OnPressedInternal : OnReleasedInternal;
 
-        DelegateInteralExtenralResponses(response, internalAction, ToggleOn);
+        DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
     }
 }
 
