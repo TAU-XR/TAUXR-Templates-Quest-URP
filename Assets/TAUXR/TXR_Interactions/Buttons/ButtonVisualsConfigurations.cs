@@ -38,12 +38,22 @@ public class ButtonVisualsConfigurations : ScriptableObject
     [Header("Hover Animation")]
     [Tooltip("Duration of the hover animation")]
     public float hoverDuration;
-    [Tooltip("Color gradient of the backface on hover")]
+    [Tooltip("The color of the gradient appears on the button when hovering on it")]
     public Color backfaceColorGradientHover;
-    [Tooltip("Gradient of the backface on hover")]
+    [Tooltip("Gradient radius of the backface on hover")]
     public float backfaceGradientHover;
     [Tooltip("Thickness of the stroke on hover")]
     public float strokeThicknessHover;
     [Tooltip("Z position of the backfade on hover")]
     public float backfadeZPositionHover;
+
+
+
+    /*
+     * possibly new parameters
+     * color - active, pressed, hidden, disabled
+     * hover - gradient color, gradient radius, stroke z, backface z
+     * 
+     * 
+     */
 }
