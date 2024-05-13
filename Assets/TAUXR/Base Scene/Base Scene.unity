@@ -495,10 +495,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2698698595155943794, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: _timeBetweenQuestions
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126296900292724023, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_text
+      value: Answer 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353720469670744339, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_text
+      value: Submit
+      objectReference: {fileID: 0}
     - target: {fileID: 4503798423826871359, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
       propertyPath: m_Name
       value: SelectionQuestionInterface
+      objectReference: {fileID: 0}
+    - target: {fileID: 5699830931849453161, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_text
+      value: Answer 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988419201834446940, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0028
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088690394604507230, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_text
+      value: Answer 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524613112198344270, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_text
+      value: Answer 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524613112198344270, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5659589698557623400, guid: f899305186a85f244ba523aa50bdb3c4, type: 3}

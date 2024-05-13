@@ -19,7 +19,8 @@ public class TXRButton_Toggle : TXRButton
     protected override void Start()
     {
         base.Start();
-        ResponseRelease = ButtonColliderResponse.None;  // important line - we want no response on release. It should be controlled by the toggle.
+        ResponseRelease =
+            ButtonColliderResponse.None; // important line - we want no response on release. It should be controlled by the toggle.
     }
 
     public override void OnPressed(Transform toucher)
@@ -45,7 +46,6 @@ public class TXRButton_Toggle : TXRButton
         if (!ShouldContinueAfterToucherExit) return;
 
         DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
-
     }
 
     protected override void OnHoverExitInternal()
@@ -53,7 +53,6 @@ public class TXRButton_Toggle : TXRButton
         isHovered = false;
         activeToucher = null;
         PlaySound(soundHoverExit);
-
     }
 
     protected override void OnHoverEnterInternal()
@@ -64,6 +63,7 @@ public class TXRButton_Toggle : TXRButton
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
+        if (State != ButtonState.Interactable) return;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action internalAction = state == TXRButtonToggleState.On ? OnPressedInternal : OnReleasedInternal;
 
@@ -71,4 +71,8 @@ public class TXRButton_Toggle : TXRButton
     }
 }
 
-public enum TXRButtonToggleState { On, Off }
+public enum TXRButtonToggleState
+{
+    On,
+    Off
+}

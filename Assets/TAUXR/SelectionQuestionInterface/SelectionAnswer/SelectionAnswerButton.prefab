@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionAnswerButton
       objectReference: {fileID: 0}
+    - target: {fileID: 2914481266669485010, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -85,6 +90,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0028
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0042
       objectReference: {fileID: 0}
@@ -92,6 +112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522733827160352192, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6424260005475842884, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
@@ -165,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2902689674e20643bf0be3643bb88a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeFromPressToDisable: 1
 --- !u!114 &3349370150111162561
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -137,6 +137,7 @@ public class TXRButton : MonoBehaviour
         float distnaceClamped = 1 - ((distanceToucherFromButtom - HOVER_DISTANCE_MIN) / (HOVER_DISTANCE_MAX - HOVER_DISTANCE_MIN));
         return Mathf.Clamp01(distnaceClamped);
     }
+
     protected void PlaySound(AudioSource sound)
     {
         if (sound == null || !ShouldPlaySounds) return;
@@ -230,6 +231,7 @@ public class TXRButton : MonoBehaviour
                 activeToucher = null;
             }
         }
+
         return true;
     }
 
@@ -284,6 +286,26 @@ public class TXRButton : MonoBehaviour
     }
 }
 
-public enum ButtonColliderResponse { Both, Internal, External, None }
-public enum ButtonEvent { HoverEnter, Pressed, Released, HoverExit }
-public enum ButtonState { Hidden, Disabled, Interactable, Frozen }
+public enum ButtonColliderResponse
+{
+    Both,
+    Internal,
+    External,
+    None
+}
+
+public enum ButtonEvent
+{
+    HoverEnter,
+    Pressed,
+    Released,
+    HoverExit
+}
+
+public enum ButtonState
+{
+    Hidden,
+    Disabled,
+    Interactable,
+    Frozen
+}
