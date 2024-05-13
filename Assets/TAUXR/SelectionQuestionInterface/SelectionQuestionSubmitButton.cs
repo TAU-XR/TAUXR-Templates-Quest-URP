@@ -11,7 +11,7 @@ public class SelectionQuestionSubmitButton : MonoBehaviour
 
     private void Awake()
     {
-        _button = GetComponent<TXRButton_Toggle>();
+        _button = GetComponent<TXRButton>();
     }
 
     private void Start()

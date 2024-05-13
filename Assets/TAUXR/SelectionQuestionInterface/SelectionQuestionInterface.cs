@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class SelectionQuestionInterface : MonoBehaviour
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
+    public SelectionQuestionInterfaceReferences SelectionQuestionInterfaceReferences => _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
 
     private SelectionAnswer _selectedAnswer;
@@ -50,8 +52,12 @@ public class SelectionQuestionInterface : MonoBehaviour
         for (int answerIndex = 0; answerIndex < numberOfAnswersInInterface; answerIndex++)
         {
             SelectionAnswer selectionAnswer = _selectionQuestionInterfaceReferences.SelectionAnswers[answerIndex];
-            selectionAnswer.gameObject.SetActive(answerIndex < _selectionQuestionData.Answers.Length);
-            selectionAnswer.Init(_selectionQuestionData.Answers[answerIndex]);
+            bool answerIsActive = answerIndex < _selectionQuestionData.Answers.Length;
+            selectionAnswer.gameObject.SetActive(answerIsActive);
+            if (answerIsActive)
+            {
+                selectionAnswer.Init(_selectionQuestionData.Answers[answerIndex]);
+            }
         }
     }
 
@@ -92,4 +98,24 @@ public class SelectionQuestionInterface : MonoBehaviour
         return _selectionQuestionInterfaceReferences.SelectionAnswers.ToList()
             .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
     }
+
+#if UNITY_EDITOR
+    [Button]
+    private void SelectButton(int buttonIndex)
+    {
+        _selectionQuestionInterfaceReferences.SelectionAnswers[buttonIndex].GetComponent<TXRButton_Toggle>()
+            .TriggerToggleEvent(TXRButtonToggleState.On, ButtonColliderResponse.Both);
+    }
+
+    private void DeSelectButton(int buttonIndex)
+    {
+        _selectionQuestionInterfaceReferences.SelectionAnswers[buttonIndex].GetComponent<TXRButton_Toggle>()
+            .TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
+    }
+
+    [Button]
+    private void SubmitAndRelease()
+    {
+    }
+#endif
 }

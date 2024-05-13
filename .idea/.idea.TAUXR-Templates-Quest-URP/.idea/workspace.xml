@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceTester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceTester.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionSubmitButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionSubmitButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion3.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion3.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion5.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestion5.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +26,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8e887700cd7e4674989da7b046e8eaa6952800/79/687c0728/EditorStyles.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/Editor/TXRButtonEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/Editor/TXRButton_ToggleEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/Extensions/ColorExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.7.6/Editor/Animation/CurveDataSource.cs" root0="SKIP_HIGHLIGHTING" />
@@ -35,30 +41,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Nitsan/SelectionQuestionInterfaceNew",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "rider.code.cleanup.on.save": "true",
-    "rider.code.cleanup.on.save.profile": "Built-in: Reformat Code",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Nitsan/SelectionQuestionInterfaceNew&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rider.code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;rider.code.cleanup.on.save.profile&quot;: &quot;Built-in: Reformat Code&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\nitsa\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\nitsa\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\nitsa\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.18f1\Editor\Unity.exe" />
@@ -126,7 +132,7 @@
       <workItem from="1714899282517" duration="2611000" />
       <workItem from="1714986470943" duration="12239000" />
       <workItem from="1715084689042" duration="3738000" />
-      <workItem from="1715593497593" duration="1384000" />
+      <workItem from="1715593497593" duration="3631000" />
     </task>
     <servers />
   </component>

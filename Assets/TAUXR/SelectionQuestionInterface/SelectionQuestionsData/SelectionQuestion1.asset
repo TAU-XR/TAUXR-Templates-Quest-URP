@@ -12,28 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7687793c2afe104784ae3afc211c70c, type: 3}
   m_Name: SelectionQuestion1
   m_EditorClassIdentifier: 
-  Id: 
   Text: Selection question 1 text
   Answers:
-  - Id: Answer 1
-    Text: Answer 1
+  - Text: Answer 1
     IsCorrect: 0
-    Hint: 
-    Explanation: 
-  - Id: Answer 2
-    Text: Answer 2
+    AnswerInfo: Answer 1 Info
+  - Text: Answer 2
     IsCorrect: 1
-    Hint: 
-    Explanation: 
-  - Id: Answer 3
-    Text: Answer 3
+    AnswerInfo: Answer 2 Info
+  - Text: Answer 3
     IsCorrect: 0
-    Hint: 
-    Explanation: 
-  - Id: Answer 4
-    Text: Answer 4
+    AnswerInfo: Answer 3 Info
+  - Text: Answer 4
     IsCorrect: 0
-    Hint: 
-    Explanation: 
-  NumberOfTries: 2
+    AnswerInfo: Answer 4 Info
+  NumberOfTries: 0
   MultipleSelection: 0

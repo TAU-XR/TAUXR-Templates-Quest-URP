@@ -16,11 +16,9 @@ MonoBehaviour:
   Answers:
   - Text: Answer 1 Answer 1
     IsCorrect: 0
-    Hint: 
-    Explanation: 
+    AnswerInfo: 
   - Text: Answer 2
     IsCorrect: 1
-    Hint: 
-    Explanation: 
-  NumberOfTries: 2
+    AnswerInfo: 
+  NumberOfTries: 0
   MultipleSelection: 0

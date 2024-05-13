@@ -14,6 +14,8 @@ public class SelectionAnswer : MonoBehaviour
     private TXRButton_Toggle _button;
     private TextMeshPro _text;
 
+    [SerializeField] private float _timeFromPressToDisable = 1;
+
     private void Awake()
     {
         _button = GetComponent<TXRButton_Toggle>();
@@ -34,13 +36,14 @@ public class SelectionAnswer : MonoBehaviour
     {
         _selectionAnswerData = selectionAnswerData;
         _text.text = _selectionAnswerData.Text;
+        _button.SetState(ButtonState.Interactable);
     }
 
     public async UniTask OnAnswerSubmitted()
     {
         _button.SetState(ButtonState.Frozen);
         //Color button - green for correct, red for wrong
-        await UniTask.Delay(TimeSpan.FromSeconds(2));
+        await UniTask.Delay(TimeSpan.FromSeconds(_timeFromPressToDisable));
 
         //If wrong answer
         _button.SetState(ButtonState.Disabled);
