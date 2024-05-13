@@ -221,23 +221,7 @@ MonoBehaviour:
   _backface: {fileID: 6424260005475842884}
   _stroke: {fileID: 6424260006290498348}
   _text: {fileID: 2914481266669485010}
-  _backfaceColorActive: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
-  _backfaceGradientActive: 0
-  _strokeThicknessActive: 0.0005
-  _backfadeZPositionActive: 0.0012
-  _activeDuration: 0.25
-  _backfaceColorDisabled: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
-  _backfaceColorHide: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 0}
-  _hideDuration: 0.25
-  _hoverDuration: 0.3
-  _backfaceColorGradientHover: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
-  _backfaceGradientHover: 0.025
-  _strokeThicknessHover: 0.001
-  _backfadeZPositionHover: 0.0049
-  _pressDuration: 0.25
-  _backfaceColorPress: {r: 0.42830187, g: 0.5933798, b: 1, a: 1}
-  _strokeThicknessPress: 0.001
-  _backfaceZPositionPress: -0.008
+  _configurations: {fileID: 11400000, guid: 110907535a97c6c49b67fe9456e6884d, type: 2}
 --- !u!1 &3219294474616693725
 GameObject:
   m_ObjectHideFlags: 0

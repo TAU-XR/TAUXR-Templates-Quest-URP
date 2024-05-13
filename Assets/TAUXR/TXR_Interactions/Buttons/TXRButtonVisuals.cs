@@ -8,35 +8,11 @@ public class TXRButtonVisuals : MonoBehaviour
     [SerializeField] private Shapes.Rectangle _backface;
     [SerializeField] private Shapes.Rectangle _stroke;
     [SerializeField] private TextMeshPro _text;
-
-    [Header("Active Animation")]
-    [SerializeField] private Color _backfaceColorActive;
-    [SerializeField] private float _backfaceGradientActive = 0f;
-    [SerializeField] private float _strokeThicknessActive = .0005f;
-    [SerializeField] private float _backfadeZPositionActive = .0012f;
-    [SerializeField] private float _activeDuration;
-
-    [Header("Disabled")]
-    [SerializeField] private Color _backfaceColorDisabled;
-
-    [Header("Hide Animation")]
-    [SerializeField] private Color _backfaceColorHide;
-    [SerializeField] private float _hideDuration;
-
-    [Header("Hover Animation")]
-    [SerializeField] private float _hoverDuration;
-    [SerializeField] private Color _backfaceColorGradientHover;
-    [SerializeField] private float _backfaceGradientHover = .025f;
-    [SerializeField] private float _strokeThicknessHover = .001f;
-    [SerializeField] private float _backfadeZPositionHover = .0049f;
-
-    [Header("Press Animation")]
-    [SerializeField] private float _pressDuration = .025f;
-    [SerializeField] private Color _backfaceColorPress;
-    [SerializeField] private float _strokeThicknessPress = .001f;
-    [SerializeField] private float _backfaceZPositionPress = -.008f;
+    [SerializeField] private ButtonVisualsConfigurations _configurations;
 
     Sequence _animationSequence;
+    Sequence _backfaceColorSequence;
+    Sequence _backfaceGradientSequence;
 
     void Update()
     {
@@ -60,9 +36,8 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Active()
     {
-        print("Active");
         _animationSequence.Kill();
-        InitSequence(_backfaceColorActive, _backfaceColorActive, _backfaceGradientActive, _backfadeZPositionActive, _strokeThicknessActive, _activeDuration);
+        InitSequence(_configurations.backfaceColorActive, _configurations.backfaceColorActive, _configurations.backfaceGradientActive, _configurations.backfadeZPositionActive, _configurations.strokeThicknessActive, _configurations.activeDuration);
         _animationSequence.Restart();
     }
 
@@ -73,32 +48,29 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void Hide()
     {
-        print("HIDE");
         _animationSequence.Kill();
-        InitSequence(_backfaceColorHide, _backfaceColorHide, _backfaceGradientActive, _backfadeZPositionActive, 0, _hideDuration);
+        InitSequence(_configurations.backfaceColorHide, _configurations.backfaceColorHide, _configurations.backfaceGradientActive, _configurations.backfadeZPositionActive, 0, _configurations.hideDuration);
         _animationSequence.Restart();
     }
 
     public void Hover()
     {
-        print("HOVER");
         _animationSequence.Kill();
-        InitSequence(_backfaceColorGradientHover, _backfaceColorActive, _backfaceGradientHover, _backfadeZPositionHover, _strokeThicknessHover, _hoverDuration);
+        InitSequence(_configurations.backfaceColorGradientHover, _configurations.backfaceColorActive, _configurations.backfaceGradientHover, _configurations.backfadeZPositionHover, _configurations.strokeThicknessHover, _configurations.hoverDuration);
         _animationSequence.Restart();
     }
 
     public void Press()
     {
-        print("Press");
         _animationSequence.Kill();
-        InitSequence(_backfaceColorPress, _backfaceColorPress, _backfaceGradientActive, _backfaceZPositionPress, _strokeThicknessPress, _pressDuration);
+        InitSequence(_configurations.backfaceColorPress, _configurations.backfaceColorPress, _configurations.backfaceGradientActive, _configurations.backfadeZPositionPress, _configurations.strokeThicknessPress, _configurations.pressDuration);
         _animationSequence.Restart();
     }
 
     public void Disabled()
     {
         _animationSequence.Kill();
-        InitSequence(_backfaceColorDisabled, _backfaceColorDisabled, _backfaceGradientActive, 0, _strokeThicknessActive, _activeDuration);
+        InitSequence(_configurations.backfaceColorDisabled, _configurations.backfaceColorDisabled, _configurations.backfaceGradientActive, 0, _configurations.strokeThicknessActive, _configurations.activeDuration);
         _animationSequence.Restart();
     }
 
@@ -118,4 +90,28 @@ public class TXRButtonVisuals : MonoBehaviour
         _animationSequence.SetAutoKill(false);
         _animationSequence.Pause();
     }
+
+   /* public void SetColor(Color backfaceColor)
+    {
+
+    }
+
+    private void ApplyHoverGradient()
+    {
+
+    }
+
+    private void SetBackfaceColor(Color backfaceFillStart, Color backfaceFillEnd, float duration)
+    {
+        _backfaceColorSequence = DOTween.Sequence();
+        _backfaceColorSequence.Append(DOVirtual.Color(_backface.FillColorStart, backfaceFillStart, duration, t => { _backface.FillColorStart = t; }));
+        _backfaceColorSequence.Join(DOVirtual.Color(_backface.FillColorEnd, backfaceFillEnd, duration, t => { _backface.FillColorEnd = t; }));
+    }
+    private void SetBackfaceGradient(float backfaceGradientRadius, float duration)
+    {
+        _backfaceGradientSequence = DOTween.Sequence();
+        _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, backfaceGradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
+        _backfaceColorSequence.Join(DOVirtual.Color(_backface.FillColorEnd, backfaceFillEnd, duration, t => { _backface.FillColorEnd = t; }));
+    }*/
+
 }
