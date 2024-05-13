@@ -140,6 +140,27 @@ public class TXRButton : MonoBehaviour
         visuals.SetColor(state, color, duration);
     }
 
+    public void SetDefaultColor(EButtonAnimationState state)
+    {
+        Color color = References.Configurations.activeColor;
+
+        switch (state)
+        {
+            case EButtonAnimationState.Active:
+                color = References.Configurations.activeColor;
+                break;
+            case EButtonAnimationState.Press:
+                color = References.Configurations.pressColor;
+                break;
+            case EButtonAnimationState.Disable:
+                color = References.Configurations.disableColor;
+                break;
+        }
+
+        visuals.SetColor(state, color);
+    }
+
+
     // TODO: Move to interactor
     private float GetToucherToButtonDistance(Vector3 toucherPosition, Vector3 buttonSurfacePosition)
     {
