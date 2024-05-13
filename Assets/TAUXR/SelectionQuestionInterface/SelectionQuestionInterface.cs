@@ -61,17 +61,15 @@ public class SelectionQuestionInterface : MonoBehaviour
         _correctAnswerSubmitted = _selectedAnswer.SelectionAnswerData.IsCorrect;
         _selectedAnswer.OnAnswerSubmitted().Forget();
         _selectionQuestionData.NumberOfTries++;
+        ShowAnswerInfo();
 
         //If answer was wrong and we reached the max number of tries or there is only one more possible answer,
-        //Select and submit the correct answer.
-        if (_selectionQuestionData.NumberOfTries == _selectionQuestionData.Answers.Length)
+        //Select and submit the correct answer as well.
+        if (_selectionQuestionData.NumberOfTries == _selectionQuestionData.Answers.Length - 1 && !_correctAnswerSubmitted)
         {
             _selectedAnswer = GetCorrectAnswer();
-                OnAnswerSubmitted();
-            return;
+            OnAnswerSubmitted();
         }
-
-        ShowAnswerInfo();
     }
 
     private void ShowAnswerInfo()

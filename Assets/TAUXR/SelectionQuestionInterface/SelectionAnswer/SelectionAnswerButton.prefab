@@ -113,7 +113,28 @@ PrefabInstance:
       propertyPath: height
       value: 0.18
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8548463700382028203, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ToucherEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548463700382028203, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ToucherExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548463700722473839, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ToucherEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548463700722473839, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ToucherExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7973432231621262242, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -121,6 +142,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 3231289553441990085}
+    - targetCorrespondingSourceObject: {fileID: 2033106044736101866, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 3349370150111162561}
   m_SourcePrefab: {fileID: 100100000, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
 --- !u!1 &7556867983972137858 stripped
 GameObject:
@@ -140,3 +165,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2902689674e20643bf0be3643bb88a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3349370150111162561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556867983972137858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b7ba59b991a1b945854bd965a506b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldPlaySounds: 1
+  state: 2
+  buttonSurface: {fileID: 8566531273070806657, guid: 32c09fe936666ed42bb3153aef6a6116,
+    type: 3}
+  activeToucher: {fileID: 0}
+  ResponseHoverEnter: 0
+  HoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponseHoverExit: 0
+  HoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponsePress: 0
+  Pressed:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponseRelease: 3
+  Released:
+    m_PersistentCalls:
+      m_Calls: []
+  soundDisabled: {fileID: 0}
+  soundActive: {fileID: 0}
+  soundHoverEnter: {fileID: 0}
+  soundHoverExit: {fileID: 0}
+  soundPress: {fileID: 3227900151083139264, guid: 32c09fe936666ed42bb3153aef6a6116,
+    type: 3}
+  soundRelease: {fileID: 0}
+  ToggleOn:
+    m_PersistentCalls:
+      m_Calls: []
+  ToggleOff:
+    m_PersistentCalls:
+      m_Calls: []

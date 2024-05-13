@@ -11,18 +11,18 @@ public class SelectionAnswer : MonoBehaviour
     public SelectionAnswerData SelectionAnswerData => _selectionAnswerData;
     private SelectionAnswerData _selectionAnswerData;
 
-    private TXRButton _button;
+    private TXRButton_Toggle _button;
     private TextMeshPro _text;
 
     private void Awake()
     {
-        _button = GetComponent<TXRButton>();
+        _button = GetComponent<TXRButton_Toggle>();
         _text = GetComponentInChildren<TextMeshPro>();
     }
 
     private void Start()
     {
-        _button.Pressed.AddListener(OnAnswerSelected);
+        _button.ToggleOn.AddListener(OnAnswerSelected);
     }
 
     private void OnAnswerSelected()

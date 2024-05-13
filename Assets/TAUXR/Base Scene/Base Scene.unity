@@ -500,7 +500,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionQuestionInterface
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5659589698557623400, guid: f899305186a85f244ba523aa50bdb3c4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -524,6 +525,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 589654732948043563, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1849899477}
     - targetCorrespondingSourceObject: {fileID: 8273954908002453715, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
       insertIndex: -1
@@ -1625,6 +1630,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7982183163068300345}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1849899472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 589654732948043563, guid: f899305186a85f244ba523aa50bdb3c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 431464040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1849899477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849899472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ea57ffc04f14148a67331bf269ea4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldPlaySounds: 1
+  state: 2
+  buttonSurface: {fileID: 8548463700690291948, guid: b6872ffe2cf970b468589d957b4c24f3,
+    type: 3}
+  activeToucher: {fileID: 0}
+  ResponseHoverEnter: 0
+  HoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponseHoverExit: 0
+  HoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponsePress: 0
+  Pressed:
+    m_PersistentCalls:
+      m_Calls: []
+  ResponseRelease: 0
+  Released:
+    m_PersistentCalls:
+      m_Calls: []
+  soundDisabled: {fileID: 0}
+  soundActive: {fileID: 0}
+  soundHoverEnter: {fileID: 0}
+  soundHoverExit: {fileID: 0}
+  soundPress: {fileID: 3209833613720013485, guid: b6872ffe2cf970b468589d957b4c24f3,
+    type: 3}
+  soundRelease: {fileID: 0}
 --- !u!1001 &1857408626
 PrefabInstance:
   m_ObjectHideFlags: 0
