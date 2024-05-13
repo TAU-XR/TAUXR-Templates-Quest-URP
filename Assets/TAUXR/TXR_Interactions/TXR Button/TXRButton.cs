@@ -88,7 +88,7 @@ public class TXRButton : MonoBehaviour
 
         if (isHovered)
         {
-            distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
+            //distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
         }
     }
 
@@ -199,6 +199,28 @@ public class TXRButton : MonoBehaviour
         }
     }
 
+    public void TriggerButtonEvent(ButtonEvent buttonEvent)
+    {
+        switch (buttonEvent)
+        {
+            case ButtonEvent.HoverEnter:
+                DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
+                break;
+
+            case ButtonEvent.HoverExit:
+                DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
+                break;
+
+            case ButtonEvent.Pressed:
+                DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
+                break;
+
+            case ButtonEvent.Released:
+                DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
+                break;
+        }
+    }
+
     protected virtual void OnHoverEnterInternal()
     {
         isHovered = true;
@@ -254,13 +276,14 @@ public class TXRButton : MonoBehaviour
     // called from the UnityEvent on the press collider
     public virtual void OnPressed(Transform toucher)
     {
-        if (state != ButtonState.Interactable) return;
+          if (state != ButtonState.Interactable) return;
 
-        if (toucher != activeToucher) return;
+          if (toucher != activeToucher) return;
 
         PressTransform?.Invoke(toucher);
         DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
     }
+
 
     protected virtual void OnPressedInternal()
     {
@@ -272,9 +295,9 @@ public class TXRButton : MonoBehaviour
     // called from the UnityEvent on the press collider
     public virtual void OnReleased(Transform toucher)
     {
-        if (state != ButtonState.Interactable) return;
+               if (state != ButtonState.Interactable) return;
 
-        if (toucher != activeToucher) return;
+              if (toucher != activeToucher) return;
 
         DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
     }

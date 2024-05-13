@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,25 @@ public class TXRButtonInput : MonoBehaviour
 {
     public TXRButtonReferences references;
     public TXRButton _btn;
-    public List<Transform> _touchers = new();
+    public List<Transform> _touchers = new List<Transform>();
     public Transform _mainToucher;
 
     [Header("Configurations")]
     public float PressDistance;
 
     public bool isPressing = false;
+    public bool isHovering = false;
 
     private void Update()
     {
         if (_mainToucher == null)
         {
-            // hover exit
-            _btn.OnHoverExit(_mainToucher);
+            if (isHovering)
+            {
+                // hover exit
+                _btn.TriggerButtonEvent(ButtonEvent.HoverExit);
+                isHovering = false;
+            }
             return;
         }
 
@@ -30,19 +36,24 @@ public class TXRButtonInput : MonoBehaviour
             {
                 // release
                 isPressing = false;
-                _btn.OnReleased(_mainToucher);
+                _btn.TriggerButtonEvent(ButtonEvent.Released);
             }
-            else
+            else if (!isHovering)
             {
                 // hover enter
-                _btn.OnHoverEnter(_mainToucher);
+                _btn.TriggerButtonEvent(ButtonEvent.HoverEnter);
+                isHovering = true;
             }
         }
         else
         {
-            isPressing = true;
-            // press
-            _btn.OnPressed(_mainToucher);
+            if (!isPressing)
+            {
+                // press
+                isPressing = true;
+                //_btn.PressTransform.Invoke(_mainToucher);
+                _btn.TriggerButtonEvent(ButtonEvent.Pressed);
+            }
         }
 
     }
@@ -59,18 +70,28 @@ public class TXRButtonInput : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (!other.CompareTag("Toucher")) return;
+        _touchers.Remove(other.transform);
+
+        if (_touchers.Count > 0)
+        {
+            _mainToucher = _touchers.Last();
+        }
+        else
+        {
+            _mainToucher = null;
+        }
 
     }
 
-}
-
-public class ButtonToucher
-{
-    public float DistanceToButton;
-    private Transform _transform;
-    public Vector3 Position => _transform.position;
-    public ButtonToucher(Transform toucherTransform)
+    public class ButtonToucher
     {
-        _transform = toucherTransform;
+        public float DistanceToButton;
+        private Transform _transform;
+        public Vector3 Position => _transform.position;
+        public ButtonToucher(Transform toucherTransform)
+        {
+            _transform = toucherTransform;
+        }
     }
 }
