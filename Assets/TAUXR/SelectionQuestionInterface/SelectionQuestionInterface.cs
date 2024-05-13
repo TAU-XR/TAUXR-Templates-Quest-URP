@@ -58,7 +58,6 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void OnAnswerDeselected(SelectionAnswer selectionAnswer)
     {
-        Debug.Log(selectionAnswer.name);
         if (selectionAnswer == _selectedAnswer)
         {
             _selectedAnswer = null;
@@ -112,6 +111,11 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void SubmitSelectedAnswer()
     {
+        if (_selectedAnswer == null)
+        {
+            return;
+        }
+
         AnswerSubmitted?.Invoke(_selectedAnswer.SelectionAnswerData);
         _correctAnswerSubmitted = _selectedAnswer.SelectionAnswerData.IsCorrect;
         _selectedAnswer.OnAnswerSubmitted().Forget();

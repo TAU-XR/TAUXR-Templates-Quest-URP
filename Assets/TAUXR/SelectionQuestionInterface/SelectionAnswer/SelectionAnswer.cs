@@ -37,7 +37,6 @@ public class SelectionAnswer : MonoBehaviour
     private void OnAnswerDeselected()
     {
         AnswerDeselected?.Invoke();
-        Debug.Log(name);
     }
 
     public void ManuallyDeselectAnswer()

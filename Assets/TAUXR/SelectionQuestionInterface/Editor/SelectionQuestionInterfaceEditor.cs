@@ -7,7 +7,7 @@ using UnityEngine;
 public class SelectionQuestionInterfaceEditor : Editor
 {
     [Range(0, 3)] private static int _buttonIndex = 0;
-    private static bool _isEditorUtilitiesFoldoutGroupOpen;
+    private static bool _isEditorUtilitiesFoldoutGroupOpen = true;
 
     public override void OnInspectorGUI()
     {
