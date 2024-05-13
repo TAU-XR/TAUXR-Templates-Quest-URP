@@ -39,7 +39,10 @@ public class ButtonVisualsConfigurations : ScriptableObject
     [Tooltip("Z position of the backfade on hover")]
     public float backfadeZPositionHover;
 
-
+    [Header("Backup")]
+    public Color activeColor;
+    public Color pressColor;
+    public Color disableColor;
 
     /*
      * possibly new parameters

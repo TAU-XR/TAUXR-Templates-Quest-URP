@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,12 +12,14 @@ public class TXRButton_Toggle : TXRButton
 {
     public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
-    private bool _shouldToggleOff = false;
+    public TXRButtonToggleState ToggleState;
+    TXRButtonToggleVisuals _toggleVisuals;
 
     protected override void Start()
     {
         base.Start();
         ResponseRelease = ButtonColliderResponse.None;  // important line - we want no response on release. It should be controlled by the toggle.
+        _toggleVisuals = GetComponent<TXRButtonToggleVisuals>();
     }
 
     public override void OnPressed(Transform toucher)
@@ -27,16 +27,19 @@ public class TXRButton_Toggle : TXRButton
         if (State != ButtonState.Interactable) return;
         if (toucher != ActiveToucher) return;
 
-        if (!isPressed)
+        if (!isPressed)     // get toggled on - call press animation without release.
         {
             DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, ToggleOn);
+            ToggleState = TXRButtonToggleState.On;
         }
         else
-        {
+        {                   // get toggled off - call release animation.
             DelegateInteralExtenralResponses(ButtonColliderResponse.Both, OnReleasedInternal, ToggleOff);
+            ToggleState = TXRButtonToggleState.Off;
         }
     }
 
+    // only change- do not change state to active.
     public override void OnHoverExit(Transform toucher)
     {
         if (State != ButtonState.Interactable) return;
@@ -53,7 +56,15 @@ public class TXRButton_Toggle : TXRButton
         isHovered = false;
         activeToucher = null;
         PlaySound(soundHoverExit);
-        //visuals.SetHoverGradient(false);
+
+        if (ToggleState == TXRButtonToggleState.On)
+        {
+            visuals.SetState(EButtonAnimationState.Press);
+        }
+        else
+        {
+            visuals.SetState(EButtonAnimationState.Active);
+        }
 
     }
 
@@ -69,7 +80,7 @@ public class TXRButton_Toggle : TXRButton
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action internalAction = state == TXRButtonToggleState.On ? OnPressedInternal : OnReleasedInternal;
 
-        DelegateInteralExtenralResponses(response, internalAction, ToggleOn);
+        DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
     }
 }
 

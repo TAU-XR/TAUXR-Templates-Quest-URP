@@ -20,7 +20,7 @@ public class TXRButtonVisuals : MonoBehaviour
     [SerializeField] protected Color _pressedColor;
     [SerializeField] protected Color _disabledColor;
 
-    public void Init(TXRButtonReferences references)
+    public virtual void Init(TXRButtonReferences references)
     {
         _backface = references.Backface;
         _stroke = references.Stroke;
@@ -89,7 +89,7 @@ public class TXRButtonVisuals : MonoBehaviour
         Press();
     }
 
-    public void ChangeColor(EButtonAnimationState state, Color color, float duration = 0.25f)
+    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
     {
         switch (state)
         {

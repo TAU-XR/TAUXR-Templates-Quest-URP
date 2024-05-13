@@ -135,9 +135,9 @@ public class TXRButton : MonoBehaviour
         }
     }
 
-    public void SetPressedColor(Color backfaceColor, float duration = 0.25f)
+    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
     {
-        visuals.SetPressedColor(backfaceColor, duration);
+        visuals.SetColor(state, color, duration);
     }
 
     // TODO: Move to interactor
