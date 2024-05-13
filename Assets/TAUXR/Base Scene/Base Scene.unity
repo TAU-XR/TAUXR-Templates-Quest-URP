@@ -495,30 +495,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: _wrongAnswerButtonConfiguration
-      value: 
-      objectReference: {fileID: 11400000, guid: 8eb71d2f29fab754ca8569c513cbf089,
-        type: 2}
-    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: _correctAnswerButtonConfiguration
-      value: 
-      objectReference: {fileID: 11400000, guid: 9e836e2b78883924ea5e4bebb80126c6,
-        type: 2}
-    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: _selectionQuestionInterfaceReferences._selectionAnswersButtonsManagers
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4503798423826871359, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
       propertyPath: m_Name
       value: SelectionQuestionInterface
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2662187867306985688, guid: f899305186a85f244ba523aa50bdb3c4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

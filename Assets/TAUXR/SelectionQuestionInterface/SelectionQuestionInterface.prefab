@@ -45,7 +45,6 @@ GameObject:
   m_Component:
   - component: {fileID: 317042578294344292}
   - component: {fileID: 3059459585716199669}
-  - component: {fileID: 2662187867306985688}
   - component: {fileID: 2698698595155943794}
   m_Layer: 0
   m_Name: SelectionQuestionInterface
@@ -94,25 +93,10 @@ MonoBehaviour:
     - {fileID: 6570531685762317640}
     - {fileID: 432455257007445553}
     - {fileID: 3708347300833313}
-    _selectionAnswersButtonsManagers: {fileID: 0}
---- !u!114 &2662187867306985688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503798423826871359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22256828415934b4facf957013d5722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _correctAnswerButtonConfiguration: {fileID: 11400000, guid: 9e836e2b78883924ea5e4bebb80126c6,
     type: 2}
   _wrongAnswerButtonConfiguration: {fileID: 11400000, guid: 8eb71d2f29fab754ca8569c513cbf089,
     type: 2}
-  _answerButtons: []
-  SelectedAnswerButton: {fileID: 0}
 --- !u!114 &2698698595155943794
 MonoBehaviour:
   m_ObjectHideFlags: 0

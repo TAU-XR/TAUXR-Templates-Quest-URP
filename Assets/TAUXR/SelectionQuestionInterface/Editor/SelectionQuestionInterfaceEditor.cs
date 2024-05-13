@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,8 +19,13 @@ public class SelectionQuestionInterfaceEditor : Editor
         EditorGUILayout.Space(10);
         _isEditorUtilitiesFoldoutGroupOpen =
             EditorGUILayout.Foldout(_isEditorUtilitiesFoldoutGroupOpen, "Editor Utilities", EditorStyles.foldoutHeader);
+
         if (!_isEditorUtilitiesFoldoutGroupOpen) return;
-        _buttonIndex = EditorGUILayout.IntSlider(_buttonIndex, 0, 3);
+
+        int numberOfButtons =
+            selectionQuestionInterface.SelectionQuestionInterfaceReferences.SelectionAnswers.Count(selectionAnswer =>
+                selectionAnswer.gameObject.activeSelf);
+        _buttonIndex = EditorGUILayout.IntSlider(_buttonIndex, 0, numberOfButtons - 1);
 
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Select Button"))

@@ -17,10 +17,8 @@ public class SelectionQuestionInterface : MonoBehaviour
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
     [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
 
-    private SelectionAnswerButton _selectedAnswerButton;
 
     private bool _correctAnswerSubmitted = false;
-
     private SelectionQuestionData _selectionQuestionData;
 
     private SelectionAnswersButtonsManager _selectionAnswersButtonsManager;
@@ -55,6 +53,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
         _selectionQuestionData = selectionQuestionData;
+        _correctAnswerSubmitted = false;
         _selectionQuestionInterfaceReferences.QuestionTextDisplay.SetText(_selectionQuestionData.Text);
         _selectionAnswersButtonsManager.InitializeNewAnswers(selectionQuestionData.Answers);
     }
@@ -76,14 +75,14 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void SubmitSelectedAnswer()
     {
-        if (_selectedAnswerButton == null)
+        if (_selectionAnswersButtonsManager.SelectedAnswerButton == null)
         {
             return;
         }
 
-        AnswerSubmitted?.Invoke(_selectedAnswerButton.SelectionAnswerData);
-        _correctAnswerSubmitted = _selectedAnswerButton.SelectionAnswerData.IsCorrect;
-        _selectedAnswerButton.OnAnswerSubmitted().Forget();
+        AnswerSubmitted?.Invoke(_selectionAnswersButtonsManager.SelectedAnswerButton.SelectionAnswerData);
+        _correctAnswerSubmitted = _selectionAnswersButtonsManager.SelectedAnswerButton.SelectionAnswerData.IsCorrect;
+        _selectionAnswersButtonsManager.SelectedAnswerButton.OnAnswerSubmitted().Forget();
         _selectionQuestionData.NumberOfTries++;
         ShowAnswerInfo();
     }
@@ -91,7 +90,8 @@ public class SelectionQuestionInterface : MonoBehaviour
     private void ShowAnswerInfo()
     {
         _selectionQuestionInterfaceReferences.AnswerInfo.Show();
-        _selectionQuestionInterfaceReferences.AnswerInfo.SetText(_selectedAnswerButton.SelectionAnswerData.AnswerInfo);
+        _selectionQuestionInterfaceReferences.AnswerInfo.SetText(_selectionAnswersButtonsManager.SelectedAnswerButton.SelectionAnswerData
+            .AnswerInfo);
     }
 
     public void Show()

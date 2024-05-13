@@ -57,7 +57,6 @@ public class SelectionAnswersButtonsManager
 
     private void OnAnswerSelected(SelectionAnswerButton selectionAnswerButton)
     {
-        Debug.Log(SelectedAnswerButton.name);
         if (selectionAnswerButton == SelectedAnswerButton)
         {
             return;
@@ -69,7 +68,6 @@ public class SelectionAnswersButtonsManager
         }
 
         SelectedAnswerButton = selectionAnswerButton;
-        Debug.Log(SelectedAnswerButton.name);
     }
 
     private void OnAnswerDeselected(SelectionAnswerButton selectionAnswerButton)
