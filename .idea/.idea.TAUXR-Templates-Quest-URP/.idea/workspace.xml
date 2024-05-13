@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SelectionAnswersButtonsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SelectionAnswersButtonsManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/CorrectAnswerButtonConfiguration.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/CorrectAnswerButtonConfiguration.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/WrongAnswerButtonConfiguration.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/WrongAnswerButtonConfiguration.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +130,7 @@
       <workItem from="1714986470943" duration="12239000" />
       <workItem from="1715084689042" duration="3738000" />
       <workItem from="1715593497593" duration="4616000" />
-      <workItem from="1715602952283" duration="6228000" />
+      <workItem from="1715602952283" duration="6875000" />
     </task>
     <servers />
   </component>

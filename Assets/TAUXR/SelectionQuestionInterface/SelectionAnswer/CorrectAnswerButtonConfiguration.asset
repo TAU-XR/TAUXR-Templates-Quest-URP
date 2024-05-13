@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a82eea89a554e47a2d23d492adc528, type: 3}
   m_Name: CorrectAnswerButtonConfiguration
   m_EditorClassIdentifier: 
-  TimeFromPressToDisable: 1
+  TimeFromPressToDisable: 2
   AnswerColorAfterSubmission: {r: 0.3833354, g: 0.8584906, b: 0.22272164, a: 1}

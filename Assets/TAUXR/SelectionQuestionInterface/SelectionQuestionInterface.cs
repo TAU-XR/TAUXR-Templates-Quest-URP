@@ -51,6 +51,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void InitializeWithNewQuestion(SelectionQuestionData selectionQuestionData)
     {
+        selectionQuestionData.NumberOfTries = 0;
         _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
         _selectionQuestionData = selectionQuestionData;
         _correctAnswerSubmitted = false;
@@ -85,6 +86,8 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionAnswersButtonsManager.SelectedAnswerButton.OnAnswerSubmitted().Forget();
         _selectionQuestionData.NumberOfTries++;
         ShowAnswerInfo();
+
+        _selectionAnswersButtonsManager.SelectedAnswerButton = null;
     }
 
     private void ShowAnswerInfo()

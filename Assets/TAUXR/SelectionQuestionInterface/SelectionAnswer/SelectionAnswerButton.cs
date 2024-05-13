@@ -17,6 +17,8 @@ public class SelectionAnswerButton : MonoBehaviour
 
     [SerializeField] private float _timeFromPressToDisable = 1;
 
+    private Color _startingPressColor;
+
     private SelectionAnswerButtonConfiguration _buttonConfiguration;
 
     private void Awake()
@@ -58,10 +60,14 @@ public class SelectionAnswerButton : MonoBehaviour
     public async UniTask OnAnswerSubmitted()
     {
         _button.SetState(ButtonState.Frozen);
-        //Color button - green for correct, red for wrong
+
+        _button.SetPressedColor(_buttonConfiguration.AnswerColorAfterSubmission);
+
         await UniTask.Delay(TimeSpan.FromSeconds(_timeFromPressToDisable));
 
-        //If wrong answer
-        _button.SetState(ButtonState.Disabled);
+        if (!_selectionAnswerData.IsCorrect)
+        {
+            _button.SetState(ButtonState.Disabled);
+        }
     }
 }

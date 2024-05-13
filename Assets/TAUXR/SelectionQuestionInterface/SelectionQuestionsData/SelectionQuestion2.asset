@@ -24,4 +24,5 @@ MonoBehaviour:
     IsCorrect: 0
     AnswerInfo: Answer 3 Info
   NumberOfTries: 0
+  MaxNumberOfTries: 4
   MultipleSelection: 0
