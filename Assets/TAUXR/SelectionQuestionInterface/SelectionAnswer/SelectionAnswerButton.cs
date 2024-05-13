@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class SelectionAnswer : MonoBehaviour
+public class SelectionAnswerButton : MonoBehaviour
 {
     public Action AnswerSelected;
     public Action AnswerDeselected;

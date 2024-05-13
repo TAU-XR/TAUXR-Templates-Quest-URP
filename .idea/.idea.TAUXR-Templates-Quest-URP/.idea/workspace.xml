@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestionData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionsData/SelectionQuestionData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/TXRButton_Toggle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/TXRButton_Toggle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceReferences.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceReferences.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +23,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8e887700cd7e4674989da7b046e8eaa6952800/79/687c0728/EditorStyles.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/SelectionAnswersButtonsManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButtonConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/Editor/TXRButtonEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Buttons/Editor/TXRButton_ToggleEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/Extensions/ColorExtensions.cs" root0="FORCE_HIGHLIGHTING" />
@@ -128,7 +132,7 @@
       <workItem from="1714986470943" duration="12239000" />
       <workItem from="1715084689042" duration="3738000" />
       <workItem from="1715593497593" duration="4616000" />
-      <workItem from="1715602952283" duration="2725000" />
+      <workItem from="1715602952283" duration="5602000" />
     </task>
     <servers />
   </component>

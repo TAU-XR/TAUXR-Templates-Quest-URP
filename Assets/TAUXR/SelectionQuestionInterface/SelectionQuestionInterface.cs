@@ -11,57 +11,37 @@ public class SelectionQuestionInterface : MonoBehaviour
     public Action<SelectionAnswerData> AnswerSubmitted;
 
     //TODO: find a way to remove this public property 
-    //It is only for the editor script
+    //It is only public the editor script
     public SelectionQuestionInterfaceReferences SelectionQuestionInterfaceReferences => _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
+    [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
+    [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
 
-    private SelectionAnswer _selectedAnswer;
+    private SelectionAnswerButton _selectedAnswerButton;
 
     private bool _correctAnswerSubmitted = false;
 
     private SelectionQuestionData _selectionQuestionData;
 
+    private SelectionAnswersButtonsManager _selectionAnswersButtonsManager;
+
+
+    private void Awake()
+    {
+        _selectionAnswersButtonsManager = new SelectionAnswersButtonsManager(_selectionQuestionInterfaceReferences.SelectionAnswers,
+            _correctAnswerButtonConfiguration, _wrongAnswerButtonConfiguration);
+    }
+
     private void OnEnable()
     {
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
-        foreach (SelectionAnswer selectionAnswer in _selectionQuestionInterfaceReferences.SelectionAnswers)
-        {
-            selectionAnswer.AnswerSelected += () => OnAnswerSelected(selectionAnswer);
-            selectionAnswer.AnswerDeselected += () => OnAnswerDeselected(selectionAnswer);
-        }
+        _selectionAnswersButtonsManager.RegisterButtonEvents();
     }
 
     private void OnDisable()
     {
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
-        foreach (SelectionAnswer selectionAnswer in _selectionQuestionInterfaceReferences.SelectionAnswers)
-        {
-            selectionAnswer.AnswerSelected -= () => OnAnswerSelected(selectionAnswer);
-            selectionAnswer.AnswerDeselected -= () => OnAnswerDeselected(selectionAnswer);
-        }
-    }
-
-    private void OnAnswerSelected(SelectionAnswer selectionAnswer)
-    {
-        if (selectionAnswer == _selectedAnswer)
-        {
-            return;
-        }
-
-        if (_selectedAnswer != null)
-        {
-            _selectedAnswer.ManuallyDeselectAnswer();
-        }
-
-        _selectedAnswer = selectionAnswer;
-    }
-
-    private void OnAnswerDeselected(SelectionAnswer selectionAnswer)
-    {
-        if (selectionAnswer == _selectedAnswer)
-        {
-            _selectedAnswer = null;
-        }
+        _selectionAnswersButtonsManager.UnregisterButtonEvents();
     }
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData)
@@ -76,22 +56,7 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
         _selectionQuestionData = selectionQuestionData;
         _selectionQuestionInterfaceReferences.QuestionTextDisplay.SetText(_selectionQuestionData.Text);
-        InitializeAnswerButtons();
-    }
-
-    private void InitializeAnswerButtons()
-    {
-        int numberOfAnswersInInterface = _selectionQuestionInterfaceReferences.SelectionAnswers.Length;
-        for (int answerIndex = 0; answerIndex < numberOfAnswersInInterface; answerIndex++)
-        {
-            SelectionAnswer selectionAnswer = _selectionQuestionInterfaceReferences.SelectionAnswers[answerIndex];
-            bool answerIsActive = answerIndex < _selectionQuestionData.Answers.Length;
-            selectionAnswer.gameObject.SetActive(answerIsActive);
-            if (answerIsActive)
-            {
-                selectionAnswer.Init(_selectionQuestionData.Answers[answerIndex]);
-            }
-        }
+        _selectionAnswersButtonsManager.InitializeNewAnswers(selectionQuestionData.Answers);
     }
 
     private void OnAnswerSubmitted()
@@ -104,21 +69,21 @@ public class SelectionQuestionInterface : MonoBehaviour
                           _selectionQuestionData.NumberOfTries == _selectionQuestionData.MaxNumberOfTries;
         if (outOfTries && !_correctAnswerSubmitted)
         {
-            _selectedAnswer = GetCorrectAnswer();
+            _selectionAnswersButtonsManager.SelectedAnswerButton = GetCorrectAnswer();
             SubmitSelectedAnswer();
         }
     }
 
     private void SubmitSelectedAnswer()
     {
-        if (_selectedAnswer == null)
+        if (_selectedAnswerButton == null)
         {
             return;
         }
 
-        AnswerSubmitted?.Invoke(_selectedAnswer.SelectionAnswerData);
-        _correctAnswerSubmitted = _selectedAnswer.SelectionAnswerData.IsCorrect;
-        _selectedAnswer.OnAnswerSubmitted().Forget();
+        AnswerSubmitted?.Invoke(_selectedAnswerButton.SelectionAnswerData);
+        _correctAnswerSubmitted = _selectedAnswerButton.SelectionAnswerData.IsCorrect;
+        _selectedAnswerButton.OnAnswerSubmitted().Forget();
         _selectionQuestionData.NumberOfTries++;
         ShowAnswerInfo();
     }
@@ -126,7 +91,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     private void ShowAnswerInfo()
     {
         _selectionQuestionInterfaceReferences.AnswerInfo.Show();
-        _selectionQuestionInterfaceReferences.AnswerInfo.SetText(_selectedAnswer.SelectionAnswerData.AnswerInfo);
+        _selectionQuestionInterfaceReferences.AnswerInfo.SetText(_selectedAnswerButton.SelectionAnswerData.AnswerInfo);
     }
 
     public void Show()
@@ -138,29 +103,9 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
     }
 
-    private SelectionAnswer GetCorrectAnswer()
+    private SelectionAnswerButton GetCorrectAnswer()
     {
         return _selectionQuestionInterfaceReferences.SelectionAnswers.ToList()
             .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
     }
-
-#if UNITY_EDITOR
-    [Button]
-    private void SelectButton(int buttonIndex)
-    {
-        _selectionQuestionInterfaceReferences.SelectionAnswers[buttonIndex].GetComponent<TXRButton_Toggle>()
-            .TriggerToggleEvent(TXRButtonToggleState.On, ButtonColliderResponse.Both);
-    }
-
-    private void DeSelectButton(int buttonIndex)
-    {
-        _selectionQuestionInterfaceReferences.SelectionAnswers[buttonIndex].GetComponent<TXRButton_Toggle>()
-            .TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
-    }
-
-    [Button]
-    private void SubmitAndRelease()
-    {
-    }
-#endif
 }

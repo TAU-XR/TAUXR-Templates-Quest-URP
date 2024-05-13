@@ -8,11 +8,11 @@ public class SelectionQuestionInterfaceReferences
     public TextDisplay QuestionTextDisplay => _questionTextDisplay;
     public TextDisplay AnswerInfo => _answerInfo;
     public SelectionQuestionSubmitButton SubmitButton => _submitButton;
-    public SelectionAnswer[] SelectionAnswers => _selectionAnswers;
+    public SelectionAnswerButton[] SelectionAnswers => _selectionAnswers;
 
 
     [SerializeField] private TextDisplay _questionTextDisplay;
     [SerializeField] private TextDisplay _answerInfo;
     [SerializeField] private SelectionQuestionSubmitButton _submitButton;
-    [SerializeField] private SelectionAnswer[] _selectionAnswers;
+    [SerializeField] private SelectionAnswerButton[] _selectionAnswers;
 }

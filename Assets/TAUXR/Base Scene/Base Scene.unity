@@ -495,53 +495,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2698698595155943794, guid: f899305186a85f244ba523aa50bdb3c4,
+    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
-      propertyPath: _timeBetweenQuestions
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126296900292724023, guid: f899305186a85f244ba523aa50bdb3c4,
+      propertyPath: _wrongAnswerButtonConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: 8eb71d2f29fab754ca8569c513cbf089,
+        type: 2}
+    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
-      propertyPath: m_text
-      value: Answer 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4353720469670744339, guid: f899305186a85f244ba523aa50bdb3c4,
+      propertyPath: _correctAnswerButtonConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e836e2b78883924ea5e4bebb80126c6,
+        type: 2}
+    - target: {fileID: 3059459585716199669, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
-      propertyPath: m_text
-      value: Submit
+      propertyPath: _selectionQuestionInterfaceReferences._selectionAnswersButtonsManagers
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4503798423826871359, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
       propertyPath: m_Name
       value: SelectionQuestionInterface
       objectReference: {fileID: 0}
-    - target: {fileID: 5699830931849453161, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: m_text
-      value: Answer 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7988419201834446940, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0028
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088690394604507230, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: m_text
-      value: Answer 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524613112198344270, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: m_text
-      value: Answer 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524613112198344270, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      propertyPath: m_isRightToLeft
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5659589698557623400, guid: f899305186a85f244ba523aa50bdb3c4, type: 3}
+    - {fileID: 2662187867306985688, guid: f899305186a85f244ba523aa50bdb3c4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -565,10 +542,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 589654732948043563, guid: f899305186a85f244ba523aa50bdb3c4,
-        type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1849899477}
     - targetCorrespondingSourceObject: {fileID: 8273954908002453715, guid: f899305186a85f244ba523aa50bdb3c4,
         type: 3}
       insertIndex: -1
@@ -1670,52 +1643,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7982183163068300345}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1849899472 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 589654732948043563, guid: f899305186a85f244ba523aa50bdb3c4,
-    type: 3}
-  m_PrefabInstance: {fileID: 431464040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1849899477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849899472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60ea57ffc04f14148a67331bf269ea4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShouldPlaySounds: 1
-  state: 2
-  buttonSurface: {fileID: 8548463700690291948, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  activeToucher: {fileID: 0}
-  ResponseHoverEnter: 0
-  HoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  ResponseHoverExit: 0
-  HoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  ResponsePress: 0
-  Pressed:
-    m_PersistentCalls:
-      m_Calls: []
-  ResponseRelease: 0
-  Released:
-    m_PersistentCalls:
-      m_Calls: []
-  soundDisabled: {fileID: 0}
-  soundActive: {fileID: 0}
-  soundHoverEnter: {fileID: 0}
-  soundHoverExit: {fileID: 0}
-  soundPress: {fileID: 3209833613720013485, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  soundRelease: {fileID: 0}
 --- !u!1001 &1857408626
 PrefabInstance:
   m_ObjectHideFlags: 0
