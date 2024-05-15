@@ -7,6 +7,7 @@ public class TXRButtonReferences : MonoBehaviour
 {
     public TXRButton ButtonBehavior;
     public TXRButtonVisuals ButtonVisuals;
+    public TXRButtonInput ButtonInput;
 
     public Transform ButtonSurface;
     public AudioSource SoundPress;

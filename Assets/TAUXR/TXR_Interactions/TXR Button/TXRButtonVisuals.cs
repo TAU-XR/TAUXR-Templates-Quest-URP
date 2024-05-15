@@ -79,14 +79,9 @@ public class TXRButtonVisuals : MonoBehaviour
     protected virtual void Disabled()
     {
         SetHoverGradient(false);
+        SetBackfaceZ(_configurations.backfaceZPositionActive);
         SetBackfaceColor(_disabledColor);
         SetStrokeThickness(_configurations.strokeThicknessActive);
-    }
-
-    public void SetPressedColor(Color backfaceColor, float duration = 0.25f)
-    {
-        _pressedColor = backfaceColor;
-        Press();
     }
 
     public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
