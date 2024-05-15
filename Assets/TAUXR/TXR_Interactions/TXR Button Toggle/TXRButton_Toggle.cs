@@ -1,15 +1,7 @@
-using NaughtyAttributes;
 using System;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEngine;
 using UnityEngine.Events;
 
-// Toggle means- OnReleased is not called when finger is off the press colider -> it is called when the button is pressed again after it was already pressed.
 
-/*TODO:
- * Fix hover visuals - no need to change _backfaceColor active.
-
-*/
 public class TXRButton_Toggle : TXRButton
 {
     public UnityEvent ToggleOn;
@@ -23,12 +15,6 @@ public class TXRButton_Toggle : TXRButton
         base.Init();
         _toggleVisuals = visuals.GetComponent<TXRButtonToggleVisuals>();
         TriggerToggleEvent(ToggleState, StartingStateResponse);
-    }
-
-    [Button]
-    public void SetToggle()
-    {
-        TriggerToggleEvent(ToggleState, ButtonColliderResponse.Both);
     }
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)

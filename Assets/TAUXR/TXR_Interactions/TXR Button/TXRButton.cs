@@ -1,16 +1,6 @@
-using NaughtyAttributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
-
-/*TODO
- * - Pass toucher transform in a more elegant way
- * - refactor input processing to another script and get rid of the hovera and press colliders
- * - easy change button text & color
- */
 
 public class TXRButton : MonoBehaviour
 {
@@ -19,28 +9,15 @@ public class TXRButton : MonoBehaviour
 
     [SerializeField] private ButtonState state = ButtonState.Interactable;
 
-    private float distanceToucherFromButtonClamped;
-
-
-    [SerializeField] protected ButtonColliderResponse ResponseHoverEnter;
+    public UnityEvent Pressed;
+    public UnityEvent Released;
     public UnityEvent HoverEnter;
-
-    [SerializeField] protected ButtonColliderResponse ResponseHoverExit;
     public UnityEvent HoverExit;
 
+    [SerializeField] protected ButtonColliderResponse ResponseHoverEnter;
+    [SerializeField] protected ButtonColliderResponse ResponseHoverExit;
     [SerializeField] protected ButtonColliderResponse ResponsePress;
-    public UnityEvent Pressed;
-
     [SerializeField] protected ButtonColliderResponse ResponseRelease;
-    public UnityEvent Released;
-
-
-    protected AudioSource soundDisabled;
-    protected AudioSource soundActive;
-    protected AudioSource soundHoverEnter;
-    protected AudioSource soundHoverExit;
-    protected AudioSource soundPress;
-    protected AudioSource soundRelease;
 
     protected TXRButtonInput input;
     protected TXRButtonVisuals visuals;
@@ -62,22 +39,12 @@ public class TXRButton : MonoBehaviour
 
         input = References.ButtonInput;
         input.Init(References);
-
-        soundPress = References.SoundPress;
-        soundRelease = References.SoundRelease;
-
         SetState(state);
     }
 
     public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
     {
         visuals.SetColor(state, color, duration);
-    }
-
-    [Button]
-    public void SetState()
-    {
-        SetState(state);
     }
 
     public void SetState(ButtonState state)
@@ -177,22 +144,20 @@ public class TXRButton : MonoBehaviour
     }
     protected virtual void OnHoverEnterInternal()
     {
-        PlaySound(soundHoverEnter);
         visuals.SetState(EButtonAnimationState.Hover);
     }
     protected virtual void OnHoverExitInternal()
     {
-        PlaySound(soundHoverExit);
         visuals.SetState(EButtonAnimationState.Active);
     }
     protected virtual void OnPressedInternal()
     {
-        PlaySound(soundPress);
+        PlaySound(References.SoundPress);
         visuals.SetState(EButtonAnimationState.Press);
     }
     protected virtual void OnReleasedInternal()
     {
-        PlaySound(soundRelease);
+        PlaySound(References.SoundRelease);
         visuals.SetState(EButtonAnimationState.Active);
     }
 }
