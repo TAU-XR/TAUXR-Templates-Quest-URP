@@ -1,24 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class TXRButtonToggleVisuals : TXRButtonVisuals
 {
-    /*TXRButton_Toggle btnToggle;
-    public override void Init(TXRButtonReferences references)
+    public float _backfaceZPositionActiveToggleOn = -0.005f;
+    public float _backfaceZPositionHoverToggleOn = -0.002f;
+    public bool IsToggleOn;
+    public void SetToggleState(bool isOn)
     {
-        base.Init(references);
-        btnToggle = GetComponent<TXRButton_Toggle>();
+        Color activeColor = isOn ? _configurations.pressColor : _configurations.activeColor;
+        SetColor(EButtonAnimationState.Active, activeColor);
+        IsToggleOn = isOn;
     }
+
+    protected override void Active()
+    {
+        float backfaceZValue = IsToggleOn ? _backfaceZPositionActiveToggleOn : _configurations.backfaceZPositionActive;
+        SetBackfaceColor(_activeColor, _configurations.activeDuration);
+        SetBackfaceZ(backfaceZValue);
+        SetHoverGradient(false);
+        SetStrokeThickness(_configurations.strokeThicknessActive);
+    }
+
     protected override void Hover()
     {
+        float backfaceZValue = IsToggleOn ? _backfaceZPositionHoverToggleOn : _configurations.backfadeZPositionHover;
         SetHoverGradient(true);
+        SetBackfaceZ(backfaceZValue);
         SetStrokeThickness(_configurations.strokeThicknessHover);
-
-        if (btnToggle.ToggleState == TXRButtonToggleState.Off)
-        {
-            SetBackfaceZ(_configurations.backfadeZPositionHover);
-        }
-    }*/
- 
+    }
 }

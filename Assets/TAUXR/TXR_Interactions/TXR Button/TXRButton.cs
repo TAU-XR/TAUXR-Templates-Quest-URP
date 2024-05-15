@@ -18,19 +18,9 @@ public class TXRButton : MonoBehaviour
     public bool ShouldPlaySounds = true;
 
     [SerializeField] private ButtonState state = ButtonState.Interactable;
-    private ButtonState lastState;
-    private Transform buttonSurface;
-
-    public Transform activeToucher;
-    private List<Transform> touchers = new List<Transform>();
-
-    private float HOVER_DISTANCE_MIN = .00069f;
-    private float HOVER_DISTANCE_MAX = .0028f;
 
     private float distanceToucherFromButtonClamped;
 
-    public Transform ActiveToucher => activeToucher;
-    public float DistanceToucherFromButton => distanceToucherFromButtonClamped;
 
     [SerializeField] protected ButtonColliderResponse ResponseHoverEnter;
     public UnityEvent HoverEnter;
@@ -53,17 +43,19 @@ public class TXRButton : MonoBehaviour
     protected AudioSource soundRelease;
 
     protected TXRButtonInput input;
-
     protected TXRButtonVisuals visuals;
 
     public Action<Transform> PressTransform;
     public TXRButtonReferences References;
+
+    public Transform ActiveToucher => input.MainToucher;
+
     protected virtual void Start()
     {
         Init();
     }
 
-    protected void Init()
+    protected virtual void Init()
     {
         visuals = References.ButtonVisuals;
         visuals.Init(References);
@@ -71,16 +63,19 @@ public class TXRButton : MonoBehaviour
         input = References.ButtonInput;
         input.Init(References);
 
-        buttonSurface = References.ButtonSurface;
         soundPress = References.SoundPress;
         soundRelease = References.SoundRelease;
 
-        lastState = state;
         SetState(state);
     }
 
+    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
+    {
+        visuals.SetColor(state, color, duration);
+    }
+
     [Button]
-    private void SetState()
+    public void SetState()
     {
         SetState(state);
     }
@@ -128,7 +123,8 @@ public class TXRButton : MonoBehaviour
         }
     }
 
-    public void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
+    // called from input manager
+    public virtual void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
     {
         if (State != ButtonState.Interactable) return;
 
@@ -152,10 +148,7 @@ public class TXRButton : MonoBehaviour
         }
     }
 
-    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
-    {
-        visuals.SetColor(state, color, duration);
-    }
+
 
     protected void PlaySound(AudioSource sound)
     {

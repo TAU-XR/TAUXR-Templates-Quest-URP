@@ -1,4 +1,6 @@
+using NaughtyAttributes;
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,78 +12,66 @@ using UnityEngine.Events;
 */
 public class TXRButton_Toggle : TXRButton
 {
-  /*  public UnityEvent ToggleOn;
+    public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
-    TXRButtonToggleVisuals _toggleVisuals;
+    public ButtonColliderResponse StartingStateResponse;
+    private TXRButtonToggleVisuals _toggleVisuals;
 
-    protected override void Start()
+    protected override void Init()
     {
-        base.Start();
-        ResponseRelease = ButtonColliderResponse.None;  // important line - we want no response on release. It should be controlled by the toggle.
-        _toggleVisuals = GetComponent<TXRButtonToggleVisuals>();
+        base.Init();
+        _toggleVisuals = visuals.GetComponent<TXRButtonToggleVisuals>();
+        TriggerToggleEvent(ToggleState, StartingStateResponse);
     }
 
-    public override void OnPressed(Transform toucher)
+    [Button]
+    public void SetToggle()
     {
-        if (State != ButtonState.Interactable) return;
-        if (toucher != ActiveToucher) return;
-
-        if (!isPressed)     // get toggled on - call press animation without release.
-        {
-            DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, ToggleOn);
-            ToggleState = TXRButtonToggleState.On;
-        }
-        else
-        {                   // get toggled off - call release animation.
-            DelegateInteralExtenralResponses(ButtonColliderResponse.Both, OnReleasedInternal, ToggleOff);
-            ToggleState = TXRButtonToggleState.Off;
-        }
-    }
-
-    // only change- do not change state to active.
-    public override void OnHoverExit(Transform toucher)
-    {
-        if (State != ButtonState.Interactable) return;
-
-        var ShouldContinueAfterToucherExit = HoverExitToucherProcessing(toucher);
-        if (!ShouldContinueAfterToucherExit) return;
-
-        DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
-
-    }
-
-    protected override void OnHoverExitInternal()
-    {
-        isHovered = false;
-        activeToucher = null;
-        PlaySound(soundHoverExit);
-
-        if (ToggleState == TXRButtonToggleState.On)
-        {
-            visuals.SetState(EButtonAnimationState.Press);
-        }
-        else
-        {
-            visuals.SetState(EButtonAnimationState.Active);
-        }
-
-    }
-
-    protected override void OnHoverEnterInternal()
-    {
-        isHovered = true;
-        PlaySound(soundHoverEnter);
-        visuals.SetState(EButtonAnimationState.Hover);
+        TriggerToggleEvent(ToggleState, ButtonColliderResponse.Both);
     }
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
+        ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
-        Action internalAction = state == TXRButtonToggleState.On ? OnPressedInternal : OnReleasedInternal;
+        Action internalAction = OnReleasedInternal; // toggle is change only on release
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
-    }*/
+    }
+
+    public override void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
+    {
+        if (State != ButtonState.Interactable) return;
+
+        switch (buttonEvent)
+        {
+            case ButtonEvent.HoverEnter:
+                DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
+                break;
+
+            case ButtonEvent.HoverExit:
+                DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
+                break;
+
+            case ButtonEvent.Pressed:
+                ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
+                DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
+                break;
+
+            case ButtonEvent.Released:
+                UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
+                toggleEvent.Invoke();
+                DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
+                break;
+        }
+    }
+
+    protected override void OnReleasedInternal()
+    {
+        _toggleVisuals.SetToggleState(ToggleState == TXRButtonToggleState.On);
+        base.OnReleasedInternal();
+    }
 }
 
 public enum TXRButtonToggleState { On, Off }
