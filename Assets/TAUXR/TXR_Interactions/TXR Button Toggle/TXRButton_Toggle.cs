@@ -10,7 +10,7 @@ using UnityEngine.Events;
 */
 public class TXRButton_Toggle : TXRButton
 {
-    public UnityEvent ToggleOn;
+  /*  public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
     TXRButtonToggleVisuals _toggleVisuals;
@@ -81,7 +81,7 @@ public class TXRButton_Toggle : TXRButton
         Action internalAction = state == TXRButtonToggleState.On ? OnPressedInternal : OnReleasedInternal;
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
-    }
+    }*/
 }
 
 public enum TXRButtonToggleState { On, Off }

@@ -135,70 +135,6 @@ public class TXRButton : MonoBehaviour
         }
     }
 
-    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
-    {
-        visuals.SetColor(state, color, duration);
-    }
-
-    // TODO: Move to interactor
-    private float GetToucherToButtonDistance(Vector3 toucherPosition, Vector3 buttonSurfacePosition)
-    {
-        float distanceToucherFromButtom = (toucherPosition - buttonSurfacePosition).sqrMagnitude;
-        float distnaceClamped = 1 - ((distanceToucherFromButtom - HOVER_DISTANCE_MIN) / (HOVER_DISTANCE_MAX - HOVER_DISTANCE_MIN));
-        return Mathf.Clamp01(distnaceClamped);
-    }
-    protected void PlaySound(AudioSource sound)
-    {
-        if (sound == null || !ShouldPlaySounds) return;
-        sound.Stop();
-        sound.Play();
-    }
-
-    // Called from Hover Collider on its public UnityEvent
-    public virtual void OnHoverEnter(Transform toucher)
-    {
-        if (state != ButtonState.Interactable) return;
-
-        var ShouldContinueAfterToucherEnter = HoverEnterToucherProcess(toucher);
-        if (!ShouldContinueAfterToucherEnter) return;
-
-        DelegateInteralExtenralResponses(ResponseHoverEnter, OnHoverEnterInternal, HoverEnter);
-    }
-
-    protected void DelegateInteralExtenralResponses(ButtonColliderResponse response, Action internalAction, UnityEvent externalEvent)
-    {
-        switch (response)
-        {
-            case ButtonColliderResponse.None:
-                break;
-            case ButtonColliderResponse.Both:
-                externalEvent.Invoke();
-                internalAction();
-                break;
-            case ButtonColliderResponse.Internal:
-                internalAction();
-                break;
-            case ButtonColliderResponse.External:
-                externalEvent.Invoke();
-                break;
-        }
-    }
-
-    private bool HoverEnterToucherProcess(Transform toucher)
-    {
-        if (touchers.Count == 0)
-        {
-            touchers.Add(toucher);
-            activeToucher = toucher;
-            return true;
-        }
-        else
-        {
-            touchers.Add(toucher);
-            return false;
-        }
-    }
-
     public void TriggerButtonEvent(ButtonEvent buttonEvent)
     {
         switch (buttonEvent)
@@ -221,50 +157,42 @@ public class TXRButton : MonoBehaviour
         }
     }
 
+    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
+    {
+        visuals.SetColor(state, color, duration);
+    }
+
+    protected void PlaySound(AudioSource sound)
+    {
+        if (sound == null || !ShouldPlaySounds) return;
+        sound.Stop();
+        sound.Play();
+    }
+
+    protected void DelegateInteralExtenralResponses(ButtonColliderResponse response, Action internalAction, UnityEvent externalEvent)
+    {
+        switch (response)
+        {
+            case ButtonColliderResponse.None:
+                break;
+            case ButtonColliderResponse.Both:
+                externalEvent.Invoke();
+                internalAction();
+                break;
+            case ButtonColliderResponse.Internal:
+                internalAction();
+                break;
+            case ButtonColliderResponse.External:
+                externalEvent.Invoke();
+                break;
+        }
+    }
     protected virtual void OnHoverEnterInternal()
     {
         isHovered = true;
         PlaySound(soundHoverEnter);
         visuals.SetState(EButtonAnimationState.Hover);
     }
-
-    // called from button collider
-
-    public virtual void OnHoverExit(Transform toucher)
-    {
-        if (state != ButtonState.Interactable) return;
-        print("HOVER EXIT");
-        // Catching extreme cases where toucher exit the hover collider without activating the press collider
-        if (isPressed)
-        {
-            OnReleased(toucher);
-        }
-
-        var ShouldContinueAfterToucherExit = HoverExitToucherProcessing(toucher);
-        if (!ShouldContinueAfterToucherExit) return;
-
-        DelegateInteralExtenralResponses(ResponseHoverExit, OnHoverExitInternal, HoverExit);
-    }
-
-    protected bool HoverExitToucherProcessing(Transform toucher)
-    {
-        touchers.Remove(toucher);
-        if (toucher != activeToucher) return false;
-        else
-        {
-            if (touchers.Count > 0)
-            {
-                activeToucher = touchers.Last();
-                return false;
-            }
-            else
-            {
-                activeToucher = null;
-            }
-        }
-        return true;
-    }
-
     protected virtual void OnHoverExitInternal()
     {
         isHovered = false;
@@ -272,48 +200,17 @@ public class TXRButton : MonoBehaviour
         PlaySound(soundHoverExit);
         visuals.SetState(EButtonAnimationState.Active);
     }
-
-    // called from the UnityEvent on the press collider
-    public virtual void OnPressed(Transform toucher)
-    {
-          if (state != ButtonState.Interactable) return;
-
-          if (toucher != activeToucher) return;
-
-        PressTransform?.Invoke(toucher);
-        DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
-    }
-
-
     protected virtual void OnPressedInternal()
     {
         isPressed = true;
         PlaySound(soundPress);
         visuals.SetState(EButtonAnimationState.Press);
     }
-
-    // called from the UnityEvent on the press collider
-    public virtual void OnReleased(Transform toucher)
-    {
-               if (state != ButtonState.Interactable) return;
-
-              if (toucher != activeToucher) return;
-
-        DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
-    }
-
     protected virtual void OnReleasedInternal()
     {
         isPressed = false;
         PlaySound(soundRelease);
         visuals.SetState(EButtonAnimationState.Active);
-    }
-
-    // added as a quick fix for bug where title on sun nav wouldn't clear active toucher after touch (probably because it moves immediately to keyboard position.
-    public void ClearActiveToucher()
-    {
-        OnHoverExitInternal();
-        touchers.Clear();
     }
 }
 

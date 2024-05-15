@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TXRButtonToggleVisuals : TXRButtonVisuals
 {
-    TXRButton_Toggle btnToggle;
+    /*TXRButton_Toggle btnToggle;
     public override void Init(TXRButtonReferences references)
     {
         base.Init(references);
@@ -19,6 +19,6 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
         {
             SetBackfaceZ(_configurations.backfadeZPositionHover);
         }
-    }
+    }*/
  
 }
