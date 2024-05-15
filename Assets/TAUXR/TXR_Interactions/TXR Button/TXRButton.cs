@@ -51,6 +51,8 @@ public class TXRButton : MonoBehaviour
     protected AudioSource soundPress;
     protected AudioSource soundRelease;
 
+    protected TXRButtonInput input;
+
     protected TXRButtonVisuals visuals;
     protected bool isPressed = false;
     protected bool isHovered = false;
@@ -66,6 +68,9 @@ public class TXRButton : MonoBehaviour
     {
         visuals = References.ButtonVisuals;
         visuals.Init(References);
+
+        input = References.ButtonInput;
+        input.Init(References);
 
         buttonSurface = References.ButtonSurface;
         soundPress = References.SoundPress;

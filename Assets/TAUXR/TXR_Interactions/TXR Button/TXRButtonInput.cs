@@ -1,21 +1,29 @@
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
-using TMPro;
+using System;
 
+public enum ButtonInputState { Idle, Hover, Press, Release }
 public class TXRButtonInput : MonoBehaviour
 {
-    public TXRButtonReferences references;
-    public TXRButton _btn;
-    public List<Transform> _touchers = new List<Transform>();
-    public Transform _mainToucher;
-    [Header("Configurations")]
-    public float PressDistance = .01f;
+    public ButtonInputState State;
+    public Transform MainToucher => _mainToucher;
 
-    public bool isPressing = false;
-    public bool isHovering = false;
+    private TXRButtonReferences _references;
+    private TXRButton _btn;
+    
+    private Transform _buttonSurface;
+    private List<Transform> _touchers = new List<Transform>();
+    private Transform _mainToucher;
+    private const float PRESSDISTANCE = .005f;
+    
+    public void Init(TXRButtonReferences references)
+    {
+        _references = references;
+        _btn = references.ButtonBehavior;
+        _buttonSurface = references.ButtonSurface;
+        State = ButtonInputState.Idle;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,50 +39,50 @@ public class TXRButtonInput : MonoBehaviour
     {
         if (_mainToucher == null)  // no toucher around
         {
-            if (isHovering)         // Hover Exit
+            if (State == ButtonInputState.Hover)         // Hover Exit
             {
-                print("HOVER EXIT");
                 _btn.TriggerButtonEvent(ButtonEvent.HoverExit);
-                isHovering = false;
+                State = ButtonInputState.Idle;
+            }
+
+            if (State == ButtonInputState.Press)        // Exit collider from deep pressing all the way
+            {
+                _btn.TriggerButtonEvent(ButtonEvent.Released);
+                State = ButtonInputState.Idle;
             }
             return;
         }
 
-        Transform buttonSurface = references.ButtonSurface;
-        Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, buttonSurface, references.Backface.Width, references.Backface.Height);
+        Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width, _references.Backface.Height);
 
         Vector3 toucherToBtn = _mainToucher.transform.position - closestPointOnBtn;
         float toucherDistance = toucherToBtn.magnitude;
-        float dot = Vector3.Dot(toucherToBtn.normalized, references.ButtonSurface.forward);
-        bool isToucherInFront = Vector3.Dot(toucherToBtn.normalized, references.ButtonSurface.forward) > 0;
+        bool isToucherInFrontOfButton = Vector3.Dot(toucherToBtn.normalized, _references.ButtonSurface.forward) > 0;
 
-        if (toucherDistance < PressDistance)
+        if (toucherDistance < PRESSDISTANCE)
         {
-            if (!isPressing && isHovering)        // Press
+            if (State == ButtonInputState.Hover)        // Press
             {
-                print("PRESS");
-                isPressing = true;
-                //_btn.PressTransform.Invoke(_mainToucher);
+                _btn.PressTransform?.Invoke(_mainToucher);
                 _btn.TriggerButtonEvent(ButtonEvent.Pressed);
+                State = ButtonInputState.Press;
             }
         }
         else
         {
-            if (isPressing)         // Release
+            if (State == ButtonInputState.Press)         // Release
             {
-                if (!isToucherInFront) return;  // prevent press release when pressing the btn too "deep"
+                if (!isToucherInFrontOfButton) return;  // prevent press release when pressing the btn too "deep"
 
-                print("RELEASE");
-                isPressing = false;
-                isHovering = false; // reset hovering to get hover enter after release
                 _btn.TriggerButtonEvent(ButtonEvent.Released);
+                State = ButtonInputState.Release;
             }
-            else if (!isHovering)       // Hover Enter
+            else if (State == ButtonInputState.Release || State == ButtonInputState.Idle)       // Hover Enter
             {
-                if (!isToucherInFront) return;  // prevent button activation from behind
-                print("ENTER");
+                if (!isToucherInFrontOfButton) return;  // prevent button activation from behind
+
                 _btn.TriggerButtonEvent(ButtonEvent.HoverEnter);
-                isHovering = true;
+                State = ButtonInputState.Hover;
             }
         }
 
