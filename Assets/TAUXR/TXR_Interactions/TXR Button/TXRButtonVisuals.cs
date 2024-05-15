@@ -79,6 +79,7 @@ public class TXRButtonVisuals : MonoBehaviour
     protected virtual void Disabled()
     {
         SetHoverGradient(false);
+        SetBackfaceZ(_configurations.backfaceZPositionActive);
         SetBackfaceColor(_disabledColor);
         SetStrokeThickness(_configurations.strokeThicknessActive);
     }

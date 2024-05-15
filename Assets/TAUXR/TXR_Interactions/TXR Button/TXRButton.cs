@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,8 +55,6 @@ public class TXRButton : MonoBehaviour
     protected TXRButtonInput input;
 
     protected TXRButtonVisuals visuals;
-    protected bool isPressed = false;
-    protected bool isHovered = false;
 
     public Action<Transform> PressTransform;
     public TXRButtonReferences References;
@@ -80,21 +79,10 @@ public class TXRButton : MonoBehaviour
         SetState(state);
     }
 
-    void Update()
+    [Button]
+    private void SetState()
     {
-        if (lastState != state)
-        {
-            SetState(state);
-            lastState = state;
-        }
-
-        if (state != ButtonState.Interactable) return;
-
-
-        if (isHovered)
-        {
-            //distanceToucherFromButtonClamped = GetToucherToButtonDistance(activeToucher.position, buttonSurface.position);
-        }
+        SetState(state);
     }
 
     public void SetState(ButtonState state)
@@ -140,8 +128,10 @@ public class TXRButton : MonoBehaviour
         }
     }
 
-    public void TriggerButtonEvent(ButtonEvent buttonEvent)
+    public void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
     {
+        if (State != ButtonState.Interactable) return;
+
         switch (buttonEvent)
         {
             case ButtonEvent.HoverEnter:
@@ -194,26 +184,21 @@ public class TXRButton : MonoBehaviour
     }
     protected virtual void OnHoverEnterInternal()
     {
-        isHovered = true;
         PlaySound(soundHoverEnter);
         visuals.SetState(EButtonAnimationState.Hover);
     }
     protected virtual void OnHoverExitInternal()
     {
-        isHovered = false;
-        activeToucher = null;
         PlaySound(soundHoverExit);
         visuals.SetState(EButtonAnimationState.Active);
     }
     protected virtual void OnPressedInternal()
     {
-        isPressed = true;
         PlaySound(soundPress);
         visuals.SetState(EButtonAnimationState.Press);
     }
     protected virtual void OnReleasedInternal()
     {
-        isPressed = false;
         PlaySound(soundRelease);
         visuals.SetState(EButtonAnimationState.Active);
     }

@@ -41,13 +41,13 @@ public class TXRButtonInput : MonoBehaviour
         {
             if (State == ButtonInputState.Hover)         // Hover Exit
             {
-                _btn.TriggerButtonEvent(ButtonEvent.HoverExit);
+                _btn.TriggerButtonEventFromInput(ButtonEvent.HoverExit);
                 State = ButtonInputState.Idle;
             }
 
             if (State == ButtonInputState.Press)        // Exit collider from deep pressing all the way
             {
-                _btn.TriggerButtonEvent(ButtonEvent.Released);
+                _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Idle;
             }
             return;
@@ -63,9 +63,9 @@ public class TXRButtonInput : MonoBehaviour
         {
             if (State == ButtonInputState.Hover)        // Press
             {
-                _btn.PressTransform?.Invoke(_mainToucher);
-                _btn.TriggerButtonEvent(ButtonEvent.Pressed);
                 State = ButtonInputState.Press;
+                _btn.PressTransform?.Invoke(_mainToucher);
+                _btn.TriggerButtonEventFromInput(ButtonEvent.Pressed);
             }
         }
         else
@@ -74,14 +74,14 @@ public class TXRButtonInput : MonoBehaviour
             {
                 if (!isToucherInFrontOfButton) return;  // prevent press release when pressing the btn too "deep"
 
-                _btn.TriggerButtonEvent(ButtonEvent.Released);
+                _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Release;
             }
             else if (State == ButtonInputState.Release || State == ButtonInputState.Idle)       // Hover Enter
             {
                 if (!isToucherInFrontOfButton) return;  // prevent button activation from behind
 
-                _btn.TriggerButtonEvent(ButtonEvent.HoverEnter);
+                _btn.TriggerButtonEventFromInput(ButtonEvent.HoverEnter);
                 State = ButtonInputState.Hover;
             }
         }
