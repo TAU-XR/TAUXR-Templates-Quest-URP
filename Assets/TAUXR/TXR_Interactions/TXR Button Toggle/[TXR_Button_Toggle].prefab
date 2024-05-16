@@ -14,6 +14,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b7332bbdb96a23640a2563926d83ea0f,
         type: 2}
+    - target: {fileID: 2012426802286184377, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ButtonVisuals
+      value: 
+      objectReference: {fileID: 5923881784936341187}
+    - target: {fileID: 2012426802286184377, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: ButtonBehavior
+      value: 
+      objectReference: {fileID: 4429800713450151186}
     - target: {fileID: 2033106044736101783, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,6 +78,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[TXR_Button_Toggle]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914481266669485010, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      propertyPath: m_text
+      value: Toggle
       objectReference: {fileID: 0}
     - target: {fileID: 8548463700382028203, guid: b6872ffe2cf970b468589d957b4c24f3,
         type: 3}
@@ -161,6 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7973432231621262242, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
+    - {fileID: 768673785525378048, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -168,7 +184,23 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 4429800713450151186}
+    - targetCorrespondingSourceObject: {fileID: 2033106044736101866, guid: b6872ffe2cf970b468589d957b4c24f3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5923881784936341187}
   m_SourcePrefab: {fileID: 100100000, guid: b6872ffe2cf970b468589d957b4c24f3, type: 3}
+--- !u!114 &1994464873280441812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2012426802286184377, guid: b6872ffe2cf970b468589d957b4c24f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 18103182435437165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051208840555239303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2459a4c2312f4ab255fccfc26dd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2051208840555239303 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2033106044736101866, guid: b6872ffe2cf970b468589d957b4c24f3,
@@ -189,8 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldPlaySounds: 1
   state: 2
-  buttonSurface: {fileID: 8566531273070806657}
-  activeToucher: {fileID: 0}
   ResponseHoverEnter: 0
   HoverEnter:
     m_PersistentCalls:
@@ -203,31 +233,34 @@ MonoBehaviour:
   Pressed:
     m_PersistentCalls:
       m_Calls: []
-  ResponseRelease: 3
+  ResponseRelease: 0
   Released:
     m_PersistentCalls:
       m_Calls: []
-  soundDisabled: {fileID: 0}
-  soundActive: {fileID: 0}
-  soundHoverEnter: {fileID: 0}
-  soundHoverExit: {fileID: 0}
-  soundPress: {fileID: 3227900151083139264}
-  soundRelease: {fileID: 0}
+  References: {fileID: 1994464873280441812}
   ToggleOn:
     m_PersistentCalls:
       m_Calls: []
   ToggleOff:
     m_PersistentCalls:
       m_Calls: []
---- !u!82 &3227900151083139264 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3209833613720013485, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 18103182435437165}
+  ToggleState: 1
+  StartingStateResponse: 0
+--- !u!114 &5923881784936341187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8566531273070806657 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8548463700690291948, guid: b6872ffe2cf970b468589d957b4c24f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 18103182435437165}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051208840555239303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e28cf5733eaed4694522f0787b1034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeColor: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
+  _pressedColor: {r: 0.33333334, g: 0.50980395, b: 0.9490196, a: 1}
+  _disabledColor: {r: 0.4862745, g: 0.4862745, b: 0.4862745, a: 1}
+  _backfaceZPositionActiveToggleOn: -0.005
+  _backfaceZPositionHoverToggleOn: -0.002
+  IsToggleOn: 0
