@@ -12,14 +12,7 @@ public class ChildrenRenamer : MonoBehaviour
         int numberReduceAmount = 0;
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (!transform.GetChild(i).name.Contains(_objectBaseName))
-            {
-                transform.GetChild(i).name = _objectBaseName + " " + (i + 1 - numberReduceAmount);
-            }
-            else
-            {
-                numberReduceAmount++;
-            }
+            transform.GetChild(i).name = _objectBaseName + " " + (i + 1 - numberReduceAmount);
         }
     }
 }
