@@ -22,6 +22,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     private SelectionQuestionData _selectionQuestionData;
 
     private SelectionAnswersButtonsManager _selectionAnswersButtonsManager;
+    private TXRRadioButtonGroup _selectionAnswersRadioButtonGroup;
 
 
     private void Awake()
@@ -57,6 +58,25 @@ public class SelectionQuestionInterface : MonoBehaviour
         _correctAnswerSubmitted = false;
         _selectionQuestionInterfaceReferences.QuestionTextDisplay.SetText(_selectionQuestionData.Text);
         _selectionAnswersButtonsManager.InitializeNewAnswers(selectionQuestionData.Answers);
+    }
+
+    private void InitializeNewAnswers(SelectionAnswerData[] selectionAnswersData)
+    {
+        // _selectionAnswersRadioButtonGroup.Reset();
+        // int numberOfAnswersInInterface = _selectionAnswersRadioButtonGroup.Buttons.Length;
+        // for (int answerIndex = 0; answerIndex < numberOfAnswersInInterface; answerIndex++)
+        // {
+        //     SelectionAnswerButton selectionAnswerButton = _answerButtons[answerIndex];
+        //     bool answerIsActive = answerIndex < selectionAnswersData.Length;
+        //     selectionAnswerButton.gameObject.SetActive(answerIsActive);
+        //     if (answerIsActive)
+        //     {
+        //         bool isCorrectAnswer = selectionAnswersData[answerIndex].IsCorrect;
+        //         SelectionAnswerButtonConfiguration buttonConfiguration =
+        //             isCorrectAnswer ? _correctAnswerButtonConfiguration : _wrongAnswerButtonConfiguration;
+        //         selectionAnswerButton.Init(selectionAnswersData[answerIndex], buttonConfiguration);
+        //     }
+        // }
     }
 
     private void OnAnswerSubmitted()

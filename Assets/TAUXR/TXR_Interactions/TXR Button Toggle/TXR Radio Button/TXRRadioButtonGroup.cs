@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class TXRRadioButtonGroup : MonoBehaviour
 {
-    [SerializeField] private TXRButton_Radio[] _radioButtons;
+    public TXRButton_Radio[] Buttons => _buttons;
+    [SerializeField] private TXRButton_Radio[] _buttons;
 
-    [HideInInspector] public TXRButton_Radio SelectedRadioButton;
+    public TXRButton_Radio SelectedButton => _selectedButton;
+    private TXRButton_Radio _selectedButton;
 
     public void Reset()
     {
-        SelectedRadioButton = null;
+        _selectedButton = null;
     }
 
     private void OnEnable()
@@ -24,45 +26,45 @@ public class TXRRadioButtonGroup : MonoBehaviour
         UnregisterButtonEvents();
     }
 
-    public void RegisterButtonEvents()
+    private void RegisterButtonEvents()
     {
-        foreach (TXRButton_Radio radioButton in _radioButtons)
+        foreach (TXRButton_Radio button in _buttons)
         {
-            radioButton.ButtonSelected += () => OnButtonSelected(radioButton);
-            radioButton.ButtonDeselected += () => OnButtonDeselected(radioButton);
+            button.ButtonSelected += () => OnButtonSelected(button);
+            button.ButtonDeselected += () => OnButtonDeselected(button);
         }
     }
 
-    public void UnregisterButtonEvents()
+    private void UnregisterButtonEvents()
     {
-        foreach (TXRButton_Radio radioButton in _radioButtons)
+        foreach (TXRButton_Radio button in _buttons)
         {
-            radioButton.ButtonSelected -= () => OnButtonSelected(radioButton);
-            radioButton.ButtonDeselected -= () => OnButtonDeselected(radioButton);
+            button.ButtonSelected -= () => OnButtonSelected(button);
+            button.ButtonDeselected -= () => OnButtonDeselected(button);
         }
     }
 
 
-    private void OnButtonSelected(TXRButton_Radio radioButton)
+    private void OnButtonSelected(TXRButton_Radio button)
     {
-        if (SelectedRadioButton == radioButton)
+        if (_selectedButton == button)
         {
             return;
         }
 
-        if (SelectedRadioButton != null)
+        if (_selectedButton != null)
         {
-            SelectedRadioButton.ManuallyDeselectAnswer();
+            _selectedButton.ManuallyDeselectAnswer();
         }
 
-        SelectedRadioButton = radioButton;
+        _selectedButton = button;
     }
 
-    private void OnButtonDeselected(TXRButton_Radio radioButton)
+    private void OnButtonDeselected(TXRButton_Radio button)
     {
-        if (SelectedRadioButton == radioButton)
+        if (_selectedButton == button)
         {
-            SelectedRadioButton = null;
+            _selectedButton = null;
         }
     }
 }
