@@ -17,8 +17,6 @@ public class SelectionAnswerButton : MonoBehaviour
 
     [SerializeField] private float _timeFromPressToDisable = 1;
 
-    private Color _startingPressColor;
-
     private SelectionAnswerButtonConfiguration _buttonConfiguration;
 
     private void Awake()
@@ -61,7 +59,7 @@ public class SelectionAnswerButton : MonoBehaviour
     {
         _button.SetState(ButtonState.Frozen);
 
-        // _button.SetPressedColor(_buttonConfiguration.AnswerColorAfterSubmission);
+        // _button.SetColor(EButtonAnimationState.Press, _buttonConfiguration.AnswerColorAfterSubmission);
 
         await UniTask.Delay(TimeSpan.FromSeconds(_timeFromPressToDisable));
 

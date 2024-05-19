@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Utilities/EditorUtilities/ChildrenRenamer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Utilities/EditorUtilities/ChildrenRenamer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswerButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswerButton.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Search.settings" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Search.settings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +133,8 @@
       <workItem from="1715853791817" duration="2214000" />
       <workItem from="1715856442547" duration="239000" />
       <workItem from="1715856751460" duration="67000" />
-      <workItem from="1715857567847" duration="650000" />
+      <workItem from="1715857567847" duration="1242000" />
+      <workItem from="1716120945233" duration="398000" />
     </task>
     <servers />
   </component>
