@@ -7,6 +7,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
     public float _backfaceZPositionActiveToggleOn = -0.005f;
     public float _backfaceZPositionHoverToggleOn = -0.002f;
     public bool IsToggleOn;
+    
 
     public void SetToggleState(bool isOn)
     {

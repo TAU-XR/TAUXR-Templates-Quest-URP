@@ -54,7 +54,7 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
         if (_selectedButton != null)
         {
-            _selectedButton.ManuallyDeselectAnswer();
+            _selectedButton.ManuallyDeselect();
         }
 
         _selectedButton = button;

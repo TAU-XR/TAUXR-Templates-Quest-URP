@@ -25,7 +25,7 @@ public class TXRButton_Radio : TXRButton_Toggle
         ButtonDeselected?.Invoke();
     }
 
-    public void ManuallyDeselectAnswer()
+    public void ManuallyDeselect()
     {
         TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
     }

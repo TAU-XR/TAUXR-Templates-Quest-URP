@@ -59,7 +59,7 @@ public class SelectionAnswerButton : MonoBehaviour
     {
         _button.SetState(ButtonState.Frozen);
 
-        // _button.SetColor(EButtonAnimationState.Press, _buttonConfiguration.AnswerColorAfterSubmission);
+        _button.SetColor(EButtonAnimationState.Active, _buttonConfiguration.AnswerColorAfterSubmission);
 
         await UniTask.Delay(TimeSpan.FromSeconds(_timeFromPressToDisable));
 
