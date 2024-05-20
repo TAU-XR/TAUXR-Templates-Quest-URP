@@ -2,7 +2,15 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 
-public enum EButtonAnimationState { Hide, Active, Disable, Hover, Press }
+public enum EButtonAnimationState
+{
+    Hide,
+    Active,
+    Disable,
+    Hover,
+    Press
+}
+
 public class TXRButtonVisuals : MonoBehaviour
 {
     protected EButtonAnimationState _state;
@@ -33,16 +41,22 @@ public class TXRButtonVisuals : MonoBehaviour
         switch (state)
         {
             case EButtonAnimationState.Active:
-                Active(); break;
+                Active();
+                break;
             case EButtonAnimationState.Press:
-                Press(); break;
+                Press();
+                break;
             case EButtonAnimationState.Hide:
-                Hide(); break;
+                Hide();
+                break;
             case EButtonAnimationState.Disable:
-                Disabled(); break;
+                Disabled();
+                break;
             case EButtonAnimationState.Hover:
-                Hover(); break;
+                Hover();
+                break;
         }
+
         _state = state;
     }
 
@@ -89,11 +103,14 @@ public class TXRButtonVisuals : MonoBehaviour
         switch (state)
         {
             case EButtonAnimationState.Active:
-                _activeColor = color; break;
+                _activeColor = color;
+                break;
             case EButtonAnimationState.Press:
-                _pressedColor = color; break;
+                _pressedColor = color;
+                break;
             case EButtonAnimationState.Disable:
-                _disabledColor = color; break;
+                _disabledColor = color;
+                break;
         }
 
         // update color change if changed the color of current state
@@ -103,6 +120,22 @@ public class TXRButtonVisuals : MonoBehaviour
         }
     }
 
+    public Color GetColor(EButtonAnimationState state)
+    {
+        switch (state)
+        {
+            case EButtonAnimationState.Active:
+                return _activeColor;
+            case EButtonAnimationState.Press:
+                return _pressedColor;
+            case EButtonAnimationState.Disable:
+                return _disabledColor;
+        }
+
+        Debug.LogError("No color defined for state: " + state + ", Returning solid black");
+        return Color.black;
+    }
+
     protected virtual void SetHoverGradient(bool isOn, float duration = 0.25f)
     {
         float gradientRadius = isOn ? _configurations.backfaceGradientRadiusHover : 0;
@@ -110,8 +143,10 @@ public class TXRButtonVisuals : MonoBehaviour
         _backfaceGradientSequence.Kill();
 
         _backfaceGradientSequence = DOTween.Sequence();
-        _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration, t => { _backface.FillRadialRadius = t; }));
-        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _configurations.backfaceColorGradientHover, duration, t => { _backface.FillColorStart = t; }));
+        _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration,
+            t => { _backface.FillRadialRadius = t; }));
+        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _configurations.backfaceColorGradientHover, duration,
+            t => { _backface.FillColorStart = t; }));
     }
 
     protected virtual void SetBackfaceZ(float zValue, float duration = 0.25f)
@@ -135,7 +170,7 @@ public class TXRButtonVisuals : MonoBehaviour
     {
         _backfaceColorSequence.Kill();
         _backfaceColorSequence = DOTween.Sequence();
-        _backfaceColorSequence.Append(DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
+        _backfaceColorSequence.Append(
+            DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
     }
-
 }

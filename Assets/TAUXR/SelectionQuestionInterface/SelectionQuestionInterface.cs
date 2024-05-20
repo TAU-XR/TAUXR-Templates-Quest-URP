@@ -71,7 +71,7 @@ public class SelectionQuestionInterface : MonoBehaviour
             bool isCorrectAnswer = selectionAnswersData[answerIndex].IsCorrect;
             SelectionAnswerButtonConfiguration buttonConfiguration =
                 isCorrectAnswer ? _correctAnswerButtonConfiguration : _wrongAnswerButtonConfiguration;
-            selectionAnswerButton.Init(selectionAnswersData[answerIndex], buttonConfiguration);
+            selectionAnswerButton.SetNewAnswer(selectionAnswersData[answerIndex], buttonConfiguration);
         }
     }
 

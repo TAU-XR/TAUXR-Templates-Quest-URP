@@ -16,19 +16,22 @@ public class SelectionAnswerButton : MonoBehaviour
     [SerializeField] private float _timeFromPressToDisable = 1;
 
     private SelectionAnswerButtonConfiguration _buttonConfiguration;
+    private Color _startingActiveColor;
 
     private void Awake()
     {
         _button = GetComponent<TXRButton_Toggle>();
+        _startingActiveColor = _button.GetColor(EButtonAnimationState.Active);
         _text = GetComponentInChildren<TextMeshPro>();
     }
 
-    public void Init(SelectionAnswerData selectionAnswerData, SelectionAnswerButtonConfiguration buttonConfiguration)
+    public void SetNewAnswer(SelectionAnswerData selectionAnswerData, SelectionAnswerButtonConfiguration buttonConfiguration)
     {
         _selectionAnswerData = selectionAnswerData;
         _text.text = _selectionAnswerData.Text;
-        _button.SetState(ButtonState.Interactable);
         _buttonConfiguration = buttonConfiguration;
+        _button.SetColor(EButtonAnimationState.Active, _startingActiveColor);
+        _button.SetState(ButtonState.Interactable);
     }
 
     public async UniTask OnAnswerSubmitted()

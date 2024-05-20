@@ -47,6 +47,11 @@ public class TXRButton : MonoBehaviour
         visuals.SetColor(state, color, duration);
     }
 
+    public Color GetColor(EButtonAnimationState state)
+    {
+        return visuals.GetColor(state);
+    }
+
     public void SetState(ButtonState state)
     {
         switch (state)
