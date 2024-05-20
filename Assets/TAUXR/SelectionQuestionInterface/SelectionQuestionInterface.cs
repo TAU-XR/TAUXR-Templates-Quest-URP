@@ -10,9 +10,6 @@ public class SelectionQuestionInterface : MonoBehaviour
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
-    //For the editor script
-    [HideInInspector] [SerializeField] public TXRButton _submitButton;
-
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
     [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
@@ -22,6 +19,8 @@ public class SelectionQuestionInterface : MonoBehaviour
     private SelectionQuestionData _questionData;
 
     private TXRRadioButtonGroup _selectionAnswersRadioButtonGroup;
+
+    private int _numberOfTriesInCurrentQuestion;
 
     private void Awake()
     {
@@ -48,7 +47,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void InitializeWithNewQuestion(SelectionQuestionData selectionQuestionData)
     {
-        selectionQuestionData.NumberOfTries = 0;
+        _numberOfTriesInCurrentQuestion = 0;
         _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
         _questionData = selectionQuestionData;
         _correctAnswerSubmitted = false;
@@ -83,21 +82,14 @@ public class SelectionQuestionInterface : MonoBehaviour
 
         SubmitSelectedAnswer();
 
-        //If answer was wrong and we reached the max number of tries or there is only one more possible answer,
-        //Select and submit the correct answer as well.
-        bool outOfTries = _questionData.NumberOfTries == _questionData.Answers.Length - 1 ||
-                          _questionData.NumberOfTries == _questionData.MaxNumberOfTries;
-        if (outOfTries && !_correctAnswerSubmitted)
-        {
-            _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
-            SubmitSelectedAnswer();
-        }
-    }
 
-    private SelectionAnswerButton GetCorrectAnswer()
-    {
-        return _selectionQuestionInterfaceReferences.SelectionAnswers.ToList()
-            .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
+        bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 1;
+        bool outOfTries = _numberOfTriesInCurrentQuestion == _questionData.MaxNumberOfTries;
+        bool selectCorrectAnswer = outOfTries || noAnswersLeft;
+        if (!selectCorrectAnswer || _correctAnswerSubmitted) return;
+
+        _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
+        SubmitSelectedAnswer();
     }
 
     private void SubmitSelectedAnswer()
@@ -106,16 +98,31 @@ public class SelectionQuestionInterface : MonoBehaviour
         AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
         _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
         selectedAnswer.OnAnswerSubmitted().Forget();
-        _questionData.NumberOfTries++;
+        _numberOfTriesInCurrentQuestion++;
         ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
-
         _selectionAnswersRadioButtonGroup.Reset();
+
+        if (_correctAnswerSubmitted)
+        {
+            OnCorrectAnswerSubmitted();
+        }
+    }
+
+    private void OnCorrectAnswerSubmitted()
+    {
+        //TODO: disable all other buttons.
     }
 
     private void ShowAnswerInfo(string selectedAnswerInfo)
     {
         _selectionQuestionInterfaceReferences.AnswerInfo.Show();
         _selectionQuestionInterfaceReferences.AnswerInfo.SetText(selectedAnswerInfo);
+    }
+
+    private SelectionAnswerButton GetCorrectAnswer()
+    {
+        return _selectionQuestionInterfaceReferences.SelectionAnswers.ToList()
+            .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
     }
 
     public void Show()
