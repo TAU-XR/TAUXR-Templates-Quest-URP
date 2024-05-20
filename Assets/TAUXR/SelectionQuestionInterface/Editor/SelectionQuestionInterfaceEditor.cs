@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +8,22 @@ using UnityEngine;
 [CustomEditor(typeof(SelectionQuestionInterface))]
 public class SelectionQuestionInterfaceEditor : Editor
 {
+    private TXRButton _submitButton;
+
+    private void OnEnable()
+    {
+        SelectionQuestionInterface selectionQuestionInterface = (SelectionQuestionInterface)target;
+        _submitButton = selectionQuestionInterface.GetComponentInChildren<SelectionQuestionSubmitButton>().GetComponent<TXRButton>();
+    }
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        SelectionQuestionInterface selectionQuestionInterface = (SelectionQuestionInterface)target;
-
         if (GUILayout.Button("Submit and release"))
         {
-            selectionQuestionInterface.SubmitButton.gameObject
-                .GetComponent<TXRButton>().TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Both);
-            selectionQuestionInterface.SubmitButton.gameObject
-                .GetComponent<TXRButton>().TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Both);
+            _submitButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Both);
+            _submitButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Both);
         }
     }
 }

@@ -10,9 +10,8 @@ public class SelectionQuestionInterface : MonoBehaviour
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
-    //TODO: find a way to remove this public property 
-    //It is only public for the editor script
-    public SelectionQuestionSubmitButton SubmitButton => _selectionQuestionInterfaceReferences.SubmitButton;
+    //For the editor script
+    [HideInInspector] [SerializeField] public TXRButton _submitButton;
 
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
