@@ -27,7 +27,7 @@ public class TXRButton : MonoBehaviour
 
     public Transform ActiveToucher => input.MainToucher;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Init();
     }
@@ -116,7 +116,6 @@ public class TXRButton : MonoBehaviour
     }
 
 
-
     protected void PlaySound(AudioSource sound)
     {
         if (sound == null || !ShouldPlaySounds) return;
@@ -142,19 +141,23 @@ public class TXRButton : MonoBehaviour
                 break;
         }
     }
+
     protected virtual void OnHoverEnterInternal()
     {
         visuals.SetState(EButtonAnimationState.Hover);
     }
+
     protected virtual void OnHoverExitInternal()
     {
         visuals.SetState(EButtonAnimationState.Active);
     }
+
     protected virtual void OnPressedInternal()
     {
         PlaySound(References.SoundPress);
         visuals.SetState(EButtonAnimationState.Press);
     }
+
     protected virtual void OnReleasedInternal()
     {
         PlaySound(References.SoundRelease);
@@ -162,6 +165,26 @@ public class TXRButton : MonoBehaviour
     }
 }
 
-public enum ButtonColliderResponse { Both, Internal, External, None }
-public enum ButtonEvent { HoverEnter, Pressed, Released, HoverExit }
-public enum ButtonState { Hidden, Disabled, Interactable, Frozen }
+public enum ButtonColliderResponse
+{
+    Both,
+    Internal,
+    External,
+    None
+}
+
+public enum ButtonEvent
+{
+    HoverEnter,
+    Pressed,
+    Released,
+    HoverExit
+}
+
+public enum ButtonState
+{
+    Hidden,
+    Disabled,
+    Interactable,
+    Frozen
+}

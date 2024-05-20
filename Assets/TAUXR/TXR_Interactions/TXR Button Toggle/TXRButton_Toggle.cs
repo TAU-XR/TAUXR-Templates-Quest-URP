@@ -4,11 +4,14 @@ using UnityEngine.Events;
 
 public class TXRButton_Toggle : TXRButton
 {
+    public Action ButtonSelected;
+    public Action ButtonDeselected;
     public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
     public ButtonColliderResponse StartingStateResponse;
     private TXRButtonToggleVisuals _toggleVisuals;
+
 
     protected override void Init()
     {
@@ -21,6 +24,8 @@ public class TXRButton_Toggle : TXRButton
     {
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
+        Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
+        actionToInvoke?.Invoke();
         Action internalAction = OnReleasedInternal; // toggle is change only on release
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
@@ -60,4 +65,8 @@ public class TXRButton_Toggle : TXRButton
     }
 }
 
-public enum TXRButtonToggleState { On, Off }
+public enum TXRButtonToggleState
+{
+    On,
+    Off
+}

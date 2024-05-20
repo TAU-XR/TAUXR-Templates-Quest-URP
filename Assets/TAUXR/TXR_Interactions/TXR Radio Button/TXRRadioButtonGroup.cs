@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class TXRRadioButtonGroup : MonoBehaviour
 {
-    public TXRButton_Radio[] Buttons => _buttons;
-    [SerializeField] private TXRButton_Radio[] _buttons;
+    public TXRButton_Toggle[] Buttons => _buttons;
+    [SerializeField] private TXRButton_Toggle[] _buttons;
 
-    public TXRButton_Radio SelectedButton => _selectedButton;
-    private TXRButton_Radio _selectedButton;
+    public TXRButton_Toggle SelectedButton => _selectedButton;
+    private TXRButton_Toggle _selectedButton;
 
     public void Reset()
     {
@@ -28,7 +28,7 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
     private void RegisterButtonEvents()
     {
-        foreach (TXRButton_Radio button in _buttons)
+        foreach (TXRButton_Toggle button in _buttons)
         {
             button.ButtonSelected += () => OnButtonSelected(button);
             button.ButtonDeselected += () => OnButtonDeselected(button);
@@ -37,15 +37,19 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
     private void UnregisterButtonEvents()
     {
-        foreach (TXRButton_Radio button in _buttons)
+        foreach (TXRButton_Toggle button in _buttons)
         {
             button.ButtonSelected -= () => OnButtonSelected(button);
             button.ButtonDeselected -= () => OnButtonDeselected(button);
         }
     }
 
+    public void SelectButton()
+    {
+    }
 
-    private void OnButtonSelected(TXRButton_Radio button)
+
+    private void OnButtonSelected(TXRButton_Toggle button)
     {
         if (_selectedButton == button)
         {
@@ -54,17 +58,22 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
         if (_selectedButton != null)
         {
-            _selectedButton.ManuallyDeselect();
+            _selectedButton.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
         }
 
         _selectedButton = button;
     }
 
-    private void OnButtonDeselected(TXRButton_Radio button)
+    private void OnButtonDeselected(TXRButton_Toggle button)
     {
         if (_selectedButton == button)
         {
             _selectedButton = null;
         }
+    }
+
+    public void SelectButton(TXRButton_Toggle button)
+    {
+        _selectedButton = button;
     }
 }

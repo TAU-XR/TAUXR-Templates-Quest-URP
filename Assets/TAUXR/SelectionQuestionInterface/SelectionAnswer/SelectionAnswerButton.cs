@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class SelectionAnswerButton : MonoBehaviour
 {
-    public Action AnswerSelected;
-    public Action AnswerDeselected;
     public SelectionAnswerData SelectionAnswerData => _selectionAnswerData;
     private SelectionAnswerData _selectionAnswerData;
 
@@ -24,28 +22,6 @@ public class SelectionAnswerButton : MonoBehaviour
         _button = GetComponent<TXRButton_Toggle>();
         _text = GetComponentInChildren<TextMeshPro>();
     }
-
-    private void Start()
-    {
-        _button.ToggleOn.AddListener(OnAnswerSelected);
-        _button.ToggleOff.AddListener(OnAnswerDeselected);
-    }
-
-    private void OnAnswerSelected()
-    {
-        AnswerSelected?.Invoke();
-    }
-
-    private void OnAnswerDeselected()
-    {
-        AnswerDeselected?.Invoke();
-    }
-
-    public void ManuallyDeselectAnswer()
-    {
-        _button.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
-    }
-
 
     public void Init(SelectionAnswerData selectionAnswerData, SelectionAnswerButtonConfiguration buttonConfiguration)
     {
