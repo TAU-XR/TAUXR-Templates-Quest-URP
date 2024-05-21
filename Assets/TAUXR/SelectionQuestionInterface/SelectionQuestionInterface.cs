@@ -97,10 +97,11 @@ public class SelectionQuestionInterface : MonoBehaviour
         SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
         AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
         _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
-        selectedAnswer.OnAnswerSubmitted().Forget();
         _numberOfTriesInCurrentQuestion++;
         ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
         _selectionAnswersRadioButtonGroup.Reset();
+
+        selectedAnswer.OnAnswerSubmitted().Forget();
 
         if (_correctAnswerSubmitted)
         {
@@ -110,7 +111,16 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void OnCorrectAnswerSubmitted()
     {
-        //TODO: disable all other buttons.
+        //TODO: except correct answer
+        foreach (TXRButton_Toggle button in _selectionAnswersRadioButtonGroup.Buttons)
+        {
+            if (button.GetComponent<SelectionAnswerButton>().SelectionAnswerData.IsCorrect)
+            {
+                continue;
+            }
+
+            button.SetState(ButtonState.Disabled);
+        }
     }
 
     private void ShowAnswerInfo(string selectedAnswerInfo)
