@@ -44,11 +44,6 @@ public class TXRRadioButtonGroup : MonoBehaviour
         }
     }
 
-    public void SelectButton()
-    {
-    }
-
-
     private void OnButtonSelected(TXRButton_Toggle button)
     {
         if (_selectedButton == button)

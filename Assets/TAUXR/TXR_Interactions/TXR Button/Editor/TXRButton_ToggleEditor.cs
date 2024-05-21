@@ -15,11 +15,13 @@ public class TXRButton_ToggleEditor : Editor
         if (GUILayout.Button("Toggle On"))
         {
             button.TriggerToggleEvent(TXRButtonToggleState.On, ButtonColliderResponse.Both);
+            // button.TriggerButtonEventFromInput(ButtonEvent.Pressed);
         }
 
         if (GUILayout.Button("Toggle Off"))
         {
             button.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
+            // button.TriggerButtonEventFromInput(ButtonEvent.Released);
         }
 
         EditorGUILayout.EndHorizontal();

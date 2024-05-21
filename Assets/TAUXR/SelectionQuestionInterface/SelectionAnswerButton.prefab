@@ -173,6 +173,16 @@ PrefabInstance:
       propertyPath: height
       value: 0.12
       objectReference: {fileID: 0}
+    - target: {fileID: 8566531272301206495, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2325524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566531272301206495, guid: 32c09fe936666ed42bb3153aef6a6116,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.11547734
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

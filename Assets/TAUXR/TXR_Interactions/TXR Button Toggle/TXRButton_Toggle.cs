@@ -28,8 +28,10 @@ public class TXRButton_Toggle : TXRButton
         Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
         actionToInvoke?.Invoke();
         Action internalAction = OnReleasedInternal; // toggle is change only on release
+        Action pressedAction = OnPressedInternal;
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
+        DelegateInteralExtenralResponses(response, pressedAction, toggleEvent);
     }
 
     public override void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
