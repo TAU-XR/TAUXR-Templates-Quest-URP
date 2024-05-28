@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceTester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceTester.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceManagerEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceManagerEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterface.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionQuestionInterfaceManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +24,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/Editor/SelectionQuestionInterfaceManagerEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/SelectionQuestionInterface/SelectionAnswer/SelectionAnswerButtonConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/TXR Radio Button/Editor/TXRRadioButtonGroupEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/EditorUtilities/Editor/propertydrawertesting.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/EditorUtilities/Test.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/Extensions/ColorExtensions.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -134,7 +136,8 @@
       <workItem from="1715857567847" duration="1242000" />
       <workItem from="1716120944274" duration="17828000" />
       <workItem from="1716290953640" duration="3990000" />
-      <workItem from="1716721251731" duration="923000" />
+      <workItem from="1716721251731" duration="1507000" />
+      <workItem from="1716889575241" duration="3703000" />
     </task>
     <servers />
   </component>

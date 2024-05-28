@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
@@ -38,11 +39,12 @@ public class SelectionQuestionInterface : MonoBehaviour
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
     }
 
-    public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData)
+    public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData,
+        CancellationToken cancellationToken = default)
     {
         InitializeWithNewQuestion(selectionQuestionData);
 
-        await UniTask.WaitUntil(() => _correctAnswerSubmitted);
+        await UniTask.WaitUntil(() => _correctAnswerSubmitted, cancellationToken: cancellationToken);
     }
 
     private void InitializeWithNewQuestion(SelectionQuestionData selectionQuestionData)
