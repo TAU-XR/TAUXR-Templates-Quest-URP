@@ -28,9 +28,8 @@ public class TXRButton_Toggle : TXRButton
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
         actionToInvoke?.Invoke();
-        Action internalAction = OnReleasedInternal; // toggle is change only on release
-
-        Debug.Log("here");
+        Action internalAction = OnReleasedInternal; // toggle is change only on  release
+        
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
     }
 
