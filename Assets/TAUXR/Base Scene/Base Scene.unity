@@ -590,6 +590,11 @@ PrefabInstance:
       propertyPath: _fadeDuration
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7177403407583575080, guid: f899305186a85f244ba523aa50bdb3c4,
+        type: 3}
+      propertyPath: _startingState
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
