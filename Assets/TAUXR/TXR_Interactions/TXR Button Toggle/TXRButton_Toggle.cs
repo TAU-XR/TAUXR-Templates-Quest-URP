@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 
@@ -28,10 +29,9 @@ public class TXRButton_Toggle : TXRButton
         Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
         actionToInvoke?.Invoke();
         Action internalAction = OnReleasedInternal; // toggle is change only on release
-        Action pressedAction = OnPressedInternal;
 
+        Debug.Log("here");
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
-        DelegateInteralExtenralResponses(response, pressedAction, toggleEvent);
     }
 
     public override void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
@@ -50,12 +50,15 @@ public class TXRButton_Toggle : TXRButton
 
             case ButtonEvent.Pressed:
                 ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
+
                 DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
                 break;
 
             case ButtonEvent.Released:
                 UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
                 toggleEvent.Invoke();
+                Action actionToInvoke = ToggleState == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
+                actionToInvoke?.Invoke();
                 DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
                 break;
         }

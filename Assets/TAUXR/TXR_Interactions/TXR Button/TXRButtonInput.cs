@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ButtonInputState { Idle, Hover, Press, Release }
+public enum ButtonInputState
+{
+    Idle,
+    Hover,
+    Press,
+    Release
+}
+
 public class TXRButtonInput : MonoBehaviour
 {
     public ButtonInputState State;
@@ -11,12 +18,12 @@ public class TXRButtonInput : MonoBehaviour
 
     private TXRButtonReferences _references;
     private TXRButton _btn;
-    
+
     private Transform _buttonSurface;
     private List<Transform> _touchers = new List<Transform>();
     private Transform _mainToucher;
     private const float PRESSDISTANCE = .005f;
-    
+
     public void Init(TXRButtonReferences references)
     {
         _references = references;
@@ -37,23 +44,25 @@ public class TXRButtonInput : MonoBehaviour
 
     private void Update()
     {
-        if (_mainToucher == null)  // no toucher around
+        if (_mainToucher == null) // no toucher around
         {
-            if (State == ButtonInputState.Hover)         // Hover Exit
+            if (State == ButtonInputState.Hover) // Hover Exit
             {
                 _btn.TriggerButtonEventFromInput(ButtonEvent.HoverExit);
                 State = ButtonInputState.Idle;
             }
 
-            if (State == ButtonInputState.Press)        // Exit collider from deep pressing all the way
+            if (State == ButtonInputState.Press) // Exit collider from deep pressing all the way
             {
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Idle;
             }
+
             return;
         }
 
-        Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width, _references.Backface.Height);
+        Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width,
+            _references.Backface.Height);
 
         Vector3 toucherToBtn = _mainToucher.transform.position - closestPointOnBtn;
         float toucherDistance = toucherToBtn.magnitude;
@@ -61,31 +70,32 @@ public class TXRButtonInput : MonoBehaviour
 
         if (toucherDistance < PRESSDISTANCE)
         {
-            if (State == ButtonInputState.Hover)        // Press
+            if (State == ButtonInputState.Hover) // Press
             {
                 State = ButtonInputState.Press;
                 _btn.PressTransform?.Invoke(_mainToucher);
+                //TODO: create toggle input script that triggers toggle event here
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Pressed);
             }
         }
         else
         {
-            if (State == ButtonInputState.Press)         // Release
+            if (State == ButtonInputState.Press) // Release
             {
-                if (!isToucherInFrontOfButton) return;  // prevent press release when pressing the btn too "deep"
+                if (!isToucherInFrontOfButton) return; // prevent press release when pressing the btn too "deep"
 
+                //TODO: create toggle input script that triggers toggle event here
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Release;
             }
-            else if (State == ButtonInputState.Release || State == ButtonInputState.Idle)       // Hover Enter
+            else if (State == ButtonInputState.Release || State == ButtonInputState.Idle) // Hover Enter
             {
-                if (!isToucherInFrontOfButton) return;  // prevent button activation from behind
+                if (!isToucherInFrontOfButton) return; // prevent button activation from behind
 
                 _btn.TriggerButtonEventFromInput(ButtonEvent.HoverEnter);
                 State = ButtonInputState.Hover;
             }
         }
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -101,7 +111,6 @@ public class TXRButtonInput : MonoBehaviour
         {
             _mainToucher = null;
         }
-
     }
 
     private Vector3 GetClosestPointOnSurface(Vector3 target, Transform pivot, float width, float height)
