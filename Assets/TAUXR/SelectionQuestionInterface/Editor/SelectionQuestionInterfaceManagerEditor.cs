@@ -8,12 +8,11 @@ using UnityEngine;
 public class SelectionQuestionInterfaceManagerEditor : Editor
 {
     private SerializedProperty _startingQuestionIndexSerializedProperty;
-    private SerializedProperty _currentQuestionIndexSerializedProperty;
+    private int _questionToStartExamFromIndex = 0;
 
     private void OnEnable()
     {
         _startingQuestionIndexSerializedProperty = serializedObject.FindProperty("_startingQuestionIndex");
-        _currentQuestionIndexSerializedProperty = serializedObject.FindProperty("_currentQuestionIndex");
     }
 
     public override void OnInspectorGUI()
@@ -39,6 +38,15 @@ public class SelectionQuestionInterfaceManagerEditor : Editor
         }
 
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space(10);
+
+        _questionToStartExamFromIndex = EditorGUILayout.IntSlider("Question to start exam from", _questionToStartExamFromIndex, 0,
+            selectionQuestionInterfaceManager.NumberOfSelectionQuestions - 1);
+        if (GUILayout.Button("Restart Exam from new question"))
+        {
+            selectionQuestionInterfaceManager.RunExamFromQuestionIndex(_questionToStartExamFromIndex);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

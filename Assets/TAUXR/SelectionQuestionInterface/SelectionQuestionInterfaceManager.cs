@@ -30,23 +30,29 @@ public class SelectionQuestionInterfaceManager : MonoBehaviour
             await GetComponent<SelectionQuestionInterface>()
                 .ShowQuestionAndWaitForFinalSubmission(_selectionQuestions[_currentQuestionIndex], _cts.Token);
             _currentQuestionIndex++;
-            Debug.Log("Before delay");
             await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenQuestions), cancellationToken: _cts.Token);
-            Debug.Log("after delay");
         }
     }
 
     public void NextQuestion()
     {
-        _cts.Cancel();
-        _currentQuestionIndex++;
-        RunExamFromCurrentQuestion().Forget();
+        RunExamFromQuestionIndex(_currentQuestionIndex + 1);
     }
 
     public void PreviousQuestion()
     {
+        RunExamFromQuestionIndex(_currentQuestionIndex - 1);
+    }
+
+    public void RunExamFromQuestionIndex(int questionIndex)
+    {
+        if (questionIndex < 0 || questionIndex > _selectionQuestions.Length)
+        {
+            return;
+        }
+
+        _currentQuestionIndex = questionIndex;
         _cts.Cancel();
-        _currentQuestionIndex--;
         RunExamFromCurrentQuestion().Forget();
     }
 }

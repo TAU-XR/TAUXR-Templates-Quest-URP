@@ -64,7 +64,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8274981290435517440}
@@ -127,13 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3176d38857d62ac4597719dfdb64c6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionQuestions:
+  _selectionQuestions:
   - {fileID: 11400000, guid: d3b2d99c74a80dd499c612d21cf76245, type: 2}
   - {fileID: 11400000, guid: a194fa5eaed296d4d9d3ab48d01349f5, type: 2}
   - {fileID: 11400000, guid: 856ddda5b9b0b904dbf735a73e1f6024, type: 2}
   - {fileID: 11400000, guid: 493a430cf0be89648bf8e5572aaa6c6b, type: 2}
   - {fileID: 11400000, guid: 858b5ccab069c7b44a8be47c9d785d45, type: 2}
   _timeBetweenQuestions: 3
+  _startingQuestionIndex: 0
+  _currentQuestionIndex: 1
 --- !u!1001 &4329311408158414296
 PrefabInstance:
   m_ObjectHideFlags: 0
