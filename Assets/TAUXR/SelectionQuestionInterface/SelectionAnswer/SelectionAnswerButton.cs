@@ -13,7 +13,7 @@ public class SelectionAnswerButton : MonoBehaviour
     private TXRButton_Toggle _button;
     private TextMeshPro _text;
 
-    [SerializeField] private float _timeFromPressToDisable = 1;
+    private float _timeFromPressToDisable;
 
     private SelectionAnswerButtonConfiguration _buttonConfiguration;
     private Color _startingActiveColor;
@@ -40,7 +40,7 @@ public class SelectionAnswerButton : MonoBehaviour
 
         _button.SetColor(EButtonAnimationState.Active, _buttonConfiguration.AnswerColorAfterSubmission);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(_timeFromPressToDisable));
+        await UniTask.Delay(TimeSpan.FromSeconds(_buttonConfiguration.TimeFromPressToDisable));
 
         if (!_selectionAnswerData.IsCorrect)
         {

@@ -13,7 +13,7 @@ public class SelectionQuestionInterfaceEditor : Editor
     private void OnEnable()
     {
         SelectionQuestionInterface selectionQuestionInterface = (SelectionQuestionInterface)target;
-        _submitButton = selectionQuestionInterface.GetComponentInChildren<SelectionQuestionSubmitButton>().GetComponent<TXRButton>();
+        _submitButton = selectionQuestionInterface.GetComponentInChildren<SelectionQuestionSubmitButton>(true).GetComponent<TXRButton>();
     }
 
     public override void OnInspectorGUI()

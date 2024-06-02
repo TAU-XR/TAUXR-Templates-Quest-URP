@@ -42,6 +42,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData,
         CancellationToken cancellationToken = default)
     {
+        Show();
         InitializeWithNewQuestion(selectionQuestionData);
 
         await UniTask.WaitUntil(() => _correctAnswerSubmitted, cancellationToken: cancellationToken);
@@ -93,7 +94,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private async UniTask SubmitCorrectAnswer()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(1));
+        await UniTask.Delay(TimeSpan.FromSeconds(_wrongAnswerButtonConfiguration.TimeFromPressToDisable));
         _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
         SubmitSelectedAnswer();
     }
@@ -146,10 +147,16 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     public void Show()
     {
+        _selectionQuestionInterfaceReferences.Graphics.SetActive(true);
     }
 
     public void Hide()
     {
-        _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
+        if (_selectionQuestionInterfaceReferences.AnswerInfo != null)
+        {
+            _selectionQuestionInterfaceReferences.AnswerInfo.Hide();
+        }
+
+        _selectionQuestionInterfaceReferences.Graphics.SetActive(false);
     }
 }
