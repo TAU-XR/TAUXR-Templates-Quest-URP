@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+[RequireComponent(typeof(SelectionQuestionInterface))]
 public class SelectionQuestionExam : MonoBehaviour
 {
     private CancellationTokenSource _cts;

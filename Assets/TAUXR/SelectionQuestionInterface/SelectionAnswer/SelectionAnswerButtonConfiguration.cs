@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Configurations/SelectionAnswerButton", fileName = "SelectionAnswerButtonConfiguration")]
 public class SelectionAnswerButtonConfiguration : ScriptableObject
 {
-    public int TimeFromPressToDisable;
+    public int TimeFromSubmitToDisable;
     public Color AnswerColorAfterSubmission;
 }

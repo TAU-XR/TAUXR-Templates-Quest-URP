@@ -26,6 +26,7 @@ public class SelectionQuestionExamEditor : Editor
             EditorGUILayout.IntSlider("Starting Question Index", _startingQuestionIndexSerializedProperty.intValue, 0,
                 selectionQuestionExam.NumberOfSelectionQuestions - 1);
 
+        EditorGUILayout.Space(10);
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Previous Question"))
         {

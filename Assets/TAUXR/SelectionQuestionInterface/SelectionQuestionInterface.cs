@@ -98,7 +98,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private async UniTask SubmitCorrectAnswer()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(_wrongAnswerButtonConfiguration.TimeFromPressToDisable));
+        await UniTask.Delay(TimeSpan.FromSeconds(_wrongAnswerButtonConfiguration.TimeFromSubmitToDisable));
         _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
         SubmitSelectedAnswer();
     }
