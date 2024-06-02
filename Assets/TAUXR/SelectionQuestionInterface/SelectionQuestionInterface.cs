@@ -75,7 +75,8 @@ public class SelectionQuestionInterface : MonoBehaviour
         }
     }
 
-    private void OnAnswerSubmitted()
+    // private async UniTask OnAnswerSubmitted()
+    private async UniTask OnAnswerSubmitted()
     {
         if (_selectionAnswersRadioButtonGroup.SelectedButton == null)
         {
@@ -84,12 +85,13 @@ public class SelectionQuestionInterface : MonoBehaviour
 
         SubmitSelectedAnswer();
 
-
         bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 1;
         bool outOfTries = _numberOfTriesInCurrentQuestion == _questionData.MaxNumberOfTries;
-        bool selectCorrectAnswer = outOfTries || noAnswersLeft;
-        if (!selectCorrectAnswer || _correctAnswerSubmitted) return;
+        bool shouldSelectCorrectAnswer = outOfTries || noAnswersLeft;
+        if (!shouldSelectCorrectAnswer || _correctAnswerSubmitted) return;
 
+        //TODO: use main config for time from send to disable instead of having it on each button
+        await UniTask.Delay(TimeSpan.FromSeconds(1));
         _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
         SubmitSelectedAnswer();
     }
@@ -113,7 +115,6 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void OnCorrectAnswerSubmitted()
     {
-        //TODO: except correct answer
         foreach (TXRButton_Toggle button in _selectionAnswersRadioButtonGroup.Buttons)
         {
             if (button.GetComponent<SelectionAnswerButton>().SelectionAnswerData.IsCorrect)

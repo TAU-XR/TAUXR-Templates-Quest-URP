@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class SelectionQuestionSubmitButton : MonoBehaviour
 {
     private TXRButton _button;
 
-    public Action AnswerSubmitted;
+    public Func<UniTask> AnswerSubmitted;
 
     private void Awake()
     {
