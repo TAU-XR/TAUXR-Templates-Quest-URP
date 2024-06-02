@@ -13,7 +13,10 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
     public void Reset()
     {
-        _selectedButton = null;
+        if (_selectedButton != null)
+        {
+            _selectedButton.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
+        }
     }
 
     private void OnEnable()
@@ -69,6 +72,6 @@ public class TXRRadioButtonGroup : MonoBehaviour
 
     public void SelectButton(TXRButton_Toggle button)
     {
-        _selectedButton = button;
+        button.TriggerToggleEvent(TXRButtonToggleState.On, ButtonColliderResponse.Both);
     }
 }

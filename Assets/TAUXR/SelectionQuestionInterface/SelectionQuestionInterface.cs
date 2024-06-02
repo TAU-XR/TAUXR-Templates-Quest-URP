@@ -83,13 +83,17 @@ public class SelectionQuestionInterface : MonoBehaviour
             return;
         }
 
+        SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
+        _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
         bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 2;
         bool outOfTries = _numberOfTriesInCurrentQuestion - 1 == _questionData.MaxNumberOfTries;
-        bool shouldSelectCorrectAnswer = (outOfTries || noAnswersLeft) && !_correctAnswerSubmitted;
+        bool shouldSubmitCorrectAnswer = (outOfTries || noAnswersLeft) && !_correctAnswerSubmitted;
 
-        SubmitSelectedAnswer(showAnswerInfo: !shouldSelectCorrectAnswer);
+        SubmitSelectedAnswer(showAnswerInfo: !shouldSubmitCorrectAnswer);
 
-        if (shouldSelectCorrectAnswer) SubmitCorrectAnswer().Forget();
+        if (!shouldSubmitCorrectAnswer) return;
+        _correctAnswerSubmitted = true;
+        SubmitCorrectAnswer().Forget();
     }
 
     private async UniTask SubmitCorrectAnswer()
@@ -103,7 +107,6 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
         AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
-        _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
         _numberOfTriesInCurrentQuestion++;
         if (showAnswerInfo)
         {
