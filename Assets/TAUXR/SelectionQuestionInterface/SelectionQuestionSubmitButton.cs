@@ -8,7 +8,7 @@ public class SelectionQuestionSubmitButton : MonoBehaviour
 {
     private TXRButton _button;
 
-    public Func<UniTask> AnswerSubmitted;
+    public Action AnswerSubmitted;
 
     private void Awake()
     {

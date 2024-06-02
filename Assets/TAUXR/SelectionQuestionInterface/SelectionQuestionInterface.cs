@@ -75,34 +75,40 @@ public class SelectionQuestionInterface : MonoBehaviour
         }
     }
 
-    // private async UniTask OnAnswerSubmitted()
-    private async UniTask OnAnswerSubmitted()
+    private void OnAnswerSubmitted()
     {
         if (_selectionAnswersRadioButtonGroup.SelectedButton == null)
         {
             return;
         }
 
-        SubmitSelectedAnswer();
+        bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 2;
+        bool outOfTries = _numberOfTriesInCurrentQuestion - 1 == _questionData.MaxNumberOfTries;
+        bool shouldSelectCorrectAnswer = (outOfTries || noAnswersLeft) && !_correctAnswerSubmitted;
 
-        bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 1;
-        bool outOfTries = _numberOfTriesInCurrentQuestion == _questionData.MaxNumberOfTries;
-        bool shouldSelectCorrectAnswer = outOfTries || noAnswersLeft;
-        if (!shouldSelectCorrectAnswer || _correctAnswerSubmitted) return;
+        SubmitSelectedAnswer(showAnswerInfo: !shouldSelectCorrectAnswer);
 
-        //TODO: use main config for time from send to disable instead of having it on each button
+        if (shouldSelectCorrectAnswer) SubmitCorrectAnswer().Forget();
+    }
+
+    private async UniTask SubmitCorrectAnswer()
+    {
         await UniTask.Delay(TimeSpan.FromSeconds(1));
         _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
         SubmitSelectedAnswer();
     }
 
-    private void SubmitSelectedAnswer()
+    private void SubmitSelectedAnswer(bool showAnswerInfo = true)
     {
         SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
         AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
         _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
         _numberOfTriesInCurrentQuestion++;
-        ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
+        if (showAnswerInfo)
+        {
+            ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
+        }
+
         _selectionAnswersRadioButtonGroup.Reset();
 
         selectedAnswer.OnAnswerSubmitted().Forget();
