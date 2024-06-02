@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SelectionQuestionInterfaceManager))]
-public class SelectionQuestionInterfaceManagerEditor : Editor
+[CustomEditor(typeof(SelectionQuestionExam))]
+public class SelectionQuestionExamEditor : Editor
 {
     private SerializedProperty _startingQuestionIndexSerializedProperty;
     private int _questionToStartExamFromIndex = 0;
@@ -20,21 +20,21 @@ public class SelectionQuestionInterfaceManagerEditor : Editor
         base.OnInspectorGUI();
         serializedObject.Update();
 
-        SelectionQuestionInterfaceManager selectionQuestionInterfaceManager = (SelectionQuestionInterfaceManager)target;
+        SelectionQuestionExam selectionQuestionExam = (SelectionQuestionExam)target;
 
         _startingQuestionIndexSerializedProperty.intValue =
             EditorGUILayout.IntSlider("Starting Question Index", _startingQuestionIndexSerializedProperty.intValue, 0,
-                selectionQuestionInterfaceManager.NumberOfSelectionQuestions - 1);
+                selectionQuestionExam.NumberOfSelectionQuestions - 1);
 
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Previous Question"))
         {
-            selectionQuestionInterfaceManager.PreviousQuestion();
+            selectionQuestionExam.PreviousQuestion();
         }
 
         if (GUILayout.Button("Next Question"))
         {
-            selectionQuestionInterfaceManager.NextQuestion();
+            selectionQuestionExam.NextQuestion();
         }
 
         EditorGUILayout.EndHorizontal();
@@ -42,10 +42,10 @@ public class SelectionQuestionInterfaceManagerEditor : Editor
         EditorGUILayout.Space(10);
 
         _questionToStartExamFromIndex = EditorGUILayout.IntSlider("Question to start exam from", _questionToStartExamFromIndex, 0,
-            selectionQuestionInterfaceManager.NumberOfSelectionQuestions - 1);
+            selectionQuestionExam.NumberOfSelectionQuestions - 1);
         if (GUILayout.Button("Restart Exam from new question"))
         {
-            selectionQuestionInterfaceManager.RunExamFromQuestionIndex(_questionToStartExamFromIndex);
+            selectionQuestionExam.RunExamFromQuestionIndex(_questionToStartExamFromIndex);
         }
 
         serializedObject.ApplyModifiedProperties();

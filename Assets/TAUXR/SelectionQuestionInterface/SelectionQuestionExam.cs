@@ -5,7 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class SelectionQuestionInterfaceManager : MonoBehaviour
+public class SelectionQuestionExam : MonoBehaviour
 {
     private CancellationTokenSource _cts;
 
@@ -32,8 +32,6 @@ public class SelectionQuestionInterfaceManager : MonoBehaviour
         {
             await _selectionQuestionInterface.ShowQuestionAndWaitForFinalSubmission(_selectionQuestions[_currentQuestionIndex], _cts.Token);
             _currentQuestionIndex++;
-            await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenQuestions), cancellationToken: _cts.Token);
-            _selectionQuestionInterface.Hide();
             await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenQuestions), cancellationToken: _cts.Token);
         }
     }
