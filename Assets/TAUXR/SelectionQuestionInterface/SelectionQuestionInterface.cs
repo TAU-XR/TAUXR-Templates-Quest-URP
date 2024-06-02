@@ -14,6 +14,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
     [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
+    [SerializeField] private bool _startHidden;
 
 
     private bool _correctAnswerSubmitted = false;
@@ -22,6 +23,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     private TXRRadioButtonGroup _selectionAnswersRadioButtonGroup;
 
     private int _numberOfTriesInCurrentQuestion;
+
 
     private void Awake()
     {
@@ -37,6 +39,14 @@ public class SelectionQuestionInterface : MonoBehaviour
     private void OnDisable()
     {
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
+    }
+
+    private void Start()
+    {
+        if (_startHidden)
+        {
+            Hide();
+        }
     }
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData,
