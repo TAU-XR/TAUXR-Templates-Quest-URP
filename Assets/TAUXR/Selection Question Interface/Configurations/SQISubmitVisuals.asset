@@ -23,7 +23,7 @@ MonoBehaviour:
   hideDuration: 0.25
   hoverDuration: 0.3
   backfaceColorGradientHover: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
-  backfaceGradientRadiusHover: 0.02
+  backfaceGradientRadiusHover: 0.24
   strokeThicknessHover: 0.002
   backfadeZPositionHover: 0.0049
   activeColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
