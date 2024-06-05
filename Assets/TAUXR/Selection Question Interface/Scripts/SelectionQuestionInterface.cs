@@ -11,7 +11,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
-    [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;
+    [SerializeField] private SelectionQuestionInterfaceReferences _selectionQuestionInterfaceReferences;    // cr: long name, can be simple _references.
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
     [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
     [SerializeField] private bool _startHidden;
@@ -34,11 +34,13 @@ public class SelectionQuestionInterface : MonoBehaviour
     private void OnEnable()
     {
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
+        // cr: move to InitializeWithNewQuestion?
     }
 
     private void OnDisable()
     {
         _selectionQuestionInterfaceReferences.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
+        // move to ShowQuestionAndWaitForFinalSubmission end?
     }
 
     private void Start()
@@ -95,6 +97,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
         SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
         _correctAnswerSubmitted = selectedAnswer.SelectionAnswerData.IsCorrect;
+
         bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 2;
         bool outOfTries = _numberOfTriesInCurrentQuestion - 1 == _questionData.MaxNumberOfTries;
         bool shouldSubmitCorrectAnswer = (outOfTries || noAnswersLeft) && !_correctAnswerSubmitted;
@@ -103,7 +106,7 @@ public class SelectionQuestionInterface : MonoBehaviour
 
         if (!shouldSubmitCorrectAnswer) return;
         _correctAnswerSubmitted = true;
-        SubmitCorrectAnswer().Forget();
+        SubmitCorrectAnswer().Forget(); // cr: confusing name, would implement this inside this method.
     }
 
     private async UniTask SubmitCorrectAnswer()
