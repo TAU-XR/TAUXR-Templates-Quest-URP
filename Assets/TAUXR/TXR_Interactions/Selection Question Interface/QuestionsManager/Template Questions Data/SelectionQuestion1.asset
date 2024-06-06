@@ -12,20 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7687793c2afe104784ae3afc211c70c, type: 3}
   m_Name: SelectionQuestion1
   m_EditorClassIdentifier: 
-  Text: Selection question 1 text
+  Text: Based on this and your previous answers, what is the most probable mechanism,
+    through which the Glu to Val mutation interferes with the biological activity
+    of hemoglobin?
   Answers:
-  - Text: Answer 1
+  - Text: Clashing of Val with other amino acids, causing the protein to unfold
     IsCorrect: 0
-    AnswerInfo: Answer 1 Info
-  - Text: Answer 2
+    AnswerInfo: impossible, since the amino acid is fully exposed
+  - Text: Inducing long-range conformational changes that decrease the affinity of
+      the heme to oxygen.
+    IsCorrect: 0
+    AnswerInfo: "unlikely, because Glu6\u2019s side chain does not form any interactions
+      with other amino acids"
+  - Text: Since Glu6 is exposed, far from the heme group, and points away from the
+      protein, it probably acts through interactions with another molecule.
     IsCorrect: 1
-    AnswerInfo: Answer 2 Info
-  - Text: Answer 3
-    IsCorrect: 0
     AnswerInfo: Answer 3 Info
-  - Text: Answer 4
+  - Text: 'Since Glu6 is exposed, far from the heme group, and points away from the
+      protein, it probably acts through interactions with another molecule. '
     IsCorrect: 0
     AnswerInfo: Answer 4 Info
-  NumberOfTries: 0
   MaxNumberOfTries: 4
   MultipleSelection: 0

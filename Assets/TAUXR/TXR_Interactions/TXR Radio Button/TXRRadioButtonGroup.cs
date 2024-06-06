@@ -13,6 +13,7 @@ public class TXRRadioButtonGroup : MonoBehaviour
         if (_selectedButton != null)
         {
             _selectedButton.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
+            _selectedButton = null;
         }
     }
 

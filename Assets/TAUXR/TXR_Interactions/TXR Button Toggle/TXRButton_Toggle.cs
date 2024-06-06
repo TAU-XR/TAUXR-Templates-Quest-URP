@@ -23,6 +23,7 @@ public class TXRButton_Toggle : TXRButton
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
+        Debug.Log(State);
         if (State != ButtonState.Interactable) return;
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;

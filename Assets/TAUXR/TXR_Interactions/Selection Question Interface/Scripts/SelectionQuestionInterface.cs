@@ -159,6 +159,8 @@ public class SelectionQuestionInterface : MonoBehaviour
 
     private void OnAnswerSubmitted()
     {
+        if (_selectionAnswersRadioButtonGroup.SelectedButton == null) return;
+
         SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
         SubmitAnswer(selectedAnswer).Forget();
     }
@@ -167,6 +169,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         if (_selectionAnswersRadioButtonGroup.SelectedButton == null) return;
 
+        _selectionAnswersRadioButtonGroup.Reset();
         _numberOfTriesInCurrentQuestion++;
         selectedAnswer.OnAnswerSubmitted().Forget();
         AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
@@ -180,7 +183,6 @@ public class SelectionQuestionInterface : MonoBehaviour
             await OnWrongAnswerSubmitted(selectedAnswer);
         }
 
-        _selectionAnswersRadioButtonGroup.Reset();
     }
 
     private void OnCorrectAnswerSubmitted(SelectionAnswerButton selectedAnswer)

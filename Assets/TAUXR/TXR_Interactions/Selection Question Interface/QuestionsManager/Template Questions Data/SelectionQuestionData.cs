@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SelectionQuestion", menuName = "ScriptableObjects/SelectionQuestion")]
 public class SelectionQuestionData : ScriptableObject
 {
+    [TextArea]
     public string Text;
     public SelectionAnswerData[] Answers;
     public int MaxNumberOfTries = 4;
