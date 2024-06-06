@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebab2148522834f47b7e6d0a10dcbd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionQuestionInterfaceReferences:
+  _references:
     _questionTextDisplay: {fileID: 9181352511539031517}
     _answerInfo: {fileID: 7177403407583575080}
     _submitButton: {fileID: 918822529959061581}

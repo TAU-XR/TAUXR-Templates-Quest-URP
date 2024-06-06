@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(SelectionQuestionInterface))]
-public class SelectionQuestionExam : MonoBehaviour
+public class QuestionsManager : MonoBehaviour
 {
     private CancellationTokenSource _cts;
 
@@ -22,7 +22,6 @@ public class SelectionQuestionExam : MonoBehaviour
     {
         _currentQuestionIndex = _startingQuestionIndex;
         _selectionQuestionInterface = GetComponent<SelectionQuestionInterface>();
-        _selectionQuestionInterface.Show();
         RunExamFromCurrentQuestion().Forget();
     }
 

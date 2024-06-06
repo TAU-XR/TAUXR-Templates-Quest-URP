@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SelectionQuestionExam))]
+[CustomEditor(typeof(QuestionsManager))]
 public class SelectionQuestionExamEditor : Editor
 {
     private SerializedProperty _startingQuestionIndexSerializedProperty;
@@ -20,22 +20,22 @@ public class SelectionQuestionExamEditor : Editor
         base.OnInspectorGUI();
         serializedObject.Update();
 
-        SelectionQuestionExam selectionQuestionExam = (SelectionQuestionExam)target;
+        QuestionsManager questionsManager = (QuestionsManager)target;
 
         _startingQuestionIndexSerializedProperty.intValue =
             EditorGUILayout.IntSlider("Starting Question Index", _startingQuestionIndexSerializedProperty.intValue, 0,
-                selectionQuestionExam.NumberOfSelectionQuestions - 1);
+                questionsManager.NumberOfSelectionQuestions - 1);
 
         EditorGUILayout.Space(10);
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Previous Question"))
         {
-            selectionQuestionExam.PreviousQuestion();
+            questionsManager.PreviousQuestion();
         }
 
         if (GUILayout.Button("Next Question"))
         {
-            selectionQuestionExam.NextQuestion();
+            questionsManager.NextQuestion();
         }
 
         EditorGUILayout.EndHorizontal();
@@ -43,10 +43,10 @@ public class SelectionQuestionExamEditor : Editor
         EditorGUILayout.Space(10);
 
         _questionToStartExamFromIndex = EditorGUILayout.IntSlider("Question to start exam from", _questionToStartExamFromIndex, 0,
-            selectionQuestionExam.NumberOfSelectionQuestions - 1);
+            questionsManager.NumberOfSelectionQuestions - 1);
         if (GUILayout.Button("Restart Exam from new question"))
         {
-            selectionQuestionExam.RunExamFromQuestionIndex(_questionToStartExamFromIndex);
+            questionsManager.RunExamFromQuestionIndex(_questionToStartExamFromIndex);
         }
 
         serializedObject.ApplyModifiedProperties();
