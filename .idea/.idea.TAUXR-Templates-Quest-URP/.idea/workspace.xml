@@ -6,60 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Configurations.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Configurations/SQIAnswerVisuals.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Configurations/SQIAnswerVisuals.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Configurations/SQISubmitVisuals.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Configurations/SQISubmitVisuals.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Editor/SelectionQuestionExamEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Editor/SelectionQuestionExamEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Editor/SelectionQuestionInterfaceEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Editor/SelectionQuestionInterfaceEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionExam.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionExam.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionInterface.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionInterface.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionInterfaceReferences.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionInterfaceReferences.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionSubmitButton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Scripts/SelectionQuestionSubmitButton.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/CorrectAnswerButtonConfiguration.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/CorrectAnswerButtonConfiguration.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/New Custom Render Texture.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/New Custom Render Texture.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButtonConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerButtonConfiguration.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/SelectionAnswerData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/WrongAnswerButtonConfiguration.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswer/WrongAnswerButtonConfiguration.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswerButton.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionAnswerButton.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionQuestionInterface.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/SelectionQuestionInterface.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion2.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion2.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion3.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion3.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion4.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion4.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion5.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestion5.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestionData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Selection Question Interface/Template Questions Data/SelectionQuestionData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/TAUXR Interactions.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/TAUXR Interactions.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +135,7 @@
       <workItem from="1716721251731" duration="1507000" />
       <workItem from="1716889575241" duration="9607000" />
       <workItem from="1717316940210" duration="12775000" />
-      <workItem from="1717663956028" duration="5274000" />
+      <workItem from="1717663956028" duration="6210000" />
     </task>
     <servers />
   </component>
