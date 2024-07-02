@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
-using System;
-using System.Buffers;
+using DG.Tweening;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,67 +10,114 @@ public enum FingerType { Thumb = 19, Index = 20, Middle = 21, Ring = 22, Pinky =
 
 public class TXRHand : MonoBehaviour
 {
-	public HandType HandType;
+    public HandType HandType;
 
-	private bool _isActive = true;
+    private bool _isActive = true;
 
-	private OVRSkeleton _ovrSkeleton;
-	private List<HandCollider> _handColliders;
+    private OVRSkeleton _ovrSkeleton;
+    private List<HandCollider> _handColliders;
 
-	private Pincher _pincher;
-	
-	private PinchManager _pinchManager;
-	public Pincher Pincher => _pincher;
-	public PinchManager PinchManager => _pinchManager;
-	[SerializeField] private PinchingConfiguration _pinchingConfiguration;
+    private Pincher _pincher;
 
-	public void Init()
-	{
-		_ovrSkeleton = GetComponentInChildren<OVRSkeleton>();
-		_pincher = GetComponentInChildren<Pincher>();
+    private PinchManager _pinchManager;
+    public Pincher Pincher => _pincher;
+    public PinchManager PinchManager => _pinchManager;
+    [SerializeField] private PinchingConfiguration _pinchingConfiguration;
 
-		_handColliders = GetComponentsInChildren<HandCollider>().ToList();
-		foreach (HandCollider hc in _handColliders)
-		{
-			hc.Init(_ovrSkeleton);
-		}
+    public SkinnedMeshRenderer _handSMR;
+    Tween _visibilityTween;
+    Sequence _pinchVisibilitySequence;
+    Sequence _pinchColorSequence;
 
-		_pinchManager = new PinchManager(this, _pinchingConfiguration);
-		_pincher.Init(_ovrSkeleton, _pinchManager);
-	}
+    public void Init()
+    {
+        _ovrSkeleton = GetComponentInChildren<OVRSkeleton>();
+        _pincher = GetComponentInChildren<Pincher>();
 
-	public void UpdateHand()
-	{
-		if (!_isActive || !_ovrSkeleton.IsDataHighConfidence) return;
+        _handColliders = GetComponentsInChildren<HandCollider>().ToList();
+        _handSMR = GetComponentInChildren<SkinnedMeshRenderer>();
+        foreach (HandCollider hc in _handColliders)
+        {
+            hc.Init(_ovrSkeleton);
+        }
 
-		foreach (HandCollider hc in _handColliders)
-		{
-			hc.UpdateHandCollider();
-		}
-			
-		_pinchManager.HandlePinching();
-	}
-	
-	public Transform GetFingerCollider(FingerType fingerType)
-	{
-		foreach (HandCollider hc in _handColliders)
-		{
-			if (hc.fingerIndex == (int)fingerType)
-			{
-				return hc.transform;
-			}
-		}
+        _pinchManager = new PinchManager(this, _pinchingConfiguration);
+        _pincher.Init(_ovrSkeleton, _pinchManager);
+    }
 
-		return null;
-	}
+    public void UpdateHand()
+    {
+        if (!_isActive || !_ovrSkeleton.IsDataHighConfidence) return;
 
-	public void SetHandVisibility(bool state)
-	{
-		//  _isActive = state;
-		_ovrSkeleton.gameObject.SetActive(state);
+        foreach (HandCollider hc in _handColliders)
+        {
+            hc.UpdateHandCollider();
+        }
 
-		// if hand is disabled then enable invisible collider
-		//_invisibleHandCollider.SetActive(!state);
-	}
+        _pinchManager.HandlePinching();
+    }
+
+    public Transform GetFingerCollider(FingerType fingerType)
+    {
+        foreach (HandCollider hc in _handColliders)
+        {
+            if (hc.fingerIndex == (int)fingerType)
+            {
+                return hc.transform;
+            }
+        }
+
+        return null;
+    }
+
+    public void SetHandVisibility(bool state)
+    {
+        float targetAlpha = state ? 1 : 0;
+        _visibilityTween.Kill();
+        _visibilityTween = _handSMR.material.DOFloat(targetAlpha, "_Hand_Opacity", .25f);
+        // if hand is disabled then enable invisible collider
+        //_invisibleHandCollider.SetActive(!state);
+    }
+
+    public void SignifyPinch(bool state)
+    {
+        float targetPinchValue = state ? .35f : 0;
+        _pinchVisibilitySequence.Kill();
+        _pinchVisibilitySequence.Append(_handSMR.material.DOFloat(targetPinchValue, "_Index_Multiplier", .25f));
+        _pinchVisibilitySequence.Join(_handSMR.material.DOFloat(targetPinchValue, "_Thumb_Multiplier", .25f));
+    }
+
+    public void SetPinchSignifyColor(Color color)
+    {
+        _pinchColorSequence.Kill();
+        _pinchColorSequence.Append(_handSMR.material.DOColor(color, "_Index_Color", .25f));
+        _pinchColorSequence.Join(_handSMR.material.DOColor(color, "_Thumb_Color", .25f));
+    }
+
+    public void SetFingerColor(FingerType finger, Color color)
+    {
+        switch (finger)
+        {
+            case FingerType.Thumb:
+                _handSMR.material.DOColor(color, "_Thumb_Color", .25f); break;
+                break;
+            case FingerType.Index:
+                _handSMR.material.DOColor(color, "_Index_Color", .25f); break;
+            default: break;
+        }
+    }
+
+    public void SetFingerSignifyStrength(FingerType finger, float strength)
+    {
+        switch (finger)
+        {
+            case FingerType.Thumb:
+                _handSMR.material.DOFade(strength, "_Thumb_Multiplier", .25f); break;
+                break;
+            case FingerType.Index:
+                _handSMR.material.DOFade(strength, "_Index_Multiplier", .25f); break;
+            default: break;
+        }
+    }
 }
 
