@@ -2891,6 +2891,11 @@ PrefabInstance:
       propertyPath: _inDebugMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7959508770404634243, guid: 17622cb59e3973341b70af1d2b4852a3,
+        type: 3}
+      propertyPath: _debugEyeData
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7959508770696542968, guid: 17622cb59e3973341b70af1d2b4852a3,
         type: 3}
       propertyPath: _textPopUp

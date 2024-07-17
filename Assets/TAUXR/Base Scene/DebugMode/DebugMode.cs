@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class DebugMode : MonoBehaviour
@@ -11,8 +12,11 @@ public class DebugMode : MonoBehaviour
     [SerializeField] private bool _inDebugMode;
     [SerializeField] private int _numberOfPinchesToEnterDebugMode = 3;
     [SerializeField] private bool _debugEyeData = true;
+    [SerializeField] private bool _debugMovement = true;
     [SerializeField] private EyeDataDebugger _eyeDataDebugger;
+    private float _lastStateChangeTime;
 
+    private const float MinimumTimeBetweenStateChanges = 1f;
     private bool _wasInDebugMode;
 
 
@@ -26,10 +30,9 @@ public class DebugMode : MonoBehaviour
         pinchingInputManager = TXRPlayer.Instance.PinchingInputManager;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        HandleDebugModeState();
+        UpdateDebugModeState();
 
         bool leftDebugMode = _wasInDebugMode && !_inDebugMode;
         if (leftDebugMode)
@@ -49,8 +52,19 @@ public class DebugMode : MonoBehaviour
         }
     }
 
-    private void HandleDebugModeState()
+    private void UpdateDebugModeState()
     {
+        if (_lastStateChangeTime > Time.time - MinimumTimeBetweenStateChanges)
+        {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
+        {
+            ToggleDebugModeState();
+            return;
+        }
+
         if (!pinchingInputManager.IsInputPressedThisFrame(HandType.Any) || _waitingForPinchingInputsInARow) return;
 
         _waitingForPinchingInputsInARow = true;
@@ -59,8 +73,10 @@ public class DebugMode : MonoBehaviour
             () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
     }
 
+    [Button]
     private void ToggleDebugModeState()
     {
+        _lastStateChangeTime = Time.time;
         _waitingForPinchingInputsInARow = false;
         _wasInDebugMode = _inDebugMode;
         _inDebugMode = !_inDebugMode;
