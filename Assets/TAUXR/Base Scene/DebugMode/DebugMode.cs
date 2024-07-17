@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
@@ -31,13 +32,14 @@ public class DebugMode : MonoBehaviour
 
     private const float MinimumTimeBetweenStateChanges = 1f;
     private bool _wasInDebugMode;
+    private CancellationTokenSource _pinchingCts;
 
 
     private void Start()
     {
-#if !UNITY_EDITOR
-        _debugPlayerTransform = false;
-#endif
+// #if !UNITY_EDITOR
+//         _debugPlayerTransform = false;
+// #endif
 
         if (_debugEyeData)
         {
@@ -49,15 +51,11 @@ public class DebugMode : MonoBehaviour
 
     private void Update()
     {
+        _wasInDebugMode = _inDebugMode;
         UpdateDebugModeState();
 
         bool leftDebugMode = _wasInDebugMode && !_inDebugMode;
-        if (leftDebugMode)
-        {
-            _eyeDataDebugger.RevertChanges();
-            _playerTransformDebugger.DebugPlayerTransform = false;
-            _wasInDebugMode = false;
-        }
+        if (leftDebugMode) ExitDebugMode();
 
         if (!_inDebugMode)
         {
@@ -75,18 +73,13 @@ public class DebugMode : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
         {
             ToggleDebugModeState();
             return;
         }
 
-        if (!pinchingInputManager.IsInputPressedThisFrame(HandType.Any) || _waitingForPinchingInputsInARow) return;
-
-        _waitingForPinchingInputsInARow = true;
-        HandType nextHand = pinchingInputManager.IsLeftHeld() ? HandType.Right : HandType.Left;
-        pinchingInputManager.WaitForPressesInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
-            () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
+        HandlePinchInputs();
     }
 
     [Button]
@@ -94,11 +87,37 @@ public class DebugMode : MonoBehaviour
     {
         _lastStateChangeTime = Time.time;
         _waitingForPinchingInputsInARow = false;
-        _wasInDebugMode = _inDebugMode;
         _inDebugMode = !_inDebugMode;
+
+        if (!_inDebugMode)
+        {
+            ExitDebugMode();
+        }
 
         string consoleMessage = _inDebugMode ? "Debug mode activated" : "Debug mode disabled";
         Debug.Log(consoleMessage);
+    }
+
+    private void HandlePinchInputs()
+    {
+        if (!pinchingInputManager.IsInputPressedThisFrame(HandType.Any) || _waitingForPinchingInputsInARow) return;
+
+        _waitingForPinchingInputsInARow = true;
+        HandType nextHand = pinchingInputManager.IsLeftHeld() ? HandType.Right : HandType.Left;
+        using (_pinchingCts = new CancellationTokenSource())
+        {
+            pinchingInputManager.WaitForPressesInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
+                () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
+        }
+    }
+
+
+    private void ExitDebugMode()
+    {
+        _eyeDataDebugger.RevertChanges();
+        _playerTransformDebugger.DebugPlayerTransform = false;
+        _wasInDebugMode = false;
+        _pinchingCts?.Cancel();
     }
 
     private void UpdateDebugComponentsStates()

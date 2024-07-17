@@ -1604,9 +1604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050afa08cdc296345933c5df778a92ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugPlayerMovement: 0
+  DebugPlayerTransform: 0
   _movementSpeed: 1
-  _rotationSpeed: 1
+  _rotationSpeed: 70
 --- !u!1 &1771829731
 GameObject:
   m_ObjectHideFlags: 0

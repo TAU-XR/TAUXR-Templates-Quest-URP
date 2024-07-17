@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerTransformDebugger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayerTransformDebugger.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/EyeDataDebugger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/EyeDataDebugger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/AInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/AInputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneWindows.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneWindows.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +139,7 @@
       <workItem from="1717316940210" duration="12775000" />
       <workItem from="1717663956028" duration="6210000" />
       <workItem from="1721206196923" duration="597000" />
-      <workItem from="1721207006655" duration="4320000" />
+      <workItem from="1721207006655" duration="6371000" />
     </task>
     <servers />
   </component>

@@ -8,10 +8,11 @@ public class PlayerTransformDebugger : MonoBehaviour
 {
     [HideInInspector] public bool DebugPlayerTransform;
     [Range(0.1f, 10)] [SerializeField] private float _movementSpeed;
-    [Range(0.1f, 10)] [SerializeField] private float _rotationSpeed;
+    [Range(10, 360)] [SerializeField] private float _rotationSpeed;
     private Transform _player;
     private float _horizontalInput = 0;
     private float _forwardInput = 0;
+    private float _rotationInput = 0;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerTransformDebugger : MonoBehaviour
     {
         _horizontalInput = Input.GetAxis("Horizontal");
         _forwardInput = Input.GetAxis("Vertical");
+        _rotationInput = Input.GetAxis("Rotation");
     }
 
     private void FixedUpdate()
@@ -37,13 +39,15 @@ public class PlayerTransformDebugger : MonoBehaviour
 
     private void MovePlayer()
     {
-        float horizontalMovement = _horizontalInput * _movementSpeed * Time.deltaTime;
-        float forwardMovement = _forwardInput * _movementSpeed * Time.deltaTime;
+        float horizontalDelta = _horizontalInput * _movementSpeed * Time.deltaTime;
+        float forwardDelta = _forwardInput * _movementSpeed * Time.deltaTime;
 
-        _player.position = new Vector3(_player.position.x + horizontalMovement, _player.position.y, _player.position.z + forwardMovement);
+        _player.position = new Vector3(_player.position.x + horizontalDelta, _player.position.y, _player.position.z + forwardDelta);
     }
 
     private void RotatePlayer()
     {
+        float rotationDelta = _rotationInput * _rotationSpeed * Time.deltaTime;
+        _player.rotation = Quaternion.Euler(_player.eulerAngles.x, _player.eulerAngles.y + rotationDelta, _player.eulerAngles.z);
     }
 }
