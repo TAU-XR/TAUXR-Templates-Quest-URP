@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -9,11 +10,23 @@ public class DebugMode : MonoBehaviour
     private PinchingInputManager pinchingInputManager;
 
     private bool _waitingForPinchingInputsInARow;
-    [SerializeField] private bool _inDebugMode;
+
+    [Header("Debug mode state")] [SerializeField]
+    private bool _inDebugMode;
+
     [SerializeField] private int _numberOfPinchesToEnterDebugMode = 3;
-    [SerializeField] private bool _debugEyeData = true;
-    [SerializeField] private bool _debugMovement = true;
-    [SerializeField] private EyeDataDebugger _eyeDataDebugger;
+
+    [Header("Debug mode components")] [SerializeField]
+    private bool _debugEyeData = true;
+
+    [ShowIf("_debugEyeData")] [SerializeField]
+    private EyeDataDebugger _eyeDataDebugger;
+
+    [SerializeField] private bool _debugPlayerTransform = true;
+
+    [ShowIf("_debugPlayerTransform")] [SerializeField]
+    private PlayerTransformDebugger _playerTransformDebugger;
+
     private float _lastStateChangeTime;
 
     private const float MinimumTimeBetweenStateChanges = 1f;
@@ -22,6 +35,10 @@ public class DebugMode : MonoBehaviour
 
     private void Start()
     {
+#if !UNITY_EDITOR
+        _debugPlayerTransform = false;
+#endif
+
         if (_debugEyeData)
         {
             _eyeDataDebugger.gameObject.SetActive(true);
@@ -38,6 +55,7 @@ public class DebugMode : MonoBehaviour
         if (leftDebugMode)
         {
             _eyeDataDebugger.RevertChanges();
+            _playerTransformDebugger.DebugPlayerTransform = false;
             _wasInDebugMode = false;
         }
 
@@ -46,11 +64,9 @@ public class DebugMode : MonoBehaviour
             return;
         }
 
-        if (_debugEyeData)
-        {
-            _eyeDataDebugger.DebugEyeData();
-        }
+        UpdateDebugComponentsStates();
     }
+
 
     private void UpdateDebugModeState()
     {
@@ -83,5 +99,11 @@ public class DebugMode : MonoBehaviour
 
         string consoleMessage = _inDebugMode ? "Debug mode activated" : "Debug mode disabled";
         Debug.Log(consoleMessage);
+    }
+
+    private void UpdateDebugComponentsStates()
+    {
+        _eyeDataDebugger.DebugEyeData = _debugEyeData;
+        _playerTransformDebugger.DebugPlayerTransform = _debugPlayerTransform;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EyeDataDebugger : MonoBehaviour
 {
+    [HideInInspector] public bool DebugEyeData;
+
     [SerializeField] private Material _focusedObjectMaterial;
     [SerializeField] private Transform _eyeHitPositionSphere;
     [SerializeField] private GameObject _textPopUp;
@@ -13,8 +15,13 @@ public class EyeDataDebugger : MonoBehaviour
     private GameObject _previousFocusedObject;
     private Material _previousFocusedObjectPreviousMaterial;
 
-    public void DebugEyeData()
+    public void Update()
     {
+        if (!DebugEyeData)
+        {
+            return;
+        }
+
         //TODO: refactor
         Transform focusedObject = TXRPlayer.Instance.EyeTracker.FocusedObject;
 
@@ -86,5 +93,6 @@ public class EyeDataDebugger : MonoBehaviour
 
         _eyeDebuggerText.gameObject.SetActive(false);
         _textPopUp.SetActive(false);
+        DebugEyeData = false;
     }
 }
