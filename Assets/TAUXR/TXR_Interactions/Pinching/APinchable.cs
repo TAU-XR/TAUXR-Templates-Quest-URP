@@ -8,10 +8,10 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 {
     public PinchManager PinchingHandPinchManager { get; set; }
 
-    public virtual bool IsUsedByPinchMeIndicator => true;
     public virtual float PinchExitThreshold => 0.97f;
-    public virtual int Priority => 0;
-    public virtual Vector3 PinchMeIndicatorLineStartPosition { get; set; }
+
+    // public virtual int Priority => 0;
+    public int Priority;
 
     protected int _numberOfPinchersInside = 0;
     protected AHoverEffect _hoverEffect;
@@ -33,35 +33,21 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 
     public virtual void OnHoverStay(PinchManager pinchManager)
     {
-        ToggleHoverEffectState(pinchManager, ShouldEffectBeActiveOnHover(pinchManager));
+        UpdateHoverEffectState(pinchManager, CanBePinched(pinchManager));
     }
 
-    public virtual bool ShouldEffectBeActiveOnHover(PinchManager pinchManager)
+    protected void UpdateHoverEffectState(PinchManager pinchManager, bool shouldEffectBeActive)
     {
-        return true;
-    }
-
-    protected void ToggleHoverEffectState(PinchManager pinchManager, bool shouldStartEffect)
-    {
-        if (_hoverEffect == null)
+        if (_hoverEffect != null)
         {
-            return;
-        }
-
-        if (shouldStartEffect)
-        {
-            _hoverEffect.Activate(pinchManager);
-        }
-        else
-        {
-            _hoverEffect.Deactivate(pinchManager);
+            _hoverEffect.UpdateHoverEffectState(pinchManager, shouldEffectBeActive);
         }
     }
 
     public virtual void OnHoverExit(PinchManager pinchManager)
     {
         _numberOfPinchersInside--;
-        ToggleHoverEffectState(pinchManager, _numberOfPinchersInside > 0);
+        UpdateHoverEffectState(pinchManager, _numberOfPinchersInside > 0);
     }
 
     public virtual bool CanBePinched(PinchManager pinchManager)
@@ -81,15 +67,35 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
         PinchingHandPinchManager = null;
     }
 
-    public virtual void UpdatePinchMeIndicatorLineStartPosition()
-    {
-        PinchMeIndicatorLineStartPosition = transform.position;
-    }
-
     public int CompareTo(APinchable other)
     {
-        //Using int.CompareTo - which is different than IComparable CompareTo method
-        return other.Priority.CompareTo(Priority);
+        if (Equals(other))
+        {
+            //Duplicate object
+            Debug.Log("Duplicate object");
+            return 0;
+        }
+
+        //return 1 if other is greater, 0 if same, -1 if smaller
+        int result = other.Priority.CompareTo(Priority);
+        result = result == 0 ? 1 : result;
+        return result;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        SortedSetElement other = (SortedSetElement)obj;
+        return ReferenceEquals(this, other);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 
     protected bool IsOtherHand(PinchManager pinchManager)

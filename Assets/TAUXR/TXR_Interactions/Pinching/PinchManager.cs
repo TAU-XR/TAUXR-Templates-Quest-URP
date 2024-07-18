@@ -103,7 +103,7 @@ public class PinchManager
     {
         foreach (APinchable pinchable in _pinchablesInRange)
         {
-            if (pinchable.ShouldEffectBeActiveOnHover(this) && pinchable.IsUsedByPinchMeIndicator)
+            if (pinchable.CanBePinched(this))
             {
                 return pinchable;
             }

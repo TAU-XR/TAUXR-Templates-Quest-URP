@@ -4,37 +4,47 @@ using UnityEngine;
 
 public abstract class AHoverEffect : MonoBehaviour
 {
-	[SerializeField] protected bool _isActive = false;
+    [SerializeField] protected bool _isActive = false;
 
-	public virtual void Activate(PinchManager pinchManager)
-	{
-		if (_isActive)
-		{
-			return;
-		}
+    public void UpdateHoverEffectState(PinchManager pinchManager, bool shouldEffectBeActive)
+    {
+        if (shouldEffectBeActive)
+        {
+            Activate(pinchManager);
+        }
+        else
+        {
+            Deactivate(pinchManager);
+        }
+    }
 
-		_isActive = true;
-		DoOnActivation(pinchManager);
-	}
+    public virtual void Activate(PinchManager pinchManager)
+    {
+        if (_isActive)
+        {
+            return;
+        }
 
-	protected virtual void DoOnActivation(PinchManager pinchManager)
-	{
+        _isActive = true;
+        DoOnActivation(pinchManager);
+    }
 
-	}
+    protected virtual void DoOnActivation(PinchManager pinchManager)
+    {
+    }
 
-	public virtual void Deactivate(PinchManager pinchManager)
-	{
-		if (!_isActive)
-		{
-			return;
-		}
+    public virtual void Deactivate(PinchManager pinchManager)
+    {
+        if (!_isActive)
+        {
+            return;
+        }
 
-		_isActive = false;
-		DoOnDeactivation(pinchManager);
-	}
+        _isActive = false;
+        DoOnDeactivation(pinchManager);
+    }
 
-	protected virtual void DoOnDeactivation(PinchManager pinchManager)
-	{
-
-	}
+    protected virtual void DoOnDeactivation(PinchManager pinchManager)
+    {
+    }
 }
