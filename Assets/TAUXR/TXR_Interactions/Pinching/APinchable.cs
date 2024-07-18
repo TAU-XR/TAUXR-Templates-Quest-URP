@@ -70,7 +70,7 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 
     public int CompareTo(APinchable other)
     {
-        if (Equals(other, this))
+        if (ReferenceEquals(other, this))
         {
             //Duplicate object
             return 0;
@@ -78,6 +78,8 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 
         //return 1 if other is greater, 0 if same, -1 if smaller
         int result = other.Priority.CompareTo(Priority);
+
+        //Allow different instances with the same priority
         if (result == 0)
         {
             return GetHashCode().CompareTo(
@@ -85,34 +87,6 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
         }
 
         return result;
-    }
-
-    protected bool Equals(APinchable other)
-    {
-        return ReferenceEquals(other, this);
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((APinchable)obj);
-    }
-    // public override bool Equals(object obj)
-    // {
-    //     if (obj == null || GetType() != obj.GetType())
-    //     {
-    //         return false;
-    //     }
-    //
-    //     SortedSetElement other = (SortedSetElement)obj;
-    //     return ReferenceEquals(this, other);
-    // }
-
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
     }
 
     protected bool IsOtherHand(PinchManager pinchManager)
