@@ -9,38 +9,19 @@ public class SortedSetTests : MonoBehaviour
 
     void Start()
     {
-        bool added;
         foreach (SortedSetElement pinchable in GetComponentsInChildren<SortedSetElement>())
         {
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
+            _sortedSet.Add(pinchable);
         }
 
         foreach (SortedSetElement pinchable in GetComponentsInChildren<SortedSetElement>())
         {
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
-            added = _sortedSet.Add(pinchable);
-            Debug.Log(added);
+            if (_sortedSet.Add(pinchable))
+            {
+                Debug.Log("Wrong!");
+            }
         }
+
 
         foreach (SortedSetElement element in _sortedSet)
         {

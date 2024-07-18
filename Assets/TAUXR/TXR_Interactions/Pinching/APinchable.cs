@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
@@ -69,29 +70,45 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 
     public int CompareTo(APinchable other)
     {
-        if (Equals(other))
+        if (Equals(other, this))
         {
             //Duplicate object
-            Debug.Log("Duplicate object");
             return 0;
         }
 
         //return 1 if other is greater, 0 if same, -1 if smaller
         int result = other.Priority.CompareTo(Priority);
-        result = result == 0 ? 1 : result;
+        if (result == 0)
+        {
+            return GetHashCode().CompareTo(
+                other.GetHashCode());
+        }
+
         return result;
+    }
+
+    protected bool Equals(APinchable other)
+    {
+        return ReferenceEquals(other, this);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
-
-        SortedSetElement other = (SortedSetElement)obj;
-        return ReferenceEquals(this, other);
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((APinchable)obj);
     }
+    // public override bool Equals(object obj)
+    // {
+    //     if (obj == null || GetType() != obj.GetType())
+    //     {
+    //         return false;
+    //     }
+    //
+    //     SortedSetElement other = (SortedSetElement)obj;
+    //     return ReferenceEquals(this, other);
+    // }
 
     public override int GetHashCode()
     {
