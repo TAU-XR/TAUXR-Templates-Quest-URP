@@ -18,11 +18,11 @@ public class PinchingInputManager : AInputManager
 
     public override bool IsLeftHeld()
     {
-        return _handLeft.PinchManager.IsPlayerPinchingThisFrame();
+        return _handLeft.PinchManager.IsHandPinchingThisFrame();
     }
 
     public override bool IsRightHeld()
     {
-        return _handRight.PinchManager.IsPlayerPinchingThisFrame();
+        return _handRight.PinchManager.IsHandPinchingThisFrame();
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+//TODO: fix object not removed from pinchables in range when teleported out of collider.
 public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 {
     public PinchManager PinchingHandPinchManager { get; set; }
@@ -56,17 +57,9 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
         return true;
     }
 
-    public virtual void OnPinchEnter(PinchManager pinchManager)
-    {
-        PinchingHandPinchManager = pinchManager;
-        pinchManager.PinchedObject = this;
-    }
+    public abstract void OnPinchEnter(PinchManager pinchManager);
 
-    public virtual void OnPinchExit()
-    {
-        PinchingHandPinchManager.PinchedObject = null;
-        PinchingHandPinchManager = null;
-    }
+    public abstract void OnPinchExit();
 
     public int CompareTo(APinchable other)
     {

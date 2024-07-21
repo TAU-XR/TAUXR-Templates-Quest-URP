@@ -22,21 +22,26 @@ public class PinchManager
     public HandType HandType => _handType;
     private readonly HandType _handType;
 
+    private float _pinchablesInRangeRadius;
+    private List<APinchable> _pinchablesOutOfRange;
+
     public PinchManager(TXRHand hand, PinchingConfiguration pinchingConfiguration)
     {
         _handType = hand.HandType;
         _pincher = hand.Pincher;
         _configuration = pinchingConfiguration;
         _timeSinceLastPinch = _configuration.MinimumTimeBetweenPinches;
+        _pinchablesOutOfRange = new List<APinchable>();
+
+        //TODO: Refactor and make sure it considers different x/y/z scales for the pincher scale.
+        _pinchablesInRangeRadius = _pincher.GetComponent<SphereCollider>().radius * _pincher.transform.localScale.x;
     }
 
     public void HandlePinching()
     {
-        //Prevent double pinching
-        if (_timeSinceLastPinch < _configuration.MinimumTimeBetweenPinches)
-        {
-            _timeSinceLastPinch += Time.deltaTime;
-        }
+        _timeSinceLastPinch += Time.deltaTime;
+
+        RemovePinchablesOutOfRange();
 
         _pincher.UpdatePincher();
 
@@ -47,19 +52,35 @@ public class PinchManager
             pinchable.OnHoverStay(this);
         }
 
-        if (_pinchOccuredThisFrame && PinchedObject == null)
+        bool pinchingObject = PinchedObject != null;
+        if (pinchingObject && _pincher.Strength <= PinchedObject.PinchExitThreshold)
         {
-            APinchable objectToPinch = ChooseObjectToPinch();
-
-            if (objectToPinch != null)
-            {
-                PinchObject(objectToPinch);
-            }
+            ReleaseObject();
         }
 
-        if (PinchedObject != null && _pincher.Strength <= PinchedObject.PinchExitThreshold)
+        if (!_pinchOccuredThisFrame || pinchingObject) return;
+
+        APinchable objectToPinch = ChooseObjectToPinch();
+        if (objectToPinch != null)
         {
-            PinchedObject.OnPinchExit();
+            PinchObject(objectToPinch);
+        }
+    }
+
+    private void RemovePinchablesOutOfRange()
+    {
+        _pinchablesOutOfRange.Clear();
+
+        foreach (APinchable pinchable in _pinchablesInRange)
+        {
+            bool pinchableOutOfRange =
+                Vector3.Distance(pinchable.transform.position, _pincher.transform.position) > _pinchablesInRangeRadius;
+            if (pinchableOutOfRange) _pinchablesOutOfRange.Add(pinchable);
+        }
+
+        foreach (APinchable pinchable in _pinchablesOutOfRange)
+        {
+            RemovePinchableInRange(pinchable);
         }
     }
 
@@ -114,17 +135,28 @@ public class PinchManager
 
     private void PinchObject(APinchable objectToPinch)
     {
+        PinchedObject = objectToPinch;
+        objectToPinch.PinchingHandPinchManager = this;
         objectToPinch.OnPinchEnter(this);
+    }
+
+    private void ReleaseObject()
+    {
+        PinchedObject.OnPinchExit();
+        PinchedObject = null;
+        PinchedObject.PinchingHandPinchManager = null;
     }
 
     public void AddPinchableInRange(APinchable pinchable)
     {
         _pinchablesInRange.Add(pinchable);
+        pinchable.OnHoverEnter(this);
     }
 
     public void RemovePinchableInRange(APinchable pinchable)
     {
         _pinchablesInRange.Remove(pinchable);
+        pinchable.OnHoverExit(this);
     }
 
     //Called from pinchables, that want to know if a certain other pinchable is in range.
@@ -141,7 +173,7 @@ public class PinchManager
         return null;
     }
 
-    public bool IsPlayerPinchingThisFrame()
+    public bool IsHandPinchingThisFrame()
     {
         return _isPinching;
     }

@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="" />
+    <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,6 +141,7 @@
       <workItem from="1717663956028" duration="6210000" />
       <workItem from="1721206196923" duration="597000" />
       <workItem from="1721207006655" duration="21693000" />
+      <workItem from="1721556082533" duration="3564000" />
     </task>
     <servers />
   </component>
