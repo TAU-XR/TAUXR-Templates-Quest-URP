@@ -93,4 +93,9 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
     {
         return PinchingHandPinchManager != null && PinchingHandPinchManager != pinchManager;
     }
+
+    protected virtual void OnDestroy()
+    {
+        PinchingHandPinchManager?.RemovePinchableInRange(this);
+    }
 }
