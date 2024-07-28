@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchingInputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

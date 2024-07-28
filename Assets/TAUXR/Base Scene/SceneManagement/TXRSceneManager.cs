@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class TXRSceneManager : TXRSingleton<TXRSceneManager>
 {
-
     // declare by name each scene and make it public so it can be accessed easily from other scripts.
-    [Header("Base Scene Index")]
-    [SerializeField] public int BaseSceneIndex = 0;
-    [Header("Build index of the first scene to load")]
-    [SerializeField] public int FirstSceneToLoadIndex = 1;
+    [Header("Base Scene Index")] [SerializeField]
+    public int BaseSceneIndex = 0;
+
+    [Header("Build index of the first scene to load")] [SerializeField]
+    public int FirstSceneToLoadIndex = 1;
 
     private float FADETOBLACKDURATION = 2.5f;
     private float FADETOCLEARDURATION = 1.5f;
@@ -20,6 +20,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
     public string CurrentSceneName => currentSceneName;
 
     bool _shouldRepositionPlayer;
+
     // gets isProjectUsingCalibration to know whether to use PlayerRepositioner or not.
     public void Init(bool isProjectUsingCalibration)
     {
@@ -59,8 +60,8 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
                 currentSceneName = scene.name;
                 return;
             }
-
         }
+
         // if we got here it means we only have the base scene (for 1 scene projects) and it should be the current
         currentSceneName = _baseSceneName;
     }
@@ -83,7 +84,7 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
 
         await SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneBuildIndex));
-        
+
         currentSceneName = SceneManager.GetSceneByBuildIndex(sceneBuildIndex).name;
         // reposition player accordingly to new scene
         RepositionPlayerIfNeeded();
@@ -120,7 +121,6 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         await UnloadActiveScene();
 
         await LoadActiveScene(sceneName);
-
     }
 
     async private UniTask UnloadActiveScene()
@@ -139,5 +139,11 @@ public class TXRSceneManager : TXRSingleton<TXRSceneManager>
         PlayerRepositioner repositioner = FindObjectOfType<PlayerRepositioner>();
         if (repositioner == null) return;
         TXRPlayer.Instance.RepositionPlayer(repositioner);
+    }
+
+    public async void RestartActiveScene()
+    {
+        await SceneManager.UnloadSceneAsync(FirstSceneToLoadIndex);
+        SceneManager.LoadScene(FirstSceneToLoadIndex, LoadSceneMode.Additive);
     }
 }
