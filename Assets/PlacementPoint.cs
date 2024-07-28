@@ -12,7 +12,9 @@ public class PlacementPoint : MonoBehaviour
     public void PlaceObject(Transform objectToPlace)
     {
         objectToPlace.parent = transform;
-        objectToPlace.position = transform.position;
+        float objectBottom = objectToPlace.GetComponent<Collider>().bounds.min.y;
+        float objectYAddition = objectToPlace.transform.position.y - objectBottom;
+        objectToPlace.position = new Vector3(transform.position.x, transform.position.y + objectYAddition, transform.position.z);
         objectToPlace.rotation = transform.rotation;
         ContainsObject = true;
     }
