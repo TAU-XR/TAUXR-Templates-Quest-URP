@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+//TODO: Separate Pinch events from script
 public class PinchManager
 {
     public Action<PinchManager> PinchEnter, PinchExit;
@@ -32,8 +33,6 @@ public class PinchManager
         _configuration = pinchingConfiguration;
         _timeSinceLastPinch = _configuration.MinimumTimeBetweenPinches;
         _pinchablesOutOfRange = new List<APinchable>();
-
-        //TODO: Refactor and make sure it considers different x/y/z scales for the pincher scale.
         _pinchablesInRangeRadius = _pincher.GetComponent<SphereCollider>().radius * _pincher.transform.localScale.x;
     }
 
@@ -73,8 +72,10 @@ public class PinchManager
 
         foreach (APinchable pinchable in _pinchablesInRange)
         {
+            //The problem is that we compare to the middle of the second object.
             bool pinchableOutOfRange =
-                Vector3.Distance(pinchable.transform.position, _pincher.transform.position) > _pinchablesInRangeRadius;
+                Vector3.Distance(pinchable.Collider.ClosestPoint(_pincher.transform.position),
+                    _pincher.transform.position) > _pinchablesInRangeRadius;
             if (pinchableOutOfRange) _pinchablesOutOfRange.Add(pinchable);
         }
 
@@ -143,8 +144,8 @@ public class PinchManager
     private void ReleaseObject()
     {
         PinchedObject.OnPinchExit();
-        PinchedObject = null;
         PinchedObject.PinchingHandPinchManager = null;
+        PinchedObject = null;
     }
 
     public void AddPinchableInRange(APinchable pinchable)

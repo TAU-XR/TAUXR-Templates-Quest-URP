@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +24,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/PlayerTransformDebugger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/SortedSetElement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/SortedSetTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ConsoleUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Grabbable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/PlacementPoint.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/TXR Radio Button/Editor/TXRRadioButtonGroupEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TAUXR/Utilities/Extensions/ColorExtensions.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -138,6 +145,8 @@
       <workItem from="1721206196923" duration="597000" />
       <workItem from="1721207006655" duration="21693000" />
       <workItem from="1721556082533" duration="3564000" />
+      <workItem from="1722180479427" duration="1657000" />
+      <workItem from="1722182256307" duration="3533000" />
     </task>
     <servers />
   </component>

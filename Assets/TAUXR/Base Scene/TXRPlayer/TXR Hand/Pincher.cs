@@ -47,6 +47,7 @@ public class Pincher : MonoBehaviour
             return;
         }
 
+        Debug.Log("Adding pinchable: " + pinchable.name);
         _pinchManager.AddPinchableInRange(pinchable);
     }
 }

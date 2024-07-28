@@ -5,10 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-//TODO: fix object not removed from pinchables in range when teleported out of collider.
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
 {
     public PinchManager PinchingHandPinchManager { get; set; }
+    public Collider Collider { get; private set; }
 
     public virtual float PinchExitThreshold => 0.97f;
 
@@ -18,8 +20,10 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
     protected int _numberOfPinchersInside = 0;
     protected AHoverEffect _hoverEffect;
 
+
     private void Awake()
     {
+        Collider = GetComponent<Collider>();
         _hoverEffect = GetComponent<AHoverEffect>();
         DoOnAwake();
     }
@@ -57,9 +61,13 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
         return true;
     }
 
-    public abstract void OnPinchEnter(PinchManager pinchManager);
+    public virtual void OnPinchEnter(PinchManager pinchManager)
+    {
+    }
 
-    public abstract void OnPinchExit();
+    public virtual void OnPinchExit()
+    {
+    }
 
     public int CompareTo(APinchable other)
     {
@@ -90,5 +98,13 @@ public abstract class APinchable : MonoBehaviour, IComparable<APinchable>
     protected virtual void OnDestroy()
     {
         PinchingHandPinchManager?.RemovePinchableInRange(this);
+    }
+
+    private void OnValidate()
+    {
+        if (!GetComponent<Collider>().isTrigger)
+        {
+            Debug.LogWarning("Please make sure the collider of the pinchable object is set to trigger");
+        }
     }
 }

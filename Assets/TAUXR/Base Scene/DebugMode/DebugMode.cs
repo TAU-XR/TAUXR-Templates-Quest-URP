@@ -28,6 +28,11 @@ public class DebugMode : MonoBehaviour
     [ShowIf("_debugPlayerTransform")] [SerializeField]
     private PlayerTransformDebugger _playerTransformDebugger;
 
+    [SerializeField] private bool _showLogsAsUI = true;
+
+    [ShowIf("_showLogsAsUI")] [SerializeField]
+    private ConsoleUI _consoleUI;
+
     private float _lastStateChangeTime;
 
     private const float MinimumTimeBetweenStateChanges = 1f;
@@ -117,6 +122,7 @@ public class DebugMode : MonoBehaviour
         _eyeDataDebugger.RevertChanges();
         _playerTransformDebugger.DebugPlayerTransform = false;
         _wasInDebugMode = false;
+        _consoleUI.ExitDebugMode();
         _pinchingCts?.Cancel();
     }
 
@@ -124,5 +130,6 @@ public class DebugMode : MonoBehaviour
     {
         _eyeDataDebugger.DebugEyeData = _debugEyeData;
         _playerTransformDebugger.DebugPlayerTransform = _debugPlayerTransform;
+        _consoleUI.DebugConsoleUi = _showLogsAsUI;
     }
 }
