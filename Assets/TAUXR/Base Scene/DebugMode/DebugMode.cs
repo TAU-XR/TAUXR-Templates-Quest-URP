@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class DebugMode : MonoBehaviour
 {
-    private PinchingInputManager pinchingInputManager;
+    private PinchingInputManager _pinchingInputManager;
 
     private bool _waitingForPinchingInputsInARow;
 
@@ -28,11 +28,6 @@ public class DebugMode : MonoBehaviour
     [ShowIf("_debugPlayerTransform")] [SerializeField]
     private PlayerTransformDebugger _playerTransformDebugger;
 
-    [SerializeField] private bool _showLogsAsUI = true;
-
-    [ShowIf("_showLogsAsUI")] [SerializeField]
-    private ConsoleUI _consoleUI;
-
     private float _lastStateChangeTime;
 
     private const float MinimumTimeBetweenStateChanges = 1f;
@@ -42,16 +37,16 @@ public class DebugMode : MonoBehaviour
 
     private void Start()
     {
-// #if !UNITY_EDITOR
-//         _debugPlayerTransform = false;
-// #endif
+#if !UNITY_EDITOR
+        _debugPlayerTransform = false;
+#endif
 
         if (_debugEyeData)
         {
             _eyeDataDebugger.gameObject.SetActive(true);
         }
 
-        pinchingInputManager = TXRPlayer.Instance.PinchingInputManager;
+        _pinchingInputManager = TXRPlayer.Instance.PinchingInputManager;
     }
 
     private void Update()
@@ -105,13 +100,13 @@ public class DebugMode : MonoBehaviour
 
     private void HandlePinchInputs()
     {
-        if (!pinchingInputManager.IsInputPressedThisFrame(HandType.Any) || _waitingForPinchingInputsInARow) return;
+        if (!_pinchingInputManager.IsInputPressedThisFrame(HandType.Any) || _waitingForPinchingInputsInARow) return;
 
         _waitingForPinchingInputsInARow = true;
-        HandType nextHand = pinchingInputManager.IsLeftHeld() ? HandType.Right : HandType.Left;
+        HandType nextHand = _pinchingInputManager.IsLeftHeld() ? HandType.Right : HandType.Left;
         using (_pinchingCts = new CancellationTokenSource())
         {
-            pinchingInputManager.WaitForPressesInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
+            _pinchingInputManager.WaitForPressesInARow(_numberOfPinchesToEnterDebugMode, 1, ToggleDebugModeState,
                 () => _waitingForPinchingInputsInARow = false, true, nextHand).Forget();
         }
     }
@@ -122,7 +117,6 @@ public class DebugMode : MonoBehaviour
         _eyeDataDebugger.RevertChanges();
         _playerTransformDebugger.DebugPlayerTransform = false;
         _wasInDebugMode = false;
-        _consoleUI.ExitDebugMode();
         _pinchingCts?.Cancel();
     }
 
@@ -130,6 +124,5 @@ public class DebugMode : MonoBehaviour
     {
         _eyeDataDebugger.DebugEyeData = _debugEyeData;
         _playerTransformDebugger.DebugPlayerTransform = _debugPlayerTransform;
-        _consoleUI.DebugConsoleUi = _showLogsAsUI;
     }
 }

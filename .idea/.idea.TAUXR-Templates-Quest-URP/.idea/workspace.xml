@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/DebugMode/DebugMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/TXRPlayer/TXR Hand/Pincher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/APinchable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR_Interactions/Pinching/PinchManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,6 +138,7 @@
       <workItem from="1721556082533" duration="3564000" />
       <workItem from="1722180479427" duration="1657000" />
       <workItem from="1722182256307" duration="3533000" />
+      <workItem from="1722354509125" duration="12000" />
     </task>
     <servers />
   </component>
