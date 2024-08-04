@@ -15,6 +15,8 @@ public class TXRButtonVisuals : MonoBehaviour
     protected Sequence _backfaceZValueSequence;
     protected Sequence _strokeThicknessSequence;
 
+    protected float _strokeExtraSize = 0.005f;  // the amount of which stroke is bigger than backface
+
     [SerializeField] protected Color _activeColor;
     [SerializeField] protected Color _pressedColor;
     [SerializeField] protected Color _disabledColor;

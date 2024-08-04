@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,5 +16,6 @@ public class TXRButtonReferences : MonoBehaviour
     public Shapes.Rectangle Stroke;
     public TextMeshPro Text;
     public ButtonVisualsConfigurations Configurations;
+    
 
 }

@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ButtonVisualsConfigurations", menuName = "ScriptableObjects/ButtonVisualsConfigurations", order = 1)]
 public class ButtonVisualsConfigurations : ScriptableObject
 {
+    [Header("General Attributes")]
+    [Tooltip("How bigger stroke should be than backface. Defalut = 0.005f")]
+    public float strokeXYOffset;
+
     [Header("Active Animation")]
     [Tooltip("Gradient of the backface when active")]
     public float backfaceGradientRadiusActive;
