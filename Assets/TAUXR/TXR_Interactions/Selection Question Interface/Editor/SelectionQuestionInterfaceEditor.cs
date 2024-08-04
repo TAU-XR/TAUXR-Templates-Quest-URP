@@ -22,8 +22,8 @@ public class SelectionQuestionInterfaceEditor : Editor
 
         if (GUILayout.Button("Submit and release"))
         {
-            _submitButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Both);
-            _submitButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Both);
+            _submitButton.TriggerButtonEventFromCode(ButtonEvent.Pressed, ButtonColliderResponse.Both);
+            _submitButton.TriggerButtonEventFromCode(ButtonEvent.Released, ButtonColliderResponse.Both);
         }
     }
 }

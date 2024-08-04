@@ -12,7 +12,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
     public void SetToggleState(bool isOn)
     {
         Color activeColor = isOn ? _configurations.pressColor : _configurations.activeColor;
-        SetColor(EButtonAnimationState.Active, activeColor);
+        SetColor(TXRButtonState.Active, activeColor);
         IsToggleOn = isOn;
     }
 

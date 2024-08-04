@@ -21,7 +21,7 @@ public class SelectionAnswerButton : MonoBehaviour
     private void Awake()
     {
         _button = GetComponent<TXRButton_Toggle>();
-        _startingActiveColor = _button.GetColor(EButtonAnimationState.Active);
+        _startingActiveColor = _button.GetColor(TXRButtonState.Active);
         _text = GetComponentInChildren<TextMeshPro>();
     }
 
@@ -30,21 +30,22 @@ public class SelectionAnswerButton : MonoBehaviour
         _selectionAnswerData = selectionAnswerData;
         _text.text = _selectionAnswerData.Text;
         _buttonConfiguration = buttonConfiguration;
-        _button.SetColor(EButtonAnimationState.Active, _startingActiveColor);
-        _button.SetState(ButtonState.Interactable);
+        _button.SetColor(TXRButtonState.Active, _startingActiveColor);
+        _button.SetState(TXRButtonState.Active);
+        _button.SetInteractable(true);
     }
 
     public async UniTask OnAnswerSubmitted()
     {
-        _button.SetState(ButtonState.Frozen);
+        _button.SetInteractable(false);
 
-        _button.SetColor(EButtonAnimationState.Active, _buttonConfiguration.AnswerColorAfterSubmission);
+        _button.SetColor(TXRButtonState.Active, _buttonConfiguration.AnswerColorAfterSubmission);
 
         await UniTask.Delay(TimeSpan.FromSeconds(_buttonConfiguration.TimeFromSubmitToDisable));
 
         if (!_selectionAnswerData.IsCorrect)
         {
-            _button.SetState(ButtonState.Disabled);
+            _button.SetState(TXRButtonState.Disabled);
         }
     }
 }

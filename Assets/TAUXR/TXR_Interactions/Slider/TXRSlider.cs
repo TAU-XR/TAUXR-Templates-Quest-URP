@@ -169,7 +169,7 @@ public class TXRSlider : MonoBehaviour
     // Ends the rating action by detaching node from toucher.
     private void DetachNodeFromToucher()
     {
-        touchButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
+        touchButton.TriggerButtonEventFromCode(ButtonEvent.Released, ButtonColliderResponse.Internal);
         NodeDetached.Invoke();
 
         isNodeTouched = false;
@@ -203,7 +203,7 @@ public class TXRSlider : MonoBehaviour
         if (isNodeTouched) return;
 
         // Activate button internal response from the slider script so it will be called only on the first press.
-        touchButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+        touchButton.TriggerButtonEventFromCode(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
         NodeTouched.Invoke();
 
         toucher = touchButton.ActiveToucher;

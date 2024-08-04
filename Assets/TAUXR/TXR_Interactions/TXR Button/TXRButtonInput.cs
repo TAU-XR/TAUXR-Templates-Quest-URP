@@ -22,7 +22,7 @@ public class TXRButtonInput : MonoBehaviour
     private Transform _buttonSurface;
     private List<Transform> _touchers = new List<Transform>();
     private Transform _mainToucher;
-    private const float PRESSDISTANCE = .005f;
+    private const float PRESS_DISTANCE = .005f;
 
     public void Init(TXRButtonReferences references)
     {
@@ -46,18 +46,7 @@ public class TXRButtonInput : MonoBehaviour
     {
         if (_mainToucher == null) // no toucher around
         {
-            if (State == ButtonInputState.Hover) // Hover Exit
-            {
-                _btn.TriggerButtonEventFromInput(ButtonEvent.HoverExit);
-                State = ButtonInputState.Idle;
-            }
-
-            if (State == ButtonInputState.Press) // Exit collider from deep pressing all the way
-            {
-                _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
-                State = ButtonInputState.Idle;
-            }
-
+            ClearStateBackToIdle();
             return;
         }
 
@@ -67,14 +56,15 @@ public class TXRButtonInput : MonoBehaviour
         Vector3 toucherToBtn = _mainToucher.transform.position - closestPointOnBtn;
         float toucherDistance = toucherToBtn.magnitude;
         bool isToucherInFrontOfButton = Vector3.Dot(toucherToBtn.normalized, _references.ButtonSurface.forward) > 0;
+        bool isToucherPressing = toucherDistance < PRESS_DISTANCE;
 
-        if (toucherDistance < PRESSDISTANCE)
+        if (isToucherPressing)
         {
             if (State == ButtonInputState.Hover) // Press
             {
                 State = ButtonInputState.Press;
                 _btn.PressTransform?.Invoke(_mainToucher);
-                //TODO: create toggle input script that triggers toggle event here
+        
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Pressed);
             }
         }
@@ -84,7 +74,6 @@ public class TXRButtonInput : MonoBehaviour
             {
                 if (!isToucherInFrontOfButton) return; // prevent press release when pressing the btn too "deep"
 
-                //TODO: create toggle input script that triggers toggle event here
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Release;
             }
@@ -95,6 +84,21 @@ public class TXRButtonInput : MonoBehaviour
                 _btn.TriggerButtonEventFromInput(ButtonEvent.HoverEnter);
                 State = ButtonInputState.Hover;
             }
+        }
+    }
+
+    private void ClearStateBackToIdle()
+    {
+        if (State == ButtonInputState.Hover) // Hover Exit
+        {
+            _btn.TriggerButtonEventFromInput(ButtonEvent.HoverExit);
+            State = ButtonInputState.Idle;
+        }
+
+        if (State == ButtonInputState.Press) // Exit collider from deep pressing all the way
+        {
+            _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
+            State = ButtonInputState.Idle;
         }
     }
 

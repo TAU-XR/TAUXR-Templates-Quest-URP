@@ -14,12 +14,12 @@ public class TXRButtonEditor : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Press"))
         {
-            button.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Both);
+            button.TriggerButtonEventFromCode(ButtonEvent.Pressed, ButtonColliderResponse.Both);
         }
 
         if (GUILayout.Button("Release"))
         {
-            button.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Both);
+            button.TriggerButtonEventFromCode(ButtonEvent.Released, ButtonColliderResponse.Both);
         }
 
         EditorGUILayout.EndHorizontal();

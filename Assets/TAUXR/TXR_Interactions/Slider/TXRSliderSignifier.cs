@@ -32,10 +32,10 @@ public class TXRSliderSignifier : MonoBehaviour
             case SliderSignifier.HoverOut:
                 break;
             case SliderSignifier.ButtonPress:
-                sliderButton.TriggerButtonEvent(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
+                sliderButton.TriggerButtonEventFromCode(ButtonEvent.Pressed, ButtonColliderResponse.Internal);
                 break;
             case SliderSignifier.ButtonRelease:
-                sliderButton.TriggerButtonEvent(ButtonEvent.Released, ButtonColliderResponse.Internal);
+                sliderButton.TriggerButtonEventFromCode(ButtonEvent.Released, ButtonColliderResponse.Internal);
                 break;
             case SliderSignifier.BeforeRating:
                 break;

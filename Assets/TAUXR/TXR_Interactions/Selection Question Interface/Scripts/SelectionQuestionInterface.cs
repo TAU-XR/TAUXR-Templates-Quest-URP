@@ -201,7 +201,7 @@ public class SelectionQuestionInterface : MonoBehaviour
                 continue;
             }
 
-            button.SetState(ButtonState.Disabled);
+            button.SetState(TXRButtonState.Disabled);
         }
     }
 

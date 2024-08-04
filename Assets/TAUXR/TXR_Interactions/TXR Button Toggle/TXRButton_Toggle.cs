@@ -17,26 +17,25 @@ public class TXRButton_Toggle : TXRButton
     protected override void Init()
     {
         base.Init();
-        _toggleVisuals = visuals.GetComponent<TXRButtonToggleVisuals>();
+        _toggleVisuals = _visuals.GetComponent<TXRButtonToggleVisuals>();
         TriggerToggleEvent(ToggleState, StartingStateResponse);
     }
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
-        Debug.Log(State);
-        if (State != ButtonState.Interactable) return;
+        if (!IsInteractable) return;
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
         actionToInvoke?.Invoke();
         Action internalAction = OnReleasedInternal; // toggle is change only on  release
-        
+
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
     }
 
     public override void TriggerButtonEventFromInput(ButtonEvent buttonEvent)
     {
-        if (State != ButtonState.Interactable) return;
+        if (!IsInteractable) return;
 
         switch (buttonEvent)
         {

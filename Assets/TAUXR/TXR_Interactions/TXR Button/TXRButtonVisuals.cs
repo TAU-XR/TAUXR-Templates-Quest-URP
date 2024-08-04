@@ -2,18 +2,9 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 
-public enum EButtonAnimationState
-{
-    Hide,
-    Active,
-    Disable,
-    Hover,
-    Press
-}
-
 public class TXRButtonVisuals : MonoBehaviour
 {
-    protected EButtonAnimationState _state;
+    protected TXRButtonState _state;
     protected Shapes.Rectangle _backface;
     protected Shapes.Rectangle _stroke;
     protected TextMeshPro _text;
@@ -36,23 +27,23 @@ public class TXRButtonVisuals : MonoBehaviour
         _configurations = references.Configurations;
     }
 
-    public void SetState(EButtonAnimationState state)
+    public void SetState(TXRButtonState state)
     {
         switch (state)
         {
-            case EButtonAnimationState.Active:
+            case TXRButtonState.Active:
                 Active();
                 break;
-            case EButtonAnimationState.Press:
+            case TXRButtonState.Pressed:
                 Press();
                 break;
-            case EButtonAnimationState.Hide:
+            case TXRButtonState.Hidden:
                 Hide();
                 break;
-            case EButtonAnimationState.Disable:
+            case TXRButtonState.Disabled:
                 Disabled();
                 break;
-            case EButtonAnimationState.Hover:
+            case TXRButtonState.Hover:
                 Hover();
                 break;
         }
@@ -98,17 +89,17 @@ public class TXRButtonVisuals : MonoBehaviour
         SetStrokeThickness(_configurations.strokeThicknessActive);
     }
 
-    public void SetColor(EButtonAnimationState state, Color color, float duration = 0.25f)
+    public void SetColor(TXRButtonState state, Color color, float duration = 0.25f)
     {
         switch (state)
         {
-            case EButtonAnimationState.Active:
+            case TXRButtonState.Active:
                 _activeColor = color;
                 break;
-            case EButtonAnimationState.Press:
+            case TXRButtonState.Pressed:
                 _pressedColor = color;
                 break;
-            case EButtonAnimationState.Disable:
+            case TXRButtonState.Disabled:
                 _disabledColor = color;
                 break;
         }
@@ -120,15 +111,15 @@ public class TXRButtonVisuals : MonoBehaviour
         }
     }
 
-    public Color GetColor(EButtonAnimationState state)
+    public Color GetColor(TXRButtonState state)
     {
         switch (state)
         {
-            case EButtonAnimationState.Active:
+            case TXRButtonState.Active:
                 return _activeColor;
-            case EButtonAnimationState.Press:
+            case TXRButtonState.Pressed:
                 return _pressedColor;
-            case EButtonAnimationState.Disable:
+            case TXRButtonState.Disabled:
                 return _disabledColor;
         }
 
