@@ -3,10 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ButtonVisualsConfigurations", menuName = "ScriptableObjects/ButtonVisualsConfigurations", order = 1)]
 public class ButtonVisualsConfigurations : ScriptableObject
 {
-    [Header("General Attributes")]
-    [Tooltip("How bigger stroke should be than backface. Defalut = 0.005f")]
-    public float strokeXYOffset;
-
     [Header("Active Animation")]
     [Tooltip("Gradient of the backface when active")]
     public float backfaceGradientRadiusActive;
@@ -42,6 +38,10 @@ public class ButtonVisualsConfigurations : ScriptableObject
     public float strokeThicknessHover;
     [Tooltip("Z position of the backfade on hover")]
     public float backfadeZPositionHover;
+
+    [Header("Disabled Animation")]
+    public float textOpacityDisabled = .5f;
+    public float strokeThicknessDisabled = .0005f;
 
     [Header("Defaults")]
     public Color activeColor;

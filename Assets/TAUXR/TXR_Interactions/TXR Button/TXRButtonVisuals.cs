@@ -14,12 +14,15 @@ public class TXRButtonVisuals : MonoBehaviour
     protected Sequence _backfaceGradientSequence;
     protected Sequence _backfaceZValueSequence;
     protected Sequence _strokeThicknessSequence;
+    protected Sequence _textOpacitySequence;
 
     protected float _strokeExtraSize = 0.005f;  // the amount of which stroke is bigger than backface
 
     [SerializeField] protected Color _activeColor;
     [SerializeField] protected Color _pressedColor;
     [SerializeField] protected Color _disabledColor;
+    [SerializeField] protected Color _hoverColor;
+    [SerializeField] protected Color _strokeColor;
 
     public virtual void Init(TXRButtonReferences references)
     {
@@ -59,6 +62,7 @@ public class TXRButtonVisuals : MonoBehaviour
         SetBackfaceZ(_configurations.backfaceZPositionActive);
         SetHoverGradient(false);
         SetStrokeThickness(_configurations.strokeThicknessActive);
+        SetTextOpacity(1);
     }
 
     protected virtual void Hide()
@@ -66,6 +70,7 @@ public class TXRButtonVisuals : MonoBehaviour
         SetBackfaceColor(_configurations.backfaceColorHide, _configurations.hideDuration);
         SetHoverGradient(false);
         SetStrokeThickness(0);
+        SetTextOpacity(0);
     }
 
     protected virtual void Hover()
@@ -73,6 +78,7 @@ public class TXRButtonVisuals : MonoBehaviour
         SetHoverGradient(true);
         SetBackfaceZ(_configurations.backfadeZPositionHover);
         SetStrokeThickness(_configurations.strokeThicknessHover);
+        SetTextOpacity(1);
     }
 
     protected virtual void Press()
@@ -81,6 +87,7 @@ public class TXRButtonVisuals : MonoBehaviour
         SetHoverGradient(true);
         SetBackfaceColor(_pressedColor);
         SetStrokeThickness(_configurations.strokeThicknessPress);
+        SetTextOpacity(1);
     }
 
     protected virtual void Disabled()
@@ -88,7 +95,8 @@ public class TXRButtonVisuals : MonoBehaviour
         SetHoverGradient(false);
         SetBackfaceZ(_configurations.backfaceZPositionActive);
         SetBackfaceColor(_disabledColor);
-        SetStrokeThickness(_configurations.strokeThicknessActive);
+        SetStrokeThickness(_configurations.strokeThicknessDisabled);
+        SetTextOpacity(_configurations.textOpacityDisabled);
     }
 
     public void SetColor(TXRButtonState state, Color color, float duration = 0.25f)
@@ -165,5 +173,15 @@ public class TXRButtonVisuals : MonoBehaviour
         _backfaceColorSequence = DOTween.Sequence();
         _backfaceColorSequence.Append(
             DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
+    }
+
+    protected virtual void SetTextOpacity(float targetOpacity, float duration = 0.25f)
+    {
+        Color targetColor = _text.color;
+        targetColor.a = targetOpacity;
+        _textOpacitySequence.Kill();
+        _textOpacitySequence = DOTween.Sequence();
+        _textOpacitySequence.Append(
+            DOVirtual.Color(_text.color, targetColor, duration, t => { _text.color = t; }));
     }
 }
