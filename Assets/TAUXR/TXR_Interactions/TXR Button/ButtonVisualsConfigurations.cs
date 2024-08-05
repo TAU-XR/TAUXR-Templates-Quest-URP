@@ -47,6 +47,7 @@ public class ButtonVisualsConfigurations : ScriptableObject
     public Color activeColor;
     public Color pressColor;
     public Color disableColor;
+    public Color hoverGradientColor;
 
     /*
      * possibly new parameters

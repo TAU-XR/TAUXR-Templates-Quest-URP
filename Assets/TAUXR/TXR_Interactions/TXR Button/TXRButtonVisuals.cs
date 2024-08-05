@@ -9,6 +9,7 @@ public class TXRButtonVisuals : MonoBehaviour
     protected Shapes.Rectangle _stroke;
     protected TextMeshPro _text;
     protected ButtonVisualsConfigurations _configurations;
+    protected TXRButtonReferences _references;
 
     protected Sequence _backfaceColorSequence;
     protected Sequence _backfaceGradientSequence;
@@ -18,11 +19,10 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected float _strokeExtraSize = 0.005f;  // the amount of which stroke is bigger than backface
 
-    [SerializeField] protected Color _activeColor;
-    [SerializeField] protected Color _pressedColor;
-    [SerializeField] protected Color _disabledColor;
-    [SerializeField] protected Color _hoverColor;
-    [SerializeField] protected Color _strokeColor;
+    protected Color _activeColor;
+    protected Color _pressedColor;
+    protected Color _disabledColor;
+    protected Color _hoverColor;
 
     public virtual void Init(TXRButtonReferences references)
     {
@@ -30,6 +30,8 @@ public class TXRButtonVisuals : MonoBehaviour
         _stroke = references.Stroke;
         _text = references.Text;
         _configurations = references.Configurations;
+        _references = references;
+        UpdateColorsFromReferences();
     }
 
     public void SetState(TXRButtonState state)
@@ -56,6 +58,14 @@ public class TXRButtonVisuals : MonoBehaviour
         _state = state;
     }
 
+    public void UpdateColorsFromReferences()
+    {
+        _activeColor = _references.ActiveColor;
+        _pressedColor = _references.PressedColor;
+        _disabledColor = _references.DisabledColor;
+        _hoverColor = _references.HoverGradientColor;
+    }
+
     protected virtual void Active()
     {
         SetBackfaceColor(_activeColor, _configurations.activeDuration);
@@ -67,7 +77,9 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected virtual void Hide()
     {
-        SetBackfaceColor(_configurations.backfaceColorHide, _configurations.hideDuration);
+        Color backFaceHideColor = _backface.FillColorEnd;
+        backFaceHideColor.a = 0;
+        SetBackfaceColor(backFaceHideColor, _configurations.hideDuration);
         SetHoverGradient(false);
         SetStrokeThickness(0);
         SetTextOpacity(0);
@@ -75,6 +87,7 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected virtual void Hover()
     {
+        SetBackfaceColor(_activeColor, _configurations.activeDuration);
         SetHoverGradient(true);
         SetBackfaceZ(_configurations.backfadeZPositionHover);
         SetStrokeThickness(_configurations.strokeThicknessHover);
@@ -99,7 +112,7 @@ public class TXRButtonVisuals : MonoBehaviour
         SetTextOpacity(_configurations.textOpacityDisabled);
     }
 
-    public void SetColor(TXRButtonState state, Color color, float duration = 0.25f)
+    public void SetBackfaceColor(TXRButtonState state, Color color, float duration = 0.25f)
     {
         switch (state)
         {
@@ -146,7 +159,7 @@ public class TXRButtonVisuals : MonoBehaviour
         _backfaceGradientSequence = DOTween.Sequence();
         _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration,
             t => { _backface.FillRadialRadius = t; }));
-        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _configurations.backfaceColorGradientHover, duration,
+        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _hoverColor, duration,
             t => { _backface.FillColorStart = t; }));
     }
 

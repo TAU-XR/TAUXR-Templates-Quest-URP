@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ButtonVisualsRegular
   m_EditorClassIdentifier: 
   backfaceGradientRadiusActive: 0
-  strokeThicknessActive: 0.0005
+  strokeThicknessActive: 0.001
   backfaceZPositionActive: 0
   activeDuration: 0.25
   pressDuration: 0.25
@@ -26,6 +26,9 @@ MonoBehaviour:
   backfaceGradientRadiusHover: 0.02
   strokeThicknessHover: 0.002
   backfadeZPositionHover: 0.0049
+  textOpacityDisabled: 0.3
+  strokeThicknessDisabled: 0.0003
   activeColor: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
   pressColor: {r: 0.33333334, g: 0.50980395, b: 0.9490196, a: 1}
   disableColor: {r: 0.4862745, g: 0.4862745, b: 0.4862745, a: 1}
+  hoverGradientColor: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 1}

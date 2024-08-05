@@ -360,6 +360,10 @@ MonoBehaviour:
   Stroke: {fileID: 6424260006290498348}
   Text: {fileID: 2271232306829363412}
   Configurations: {fileID: 11400000, guid: 110907535a97c6c49b67fe9456e6884d, type: 2}
+  ActiveColor: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
+  PressedColor: {r: 0.33333334, g: 0.50980395, b: 0.9490196, a: 1}
+  DisabledColor: {r: 0.4862745, g: 0.4862745, b: 0.4862745, a: 1}
+  HoverGradientColor: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
 --- !u!114 &768673785525378048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,9 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1b79b5f0a1c0549993d598e2c5e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeColor: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
-  _pressedColor: {r: 0.33333334, g: 0.50980395, b: 0.9490196, a: 1}
-  _disabledColor: {r: 0.4862745, g: 0.4862745, b: 0.4862745, a: 1}
 --- !u!1 &3219294474616693725
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +492,7 @@ MonoBehaviour:
     type: 1
     space: 0
     colorStart: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
-    colorEnd: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
+    colorEnd: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
     linearStart: {x: 0, y: 0, z: 0}
     linearEnd: {x: 0, y: 1, z: 0}
     radialOrigin: {x: 0, y: 0, z: 0}
@@ -576,8 +577,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.008067206, y: -0, z: -0, w: 0.99996746}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1.0707, y: 1.0707, z: 1.0707}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2247018860134158896}
   m_LocalEulerAnglesHint: {x: -0.924, y: 0, z: 0}

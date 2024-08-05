@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -36,11 +37,18 @@ public class TXRButton : MonoBehaviour
 
     protected virtual void Init()
     {
+        References.ActiveColor = References.Backface.FillColorEnd;
         _visuals = References.ButtonVisuals;
         _visuals.Init(References);
 
         _input = References.ButtonInput;
         _input.Init(References);
+        SetState(_state);
+    }
+
+    [Button]
+    public void SetState()
+    {
         SetState(_state);
     }
 
@@ -56,7 +64,7 @@ public class TXRButton : MonoBehaviour
 
     public void SetColor(TXRButtonState state, Color color, float duration = 0.25f)
     {
-        _visuals.SetColor(state, color, duration);
+        _visuals.SetBackfaceColor(state, color, duration);
     }
 
     public Color GetColor(TXRButtonState state)
