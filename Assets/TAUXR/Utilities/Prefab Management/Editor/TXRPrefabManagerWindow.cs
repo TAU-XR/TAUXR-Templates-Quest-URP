@@ -74,22 +74,34 @@ public class TXRPrefabManagerWindow : EditorWindow
                 SerializedProperty prefabImageProperty = prefabProperty.FindPropertyRelative("Image");
 
                 EditorGUILayout.BeginVertical(GUILayout.Width(200));
-                EditorGUILayout.LabelField(prefabNameProperty.stringValue, new GUIStyle(EditorStyles.boldLabel) { fontSize = 16 });
+
+                // Clickable title
+                if (GUILayout.Button(new GUIContent(prefabNameProperty.stringValue), new GUIStyle(EditorStyles.boldLabel) { fontSize = 16, alignment = TextAnchor.MiddleLeft }))
+                {
+                    PingObject((GameObject)prefabObjectProperty.objectReferenceValue);
+                }
+
                 EditorGUILayout.Space();
 
+                // Clickable image
                 Texture2D prefabImage = (Texture2D)prefabImageProperty.objectReferenceValue;
                 if (prefabImage != null)
                 {
-                    GUILayout.Label(prefabImage, GUILayout.Width(100), GUILayout.Height(100));
+                    if (GUILayout.Button(prefabImage, GUILayout.Width(100), GUILayout.Height(100)))
+                    {
+                        SpawnPrefab((GameObject)prefabObjectProperty.objectReferenceValue);
+                    }
                 }
-
-                if (GUILayout.Button("Spawn", GUILayout.Width(100)))
+                else
                 {
-                    SpawnPrefab((GameObject)prefabObjectProperty.objectReferenceValue);
+                    if (GUILayout.Button("Spawn", GUILayout.Width(100)))
+                    {
+                        SpawnPrefab((GameObject)prefabObjectProperty.objectReferenceValue);
+                    }
                 }
 
                 EditorGUILayout.EndVertical();
-                EditorGUILayout.Space(20); // Add space between prefabs
+                EditorGUILayout.Space(5); // Add space between prefabs
 
                 if (i % 2 == 1)
                 {
@@ -104,6 +116,14 @@ public class TXRPrefabManagerWindow : EditorWindow
         }
 
         serializedPrefabManager.ApplyModifiedProperties();
+    }
+
+    private void PingObject(Object obj)
+    {
+        if (obj != null)
+        {
+            EditorGUIUtility.PingObject(obj);
+        }
     }
 
     private void CreatePrefabManager()

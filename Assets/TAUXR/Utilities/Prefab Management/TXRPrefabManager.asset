@@ -16,11 +16,11 @@ MonoBehaviour:
   - Prefab: {fileID: 5244916601612165859, guid: 16ee61d410c83e549b07a5234f3e8fab,
       type: 3}
     Name: Text Display
-    Image: {fileID: 0}
+    Image: {fileID: 2800000, guid: 5a1ca8bb662a6de449c5f1b135481e3c, type: 3}
   - Prefab: {fileID: 2033106044736101866, guid: b6872ffe2cf970b468589d957b4c24f3,
       type: 3}
     Name: Button
-    Image: {fileID: 0}
+    Image: {fileID: 2800000, guid: 0f7dce7b61fbea042ae5d89edaf048cb, type: 3}
   - Prefab: {fileID: 2051208840555239303, guid: 32c09fe936666ed42bb3153aef6a6116,
       type: 3}
     Name: Toggle Button
