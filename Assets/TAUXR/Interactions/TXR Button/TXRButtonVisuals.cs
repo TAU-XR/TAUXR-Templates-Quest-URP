@@ -36,6 +36,7 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void SetState(TXRButtonState state)
     {
+        print("SET STATE: " + state);
         switch (state)
         {
             case TXRButtonState.Active:
@@ -87,7 +88,7 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected virtual void Hover()
     {
-        SetBackfaceColor(_activeColor, _configurations.activeDuration);
+       // SetBackfaceColor(_activeColor, _configurations.activeDuration);
         SetHoverGradient(true);
         SetBackfaceZ(_configurations.backfadeZPositionHover);
         SetStrokeThickness(_configurations.strokeThicknessHover);

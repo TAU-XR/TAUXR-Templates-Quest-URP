@@ -134,8 +134,8 @@ public class TXRButton : MonoBehaviour
             case ButtonColliderResponse.None:
                 break;
             case ButtonColliderResponse.Both:
-                externalEvent.Invoke();
                 internalAction();
+                externalEvent.Invoke();
                 break;
             case ButtonColliderResponse.Internal:
                 internalAction();
@@ -148,6 +148,7 @@ public class TXRButton : MonoBehaviour
 
     protected virtual void OnHoverEnterInternal()
     {
+        _visuals.SetBackfaceColor(TXRButtonState.Hover, References.ActiveColor);
         _visuals.SetState(TXRButtonState.Hover);
     }
 
