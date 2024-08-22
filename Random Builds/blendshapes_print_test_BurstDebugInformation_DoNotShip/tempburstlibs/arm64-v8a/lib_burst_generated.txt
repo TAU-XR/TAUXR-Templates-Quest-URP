@@ -1,0 +1,132 @@
+Library: C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
+--platform=Android
+--backend=burst-llvm-16
+--target=ARMV8A_AARCH64
+--global-safety-checks-setting=Off
+--disable-safety-checks
+--meta-data-generation=False
+--dump=Function
+--float-precision=Standard
+--target-framework=NetFramework
+--float-mode=Fast
+--assembly-defines=Assembly-CSharp-firstpass;
+--assembly-defines=Assembly-CSharp;
+--assembly-defines=DOTween;
+--assembly-defines=Meta.Movement;
+--assembly-defines=Meta.XR.BuildingBlocks;
+--assembly-defines=Mono.Security;
+--assembly-defines=mscorlib;
+--assembly-defines=NaughtyAttributes.Core;
+--assembly-defines=NaughtyAttributes.Test;
+--assembly-defines=Newtonsoft.Json;
+--assembly-defines=Oculus.Interaction;
+--assembly-defines=Oculus.Interaction.OVR;
+--assembly-defines=Oculus.VR;
+--assembly-defines=ShapesRuntime;
+--assembly-defines=ShapesSamples;
+--assembly-defines=System.Configuration;
+--assembly-defines=System.Core;
+--assembly-defines=System.Data;
+--assembly-defines=System;
+--assembly-defines=System.Numerics;
+--assembly-defines=System.Runtime.Serialization;
+--assembly-defines=System.Xml;
+--assembly-defines=System.Xml.Linq;
+--assembly-defines=UniTask.Addressables;
+--assembly-defines=UniTask;
+--assembly-defines=UniTask.DOTween;
+--assembly-defines=UniTask.Linq;
+--assembly-defines=UniTask.TextMeshPro;
+--assembly-defines=Unity.Animation.Rigging;
+--assembly-defines=Unity.Burst;
+--assembly-defines=Unity.Mathematics;
+--assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
+--assembly-defines=Unity.RenderPipelines.Core.Runtime;
+--assembly-defines=Unity.RenderPipelines.Universal.Runtime;
+--assembly-defines=Unity.TextMeshPro;
+--assembly-defines=Unity.VisualScripting.Core;
+--assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.XR.Oculus;
+--assembly-defines=UnityEngine;
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Temp\Burst
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Library\Burst
+--output=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
+--pdb-search-paths=Temp/ManagedSymbols/
+
+--method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.ZBinningJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.ZBinningJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--77fc393cb521ac129b1392d4eb94d29a
+--method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.TileRangeExpansionJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.TileRangeExpansionJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--adceb2156d08d59afc9749dc2521fd2b
+--method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.TilingJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.TilingJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--a6f5259e22ed809ef3937424c4bd686d
+--platform=Android
+--backend=burst-llvm-16
+--target=ARMV8A_AARCH64
+--global-safety-checks-setting=Off
+--meta-data-generation=False
+--dump=Function
+--float-precision=Standard
+--target-framework=NetFramework
+--assembly-defines=Assembly-CSharp-firstpass;
+--assembly-defines=Assembly-CSharp;
+--assembly-defines=DOTween;
+--assembly-defines=Meta.Movement;
+--assembly-defines=Meta.XR.BuildingBlocks;
+--assembly-defines=Mono.Security;
+--assembly-defines=mscorlib;
+--assembly-defines=NaughtyAttributes.Core;
+--assembly-defines=NaughtyAttributes.Test;
+--assembly-defines=Newtonsoft.Json;
+--assembly-defines=Oculus.Interaction;
+--assembly-defines=Oculus.Interaction.OVR;
+--assembly-defines=Oculus.VR;
+--assembly-defines=ShapesRuntime;
+--assembly-defines=ShapesSamples;
+--assembly-defines=System.Configuration;
+--assembly-defines=System.Core;
+--assembly-defines=System.Data;
+--assembly-defines=System;
+--assembly-defines=System.Numerics;
+--assembly-defines=System.Runtime.Serialization;
+--assembly-defines=System.Xml;
+--assembly-defines=System.Xml.Linq;
+--assembly-defines=UniTask.Addressables;
+--assembly-defines=UniTask;
+--assembly-defines=UniTask.DOTween;
+--assembly-defines=UniTask.Linq;
+--assembly-defines=UniTask.TextMeshPro;
+--assembly-defines=Unity.Animation.Rigging;
+--assembly-defines=Unity.Burst;
+--assembly-defines=Unity.Mathematics;
+--assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
+--assembly-defines=Unity.RenderPipelines.Core.Runtime;
+--assembly-defines=Unity.RenderPipelines.Universal.Runtime;
+--assembly-defines=Unity.TextMeshPro;
+--assembly-defines=Unity.VisualScripting.Core;
+--assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.XR.Oculus;
+--assembly-defines=UnityEngine;
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Temp\Burst
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Library\Burst
+--output=C:\Users\User\Documents\Unity Projects\TAUXR-Updated-Template\TAUXR-Templates-Quest-URP\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
+--pdb-search-paths=Temp/ManagedSymbols/
+
+--method=UnityEngine.Jobs.IJobParallelForTransformExtensions+TransformParallelForLoopStruct`1[[Oculus.Movement.Utils.JobCommons+GetPosesJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.Utils.JobCommons+GetPosesJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--fb4ce24583d11b00eeebb7c28a079cd6
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.PlaybackAnimationJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.PlaybackAnimationJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--e627b56d96ba5d0ef4f11c5a97bcad72
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.CopyPoseJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.CopyPoseJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--1a3696a1fe7e172b5c5e2a236d90bce7
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.RetargetingAnimationJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.RetargetingAnimationJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--a641ae773e1005377b0c194a3518292c
+--method=UnityEngine.Jobs.IJobParallelForTransformExtensions+TransformParallelForLoopStruct`1[[Oculus.Movement.Utils.JobCommons+WritePosesToTransformsJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.Utils.JobCommons+WritePosesToTransformsJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--ef9735d9a9f8703ca06b1c0dee54fc7c
+--method=UnityEngine.Jobs.IJobParallelForTransformExtensions+TransformParallelForLoopStruct`1[[UnityEngine.Rendering.Universal.DecalUpdateCachedSystem+UpdateTransformsJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.DecalUpdateCachedSystem+UpdateTransformsJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--670478f3fb3f285eeace534fbe61a03e
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.FullBodyDeformationJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.FullBodyDeformationJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--26b99fa37c89f6603fa57968e5cf881b
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.GroundingJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.GroundingJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--23c4f86ec4337c6593ad1f4187c23757
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[UnityEngine.Animations.Rigging.RigSyncSceneToStreamJob, Unity.Animation.Rigging, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Animations.Rigging.RigSyncSceneToStreamJob&, Unity.Animation.Rigging, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--ace2aae5a27941878a3e799c113aa8ca
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.Deprecated.DeformationJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.Deprecated.DeformationJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--8500d8f572cf108cfdb0aa6c5d694063
+--method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.ReflectionProbeMinMaxZJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.ReflectionProbeMinMaxZJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--fbc079948c97a98cd097eb9cc996cc4a
+--method=UnityEngine.Jobs.IJobParallelForTransformExtensions+TransformParallelForLoopStruct`1[[Oculus.Movement.AnimationRigging.RetargetingProcessorCorrectBones+CorrectBonesJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.RetargetingProcessorCorrectBones+CorrectBonesJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--c45da7afd1bd5b8e9612dcce492b7600
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.HipPinningJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.HipPinningJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--dcfdb015f02cd99042c3e2f63c5f48a2
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.TwistDistributionJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.TwistDistributionJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--23ac5e5cdaeb00a5036136ef448fa0b9
+--method=Unity.Jobs.IJobExtensions+JobStruct`1[[UnityEngine.Rendering.Universal.DecalCreateDrawCallSystem+DrawCallJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.DecalCreateDrawCallSystem+DrawCallJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--aa309157da5950aa53ed6075709e6e40
+--method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.LightMinMaxZJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.LightMinMaxZJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--2230a143748f5ecbc3a89a75bf0ad747
+--method=UnityEngine.Animations.ProcessAnimationJobStruct`1[[Oculus.Movement.AnimationRigging.CaptureAnimationJob, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Oculus.Movement.AnimationRigging.CaptureAnimationJob&, Meta.Movement, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--23b8a9a169379ae619618867a8283688
+
