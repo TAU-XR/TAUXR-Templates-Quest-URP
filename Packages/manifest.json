@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.meta.movement": "file:C:/Users/User/Documents/Unity Projects/Unity-Movement",
     "com.meta.xr.sdk.core": "60.0.0",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.2.0",
