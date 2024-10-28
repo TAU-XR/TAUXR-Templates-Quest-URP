@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -168,6 +169,25 @@ public class TXRButton : MonoBehaviour
         PlaySound(References.SoundRelease);
         _visuals.SetState(TXRButtonState.Active);
     }
+
+    #region Noa's editions
+
+    public void SetText(String text)
+    {
+        References.Text.text = text;
+    }
+
+    private TaskCompletionSource<bool> _buttonPressedTcs;
+    public Task WaitForButtonPress()
+    {
+        _buttonPressedTcs = new TaskCompletionSource<bool>();
+        return _buttonPressedTcs.Task;
+    }
+
+    #endregion
+
+
+
 }
 
 public enum ButtonColliderResponse
