@@ -6,17 +6,21 @@ using UnityEngine;
 
 public class SelectionQuestionSubmitButton : MonoBehaviour
 {
+    public TXRButton Button => _button;
     private TXRButton _button;
 
     public Action AnswerSubmitted;
 
-    private void Awake()
+    public void Init()
     {
         _button = GetComponent<TXRButton>();
+        _button.Init();
+        _button.Pressed.AddListener(() => AnswerSubmitted?.Invoke());
     }
 
-    private void Start()
+    public void SetHidden(bool hidden)
     {
-        _button.Pressed.AddListener(() => AnswerSubmitted?.Invoke());
+        if (hidden) _button.SetState(TXRButtonState.Hidden);
+        else _button.SetState(TXRButtonState.Active);
     }
 }

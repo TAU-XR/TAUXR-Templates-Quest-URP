@@ -7,6 +7,7 @@ public class TextDisplay : MonoBehaviour
 {
     public TextDataScriptableObject TextsData => _textsData;
 
+    [SerializeField] private bool _shouldInitOnStart = false;
     [SerializeField] private TextDisplayReferences _textDisplayReferences;
     [SerializeField] private ETextDisplayState _startingState;
     [TextArea(1, 10)] [SerializeField] private string _text;
@@ -14,14 +15,23 @@ public class TextDisplay : MonoBehaviour
     [SerializeField] private string _textId;
     [SerializeField] private Vector2 _backgroundPadding = new(0.3f, 0.1f);
     [Expandable] [SerializeField] private TextDataScriptableObject _textsData;
-
+    
     private void Awake()
     {
+        if (!_shouldInitOnStart) return;
         _textDisplayReferences.TextDisplayAnimator.Init(_textDisplayReferences);
+    }
+
+    public void Init()
+    {
+        _textDisplayReferences.TextDisplayAnimator.Init(_textDisplayReferences);
+        SetStartingState();
     }
 
     private void Start()
     {
+        if (!_shouldInitOnStart) return;
+
         SetScale(_textAreaSize, false);
         SetText(_text);
         SetStartingState();

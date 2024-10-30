@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CorrectAnswerButtonConfiguration
   m_EditorClassIdentifier: 
   TimeFromSubmitToDisable: 1
-  AnswerColorAfterSubmission: {r: 0.3833354, g: 0.8584906, b: 0.22272164, a: 1}
+  AnswerColorAfterSubmission: {r: 0.70980394, g: 0.99215686, b: 0.6117647, a: 1}

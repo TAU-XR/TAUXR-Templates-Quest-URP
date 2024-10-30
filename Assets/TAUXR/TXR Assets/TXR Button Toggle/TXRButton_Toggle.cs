@@ -5,16 +5,15 @@ using UnityEngine.Events;
 
 public class TXRButton_Toggle : TXRButton
 {
-    public Action ButtonSelected;
-    public Action ButtonDeselected;
+    public Action ToggledOn;
+    public Action ToggledOff;
     public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
     public ButtonColliderResponse StartingStateResponse;
     private TXRButtonToggleVisuals _toggleVisuals;
 
-
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
         _toggleVisuals = _visuals.GetComponent<TXRButtonToggleVisuals>();
@@ -26,7 +25,7 @@ public class TXRButton_Toggle : TXRButton
         if (!IsInteractable) return;
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
-        Action actionToInvoke = state == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
+        Action actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
         actionToInvoke?.Invoke();
         Action internalAction = OnReleasedInternal; // toggle is change only on  release
 
@@ -56,7 +55,7 @@ public class TXRButton_Toggle : TXRButton
             case ButtonEvent.Released:
                 UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
                 toggleEvent.Invoke();
-                Action actionToInvoke = ToggleState == TXRButtonToggleState.On ? ButtonSelected : ButtonDeselected;
+                Action actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
                 actionToInvoke?.Invoke();
                 DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
                 break;

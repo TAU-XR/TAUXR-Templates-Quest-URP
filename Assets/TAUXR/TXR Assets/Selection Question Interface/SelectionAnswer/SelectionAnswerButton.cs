@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -18,21 +16,21 @@ public class SelectionAnswerButton : MonoBehaviour
     private SelectionAnswerButtonConfiguration _buttonConfiguration;
     private Color _startingActiveColor;
 
-    private void Awake()
+    public void Init()
     {
         _button = GetComponent<TXRButton_Toggle>();
+        _button.Init();
         _startingActiveColor = _button.GetColor(TXRButtonState.Active);
         _text = GetComponentInChildren<TextMeshPro>();
     }
-
     public void SetNewAnswer(SelectionAnswerData selectionAnswerData, SelectionAnswerButtonConfiguration buttonConfiguration)
     {
         _selectionAnswerData = selectionAnswerData;
         _text.text = _selectionAnswerData.Text;
         _buttonConfiguration = buttonConfiguration;
         _button.SetColor(TXRButtonState.Active, _startingActiveColor);
-        _button.SetState(TXRButtonState.Active);
         _button.SetInteractable(true);
+        _button.SetState(TXRButtonState.Active);
     }
 
     public async UniTask OnAnswerSubmitted()
@@ -47,5 +45,11 @@ public class SelectionAnswerButton : MonoBehaviour
         {
             _button.SetState(TXRButtonState.Disabled);
         }
+    }
+
+    public void SetHidden(bool hidden)
+    {
+        if (hidden) _button.SetState(TXRButtonState.Hidden);
+        else _button.SetState(TXRButtonState.Active);
     }
 }

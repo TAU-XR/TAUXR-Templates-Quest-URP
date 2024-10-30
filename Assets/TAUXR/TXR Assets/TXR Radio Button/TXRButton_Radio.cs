@@ -8,7 +8,7 @@ public class TXRButton_Radio : TXRButton_Toggle
     public Action ButtonSelected;
     public Action ButtonDeselected;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
         ToggleOn.AddListener(OnButtonSelected);

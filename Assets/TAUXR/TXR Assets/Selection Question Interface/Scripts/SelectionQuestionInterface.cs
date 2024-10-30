@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class SelectionQuestionInterface : MonoBehaviour
+public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 {
     public Action<SelectionAnswerData> AnswerSubmitted;
 
@@ -21,11 +18,18 @@ public class SelectionQuestionInterface : MonoBehaviour
 
 
     private bool _finishedAnswering = false;
+    private bool _isDone = false;
     private SelectionQuestionData _questionData;
 
     private TXRRadioButtonGroup _selectionAnswersRadioButtonGroup;
 
     private int _numberOfTriesInCurrentQuestion;
+
+    private bool _shouldDisplayText = true;
+    public void SetWithOrWithoutText(bool shouldDisplayText)
+    {
+        _shouldDisplayText = shouldDisplayText;
+    }
 
     private void Awake()
     {
@@ -40,15 +44,33 @@ public class SelectionQuestionInterface : MonoBehaviour
     private void OnDisable()
     {
         _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
+
     }
 
+    [Button]
+    public void Init()
+    {
+        _selectionAnswersRadioButtonGroup = GetComponent<TXRRadioButtonGroup>();
+        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.Init();
+        _references.QuestionTextDisplay.Init();
+        _references.AnswerInfo.Init();
+        _references.SubmitButton.Init();
+    }
 
+    [Button]
     public void Show()
     {
-        // _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
-        _references.Graphics.SetActive(true);
+        _references.SubmitButton.SetHidden(false);
+        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.SetHidden(false);
+
+        if (_shouldDisplayText)
+            _references.QuestionTextDisplay.Show();
+
+        _selectionAnswersRadioButtonGroup.OnAnswerSelected += OnAnswerSelected;
+        _selectionAnswersRadioButtonGroup.OnAnswerDeselected += OnAnswerDeselected;
     }
 
+    [Button]
     public void Hide()
     {
         if (_references.AnswerInfo != null)
@@ -56,9 +78,18 @@ public class SelectionQuestionInterface : MonoBehaviour
             _references.AnswerInfo.Hide();
         }
 
-        // _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
-        _references.Graphics.SetActive(false);
+        _references.SubmitButton.SetHidden(true);
+        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.SetHidden(true);
+        _references.AnswerInfo?.Hide();
+
+        if (_shouldDisplayText)
+            _references.QuestionTextDisplay.Hide();
+
+        _selectionAnswersRadioButtonGroup.OnAnswerSelected -= OnAnswerSelected;
+        _selectionAnswersRadioButtonGroup.OnAnswerDeselected -= OnAnswerDeselected;
     }
+
+    public bool IsDone() => _isDone;
 
     private void Start()
     {
@@ -73,7 +104,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         Show();
         InitializeWithNewQuestion(selectionQuestionData);
-
+        _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
         await UniTask.WaitUntil(() => _finishedAnswering, cancellationToken: cancellationToken);
     }
 
@@ -96,6 +127,7 @@ public class SelectionQuestionInterface : MonoBehaviour
             SelectionAnswerButton selectionAnswerButton =
                 _selectionAnswersRadioButtonGroup.Buttons[answerIndex].GetComponent<SelectionAnswerButton>();
             bool answerIsActive = answerIndex < selectionAnswersData.Length;
+            //selectionAnswerButton.SetHidden(!answerIsActive);
             selectionAnswerButton.gameObject.SetActive(answerIsActive);
             if (!answerIsActive) continue;
             bool isCorrectAnswer = selectionAnswersData[answerIndex].IsCorrect;
@@ -104,58 +136,6 @@ public class SelectionQuestionInterface : MonoBehaviour
             selectionAnswerButton.SetNewAnswer(selectionAnswersData[answerIndex], buttonConfiguration);
         }
     }
-
-
-    /*  private void OnAnswerSubmitted()
-      {
-          if (_selectionAnswersRadioButtonGroup.SelectedButton == null)
-          {
-              return;
-          }
-  
-          // cr: get answer on event
-          SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
-          _finishedAnswering = selectedAnswer.SelectionAnswerData.IsCorrect;
-  
-  
-          bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 2;
-          bool outOfTries = _numberOfTriesInCurrentQuestion - 1 == _questionData.MaxNumberOfTries;
-          bool shouldSubmitCorrectAnswer = (outOfTries || noAnswersLeft) && !_finishedAnswering;
-  
-          SubmitSelectedAnswer(showAnswerInfo: !shouldSubmitCorrectAnswer);
-  
-          if (!shouldSubmitCorrectAnswer) return;
-          _finishedAnswering = true;
-          SubmitCorrectAnswer().Forget(); // cr: confusing name, would implement this inside this method.
-      }
-  
-      private async UniTask SubmitCorrectAnswer()
-      {
-          await UniTask.Delay(TimeSpan.FromSeconds(_wrongAnswerButtonConfiguration.TimeFromSubmitToDisable));
-          _selectionAnswersRadioButtonGroup.SelectButton(GetCorrectAnswer().GetComponent<TXRButton_Toggle>());
-          SubmitSelectedAnswer();
-      }
-  
-      private void SubmitSelectedAnswer(bool showAnswerInfo = true)
-      {
-          // cr: get answer on method parameter
-          SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
-          AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
-          _numberOfTriesInCurrentQuestion++;
-          if (showAnswerInfo)
-          {
-              ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
-          }
-  
-          _selectionAnswersRadioButtonGroup.Reset();
-  
-          selectedAnswer.OnAnswerSubmitted().Forget();
-  
-          if (_finishedAnswering)
-          {
-              DisableWrongAnswers();
-          }
-      }*/
 
     private void OnAnswerSubmitted()
     {
@@ -177,6 +157,8 @@ public class SelectionQuestionInterface : MonoBehaviour
         if (selectedAnswer.SelectionAnswerData.IsCorrect)
         {
             OnCorrectAnswerSubmitted(selectedAnswer);
+            await UniTask.Delay(2000);
+            _finishedAnswering = true;
         }
         else
         {
@@ -189,13 +171,14 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
         DisableWrongAnswers();
-        _finishedAnswering = true;
+        _references.CorrectAnswerAudio.Play();
     }
 
     private void DisableWrongAnswers()
     {
         foreach (TXRButton_Toggle button in _selectionAnswersRadioButtonGroup.Buttons)
         {
+            if (!button.gameObject.activeSelf) continue;
             if (button.GetComponent<SelectionAnswerButton>().SelectionAnswerData.IsCorrect)
             {
                 continue;
@@ -209,7 +192,7 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 1;
         bool outOfTries = _numberOfTriesInCurrentQuestion == _questionData.MaxNumberOfTries;
-        Debug.Log(_numberOfTriesInCurrentQuestion);
+        _references.WrongAnswerAudio.Play();
         if (outOfTries || noAnswersLeft)
         {
             await ShowCorrectAnswer();
@@ -227,12 +210,14 @@ public class SelectionQuestionInterface : MonoBehaviour
         SelectionAnswerButton correctAnswer = GetCorrectAnswer();
         correctAnswer.OnAnswerSubmitted().Forget();
         ShowAnswerInfo(correctAnswer.SelectionAnswerData.AnswerInfo);
+        await UniTask.Delay(2000);
         _finishedAnswering = true;
     }
 
 
     private void ShowAnswerInfo(string selectedAnswerInfo)
     {
+        if (selectedAnswerInfo == "") return;
         _references.AnswerInfo.Show();
         _references.AnswerInfo.SetText(selectedAnswerInfo);
     }
@@ -241,5 +226,15 @@ public class SelectionQuestionInterface : MonoBehaviour
     {
         return _references.SelectionAnswers.ToList()
             .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
+    }
+
+    private void OnAnswerSelected()
+    {
+        _references.SubmitButton.Button.SetState(TXRButtonState.Active);
+    }
+
+    private void OnAnswerDeselected()
+    {
+        _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
     }
 }

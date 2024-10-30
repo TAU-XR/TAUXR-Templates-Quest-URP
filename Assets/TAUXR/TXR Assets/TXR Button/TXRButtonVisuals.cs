@@ -88,7 +88,6 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected virtual void Hover()
     {
-       // SetBackfaceColor(_activeColor, _configurations.activeDuration);
         SetHoverGradient(true);
         SetBackfaceZ(_configurations.backfadeZPositionHover);
         SetStrokeThickness(_configurations.strokeThicknessHover);

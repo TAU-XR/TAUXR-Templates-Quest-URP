@@ -35,7 +35,7 @@ public class TXRButton : MonoBehaviour
         Init();
     }
 
-    protected virtual void Init()
+    public virtual void Init()
     {
         References.ActiveColor = References.Backface.FillColorEnd;
         _visuals = References.ButtonVisuals;

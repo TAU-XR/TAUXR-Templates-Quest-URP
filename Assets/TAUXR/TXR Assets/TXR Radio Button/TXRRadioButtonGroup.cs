@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TXRRadioButtonGroup : MonoBehaviour
@@ -8,6 +9,21 @@ public class TXRRadioButtonGroup : MonoBehaviour
     public TXRButton_Toggle SelectedButton => _selectedButton;
     private TXRButton_Toggle _selectedButton;
 
+    public Action OnAnswerSelected;
+    public Action OnAnswerDeselected;
+    private bool _didTriggerOnNoAnswerSelected = true;
+
+    private void Update()
+    {
+        if (_selectedButton == null)
+        {
+            if (!_didTriggerOnNoAnswerSelected)
+            {
+                OnAnswerDeselected?.Invoke();
+                _didTriggerOnNoAnswerSelected = true;
+            }
+        }
+    }
     public void Reset()
     {
         if (_selectedButton != null)
@@ -31,8 +47,8 @@ public class TXRRadioButtonGroup : MonoBehaviour
     {
         foreach (TXRButton_Toggle button in _buttons)
         {
-            button.ButtonSelected += () => OnButtonSelected(button);
-            button.ButtonDeselected += () => OnButtonDeselected(button);
+            button.ToggledOn += () => OnButtonToggleOn(button);
+            button.ToggledOff += () => OnButtonToggleOff(button);
         }
     }
 
@@ -40,12 +56,12 @@ public class TXRRadioButtonGroup : MonoBehaviour
     {
         foreach (TXRButton_Toggle button in _buttons)
         {
-            button.ButtonSelected -= () => OnButtonSelected(button);
-            button.ButtonDeselected -= () => OnButtonDeselected(button);
+            button.ToggledOn -= () => OnButtonToggleOn(button);
+            button.ToggledOff -= () => OnButtonToggleOff(button);
         }
     }
 
-    private void OnButtonSelected(TXRButton_Toggle button)
+    private void OnButtonToggleOn(TXRButton_Toggle button)
     {
         if (_selectedButton == button)
         {
@@ -56,11 +72,16 @@ public class TXRRadioButtonGroup : MonoBehaviour
         {
             _selectedButton.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
         }
+        else
+        {
+            OnAnswerSelected?.Invoke();
+        }
 
         _selectedButton = button;
+        _didTriggerOnNoAnswerSelected = false;
     }
 
-    private void OnButtonDeselected(TXRButton_Toggle button)
+    private void OnButtonToggleOff(TXRButton_Toggle button)
     {
         if (_selectedButton == button)
         {

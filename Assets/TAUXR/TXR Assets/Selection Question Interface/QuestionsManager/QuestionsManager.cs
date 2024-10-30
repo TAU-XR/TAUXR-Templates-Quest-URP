@@ -16,12 +16,13 @@ public class QuestionsManager : MonoBehaviour
     [SerializeField] private float _timeBetweenQuestions = 5;
     [SerializeField] [HideInInspector] private int _startingQuestionIndex = 0;
     [SerializeField] [ReadOnly] private int _currentQuestionIndex;
-    private SelectionQuestionInterface _selectionQuestionInterface;
+    private SelectionQuestionInterface _selectionQI;
 
     private void Start()
     {
         _currentQuestionIndex = _startingQuestionIndex;
-        _selectionQuestionInterface = GetComponent<SelectionQuestionInterface>();
+        _selectionQI = GetComponent<SelectionQuestionInterface>();
+        _selectionQI.Init();
         RunExamFromCurrentQuestion().Forget();
     }
 
@@ -30,7 +31,7 @@ public class QuestionsManager : MonoBehaviour
         _cts = new CancellationTokenSource();
         while (_currentQuestionIndex < _selectionQuestions.Length)
         {
-            await _selectionQuestionInterface.ShowQuestionAndWaitForFinalSubmission(_selectionQuestions[_currentQuestionIndex], _cts.Token);
+            await _selectionQI.ShowQuestionAndWaitForFinalSubmission(_selectionQuestions[_currentQuestionIndex], _cts.Token);
             _currentQuestionIndex++;
             await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenQuestions), cancellationToken: _cts.Token);
         }
