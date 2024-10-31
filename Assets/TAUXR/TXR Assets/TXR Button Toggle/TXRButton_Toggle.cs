@@ -22,7 +22,7 @@ public class TXRButton_Toggle : TXRButton
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
-        if (!IsInteractable) return;
+        //if (!IsInteractable) return;  why do we need this here? if it was triggered then trigger.
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
         Action actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;

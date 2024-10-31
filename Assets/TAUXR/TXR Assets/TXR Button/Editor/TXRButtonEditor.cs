@@ -17,7 +17,7 @@ public class TXRButtonEditor : Editor
 
     bool showAdvancedConfiguration = false;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         stateProperty = serializedObject.FindProperty("_state");
         pressedEventProperty = serializedObject.FindProperty("Pressed");

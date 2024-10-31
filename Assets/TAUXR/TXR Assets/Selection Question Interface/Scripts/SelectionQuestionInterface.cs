@@ -12,10 +12,10 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     [SerializeField] private SelectionQuestionInterfaceReferences _references;
 
     // remove scriptableObject. use time as const and color as serialized fields.
+
     [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
     [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
     [SerializeField] private bool _startHidden;
-
 
     private bool _finishedAnswering = false;
     private bool _isDone = false;
@@ -35,6 +35,13 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     {
         _selectionAnswersRadioButtonGroup = GetComponent<TXRRadioButtonGroup>();
     }
+    private void Start()
+    {
+        if (_startHidden)
+        {
+            Hide();
+        }
+    }
 
     private void OnEnable()
     {
@@ -44,7 +51,6 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     private void OnDisable()
     {
         _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
-
     }
 
     [Button]
@@ -90,14 +96,6 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     }
 
     public bool IsDone() => _isDone;
-
-    private void Start()
-    {
-        if (_startHidden)
-        {
-            Hide();
-        }
-    }
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData,
         CancellationToken cancellationToken = default)

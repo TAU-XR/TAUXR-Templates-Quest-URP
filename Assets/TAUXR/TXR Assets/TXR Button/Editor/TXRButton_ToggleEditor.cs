@@ -1,29 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 [CustomEditor(typeof(TXRButton_Toggle))]
-public class TXRButton_ToggleEditor : Editor
+public class TXRButton_ToggleEditor : TXRButtonEditor
 {
+    SerializedProperty toggleOnEventProperty;
+    SerializedProperty toggleOffEventProperty;
+    SerializedProperty toggleStateProperty;
+    SerializedProperty startingStateResponseProperty;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        toggleOnEventProperty = serializedObject.FindProperty("ToggleOn");
+        toggleOffEventProperty = serializedObject.FindProperty("ToggleOff");
+        toggleStateProperty = serializedObject.FindProperty("ToggleState");
+        startingStateResponseProperty = serializedObject.FindProperty("StartingStateResponse");
+    }
+
     public override void OnInspectorGUI()
     {
+        // Draw the base inspector GUI (TXRButton)
         base.OnInspectorGUI();
-        TXRButton_Toggle button = (TXRButton_Toggle)target;
 
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Toggle On"))
-        {
-            button.TriggerToggleEvent(TXRButtonToggleState.On, ButtonColliderResponse.Both);
-            // button.TriggerButtonEventFromInput(ButtonEvent.Pressed);
-        }
+        // Draw additional properties for TXRButton_Toggle
+        EditorGUILayout.PropertyField(toggleStateProperty, new GUIContent("Toggle State"));
+        EditorGUILayout.PropertyField(startingStateResponseProperty, new GUIContent("Starting State Response"));
+        EditorGUILayout.PropertyField(toggleOnEventProperty, new GUIContent("Toggle On Event"));
+        EditorGUILayout.PropertyField(toggleOffEventProperty, new GUIContent("Toggle Off Event"));
 
-        if (GUILayout.Button("Toggle Off"))
-        {
-            button.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Both);
-            // button.TriggerButtonEventFromInput(ButtonEvent.Released);
-        }
-
-        EditorGUILayout.EndHorizontal();
+        // Apply changes to the serialized object
+        serializedObject.ApplyModifiedProperties();
     }
 }
