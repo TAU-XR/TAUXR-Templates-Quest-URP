@@ -466,10 +466,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_FocalLength
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179251115253, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9179752179258594023, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
       propertyPath: usePerEyeCameras
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
+        type: 3}
+      propertyPath: isInsightPassthroughEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9179752179258594029, guid: 967af0223632a1649afa8f1a4520fc54,
         type: 3}
@@ -840,18 +880,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16ee61d410c83e549b07a5234f3e8fab, type: 3}
---- !u!114 &641428431 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3371585176127677710, guid: 16ee61d410c83e549b07a5234f3e8fab,
-    type: 3}
-  m_PrefabInstance: {fileID: 641428430}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a883345f12dab145b92e7ef9667dcaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &641428432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2555320034999473363, guid: 16ee61d410c83e549b07a5234f3e8fab,
@@ -1290,8 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68269c2cf18fb1e48b71a191db2d897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textDisplay: {fileID: 641428431}
-  DebugConsoleUi: 0
 --- !u!1 &1229239640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +2176,7 @@ PrefabInstance:
     - target: {fileID: 3919909416128606375, guid: ede7975256ffcb546ab9f3563180f431,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919909416128606375, guid: ede7975256ffcb546ab9f3563180f431,
         type: 3}
