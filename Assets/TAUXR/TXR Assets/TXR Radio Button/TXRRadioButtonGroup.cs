@@ -6,6 +6,7 @@ public class TXRRadioButtonGroup : MonoBehaviour
     public TXRButton_Toggle[] Buttons => _buttons;
     [SerializeField] private TXRButton_Toggle[] _buttons;
 
+    public int NumberOfButtons => _buttons.Length;
     public TXRButton_Toggle SelectedButton => _selectedButton;
     private TXRButton_Toggle _selectedButton;
 

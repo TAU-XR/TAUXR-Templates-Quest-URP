@@ -1,22 +1,21 @@
 using UnityEngine;
 
 [System.Serializable]
-public class SelectionQuestionInterfaceReferences
+public class SQIReferences
 {
     public TextDisplay QuestionTextDisplay => _questionTextDisplay;
     public TextDisplay AnswerInfo => _answerInfo;
-    public SelectionQuestionSubmitButton SubmitButton => _submitButton;
-    public SelectionAnswerButton[] SelectionAnswers => _selectionAnswers;
-    public GameObject Graphics => _graphics;
-
+    public SQISubmitButton SubmitButton => _submitButton;
+    public SQIAnswerButton[] SelectionAnswers => _selectionAnswers;
     public AudioSource CorrectAnswerAudio => _correctAnswer;
     public AudioSource WrongAnswerAudio => _wrongAnswer;
+    public TXRRadioButtonGroup RadioButtonGroup => _radioButtonGroup;
 
+    [SerializeField] private SQISubmitButton _submitButton;
     [SerializeField] private TextDisplay _questionTextDisplay;
+    [SerializeField] private SQIAnswerButton[] _selectionAnswers;
+    [SerializeField] private TXRRadioButtonGroup _radioButtonGroup;
     [SerializeField] private TextDisplay _answerInfo;
-    [SerializeField] private SelectionQuestionSubmitButton _submitButton;
-    [SerializeField] private SelectionAnswerButton[] _selectionAnswers;
-    [SerializeField] private GameObject _graphics;
     [SerializeField] private AudioSource _correctAnswer;
     [SerializeField] private AudioSource _wrongAnswer;
 }

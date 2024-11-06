@@ -23,10 +23,10 @@ public class QuestionsManager : MonoBehaviour
         _currentQuestionIndex = _startingQuestionIndex;
         _selectionQI = GetComponent<SelectionQuestionInterface>();
         _selectionQI.Init();
-        RunExamFromCurrentQuestion().Forget();
+   //     RunExamFromCurrentQuestion().Forget();
     }
 
-    private async UniTask RunExamFromCurrentQuestion()
+ /*   private async UniTask RunExamFromCurrentQuestion()
     {
         _cts = new CancellationTokenSource();
         while (_currentQuestionIndex < _selectionQuestions.Length)
@@ -36,7 +36,7 @@ public class QuestionsManager : MonoBehaviour
             await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenQuestions), cancellationToken: _cts.Token);
         }
     }
-
+ */
     public void NextQuestion()
     {
         RunExamFromQuestionIndex(_currentQuestionIndex + 1);
@@ -56,6 +56,6 @@ public class QuestionsManager : MonoBehaviour
 
         _currentQuestionIndex = questionIndex;
         _cts.Cancel();
-        RunExamFromCurrentQuestion().Forget();
+       // RunExamFromCurrentQuestion().Forget();
     }
 }

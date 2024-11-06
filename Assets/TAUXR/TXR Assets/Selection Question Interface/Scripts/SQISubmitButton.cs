@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class SelectionQuestionSubmitButton : MonoBehaviour
+public class SQISubmitButton : MonoBehaviour
 {
     public TXRButton Button => _button;
     private TXRButton _button;

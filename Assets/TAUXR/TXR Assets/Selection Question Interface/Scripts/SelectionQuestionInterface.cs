@@ -7,57 +7,32 @@ using UnityEngine;
 
 public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 {
-    public Action<SelectionAnswerData> AnswerSubmitted;
+    public Action<SQIAnswerButton> AnswerSubmitted;
 
-    [SerializeField] private SelectionQuestionInterfaceReferences _references;
+    public Color CorrectAnswerColor;
+    public Color WrongAnswerColor;
+    public int MaxNumberOfTries;
+    private const float SUBMIT_TO_DISABLE_DURATION = 1;
 
-    // remove scriptableObject. use time as const and color as serialized fields.
+    [SerializeField] private SQIReferences _references;
 
-    [SerializeField] private SelectionAnswerButtonConfiguration _correctAnswerButtonConfiguration;
-    [SerializeField] private SelectionAnswerButtonConfiguration _wrongAnswerButtonConfiguration;
-    [SerializeField] private bool _startHidden;
-
+    private int _currentNumberOfTries;
     private bool _finishedAnswering = false;
     private bool _isDone = false;
-    private SelectionQuestionData _questionData;
-
-    private TXRRadioButtonGroup _selectionAnswersRadioButtonGroup;
-
-    private int _numberOfTriesInCurrentQuestion;
-
-    private bool _shouldDisplayText = true;
-    public void SetWithOrWithoutText(bool shouldDisplayText)
-    {
-        _shouldDisplayText = shouldDisplayText;
-    }
-
-    private void Awake()
-    {
-        _selectionAnswersRadioButtonGroup = GetComponent<TXRRadioButtonGroup>();
-    }
-    private void Start()
-    {
-        if (_startHidden)
-        {
-            Hide();
-        }
-    }
+    private bool _shouldSkip = false;
 
     private void OnEnable()
     {
-        _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
+        Init();
+        ShowQuestionAndWaitForFinalSubmission().Forget();
     }
 
-    private void OnDisable()
-    {
-        _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
-    }
 
     [Button]
     public void Init()
     {
-        _selectionAnswersRadioButtonGroup = GetComponent<TXRRadioButtonGroup>();
-        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.Init();
+        foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
+            answerButton.Init(CorrectAnswerColor, WrongAnswerColor, SUBMIT_TO_DISABLE_DURATION);
         _references.QuestionTextDisplay.Init();
         _references.AnswerInfo.Init();
         _references.SubmitButton.Init();
@@ -67,92 +42,67 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     public void Show()
     {
         _references.SubmitButton.SetHidden(false);
-        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.SetHidden(false);
+        foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
+            answerButton.SetHidden(false);
 
-        if (_shouldDisplayText)
-            _references.QuestionTextDisplay.Show();
-
-        _selectionAnswersRadioButtonGroup.OnAnswerSelected += OnAnswerSelected;
-        _selectionAnswersRadioButtonGroup.OnAnswerDeselected += OnAnswerDeselected;
+        _references.RadioButtonGroup.OnAnswerSelected += OnAnswerSelected;
+        _references.RadioButtonGroup.OnAnswerDeselected += OnAnswerDeselected;
     }
 
     [Button]
     public void Hide()
     {
-        if (_references.AnswerInfo != null)
-        {
-            _references.AnswerInfo.Hide();
-        }
-
         _references.SubmitButton.SetHidden(true);
-        foreach (SelectionAnswerButton answerButton in _references.SelectionAnswers) answerButton.SetHidden(true);
-        _references.AnswerInfo?.Hide();
 
-        if (_shouldDisplayText)
-            _references.QuestionTextDisplay.Hide();
+        foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
+            answerButton.SetHidden(true);
 
-        _selectionAnswersRadioButtonGroup.OnAnswerSelected -= OnAnswerSelected;
-        _selectionAnswersRadioButtonGroup.OnAnswerDeselected -= OnAnswerDeselected;
+        _references.AnswerInfo.Hide();
+
+        _references.RadioButtonGroup.OnAnswerSelected -= OnAnswerSelected;
+        _references.RadioButtonGroup.OnAnswerDeselected -= OnAnswerDeselected;
     }
 
     public bool IsDone() => _isDone;
 
-    public async UniTask ShowQuestionAndWaitForFinalSubmission(SelectionQuestionData selectionQuestionData,
-        CancellationToken cancellationToken = default)
+    public async UniTask ShowQuestionAndWaitForFinalSubmission()
     {
+        _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
+
         Show();
-        InitializeWithNewQuestion(selectionQuestionData);
+        ResetInterface();
+        foreach (SQIAnswerButton answerButton in _references.SelectionAnswers) answerButton.ResetAnswer();
+        _references.RadioButtonGroup.Reset();  // turn all answer buttons off
         _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
-        await UniTask.WaitUntil(() => _finishedAnswering, cancellationToken: cancellationToken);
+        await UniTask.WaitUntil(() => _finishedAnswering || _shouldSkip);
+
+        _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
     }
 
-    private void InitializeWithNewQuestion(SelectionQuestionData selectionQuestionData)
+    private void ResetInterface()
     {
-        _numberOfTriesInCurrentQuestion = 0;
+        _currentNumberOfTries = 0;
         _references.AnswerInfo.Hide();
-        _questionData = selectionQuestionData;
         _finishedAnswering = false;
-        _references.QuestionTextDisplay.SetText(_questionData.Text);
-        InitializeNewAnswers(selectionQuestionData.Answers);
     }
 
-    private void InitializeNewAnswers(SelectionAnswerData[] selectionAnswersData)
-    {
-        _selectionAnswersRadioButtonGroup.Reset();
-        int numberOfAnswersInInterface = _selectionAnswersRadioButtonGroup.Buttons.Length;
-        for (int answerIndex = 0; answerIndex < numberOfAnswersInInterface; answerIndex++)
-        {
-            SelectionAnswerButton selectionAnswerButton =
-                _selectionAnswersRadioButtonGroup.Buttons[answerIndex].GetComponent<SelectionAnswerButton>();
-            bool answerIsActive = answerIndex < selectionAnswersData.Length;
-            //selectionAnswerButton.SetHidden(!answerIsActive);
-            selectionAnswerButton.gameObject.SetActive(answerIsActive);
-            if (!answerIsActive) continue;
-            bool isCorrectAnswer = selectionAnswersData[answerIndex].IsCorrect;
-            SelectionAnswerButtonConfiguration buttonConfiguration =
-                isCorrectAnswer ? _correctAnswerButtonConfiguration : _wrongAnswerButtonConfiguration;
-            selectionAnswerButton.SetNewAnswer(selectionAnswersData[answerIndex], buttonConfiguration);
-        }
-    }
-
+    // called when submit button is pressed
     private void OnAnswerSubmitted()
     {
-        if (_selectionAnswersRadioButtonGroup.SelectedButton == null) return;
+        if (_references.RadioButtonGroup.SelectedButton == null) return;   // do nothing if no answer was selected before submittion
 
-        SelectionAnswerButton selectedAnswer = _selectionAnswersRadioButtonGroup.SelectedButton.GetComponent<SelectionAnswerButton>();
+        SQIAnswerButton selectedAnswer = _references.RadioButtonGroup.SelectedButton.GetComponent<SQIAnswerButton>();
         SubmitAnswer(selectedAnswer).Forget();
     }
 
-    private async UniTask SubmitAnswer(SelectionAnswerButton selectedAnswer)
+    private async UniTask SubmitAnswer(SQIAnswerButton selectedAnswer)
     {
-        if (_selectionAnswersRadioButtonGroup.SelectedButton == null) return;
+        _references.RadioButtonGroup.Reset();
+        _currentNumberOfTries++;
+        selectedAnswer.SubmitAnswer().Forget();
+        AnswerSubmitted?.Invoke(selectedAnswer);
 
-        _selectionAnswersRadioButtonGroup.Reset();
-        _numberOfTriesInCurrentQuestion++;
-        selectedAnswer.OnAnswerSubmitted().Forget();
-        AnswerSubmitted?.Invoke(selectedAnswer.SelectionAnswerData);
-
-        if (selectedAnswer.SelectionAnswerData.IsCorrect)
+        if (selectedAnswer.IsCorrect)
         {
             OnCorrectAnswerSubmitted(selectedAnswer);
             await UniTask.Delay(2000);
@@ -165,19 +115,19 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 
     }
 
-    private void OnCorrectAnswerSubmitted(SelectionAnswerButton selectedAnswer)
+    private void OnCorrectAnswerSubmitted(SQIAnswerButton selectedAnswer)
     {
-        ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
+        ShowAnswerInfo(selectedAnswer.AnswerInfo);
         DisableWrongAnswers();
         _references.CorrectAnswerAudio.Play();
     }
 
     private void DisableWrongAnswers()
     {
-        foreach (TXRButton_Toggle button in _selectionAnswersRadioButtonGroup.Buttons)
+        foreach (TXRButton_Toggle button in _references.RadioButtonGroup.Buttons)
         {
             if (!button.gameObject.activeSelf) continue;
-            if (button.GetComponent<SelectionAnswerButton>().SelectionAnswerData.IsCorrect)
+            if (button.GetComponent<SQIAnswerButton>().IsCorrect)
             {
                 continue;
             }
@@ -186,28 +136,30 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
         }
     }
 
-    private async UniTask OnWrongAnswerSubmitted(SelectionAnswerButton selectedAnswer)
+    private async UniTask OnWrongAnswerSubmitted(SQIAnswerButton selectedAnswer)
     {
-        bool noAnswersLeft = _numberOfTriesInCurrentQuestion == _questionData.Answers.Length - 1;
-        bool outOfTries = _numberOfTriesInCurrentQuestion == _questionData.MaxNumberOfTries;
         _references.WrongAnswerAudio.Play();
+
+        bool noAnswersLeft = _currentNumberOfTries == _references.RadioButtonGroup.NumberOfButtons - 1;
+        bool outOfTries = _currentNumberOfTries == MaxNumberOfTries;
+
         if (outOfTries || noAnswersLeft)
         {
             await ShowCorrectAnswer();
         }
         else
         {
-            ShowAnswerInfo(selectedAnswer.SelectionAnswerData.AnswerInfo);
+            ShowAnswerInfo(selectedAnswer.AnswerInfo);
         }
     }
 
     private async UniTask ShowCorrectAnswer()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(_wrongAnswerButtonConfiguration.TimeFromSubmitToDisable));
+        await UniTask.Delay(TimeSpan.FromSeconds(SUBMIT_TO_DISABLE_DURATION));
         DisableWrongAnswers();
-        SelectionAnswerButton correctAnswer = GetCorrectAnswer();
-        correctAnswer.OnAnswerSubmitted().Forget();
-        ShowAnswerInfo(correctAnswer.SelectionAnswerData.AnswerInfo);
+        SQIAnswerButton correctAnswer = GetCorrectAnswer();
+        correctAnswer.SubmitAnswer().Forget();
+        ShowAnswerInfo(correctAnswer.AnswerInfo);
         await UniTask.Delay(2000);
         _finishedAnswering = true;
     }
@@ -220,10 +172,10 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
         _references.AnswerInfo.SetText(selectedAnswerInfo);
     }
 
-    private SelectionAnswerButton GetCorrectAnswer()
+    private SQIAnswerButton GetCorrectAnswer()
     {
         return _references.SelectionAnswers.ToList()
-            .Find((selectionAnswer) => selectionAnswer.SelectionAnswerData.IsCorrect);
+            .Find((selectionAnswer) => selectionAnswer.IsCorrect);
     }
 
     private void OnAnswerSelected()
