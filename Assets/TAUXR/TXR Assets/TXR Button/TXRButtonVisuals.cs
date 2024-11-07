@@ -36,7 +36,6 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public void SetState(TXRButtonState state)
     {
-        print("SET STATE: " + state);
         switch (state)
         {
             case TXRButtonState.Active:

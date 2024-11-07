@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using OVRSimpleJSON;
 using UnityEngine;
 
 public class TXRButtonToggleVisuals : TXRButtonVisuals
@@ -7,7 +6,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
     public float _backfaceZPositionActiveToggleOn = -0.005f;
     public float _backfaceZPositionHoverToggleOn = -0.002f;
     public bool IsToggleOn;
-    
+
 
     public void SetToggleState(bool isOn)
     {
@@ -16,6 +15,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
         IsToggleOn = isOn;
     }
 
+
     protected override void Active()
     {
         float backfaceZValue = IsToggleOn ? _backfaceZPositionActiveToggleOn : _configurations.backfaceZPositionActive;
@@ -23,6 +23,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
         SetBackfaceZ(backfaceZValue);
         SetHoverGradient(false);
         SetStrokeThickness(_configurations.strokeThicknessActive);
+        SetTextOpacity(1);
     }
 
     protected override void Hover()

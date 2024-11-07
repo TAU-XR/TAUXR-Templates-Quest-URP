@@ -14,7 +14,6 @@ public class SQIAnswerButton : MonoBehaviour
 
     private float _timeFromPressToDisable;
 
-    private Color _startingActiveColor;
     private Color _correctAnswerColor;
     private Color _wrongAnswerColor;
     private float _durationFromSubmissionToDisable;
@@ -22,7 +21,6 @@ public class SQIAnswerButton : MonoBehaviour
     {
         _button = GetComponent<TXRButton_Toggle>();
         _button.Init();
-        _startingActiveColor = _button.GetColor(TXRButtonState.Active);
         _text = GetComponentInChildren<TextMeshPro>();
 
         _correctAnswerColor = correctAnswerColor;
@@ -33,7 +31,6 @@ public class SQIAnswerButton : MonoBehaviour
     public void ResetAnswer()
     {
         _button.TriggerToggleEvent(TXRButtonToggleState.Off, ButtonColliderResponse.Internal);
-        _button.SetColor(TXRButtonState.Active, _startingActiveColor);
         _button.SetInteractable(true);
         _button.SetState(TXRButtonState.Active);
     }

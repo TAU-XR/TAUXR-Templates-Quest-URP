@@ -13,6 +13,8 @@ public class TXRButton_Toggle : TXRButton
     public ButtonColliderResponse StartingStateResponse;
     private TXRButtonToggleVisuals _toggleVisuals;
 
+    public Color ToggledColor;
+
     public override void Init()
     {
         base.Init();

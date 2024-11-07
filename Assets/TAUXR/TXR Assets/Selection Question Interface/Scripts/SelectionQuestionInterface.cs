@@ -72,7 +72,7 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
         Show();
         ResetInterface();
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers) answerButton.ResetAnswer();
-        _references.RadioButtonGroup.Reset();  // turn all answer buttons off
+        _references.RadioButtonGroup.Reset();  // diselects selected answer
         _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
         await UniTask.WaitUntil(() => _finishedAnswering || _shouldSkip);
 
