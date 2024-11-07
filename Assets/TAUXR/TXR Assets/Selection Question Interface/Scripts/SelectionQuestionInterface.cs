@@ -1,14 +1,21 @@
 using System;
 using System.Linq;
-using System.Threading;
+using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
+
+/*
+ * Current issues:
+ * - When submitting without submit button - if answer button is pressed and then "hover" - the color won't change to green/red because the hover state will get after it and override.
+ * 
+ */
 
 public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 {
     public Action<SQIAnswerButton> AnswerSubmitted;
 
+    public bool UseSubmitButton = true;
     public Color CorrectAnswerColor;
     public Color WrongAnswerColor;
     public int MaxNumberOfTries;
@@ -21,62 +28,79 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     private bool _isDone = false;
     private bool _shouldSkip = false;
 
+    // 
     private void OnEnable()
     {
+        _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
+        _references.RadioButtonGroup.OnButtonSelected += OnAnswerSelected;
+        _references.RadioButtonGroup.OnButtonDeselected += OnAnswerDeselected;
+
         Init();
         ShowQuestionAndWaitForFinalSubmission().Forget();
     }
 
+    private void OnDisable()
+    {
+        _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
+        _references.RadioButtonGroup.OnButtonSelected -= OnAnswerSelected;
+        _references.RadioButtonGroup.OnButtonDeselected -= OnAnswerDeselected;
+    }
 
     [Button]
     public void Init()
     {
+        _references.InitAnswerArray(GetComponentsInChildren<SQIAnswerButton>());
+
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
             answerButton.Init(CorrectAnswerColor, WrongAnswerColor, SUBMIT_TO_DISABLE_DURATION);
         _references.QuestionTextDisplay.Init();
         _references.AnswerInfo.Init();
         _references.SubmitButton.Init();
+
+        if (!UseSubmitButton)
+            _references.SubmitButton.gameObject.SetActive(false);
+
+        MaxNumberOfTries = Mathf.Min(MaxNumberOfTries, _references.SelectionAnswers.Count() - 1);
+        _currentNumberOfTries = 0;
     }
 
     [Button]
     public void Show()
     {
-        _references.SubmitButton.SetHidden(false);
+        if (UseSubmitButton)
+            _references.SubmitButton.SetHidden(false);
+
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
             answerButton.SetHidden(false);
-
-        _references.RadioButtonGroup.OnAnswerSelected += OnAnswerSelected;
-        _references.RadioButtonGroup.OnAnswerDeselected += OnAnswerDeselected;
     }
 
     [Button]
     public void Hide()
     {
-        _references.SubmitButton.SetHidden(true);
+        if (UseSubmitButton)
+            _references.SubmitButton.SetHidden(true);
 
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
             answerButton.SetHidden(true);
 
         _references.AnswerInfo.Hide();
-
-        _references.RadioButtonGroup.OnAnswerSelected -= OnAnswerSelected;
-        _references.RadioButtonGroup.OnAnswerDeselected -= OnAnswerDeselected;
     }
 
     public bool IsDone() => _isDone;
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission()
     {
-        _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
 
         Show();
         ResetInterface();
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers) answerButton.ResetAnswer();
         _references.RadioButtonGroup.Reset();  // diselects selected answer
-        _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
+
+        if (UseSubmitButton)
+            _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
+
         await UniTask.WaitUntil(() => _finishedAnswering || _shouldSkip);
 
-        _references.SubmitButton.AnswerSubmitted -= OnAnswerSubmitted;
     }
 
     private void ResetInterface()
@@ -99,6 +123,7 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     {
         _references.RadioButtonGroup.Reset();
         _currentNumberOfTries++;
+        await UniTask.Delay(100);   // wait for button to play release visuals and only then change color to submitted answer color
         selectedAnswer.SubmitAnswer().Forget();
         AnswerSubmitted?.Invoke(selectedAnswer);
 
@@ -180,11 +205,24 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 
     private void OnAnswerSelected()
     {
-        _references.SubmitButton.Button.SetState(TXRButtonState.Active);
+        Debug.Log("ANSWER SELECTED");
+
+        if (UseSubmitButton)
+        {
+            _references.SubmitButton.Button.SetState(TXRButtonState.Active);
+        }
+        else
+        {
+            if (_references.RadioButtonGroup.SelectedButton == null) return;   // do nothing if no answer was selected before submittion
+
+            SQIAnswerButton selectedAnswer = _references.RadioButtonGroup.SelectedButton.GetComponent<SQIAnswerButton>();
+            SubmitAnswer(selectedAnswer).Forget();
+        }
     }
 
     private void OnAnswerDeselected()
     {
+        if (!UseSubmitButton) return;
         _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
     }
 }

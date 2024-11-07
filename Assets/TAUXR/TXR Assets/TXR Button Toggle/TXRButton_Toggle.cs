@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class TXRButton_Toggle : TXRButton
 {
-    public Action ToggledOn;
-    public Action ToggledOff;
+    public Action<TXRButton_Toggle> ToggledOn;
+    public Action<TXRButton_Toggle> ToggledOff;
     public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
@@ -27,8 +27,8 @@ public class TXRButton_Toggle : TXRButton
         //if (!IsInteractable) return;  why do we need this here? if it was triggered then trigger.
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
-        Action actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
-        actionToInvoke?.Invoke();
+        Action<TXRButton_Toggle> actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
+        actionToInvoke?.Invoke(this);
         Action internalAction = OnReleasedInternal; // toggle is change only on  release
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
@@ -57,8 +57,8 @@ public class TXRButton_Toggle : TXRButton
             case ButtonEvent.Released:
                 UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
                 toggleEvent.Invoke();
-                Action actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
-                actionToInvoke?.Invoke();
+                Action<TXRButton_Toggle> actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
+                actionToInvoke?.Invoke(this);
                 DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
                 break;
         }

@@ -17,6 +17,7 @@ public class SQIAnswerButton : MonoBehaviour
     private Color _correctAnswerColor;
     private Color _wrongAnswerColor;
     private float _durationFromSubmissionToDisable;
+
     public void Init(Color correctAnswerColor, Color wrongAnswerColor, float durationFromSubmissionToDisable)
     {
         _button = GetComponent<TXRButton_Toggle>();

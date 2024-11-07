@@ -18,4 +18,9 @@ public class SQIReferences
     [SerializeField] private TextDisplay _answerInfo;
     [SerializeField] private AudioSource _correctAnswer;
     [SerializeField] private AudioSource _wrongAnswer;
+
+    public void InitAnswerArray(SQIAnswerButton[] answers)
+    {
+        _selectionAnswers= answers;
+    }
 }
