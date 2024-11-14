@@ -8,6 +8,7 @@ using UnityEngine;
 /*
  * Current issues:
  * - When submitting without submit button - if answer button is pressed and then "hover" - the color won't change to green/red because the hover state will get after it and override.
+ * - No option to Show/Hide or Reset without animation
  * 
  */
 
