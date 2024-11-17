@@ -16,7 +16,7 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
     }
 
 
-    protected override void Active()
+   /* protected override void Active()
     {
         float backfaceZValue = IsToggleOn ? _backfaceZPositionActiveToggleOn : _configurations.backfaceZPositionActive;
         SetBackfaceColor(_activeColor, _configurations.activeDuration);
@@ -32,5 +32,5 @@ public class TXRButtonToggleVisuals : TXRButtonVisuals
         SetHoverGradient(true);
         SetBackfaceZ(backfaceZValue);
         SetStrokeThickness(_configurations.strokeThicknessHover);
-    }
+    }*/
 }

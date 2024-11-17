@@ -87,8 +87,8 @@ public class TXRButtonEditor : Editor
                 txrButton.References.PressedColor = pressedColor;
                 txrButton.References.DisabledColor = disabledColor;
                 txrButton.References.HoverGradientColor = hoverGradientColor;
-                if (Application.isPlaying)
-                    txrButton.References.ButtonVisuals.UpdateColorsFromReferences();
+                //if (Application.isPlaying)
+                    //txrButton.References.ButtonVisuals.UpdateColorsFromReferences();
 
                 // Apply the active color to backface fill color end
                 txrButton.References.Backface.FillColorEnd = activeColor;
