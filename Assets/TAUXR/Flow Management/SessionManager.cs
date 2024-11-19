@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
 
 public class SessionManager : TXRSingleton<SessionManager>
 {
     [SerializeField] private Round[] _rounds;
     private int _currentRound;
+    public ExperimentStartingPosition experimentStartingPosition;
 
     //If there is a higher level flow manager, remove this and use his start method
     private void Start()
@@ -17,6 +16,9 @@ public class SessionManager : TXRSingleton<SessionManager>
 
     public async UniTask RunSessionFlow()
     {
+        //await ExperimentCalibration.Instance.WaitForCalibration();
+        await experimentStartingPosition.WaitForPlayerToBeInStartingPosition();
+
         StartSession();
 
         while (_currentRound < _rounds.Length)
@@ -33,6 +35,7 @@ public class SessionManager : TXRSingleton<SessionManager>
     private void StartSession()
     {
         // setup session initial conditions.
+
     }
 
 
