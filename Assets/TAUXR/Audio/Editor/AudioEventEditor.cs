@@ -24,7 +24,7 @@ public class AudioEventEditor : Editor
         EditorGUILayout.PropertyField(playOnProperty);
         if (playOnProperty.enumValueIndex == 0)
         {
-            DrawPropertyField("_collisionDetector");
+            DrawPropertyField("_interactionDetector");
         }
 
         AudioPlayer audioPlayer = (AudioPlayer)serializedObject.FindProperty("_audioPlayer").objectReferenceValue;

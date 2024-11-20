@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public enum EInteraction
 {
-    OnCollision,
+    OnInteraction,
     OnStart,
     OnDestroy,
 }
@@ -16,18 +16,18 @@ public class AudioEvent : MonoBehaviour
 {
     [HideInInspector] [SerializeField] private EInteraction _playOn;
 
-    [HideInInspector] [SerializeField] private CollisionDetector _collisionDetector;
+    [HideInInspector] [SerializeField] private AInteractionDetector _interactionDetector;
 
     [HideInInspector] [SerializeField] private AudioPlayer _audioPlayer;
 
     private void OnEnable()
     {
-        if (_playOn == EInteraction.OnCollision) _collisionDetector.InteractionStarted += _audioPlayer.Play;
+        if (_playOn == EInteraction.OnInteraction) _interactionDetector.InteractionStarted += _audioPlayer.Play;
     }
 
     private void OnDisable()
     {
-        if (_playOn == EInteraction.OnCollision) _collisionDetector.InteractionEnded -= _audioPlayer.Play;
+        if (_playOn == EInteraction.OnInteraction) _interactionDetector.InteractionEnded -= _audioPlayer.Play;
     }
 
     private void Start()
