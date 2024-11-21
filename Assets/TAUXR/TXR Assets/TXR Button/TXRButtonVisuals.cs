@@ -25,7 +25,7 @@ public class TXRButtonVisuals : MonoBehaviour
     [SerializeField] protected Transform _hiddenState;
     [SerializeField] protected Transform _hoverState;
 
-    public void SetState(TXRButtonState state)
+    public virtual void SetState(TXRButtonState state)
     {
         switch (state)
         {
@@ -50,9 +50,9 @@ public class TXRButtonVisuals : MonoBehaviour
 
     protected void SetStateAnimation(Transform stateTransform)
     {
-        Rectangle targetBackground = stateTransform.GetChild(1).GetComponent<Rectangle>();
-        Rectangle targetStroke = stateTransform.GetChild(0).GetComponent<Rectangle>();
-        TextMeshPro targetText = stateTransform.GetChild(1).GetChild(0).GetComponent<TextMeshPro>();
+        Rectangle targetBackground = GetBackground(stateTransform);
+        Rectangle targetStroke = GetStroke(stateTransform);
+        TextMeshPro targetText = GetText(stateTransform);
 
         buttonAnimation.Kill();
         buttonAnimation.Append(ComponentAnimator.RectangleTween(_background, targetBackground, _transitionDuration));
@@ -60,6 +60,54 @@ public class TXRButtonVisuals : MonoBehaviour
         buttonAnimation.Join(ComponentAnimator.RectangleTween(_stroke, targetStroke, _transitionDuration));
         buttonAnimation.Join(ComponentAnimator.TransformTween(_stroke.transform, targetStroke.transform, _transitionDuration, true));
         buttonAnimation.Join(ComponentAnimator.TextMeshProTween(_text, targetText, _transitionDuration));
+    }
+
+    public virtual void SetAllStatesSizeFromMainUI()
+    {
+        Transform stateTransform = _activeState;
+        for (int i = 0; i <= 4; i++)
+        {
+            switch (i)
+            {
+                case 0: stateTransform = _activeState; break;
+                case 1: stateTransform = _disableState; break;
+                case 2: stateTransform = _hoverState; break;
+                case 3: stateTransform = _pressState; break;
+                case 4: stateTransform = _hiddenState; break;
+                default: stateTransform = _activeState; break;
+            }
+            SetStatesSizesFromMainUI(stateTransform);
+        }
+    }
+    public virtual void SetStatesSizesFromMainUI(Transform stateTransform)
+    {
+        Rectangle targetBackground = GetBackground(stateTransform);
+        Rectangle targetStroke = GetStroke(stateTransform);
+        TextMeshPro targetText = GetText(stateTransform);
+
+        targetBackground.Width = _background.Width;
+        targetBackground.Height = _background.Height;
+
+        targetStroke.Width = _stroke.Width;
+        targetStroke.Height = _stroke.Height;
+
+        targetText.rectTransform.sizeDelta = _text.rectTransform.sizeDelta;
+        targetText.fontSize = _text.fontSize;
+    }
+
+    private Rectangle GetBackground(Transform stateTransform)
+    {
+        return stateTransform.GetChild(1).GetComponent<Rectangle>();
+    }
+
+    private Rectangle GetStroke(Transform stateTransform)
+    {
+        return stateTransform.GetChild(0).GetComponent<Rectangle>();
+    }
+
+    private TextMeshPro GetText(Transform stateTransform)
+    {
+        return stateTransform.GetChild(1).GetChild(0).GetComponent<TextMeshPro>();
     }
 
     public void SetBackfaceColor(TXRButtonState state, Color color, float duration = 0.25f)

@@ -4,6 +4,7 @@ using UnityEditor;
 [CustomEditor(typeof(TXRButton))]
 public class TXRButtonEditor : Editor
 {
+    SerializedProperty referencesProperty;
     SerializedProperty stateProperty;
     SerializedProperty pressedEventProperty;
     SerializedProperty releasedEventProperty;
@@ -19,6 +20,7 @@ public class TXRButtonEditor : Editor
 
     protected virtual void OnEnable()
     {
+        referencesProperty = serializedObject.FindProperty("References");
         stateProperty = serializedObject.FindProperty("_state");
         pressedEventProperty = serializedObject.FindProperty("Pressed");
         releasedEventProperty = serializedObject.FindProperty("Released");
@@ -35,7 +37,7 @@ public class TXRButtonEditor : Editor
     {
         // Get the target script
         TXRButton txrButton = (TXRButton)target;
-                
+
         // Ensure that TXRButtonReferences, Backface, and Stroke are not null
         if (txrButton.References != null && txrButton.References.Backface != null && txrButton.References.Stroke != null && txrButton.References.ButtonInput.transform != null)
         {
@@ -81,6 +83,10 @@ public class TXRButtonEditor : Editor
                 EditorUtility.SetDirty(txrButton.References);
             }
 
+            if (GUILayout.Button("Apply Sizes To All State UI"))
+            {
+                txrButton.References.ButtonVisuals.SetAllStatesSizeFromMainUI();
+            }
             // Draw the Pressed event
             EditorGUILayout.PropertyField(pressedEventProperty, new GUIContent("Pressed Event"));
 
@@ -93,7 +99,7 @@ public class TXRButtonEditor : Editor
             {
 
                 EditorGUILayout.PropertyField(shouldPlaySoundsProperty, new GUIContent("Should Play Sounds"));
-    
+
                 EditorGUILayout.PropertyField(releasedEventProperty, new GUIContent("Released Event"));
                 EditorGUILayout.PropertyField(hoverEnterEventProperty, new GUIContent("Hover Enter Event"));
                 EditorGUILayout.PropertyField(hoverExitEventProperty, new GUIContent("Hover Exit Event"));

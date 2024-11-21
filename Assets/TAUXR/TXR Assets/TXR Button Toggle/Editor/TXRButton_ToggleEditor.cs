@@ -21,12 +21,10 @@ public class TXRButton_ToggleEditor : TXRButtonEditor
 
     public override void OnInspectorGUI()
     {
-        // Draw the base inspector GUI (TXRButton)
         base.OnInspectorGUI();
 
         // Draw additional properties for TXRButton_Toggle
         EditorGUILayout.PropertyField(toggleStateProperty, new GUIContent("Toggle State"));
-        EditorGUILayout.PropertyField(startingStateResponseProperty, new GUIContent("Starting State Response"));
         EditorGUILayout.PropertyField(toggleOnEventProperty, new GUIContent("Toggle On Event"));
         EditorGUILayout.PropertyField(toggleOffEventProperty, new GUIContent("Toggle Off Event"));
 
