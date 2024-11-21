@@ -48,12 +48,12 @@ public class TXRButton_Toggle : TXRButton
                 break;
 
             case ButtonEvent.Pressed:
-                ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
 
                 DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
                 break;
 
             case ButtonEvent.Released:
+                ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
                 UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
                 toggleEvent.Invoke();
                 Action<TXRButton_Toggle> actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
