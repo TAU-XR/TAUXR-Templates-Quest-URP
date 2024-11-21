@@ -127,7 +127,7 @@ public class TXRButtonVisuals : MonoBehaviour
         }
         if (stateTransform == null) return;
 
-        Rectangle targetBackground = stateTransform.GetChild(1).GetComponent<Rectangle>();
+        Rectangle targetBackground = GetBackground(stateTransform);
         targetBackground.FillColorEnd = color;
 
         // update color change if changed the color of current state
@@ -159,7 +159,7 @@ public class TXRButtonVisuals : MonoBehaviour
             return Color.black;
         }
 
-        Rectangle targetBackground = stateTransform.GetChild(1).GetComponent<Rectangle>();
+        Rectangle targetBackground = GetBackground(stateTransform);
         return targetBackground.FillColorEnd;
     }
 }

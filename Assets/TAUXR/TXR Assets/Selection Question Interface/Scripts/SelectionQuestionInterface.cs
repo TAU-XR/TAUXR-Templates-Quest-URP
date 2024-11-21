@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*
  * Current issues:
@@ -17,9 +18,13 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     public Action<SQIAnswerButton> AnswerSubmitted;
 
     public bool UseSubmitButton = true;
+    public bool ShouldResetAfterFirstUse = false;
+    public Color StartingAnswerColor;
     public Color CorrectAnswerColor;
     public Color WrongAnswerColor;
     public int MaxNumberOfTries;
+
+    public UnityEvent OnSubmittionEnd;
     private const float SUBMIT_TO_DISABLE_DURATION = 1;
 
     [SerializeField] private SQIReferences _references;
@@ -28,16 +33,19 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
     private bool _finishedAnswering = false;
     private bool _isDone = false;
     private bool _shouldSkip = false;
-
-    // 
+    private bool _isFirstUse = true;
+    private bool _isOnQuestionProcess = true;
     private void OnEnable()
     {
         _references.SubmitButton.AnswerSubmitted += OnAnswerSubmitted;
         _references.RadioButtonGroup.OnButtonSelected += OnAnswerSelected;
         _references.RadioButtonGroup.OnButtonDeselected += OnAnswerDeselected;
 
+        if (!ShouldResetAfterFirstUse && !_isFirstUse) return;
+
         Init();
         ShowQuestionAndWaitForFinalSubmission().Forget();
+
     }
 
     private void OnDisable()
@@ -53,7 +61,7 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
         _references.InitAnswerArray(GetComponentsInChildren<SQIAnswerButton>());
 
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers)
-            answerButton.Init(CorrectAnswerColor, WrongAnswerColor, SUBMIT_TO_DISABLE_DURATION);
+            answerButton.Init(CorrectAnswerColor, WrongAnswerColor);
         _references.QuestionTextDisplay.Init();
         _references.AnswerInfo.Init();
         _references.SubmitButton.Init();
@@ -91,7 +99,6 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 
     public async UniTask ShowQuestionAndWaitForFinalSubmission()
     {
-
         Show();
         ResetInterface();
         foreach (SQIAnswerButton answerButton in _references.SelectionAnswers) answerButton.ResetAnswer();
@@ -101,6 +108,9 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
             _references.SubmitButton.Button.SetState(TXRButtonState.Disabled);
 
         await UniTask.WaitUntil(() => _finishedAnswering || _shouldSkip);
+
+        _isFirstUse = false;
+        OnSubmittionEnd.Invoke();
 
     }
 
@@ -155,9 +165,11 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
             if (!button.gameObject.activeSelf) continue;
             if (button.GetComponent<SQIAnswerButton>().IsCorrect)
             {
+                button.SetInteractable(false);
                 continue;
             }
 
+            button.SetInteractable(false);
             button.SetState(TXRButtonState.Disabled);
         }
     }
@@ -206,8 +218,6 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
 
     private void OnAnswerSelected()
     {
-        Debug.Log("ANSWER SELECTED");
-
         if (UseSubmitButton)
         {
             _references.SubmitButton.Button.SetState(TXRButtonState.Active);
@@ -215,7 +225,6 @@ public class SelectionQuestionInterface : MonoBehaviour, ITXRQuestionInterface
         else
         {
             if (_references.RadioButtonGroup.SelectedButton == null) return;   // do nothing if no answer was selected before submittion
-
             SQIAnswerButton selectedAnswer = _references.RadioButtonGroup.SelectedButton.GetComponent<SQIAnswerButton>();
             SubmitAnswer(selectedAnswer).Forget();
         }
