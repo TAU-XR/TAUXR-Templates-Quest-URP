@@ -44,6 +44,8 @@ public class TXRButtonInput : MonoBehaviour
 
     private void Update()
     {
+        if (_touchers.Count == 0) return;
+
         Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width,
             _references.Backface.Height);
 
