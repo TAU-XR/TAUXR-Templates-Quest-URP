@@ -3,16 +3,14 @@ using UnityEngine;
 
 public class TXRButtonToggleVisuals : TXRButtonVisuals
 {
-    public float _backfaceZPositionActiveToggleOn = -0.005f;
-    public float _backfaceZPositionHoverToggleOn = -0.002f;
     public bool IsToggleOn;
 
 
     public void SetToggleState(bool isOn)
     {
-        Color activeColor = isOn ? _configurations.pressColor : _configurations.activeColor;
+        /*Color activeColor = isOn ? _configurations.pressColor : _configurations.activeColor;
         SetBackfaceColor(TXRButtonState.Active, activeColor);
-        IsToggleOn = isOn;
+        IsToggleOn = isOn;*/
     }
 
 

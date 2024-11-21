@@ -44,12 +44,6 @@ public class TXRButtonInput : MonoBehaviour
 
     private void Update()
     {
-        if (_mainToucher == null) // no toucher around
-        {
-            ClearStateBackToIdle();
-            return;
-        }
-
         Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width,
             _references.Backface.Height);
 
@@ -64,7 +58,7 @@ public class TXRButtonInput : MonoBehaviour
             {
                 State = ButtonInputState.Press;
                 _btn.PressTransform?.Invoke(_mainToucher);
-        
+
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Pressed);
             }
         }
@@ -114,6 +108,7 @@ public class TXRButtonInput : MonoBehaviour
         else
         {
             _mainToucher = null;
+            ClearStateBackToIdle();
         }
     }
 

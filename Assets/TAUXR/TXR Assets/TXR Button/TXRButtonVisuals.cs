@@ -3,32 +3,27 @@ using DG.Tweening;
 using TMPro;
 using Shapes;
 
+/*
+ * Hard Coded Child Convention - Parent- state empty GO. Child 0 - Stroke. Child 1 - Background. Child 1 Child 0 - Text.
+ * 
+ */
 public class TXRButtonVisuals : MonoBehaviour
 {
     protected TXRButtonState _state;
-    protected Shapes.Rectangle _backface;
-    //protected Shapes.Rectangle _stroke;
-    //protected TextMeshPro _text;
-    protected ButtonVisualsConfigurations _configurations;
-    protected TXRButtonReferences _references;
-
     protected Sequence buttonAnimation;
+    [SerializeField] protected float _transitionDuration;
 
+    [Header("UI Elements")]
     [SerializeField] protected Rectangle _background;
     [SerializeField] protected Rectangle _stroke;
     [SerializeField] protected TextMeshPro _text;
-    [SerializeField] protected float _transitionDuration;
 
+    [Header("UI States")]
     [SerializeField] protected Transform _activeState;
     [SerializeField] protected Transform _disableState;
     [SerializeField] protected Transform _pressState;
     [SerializeField] protected Transform _hiddenState;
     [SerializeField] protected Transform _hoverState;
-
-    public virtual void Init(TXRButtonReferences references)
-    {
-
-    }
 
     public void SetState(TXRButtonState state)
     {
@@ -50,11 +45,10 @@ public class TXRButtonVisuals : MonoBehaviour
                 SetStateAnimation(_hoverState);
                 break;
         }
-
         _state = state;
     }
 
-    private void SetStateAnimation(Transform stateTransform)
+    protected void SetStateAnimation(Transform stateTransform)
     {
         Rectangle targetBackground = stateTransform.GetChild(1).GetComponent<Rectangle>();
         Rectangle targetStroke = stateTransform.GetChild(0).GetComponent<Rectangle>();

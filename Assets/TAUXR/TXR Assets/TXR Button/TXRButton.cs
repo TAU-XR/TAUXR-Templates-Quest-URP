@@ -37,9 +37,8 @@ public class TXRButton : MonoBehaviour
 
     public virtual void Init()
     {
-        References.ActiveColor = References.Backface.FillColorEnd;
         _visuals = References.ButtonVisuals;
-        _visuals.Init(References);
+        _visuals.SetState(_state);
 
         _input = References.ButtonInput;
         _input.Init(References);
@@ -148,25 +147,24 @@ public class TXRButton : MonoBehaviour
 
     protected virtual void OnHoverEnterInternal()
     {
-        _visuals.SetBackfaceColor(TXRButtonState.Hover, References.ActiveColor);
-        _visuals.SetState(TXRButtonState.Hover);
+        SetState(TXRButtonState.Hover);
     }
 
     protected virtual void OnHoverExitInternal()
     {
-        _visuals.SetState(TXRButtonState.Active);
+        SetState(TXRButtonState.Active);
     }
 
     protected virtual void OnPressedInternal()
     {
         PlaySound(References.SoundPress);
-        _visuals.SetState(TXRButtonState.Pressed);
+        SetState(TXRButtonState.Pressed);
     }
 
     protected virtual void OnReleasedInternal()
     {
         PlaySound(References.SoundRelease);
-        _visuals.SetState(TXRButtonState.Active);
+        SetState(TXRButtonState.Active);
     }
 }
 

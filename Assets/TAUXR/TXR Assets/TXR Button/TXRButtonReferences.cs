@@ -14,10 +14,4 @@ public class TXRButtonReferences : MonoBehaviour
     public Shapes.Rectangle Backface;
     public Shapes.Rectangle Stroke;
     public TextMeshPro Text;
-    public ButtonVisualsConfigurations Configurations;
-
-    public Color ActiveColor;
-    public Color PressedColor;
-    public Color DisabledColor;
-    public Color HoverGradientColor;
 }
