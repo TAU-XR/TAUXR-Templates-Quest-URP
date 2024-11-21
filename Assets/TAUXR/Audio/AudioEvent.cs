@@ -5,34 +5,39 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public enum EInteraction
+public enum EEvent
 {
-    OnInteraction,
     OnStart,
+
+    //Maybe: Instead of on start - OnEnable, with checkbox for if to only play once (on start or on enable)
+    OnSpecificDetection,
     OnDestroy,
+
+    //OnDisable
+    Custom,
 }
 
 public class AudioEvent : MonoBehaviour
 {
-    [HideInInspector] [SerializeField] private EInteraction _playOn;
+    [HideInInspector] [SerializeField] private EEvent _playOn;
 
-    [HideInInspector] [SerializeField] private AInteractionDetector _interactionDetector;
+    [HideInInspector] [SerializeField] private ADetector _detector;
 
     [HideInInspector] [SerializeField] private AudioPlayer _audioPlayer;
 
     private void OnEnable()
     {
-        if (_playOn == EInteraction.OnInteraction) _interactionDetector.InteractionStarted += _audioPlayer.Play;
+        if (_playOn == EEvent.OnSpecificDetection) _detector.InteractionStarted += _audioPlayer.Play;
     }
 
     private void OnDisable()
     {
-        if (_playOn == EInteraction.OnInteraction) _interactionDetector.InteractionEnded -= _audioPlayer.Play;
+        if (_playOn == EEvent.OnSpecificDetection) _detector.InteractionEnded -= _audioPlayer.Play;
     }
 
     private void Start()
     {
-        if (_playOn == EInteraction.OnStart)
+        if (_playOn == EEvent.OnStart)
         {
             _audioPlayer.Play();
         }
@@ -40,7 +45,7 @@ public class AudioEvent : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_playOn == EInteraction.OnDestroy)
+        if (_playOn == EEvent.OnDestroy)
         {
             _audioPlayer.Play();
         }

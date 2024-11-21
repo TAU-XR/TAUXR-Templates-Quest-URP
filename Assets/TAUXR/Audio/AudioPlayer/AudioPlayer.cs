@@ -35,7 +35,6 @@ public class AudioPlayer : ScriptableObject
     private ConfigurableIterator<AudioClip> _audioClipsIterator;
     private bool _isFirstTimePlayed = true;
 
-
     public void Play()
     {
         if (!ValidateAudioClipsAreAvailable()) return;
@@ -89,7 +88,8 @@ public class AudioPlayer : ScriptableObject
     private AudioSource CreateAudioGameObject()
     {
         GameObject createdSound = new(name, typeof(AudioSource));
-        createdSound.transform.parent = AudioManager.Instance == null ? null : AudioManager.Instance.transform;
+        // createdSound.transform.parent = AudioManager.Instance == null ? null : AudioManager.Instance.transform;
+        createdSound.transform.parent = null;
         return createdSound.GetComponent<AudioSource>();
     }
 

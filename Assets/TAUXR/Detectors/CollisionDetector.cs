@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionDetector : AInteractionDetector
+public class CollisionDetector : ADetector
 {
     [SerializeField] private bool _detectSpecificCollision;
-
     [SerializeField] private string _colliderTag;
 
     private void OnCollisionEnter(Collision other)

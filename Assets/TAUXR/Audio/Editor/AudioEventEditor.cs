@@ -22,9 +22,9 @@ public class AudioEventEditor : Editor
         base.OnInspectorGUI();
         SerializedProperty playOnProperty = serializedObject.FindProperty("_playOn");
         EditorGUILayout.PropertyField(playOnProperty);
-        if (playOnProperty.enumValueIndex == 0)
+        if (playOnProperty.enumValueIndex == 1)
         {
-            DrawPropertyField("_interactionDetector");
+            DrawPropertyField("_detector");
         }
 
         AudioPlayer audioPlayer = (AudioPlayer)serializedObject.FindProperty("_audioPlayer").objectReferenceValue;

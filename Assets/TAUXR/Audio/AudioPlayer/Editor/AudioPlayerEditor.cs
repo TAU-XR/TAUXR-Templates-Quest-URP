@@ -101,12 +101,12 @@ public class AudioPlayerEditor : Editor
         GUILayout.FlexibleSpace();
 
         vectorValue.x = EditorGUILayout.FloatField((float)System.Math.Round(vectorValue.x, 3), GUILayout.Width(40));
-        vectorValue.x = Mathf.Max(vectorValue.x, 0);
+        vectorValue.x = Mathf.Max(vectorValue.x, min);
 
         EditorGUILayout.MinMaxSlider(ref vectorValue.x, ref vectorValue.y, min, max);
 
         vectorValue.y = EditorGUILayout.FloatField((float)System.Math.Round(vectorValue.y, 3), GUILayout.Width(40));
-        vectorValue.y = Mathf.Min(vectorValue.y, 1);
+        vectorValue.y = Mathf.Min(vectorValue.y, max);
 
         EditorGUILayout.EndHorizontal();
 
