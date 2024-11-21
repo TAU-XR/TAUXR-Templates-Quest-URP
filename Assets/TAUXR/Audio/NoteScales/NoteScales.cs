@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,7 +9,6 @@ public class MusicScale : ScriptableObject
     [FormerlySerializedAs("NotesPitch")] [FormerlySerializedAs("RatiosStartingFromDo")] [SerializeField]
     private float[] _notesPitch = { 1.0f, 1.122f, 1.26f, 1.335f, 1.498f, 1.682f, 1.888f };
 
-    [Button]
     public float GetPitch(int noteIndex, bool singleOctave = false)
     {
         if (singleOctave) noteIndex %= _notesPitch.Length;
