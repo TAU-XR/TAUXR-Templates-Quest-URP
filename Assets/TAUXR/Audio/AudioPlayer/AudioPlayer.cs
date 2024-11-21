@@ -13,7 +13,6 @@ using Random = UnityEngine.Random;
 [ExecuteInEditMode]
 public class AudioPlayer : ScriptableObject
 {
-    private AudioSource _lastAudioSource;
     [SerializeField] private AudioClip[] _audioClips;
     [SerializeField] private EIterationOrder _playOrder = EIterationOrder.InOrder;
     [SerializeField] private bool _loop = false;
@@ -31,6 +30,8 @@ public class AudioPlayer : ScriptableObject
     [SerializeField] private int _numberOfPlays = 3;
     [SerializeField] private float _delayBetweenPlays = 0.1f;
 
+    [SerializeField] private AudioSource _lastAudioSource;
+    [SerializeField] private bool _inPreviewMode;
     private CancellationTokenSource _fadeCts;
     private ConfigurableIterator<AudioClip> _audioClipsIterator;
     private bool _isFirstTimePlayed = true;
@@ -39,21 +40,7 @@ public class AudioPlayer : ScriptableObject
     {
         if (!ValidateAudioClipsAreAvailable()) return;
 
-        _lastAudioSource = CreateAudioGameObject();
-        PlayWithAudioSource(_lastAudioSource, true);
-    }
-
-    private bool ValidateAudioClipsAreAvailable()
-    {
-        bool audioClipsAreAvailable = _audioClips.Length > 0;
-        if (audioClipsAreAvailable) Debug.LogWarning("No audio clips found on " + name + " audio player!");
-        return audioClipsAreAvailable;
-    }
-
-    public void PlayWithAudioSource(AudioSource audioSource, bool destroyAudioWhenFinishedPlaying = false)
-    {
-        if (!ValidateAudioClipsAreAvailable()) return;
-
+        if (!_inPreviewMode) _lastAudioSource = CreateAudioGameObject();
         if (_isFirstTimePlayed) Reset();
 
         if (_playMultipleTimes)
@@ -62,25 +49,32 @@ public class AudioPlayer : ScriptableObject
             return;
         }
 
-        //TODO: Add option to use same game object and not create a new one(to stop audio when new one is played)
-        _lastAudioSource = audioSource;
-        PlayAudio(_lastAudioSource, destroyAudioWhenFinishedPlaying);
+        PlayAudio(_lastAudioSource);
+    }
+
+    private bool ValidateAudioClipsAreAvailable()
+    {
+        bool audioClipsAreAvailable = _audioClips.Length > 0;
+        if (!audioClipsAreAvailable) Debug.LogWarning("No audio clips found on " + name + " audio player!");
+        return audioClipsAreAvailable;
     }
 
     public void Reset()
     {
-        if (_audioClips.Length > 1) _audioClipsIterator = new ConfigurableIterator<AudioClip>(_audioClips, _playOrder);
-        _arpeggiator.Reset();
+        if (_audioClips != null && _audioClips.Length > 1)
+            _audioClipsIterator = new ConfigurableIterator<AudioClip>(_audioClips, _playOrder);
+        if (_useArpeggiator) _arpeggiator.Reset();
         _isFirstTimePlayed = false;
     }
 
     private async UniTask PlayMultipleTimes(int numberOfPlays, float delayBetweenPlays)
     {
-        for (int i = 0; i < numberOfPlays; i++)
+        PlayAudio(_lastAudioSource);
+        for (int i = 1; i < numberOfPlays; i++)
         {
-            _lastAudioSource = CreateAudioGameObject();
-            PlayAudio(_lastAudioSource, true);
             await UniTask.Delay(TimeSpan.FromSeconds(delayBetweenPlays));
+            _lastAudioSource = CreateAudioGameObject();
+            PlayAudio(_lastAudioSource);
         }
     }
 
@@ -160,7 +154,7 @@ public class AudioPlayer : ScriptableObject
     }
 
     //TODO: rename
-    private void PlayAudio(AudioSource audioSource, bool destroyAudioWhenFinishedPlaying = true)
+    private void PlayAudio(AudioSource audioSource)
     {
         SetAudioSourceParameters(_lastAudioSource);
         audioSource.Play();
@@ -169,7 +163,7 @@ public class AudioPlayer : ScriptableObject
             Fade(audioSource, 0, audioSource.volume).Forget();
         }
 
-        if (destroyAudioWhenFinishedPlaying) DestroyWhenFinishedPlaying(audioSource).Forget();
+        if (!_inPreviewMode) DestroyWhenFinishedPlaying(audioSource).Forget();
     }
 
     private async UniTask DestroyWhenFinishedPlaying(AudioSource audioSource)

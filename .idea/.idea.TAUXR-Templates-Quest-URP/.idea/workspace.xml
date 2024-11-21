@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/Editor/AudioEventEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/Editor/AudioEventEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Detectors/AInteractionDetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Detectors/AInteractionDetector.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Detectors/CollisionDetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Detectors/CollisionDetector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/Editor/AudioPlayerEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/Editor/AudioPlayerEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +142,9 @@
       <workItem from="1722354509125" duration="12000" />
       <workItem from="1731495928948" duration="329000" />
       <workItem from="1732194800417" duration="309000" />
-      <workItem from="1732198071363" duration="2130000" />
+      <workItem from="1732198071363" duration="2265000" />
+      <workItem from="1732210110336" duration="178000" />
+      <workItem from="1732210494122" duration="4658000" />
     </task>
     <servers />
   </component>
