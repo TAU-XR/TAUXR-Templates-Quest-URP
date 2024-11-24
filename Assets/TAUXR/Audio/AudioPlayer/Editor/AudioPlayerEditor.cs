@@ -186,26 +186,12 @@ public class AudioPlayerEditor : Editor
 
         if (GUILayout.Button("Play Preview"))
         {
-            serializedObject.FindProperty("_inPreviewMode").boolValue = true;
-            serializedObject.ApplyModifiedProperties();
-            AudioPlayer audioPlayer = (AudioPlayer)target;
-            //Using reflection here since object reference value would not receive the previewer value,
-            //no matter what I tried.
-            //If anyone ever solves it, please contact Nitsan to tell me how.
-            audioPlayer.GetType()
-                .GetField("_lastAudioSource", BindingFlags.NonPublic | BindingFlags.Instance)
-                ?.SetValue(audioPlayer, _previewer);
-            audioPlayer.Play();
-            serializedObject.FindProperty("_inPreviewMode").boolValue = false;
+            ((AudioPlayer)target).PlayPreview(_previewer);
         }
 
         GUI.enabled = _previewer.isPlaying;
         if (GUILayout.Button("Stop Preview"))
         {
-            AudioPlayer audioPlayer = (AudioPlayer)target;
-            audioPlayer.GetType()
-                .GetField("_lastAudioSource", BindingFlags.NonPublic | BindingFlags.Instance)
-                ?.SetValue(audioPlayer, _previewer);
             ((AudioPlayer)target).StopLastPlayedSound();
         }
 

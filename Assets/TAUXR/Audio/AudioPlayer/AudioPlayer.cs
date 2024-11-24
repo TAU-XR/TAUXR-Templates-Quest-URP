@@ -35,6 +35,7 @@ public class AudioPlayer : ScriptableObject
     private CancellationTokenSource _fadeCts;
     private ConfigurableIterator<AudioClip> _audioClipsIterator;
     private bool _isFirstTimePlayed = true;
+    private AudioSource _previewer;
 
     public void Play()
     {
@@ -116,8 +117,6 @@ public class AudioPlayer : ScriptableObject
         return _arpeggiator.GetNextScaleNotePitch() * basePitch;
     }
 
-
-    //Fade and play multiple times don't work together
     //Fix fade duration when starting from middle volume
     private async UniTask Fade(AudioSource audioSource, float startingVolume, float targetVolume)
     {
@@ -191,4 +190,14 @@ public class AudioPlayer : ScriptableObject
 
         _lastAudioSource.Stop();
     }
+
+#if UNITY_EDITOR
+    public void PlayPreview(AudioSource previewer)
+    {
+        _lastAudioSource = previewer;
+        _inPreviewMode = true;
+        Play();
+        _inPreviewMode = false;
+    }
+#endif
 }
