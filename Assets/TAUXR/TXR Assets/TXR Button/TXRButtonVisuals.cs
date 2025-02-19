@@ -1,131 +1,134 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Shapes;
 
+/*
+ * Hard Coded Child Convention - Parent- state empty GO. Child 0 - Stroke. Child 1 - Background. Child 1 Child 0 - Text.
+ * 
+ */
 public class TXRButtonVisuals : MonoBehaviour
 {
     protected TXRButtonState _state;
-    protected Shapes.Rectangle _backface;
-    protected Shapes.Rectangle _stroke;
-    protected TextMeshPro _text;
-    protected ButtonVisualsConfigurations _configurations;
-    protected TXRButtonReferences _references;
+    protected Sequence buttonAnimation;
+    [SerializeField] protected float _transitionDuration;
 
-    protected Sequence _backfaceColorSequence;
-    protected Sequence _backfaceGradientSequence;
-    protected Sequence _backfaceZValueSequence;
-    protected Sequence _strokeThicknessSequence;
-    protected Sequence _textOpacitySequence;
+    [Header("UI Elements")]
+    [SerializeField] protected Rectangle _background;
+    [SerializeField] protected Rectangle _stroke;
+    [SerializeField] protected TextMeshPro _text;
 
-    protected float _strokeExtraSize = 0.005f;  // the amount of which stroke is bigger than backface
+    [Header("UI States")]
+    [SerializeField] protected Transform _activeState;
+    [SerializeField] protected Transform _disableState;
+    [SerializeField] protected Transform _pressState;
+    [SerializeField] protected Transform _hiddenState;
+    [SerializeField] protected Transform _hoverState;
 
-    protected Color _activeColor;
-    protected Color _pressedColor;
-    protected Color _disabledColor;
-    protected Color _hoverColor;
-
-    public virtual void Init(TXRButtonReferences references)
+    public virtual void SetState(TXRButtonState state)
     {
-        _backface = references.Backface;
-        _stroke = references.Stroke;
-        _text = references.Text;
-        _configurations = references.Configurations;
-        _references = references;
-        UpdateColorsFromReferences();
-    }
-
-    public void SetState(TXRButtonState state)
-    {
-        print("SET STATE: " + state);
         switch (state)
         {
             case TXRButtonState.Active:
-                Active();
+                SetStateAnimation(_activeState);
                 break;
             case TXRButtonState.Pressed:
-                Press();
+                SetStateAnimation(_pressState);
                 break;
             case TXRButtonState.Hidden:
-                Hide();
+                SetStateAnimation(_hiddenState);
                 break;
             case TXRButtonState.Disabled:
-                Disabled();
+                SetStateAnimation(_disableState);
                 break;
             case TXRButtonState.Hover:
-                Hover();
+                SetStateAnimation(_hoverState);
                 break;
         }
-
         _state = state;
     }
 
-    public void UpdateColorsFromReferences()
+    protected void SetStateAnimation(Transform stateTransform)
     {
-        _activeColor = _references.ActiveColor;
-        _pressedColor = _references.PressedColor;
-        _disabledColor = _references.DisabledColor;
-        _hoverColor = _references.HoverGradientColor;
+        Rectangle targetBackground = GetBackground(stateTransform);
+        Rectangle targetStroke = GetStroke(stateTransform);
+        TextMeshPro targetText = GetText(stateTransform);
+
+        buttonAnimation.Kill();
+        buttonAnimation.Append(ComponentAnimator.RectangleTween(_background, targetBackground, _transitionDuration));
+        buttonAnimation.Join(ComponentAnimator.TransformTween(_background.transform, targetBackground.transform, _transitionDuration, true));
+        buttonAnimation.Join(ComponentAnimator.RectangleTween(_stroke, targetStroke, _transitionDuration));
+        buttonAnimation.Join(ComponentAnimator.TransformTween(_stroke.transform, targetStroke.transform, _transitionDuration, true));
+        buttonAnimation.Join(ComponentAnimator.TextMeshProTween(_text, targetText, _transitionDuration));
     }
 
-    protected virtual void Active()
+    public virtual void SetAllStatesSizeFromMainUI()
     {
-        SetBackfaceColor(_activeColor, _configurations.activeDuration);
-        SetBackfaceZ(_configurations.backfaceZPositionActive);
-        SetHoverGradient(false);
-        SetStrokeThickness(_configurations.strokeThicknessActive);
-        SetTextOpacity(1);
+        Transform stateTransform = _activeState;
+        for (int i = 0; i <= 4; i++)
+        {
+            switch (i)
+            {
+                case 0: stateTransform = _activeState; break;
+                case 1: stateTransform = _disableState; break;
+                case 2: stateTransform = _hoverState; break;
+                case 3: stateTransform = _pressState; break;
+                case 4: stateTransform = _hiddenState; break;
+                default: stateTransform = _activeState; break;
+            }
+            SetStatesSizesFromMainUI(stateTransform);
+        }
+    }
+    public virtual void SetStatesSizesFromMainUI(Transform stateTransform)
+    {
+        Rectangle targetBackground = GetBackground(stateTransform);
+        Rectangle targetStroke = GetStroke(stateTransform);
+        TextMeshPro targetText = GetText(stateTransform);
+
+        targetBackground.Width = _background.Width;
+        targetBackground.Height = _background.Height;
+
+        targetStroke.Width = _stroke.Width;
+        targetStroke.Height = _stroke.Height;
+
+        targetText.rectTransform.sizeDelta = _text.rectTransform.sizeDelta;
+        targetText.fontSize = _text.fontSize;
     }
 
-    protected virtual void Hide()
+    private Rectangle GetBackground(Transform stateTransform)
     {
-        Color backFaceHideColor = _backface.FillColorEnd;
-        backFaceHideColor.a = 0;
-        SetBackfaceColor(backFaceHideColor, _configurations.hideDuration);
-        SetHoverGradient(false);
-        SetStrokeThickness(0);
-        SetTextOpacity(0);
+        return stateTransform.GetChild(1).GetComponent<Rectangle>();
     }
 
-    protected virtual void Hover()
+    private Rectangle GetStroke(Transform stateTransform)
     {
-        SetHoverGradient(true);
-        SetBackfaceZ(_configurations.backfadeZPositionHover);
-        SetStrokeThickness(_configurations.strokeThicknessHover);
-        SetTextOpacity(1);
+        return stateTransform.GetChild(0).GetComponent<Rectangle>();
     }
 
-    protected virtual void Press()
+    private TextMeshPro GetText(Transform stateTransform)
     {
-        SetBackfaceZ(_configurations.backfadeZPositionPress);
-        SetHoverGradient(true);
-        SetBackfaceColor(_pressedColor);
-        SetStrokeThickness(_configurations.strokeThicknessPress);
-        SetTextOpacity(1);
-    }
-
-    protected virtual void Disabled()
-    {
-        SetHoverGradient(false);
-        SetBackfaceZ(_configurations.backfaceZPositionActive);
-        SetBackfaceColor(_disabledColor);
-        SetStrokeThickness(_configurations.strokeThicknessDisabled);
-        SetTextOpacity(_configurations.textOpacityDisabled);
+        return stateTransform.GetChild(1).GetChild(0).GetComponent<TextMeshPro>();
     }
 
     public void SetBackfaceColor(TXRButtonState state, Color color, float duration = 0.25f)
     {
+        Transform stateTransform = null;
         switch (state)
         {
             case TXRButtonState.Active:
-                _activeColor = color;
+                stateTransform = _activeState;
                 break;
             case TXRButtonState.Pressed:
-                _pressedColor = color;
+                stateTransform = _pressState;
                 break;
             case TXRButtonState.Disabled:
-                _disabledColor = color;
+                stateTransform = _disableState;
                 break;
         }
+        if (stateTransform == null) return;
+
+        Rectangle targetBackground = GetBackground(stateTransform);
+        targetBackground.FillColorEnd = color;
 
         // update color change if changed the color of current state
         if (_state == state)
@@ -136,65 +139,27 @@ public class TXRButtonVisuals : MonoBehaviour
 
     public Color GetColor(TXRButtonState state)
     {
+        Transform stateTransform = null;
         switch (state)
         {
             case TXRButtonState.Active:
-                return _activeColor;
+                stateTransform = _activeState;
+                break;
             case TXRButtonState.Pressed:
-                return _pressedColor;
+                stateTransform = _pressState;
+                break;
             case TXRButtonState.Disabled:
-                return _disabledColor;
+                stateTransform = _disableState;
+                break;
+        }
+        if (stateTransform == null)
+        {
+
+            Debug.LogError("No color defined for state: " + state + ", Returning solid black");
+            return Color.black;
         }
 
-        Debug.LogError("No color defined for state: " + state + ", Returning solid black");
-        return Color.black;
-    }
-
-    protected virtual void SetHoverGradient(bool isOn, float duration = 0.25f)
-    {
-        float gradientRadius = isOn ? _configurations.backfaceGradientRadiusHover : 0;
-
-        _backfaceGradientSequence.Kill();
-
-        _backfaceGradientSequence = DOTween.Sequence();
-        _backfaceGradientSequence.Append(DOVirtual.Float(_backface.FillRadialRadius, gradientRadius, duration,
-            t => { _backface.FillRadialRadius = t; }));
-        _backfaceGradientSequence.Join(DOVirtual.Color(_backface.FillColorStart, _hoverColor, duration,
-            t => { _backface.FillColorStart = t; }));
-    }
-
-    protected virtual void SetBackfaceZ(float zValue, float duration = 0.25f)
-    {
-        Vector3 backfaceLocalPosition = _backface.transform.localPosition;
-        backfaceLocalPosition.z = zValue;
-
-        _backfaceZValueSequence.Kill();
-        _backfaceZValueSequence = DOTween.Sequence();
-        _backfaceZValueSequence.Append(_backface.transform.DOLocalMove(backfaceLocalPosition, duration));
-    }
-
-    protected virtual void SetStrokeThickness(float thickness, float duration = 0.25f)
-    {
-        _strokeThicknessSequence.Kill();
-        _strokeThicknessSequence = DOTween.Sequence();
-        _strokeThicknessSequence.Append(DOVirtual.Float(_stroke.Thickness, thickness, duration, t => { _stroke.Thickness = t; }));
-    }
-
-    protected virtual void SetBackfaceColor(Color backfaceColor, float duration = 0.25f)
-    {
-        _backfaceColorSequence.Kill();
-        _backfaceColorSequence = DOTween.Sequence();
-        _backfaceColorSequence.Append(
-            DOVirtual.Color(_backface.FillColorEnd, backfaceColor, duration, t => { _backface.FillColorEnd = t; }));
-    }
-
-    protected virtual void SetTextOpacity(float targetOpacity, float duration = 0.25f)
-    {
-        Color targetColor = _text.color;
-        targetColor.a = targetOpacity;
-        _textOpacitySequence.Kill();
-        _textOpacitySequence = DOTween.Sequence();
-        _textOpacitySequence.Append(
-            DOVirtual.Color(_text.color, targetColor, duration, t => { _text.color = t; }));
+        Rectangle targetBackground = GetBackground(stateTransform);
+        return targetBackground.FillColorEnd;
     }
 }

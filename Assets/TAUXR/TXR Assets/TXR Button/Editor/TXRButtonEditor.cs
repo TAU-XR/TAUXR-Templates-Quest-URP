@@ -4,6 +4,7 @@ using UnityEditor;
 [CustomEditor(typeof(TXRButton))]
 public class TXRButtonEditor : Editor
 {
+    SerializedProperty referencesProperty;
     SerializedProperty stateProperty;
     SerializedProperty pressedEventProperty;
     SerializedProperty releasedEventProperty;
@@ -17,8 +18,9 @@ public class TXRButtonEditor : Editor
 
     bool showAdvancedConfiguration = false;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
+        referencesProperty = serializedObject.FindProperty("References");
         stateProperty = serializedObject.FindProperty("_state");
         pressedEventProperty = serializedObject.FindProperty("Pressed");
         releasedEventProperty = serializedObject.FindProperty("Released");
@@ -49,12 +51,6 @@ public class TXRButtonEditor : Editor
             float textSize = EditorGUILayout.FloatField("Text Size", txrButton.References.Text.fontSize);
             Color textColor = EditorGUILayout.ColorField("Text Color", txrButton.References.Text.color);
 
-            // Draw color fields for the four color properties
-            Color activeColor = EditorGUILayout.ColorField("Active Color", txrButton.References.Backface.FillColorEnd);
-            Color pressedColor = EditorGUILayout.ColorField("Pressed Color", txrButton.References.PressedColor);
-            Color disabledColor = EditorGUILayout.ColorField("Disabled Color", txrButton.References.DisabledColor);
-            Color hoverGradientColor = EditorGUILayout.ColorField("Hover Gradient Color", txrButton.References.HoverGradientColor);
-
             // If there are any changes
             if (EditorGUI.EndChangeCheck())
             {
@@ -82,52 +78,28 @@ public class TXRButtonEditor : Editor
                 txrButton.References.Text.color = textColor;
                 txrButton.References.Text.rectTransform.sizeDelta = new Vector2(newWidth, newHeight);
 
-                // Apply the new colors to the references
-                txrButton.References.ActiveColor = activeColor;
-                txrButton.References.PressedColor = pressedColor;
-                txrButton.References.DisabledColor = disabledColor;
-                txrButton.References.HoverGradientColor = hoverGradientColor;
-                if (Application.isPlaying)
-                    txrButton.References.ButtonVisuals.UpdateColorsFromReferences();
-
-                // Apply the active color to backface fill color end
-                txrButton.References.Backface.FillColorEnd = activeColor;
-
                 EditorUtility.SetDirty(txrButton.References.Backface);
                 EditorUtility.SetDirty(txrButton.References.Stroke);
                 EditorUtility.SetDirty(txrButton.References);
             }
 
-            EditorGUILayout.PropertyField(shouldPlaySoundsProperty, new GUIContent("Should Play Sounds"));
-
+            if (GUILayout.Button("Apply Sizes To All State UI"))
+            {
+                txrButton.References.ButtonVisuals.SetAllStatesSizeFromMainUI();
+            }
             // Draw the Pressed event
             EditorGUILayout.PropertyField(pressedEventProperty, new GUIContent("Pressed Event"));
 
             // Begin a change check for the state property
             EditorGUI.BeginChangeCheck();
 
-            // Draw the state property field
-            EditorGUILayout.PropertyField(stateProperty, new GUIContent("State"));
-
-            // Check if the state property was changed
-            bool stateChanged = EditorGUI.EndChangeCheck();
-
-            // If the state property was changed
-            if (stateChanged)
-            {
-                serializedObject.ApplyModifiedProperties();
-            }
-
-            // Add a button to call the SetState method manually
-            if (GUILayout.Button("Set State"))
-            {
-                if (Application.isPlaying) txrButton.SetState();
-            }
-
             // Advanced Configuration toggle
             showAdvancedConfiguration = EditorGUILayout.Foldout(showAdvancedConfiguration, "Advanced Configuration");
             if (showAdvancedConfiguration)
             {
+
+                EditorGUILayout.PropertyField(shouldPlaySoundsProperty, new GUIContent("Should Play Sounds"));
+
                 EditorGUILayout.PropertyField(releasedEventProperty, new GUIContent("Released Event"));
                 EditorGUILayout.PropertyField(hoverEnterEventProperty, new GUIContent("Hover Enter Event"));
                 EditorGUILayout.PropertyField(hoverExitEventProperty, new GUIContent("Hover Exit Event"));
@@ -136,6 +108,24 @@ public class TXRButtonEditor : Editor
                 EditorGUILayout.PropertyField(responseHoverExitProperty, new GUIContent("Response Hover Exit"));
                 EditorGUILayout.PropertyField(responsePressProperty, new GUIContent("Response Press"));
                 EditorGUILayout.PropertyField(responseReleaseProperty, new GUIContent("Response Release"));
+
+                // Draw the state property field
+                EditorGUILayout.PropertyField(stateProperty, new GUIContent("State"));
+
+                // Check if the state property was changed
+                bool stateChanged = EditorGUI.EndChangeCheck();
+
+                // If the state property was changed
+                if (stateChanged)
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
+
+                // Add a button to call the SetState method manually
+                if (GUILayout.Button("Set State"))
+                {
+                    if (Application.isPlaying) txrButton.SetState();
+                }
             }
 
             // Apply changes to the serialized object

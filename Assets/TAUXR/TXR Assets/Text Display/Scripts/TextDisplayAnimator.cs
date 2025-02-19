@@ -22,6 +22,10 @@ public class TextDisplayAnimator : MonoBehaviour
 
     public void SetAppearance(bool state, bool useAnimation = true)
     {
+        if (state)
+        {
+            gameObject.SetActive(true);
+        }
         _fadeTween?.Kill();
 
         float targetAlpha = state ? 1f : 0f;
@@ -39,6 +43,11 @@ public class TextDisplayAnimator : MonoBehaviour
             _textDisplayReferences.TextUI.SetAlpha(t);
             _textDisplayReferences.Background.SetAlpha(t);
         });
+
+        if (!state)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void SetScale(Vector2 newTextScale, Vector2 newBackgroundScale)

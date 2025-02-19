@@ -10,7 +10,7 @@ public class SelectionQuestionData : ScriptableObject
 {
     [TextArea]
     public string Text;
-    public SelectionAnswerData[] Answers;
+    public SQIAnswerData[] Answers;
     public int MaxNumberOfTries = 4;
 
     //TODO: add this in a future improvement

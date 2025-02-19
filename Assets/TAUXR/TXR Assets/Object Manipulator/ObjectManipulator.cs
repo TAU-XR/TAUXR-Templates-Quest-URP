@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ManipulatorState { Idle, Rotation, Scale }
+
 public class ObjectManipulator : MonoBehaviour
 {
     public ManipulatorState State;
 
-    private const float BASE_ACTIVATION_DISTANCE = .05f;    // pinching should be done within this radius of object's center.
-    private float _currentActivationDistance = BASE_ACTIVATION_DISTANCE;    // updates according to scale factor.
+    private const float BASE_ACTIVATION_DISTANCE = .05f; // Pinching should be done within this radius of object's center.
+    private float _currentActivationDistance = BASE_ACTIVATION_DISTANCE; // Updates according to scale factor.
 
     private Vector3 _initialPincherToPivot;
     private Pincher _rightPincher;
     private Pincher _leftPincher;
-    [SerializeField] float _rotationLerpSpeed = 7f;
-    [SerializeField] float _scaleLerpSpeed = 7f;
+    [SerializeField] private float _rotationLerpSpeed = 7f;
+    [SerializeField] private float _scaleLerpSpeed = 7f;
 
     private Vector3 _scaleOnScaleStart = Vector3.one;
     private float _pinchersDistanceOnScaleStart = 0;
@@ -24,10 +25,44 @@ public class ObjectManipulator : MonoBehaviour
     public float _distanceThreshold = .1f;
 
     private Quaternion _lastRotation = Quaternion.identity;
-    private float _rotationSpeed = 0;   // in angles
+    private float _rotationSpeed = 0; // In angles
 
     private Pincher _rotationPincher;
     private Pincher _scalePincher;
+
+    private bool _pincherInCollider = false;
+    private bool _readyForPinch = false;
+
+    [SerializeField] private float rotationEndStrengthThreshold = 0.98f; // Threshold for ending rotation
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Pincher pincher = other.GetComponent<Pincher>();
+        if (pincher != null)
+        {
+            _pincherInCollider = true;
+            _readyForPinch = pincher.Strength < 0.98f;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Pincher pincher = other.GetComponent<Pincher>();
+        if (pincher != null)
+        {
+            _pincherInCollider = false;
+            _readyForPinch = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Pincher pincher = other.GetComponent<Pincher>();
+        if (pincher != null)
+        {
+            _readyForPinch = pincher.Strength < 0.98f;
+        }
+    }
 
     void Start()
     {
@@ -64,8 +99,9 @@ public class ObjectManipulator : MonoBehaviour
 
     private void Decay()
     {
-
+        // Decay logic here
     }
+
     private void WaitForRotationPincher()
     {
         if (ShouldBecomeRotationPincher(_rightPincher))
@@ -77,6 +113,7 @@ public class ObjectManipulator : MonoBehaviour
             SetRotationPincher(_leftPincher);
         }
     }
+
     private void SetRotationPincher(Pincher targetRotationPincher)
     {
         _rotationPincher = targetRotationPincher;
@@ -87,22 +124,23 @@ public class ObjectManipulator : MonoBehaviour
 
     private bool ShouldBecomeRotationPincher(Pincher pincher)
     {
-        return pincher.Strength >= 1 && (pincher.transform.position - transform.position).sqrMagnitude <= _currentActivationDistance;
+        return pincher.Strength >= 1 && _readyForPinch;
     }
+
     private void ResetRotationPincher()
     {
         _initialPincherToPivot = (_rotationPincher.transform.position - transform.position).normalized;
         _initialPincherToPivot = transform.InverseTransformDirection(_initialPincherToPivot).normalized;
     }
+
     private void RotateTowardsPincher()
     {
         Vector3 currentPincherToPivot = (_rotationPincher.transform.position - transform.position).normalized;
         currentPincherToPivot = transform.InverseTransformDirection(currentPincherToPivot);
 
         Quaternion targetRotation = Quaternion.FromToRotation(_initialPincherToPivot, currentPincherToPivot);
-
         targetRotation = transform.localRotation * targetRotation;
-        //transform.localRotation = targetRotation;
+
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, _rotationLerpSpeed * Time.deltaTime);
     }
 
@@ -116,11 +154,11 @@ public class ObjectManipulator : MonoBehaviour
             State = ManipulatorState.Scale;
         }
     }
+
     private void HandleRotationEnding()
     {
-        if (_rotationPincher.Strength < 1)
+        if (_rotationPincher.Strength < rotationEndStrengthThreshold)
         {
-            // if speed is above threshold -> decay. Else -> 
             _rotationPincher = null;
             State = ManipulatorState.Idle;
         }
@@ -135,12 +173,10 @@ public class ObjectManipulator : MonoBehaviour
         targetScale = ClampVector(targetScale, MINSCALE, MAXSCALE);
 
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, _scaleLerpSpeed * Time.deltaTime);
-        float activationDistanceMultiplier = transform.localScale.x / 1;    // assuming start scale is 1, and that scale on all axis is the same.
+        float activationDistanceMultiplier = transform.localScale.x / 1; // Assuming start scale is 1, and that scale on all axis is the same.
         _currentActivationDistance = BASE_ACTIVATION_DISTANCE * activationDistanceMultiplier;
-
     }
 
-    // assuming the recieved vector is equal on all axis
     private Vector3 ClampVector(Vector3 v, float min, float max)
     {
         if (v.x < min)
@@ -153,6 +189,7 @@ public class ObjectManipulator : MonoBehaviour
         }
         return v;
     }
+
     private void HandleScaleEnding()
     {
         Pincher nonPinchingPincher = GetNonPinchingPincher(_scalePincher, _rotationPincher);

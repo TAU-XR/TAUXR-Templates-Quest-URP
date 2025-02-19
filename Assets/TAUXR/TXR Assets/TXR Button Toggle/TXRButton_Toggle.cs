@@ -5,13 +5,15 @@ using UnityEngine.Events;
 
 public class TXRButton_Toggle : TXRButton
 {
-    public Action ToggledOn;
-    public Action ToggledOff;
+    public Action<TXRButton_Toggle> ToggledOn;
+    public Action<TXRButton_Toggle> ToggledOff;
     public UnityEvent ToggleOn;
     public UnityEvent ToggleOff;
     public TXRButtonToggleState ToggleState;
     public ButtonColliderResponse StartingStateResponse;
     private TXRButtonToggleVisuals _toggleVisuals;
+
+    public Color ToggledColor;
 
     public override void Init()
     {
@@ -22,11 +24,10 @@ public class TXRButton_Toggle : TXRButton
 
     public void TriggerToggleEvent(TXRButtonToggleState state, ButtonColliderResponse response)
     {
-        if (!IsInteractable) return;
         ToggleState = state;
         UnityEvent toggleEvent = state == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
-        Action actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
-        actionToInvoke?.Invoke();
+        Action<TXRButton_Toggle> actionToInvoke = state == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
+        actionToInvoke?.Invoke(this);
         Action internalAction = OnReleasedInternal; // toggle is change only on  release
 
         DelegateInteralExtenralResponses(response, internalAction, toggleEvent);
@@ -47,16 +48,16 @@ public class TXRButton_Toggle : TXRButton
                 break;
 
             case ButtonEvent.Pressed:
-                ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
-
                 DelegateInteralExtenralResponses(ResponsePress, OnPressedInternal, Pressed);
                 break;
 
             case ButtonEvent.Released:
+                ToggleState = ToggleState == TXRButtonToggleState.On ? TXRButtonToggleState.Off : TXRButtonToggleState.On;
+
                 UnityEvent toggleEvent = ToggleState == TXRButtonToggleState.On ? ToggleOn : ToggleOff;
                 toggleEvent.Invoke();
-                Action actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
-                actionToInvoke?.Invoke();
+                Action<TXRButton_Toggle> actionToInvoke = ToggleState == TXRButtonToggleState.On ? ToggledOn : ToggledOff;
+                actionToInvoke?.Invoke(this);
                 DelegateInteralExtenralResponses(ResponseRelease, OnReleasedInternal, Released);
                 break;
         }

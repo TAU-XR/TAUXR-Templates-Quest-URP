@@ -6,11 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Project Folder/New TAUXRScene [Duplicate].unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project Folder/New TAUXRScene [Duplicate].unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Utilities/General Scripts/ConfigurableIterator/ConfigurableIterator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Utilities/General Scripts/ConfigurableIterator/ConfigurableIterator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Object Manipulator/ObjectManipulator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Object Manipulator/ObjectManipulator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/Editor/SelectionQuestionInterfaceEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/Editor/SelectionQuestionInterfaceEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/QuestionsManager/QuestionsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/QuestionsManager/QuestionsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/QuestionsManager/Template Questions Data/SelectionQuestionData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/QuestionsManager/Template Questions Data/SelectionQuestionData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/Scripts/SelectionQuestionInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/Scripts/SelectionQuestionInterface.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Selection Question Interface/SelectionAnswer/SelectionAnswerButton.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TAUXR Assets.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TAUXR Assets.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button Toggle/TXRButtonToggleVisuals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button Toggle/TXRButtonToggleVisuals.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button Toggle/TXRButton_Toggle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button Toggle/TXRButton_Toggle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/Editor/TXRButtonEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/Editor/TXRButtonEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonReferences.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonReferences.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonVisuals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/TXRButtonVisuals.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/[TXR_Button].prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Button/[TXR_Button].prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Radio Button/TXRRadioButtonGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/TXR Radio Button/TXRRadioButtonGroup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Text Display/Scripts/TextDisplayAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/TXR Assets/Text Display/Scripts/TextDisplayAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

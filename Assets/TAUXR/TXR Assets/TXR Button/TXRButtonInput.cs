@@ -44,11 +44,7 @@ public class TXRButtonInput : MonoBehaviour
 
     private void Update()
     {
-        if (_mainToucher == null) // no toucher around
-        {
-            ClearStateBackToIdle();
-            return;
-        }
+        if (_touchers.Count == 0) return;
 
         Vector3 closestPointOnBtn = GetClosestPointOnSurface(_mainToucher.position, _buttonSurface, _references.Backface.Width,
             _references.Backface.Height);
@@ -64,7 +60,7 @@ public class TXRButtonInput : MonoBehaviour
             {
                 State = ButtonInputState.Press;
                 _btn.PressTransform?.Invoke(_mainToucher);
-        
+
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Pressed);
             }
         }
@@ -77,7 +73,7 @@ public class TXRButtonInput : MonoBehaviour
                 _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
                 State = ButtonInputState.Release;
             }
-            else if (State == ButtonInputState.Release || State == ButtonInputState.Idle) // Hover Enter
+            else if (State == ButtonInputState.Idle) // Hover Enter
             {
                 if (!isToucherInFrontOfButton) return; // prevent button activation from behind
 
@@ -89,6 +85,12 @@ public class TXRButtonInput : MonoBehaviour
 
     private void ClearStateBackToIdle()
     {
+        if (State == ButtonInputState.Release) // Hover Exit
+        {
+            _btn.TriggerButtonEventFromInput(ButtonEvent.Released);
+            State = ButtonInputState.Idle;
+        }
+
         if (State == ButtonInputState.Hover) // Hover Exit
         {
             _btn.TriggerButtonEventFromInput(ButtonEvent.HoverExit);
@@ -114,6 +116,7 @@ public class TXRButtonInput : MonoBehaviour
         else
         {
             _mainToucher = null;
+            ClearStateBackToIdle();
         }
     }
 
