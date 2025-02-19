@@ -24,7 +24,10 @@ public class AudioPlayer : ScriptableObject
     [SerializeField] private Vector2 _pitchRange = new(1, 1);
     [SerializeField] private EFadeType _fadeType = EFadeType.None;
     [SerializeField] private float _fadeDuration = 1;
+
     [SerializeField] private bool _useArpeggiator = false;
+
+    //Consider arpeggiator structure - maybe both the order of notes and how many times to play
     [SerializeField] private Arpeggiator _arpeggiator;
     [SerializeField] private bool _playMultipleTimes = false;
     [SerializeField] private int _numberOfPlays = 3;

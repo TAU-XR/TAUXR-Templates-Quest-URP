@@ -7,7 +7,9 @@
     <list default="true" id="71f24228-4e21-4d70-b70f-96a2dda6cfa6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TAUXR-Templates-Quest-URP/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/AudioPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/Editor/AudioPlayerEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Audio/AudioPlayer/Editor/AudioPlayerEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Base Scene/Base Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Detectors/ADetector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TAUXR/Utilities/General Scripts/ConfigurableIterator/ConfigurableIterator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TAUXR/Utilities/General Scripts/ConfigurableIterator/ConfigurableIterator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,6 +148,8 @@
       <workItem from="1732210110336" duration="178000" />
       <workItem from="1732210494122" duration="4760000" />
       <workItem from="1732443600489" duration="1423000" />
+      <workItem from="1734618255561" duration="33000" />
+      <workItem from="1734618403331" duration="1669000" />
     </task>
     <servers />
   </component>

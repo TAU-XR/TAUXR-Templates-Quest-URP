@@ -10,7 +10,6 @@ public class ConfigurableIterator<T>
 
     public ConfigurableIterator(T[] arrayToIterateOn, EIterationOrder iterationOrder)
     {
-        Debug.Log("here");
         _arrayToIterateOn = arrayToIterateOn;
         _iterationOrder = iterationOrder;
     }
